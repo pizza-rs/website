@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Scripted_metric on INFINI Pizza</title><link>https://pizza.rs/tags/scripted_metric/</link><description>Recent content in Scripted_metric on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/scripted_metric/index.xml" rel="self" type="application/rss+xml"/><item><title>Scripted metric aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/scripted-metric/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/scripted-metric/</guid><description>&lt;h1 id="scripted-metric-aggregation">
+ Scripted metric aggregation
+ &lt;a class="anchor" href="#scripted-metric-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A metrics aggregation whose result is computed by your own scripts, in
+four phases, running on Pizza&amp;rsquo;s sandboxed script engine (see
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/scripts/">the script language reference&lt;/a>).&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>One state map per segment, folded once at the end:&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Phase&lt;/th>
+ &lt;th>Runs&lt;/th>
+ &lt;th>Scope&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>init_script&lt;/code>&lt;/td>
+ &lt;td>once per segment&lt;/td>
+ &lt;td>&lt;code>state&lt;/code>, &lt;code>params&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>map_script&lt;/code>&lt;/td>
+ &lt;td>once per document&lt;/td>
+ &lt;td>&lt;code>state&lt;/code>, &lt;code>doc&lt;/code>, &lt;code>params&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>combine_script&lt;/code>&lt;/td>
+ &lt;td>once per segment&lt;/td>
+ &lt;td>&lt;code>state&lt;/code>, &lt;code>params&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>reduce_script&lt;/code>&lt;/td>
+ &lt;td>once, at the end&lt;/td>
+ &lt;td>&lt;code>states&lt;/code>, &lt;code>params&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>&lt;code>state&lt;/code> is a map you own — initialize it in &lt;code>init_script&lt;/code>, accumulate into
+it in &lt;code>map_script&lt;/code>. &lt;code>combine_script&lt;/code> folds one segment&amp;rsquo;s state into a
+single value (a script that ends in a statement returns the state itself,
+the default when &lt;code>combine_script&lt;/code> is omitted). &lt;code>reduce_script&lt;/code> receives
+all combined values as the &lt;code>states&lt;/code> array; if it is omitted, a single
+state passes through unchanged and several come back as an array — the
+parts, rather than a wrong merge. Builds without the &lt;code>scripting&lt;/code> feature
+return &lt;code>null&lt;/code> for the whole aggregation.&lt;/p></description></item></channel></rss>

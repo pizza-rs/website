@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Observability on INFINI Pizza</title><link>https://pizza.rs/tags/observability/</link><description>Recent content in Observability on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/observability/index.xml" rel="self" type="application/rss+xml"/><item><title>Runtime node settings and dynamic log level</title><link>https://pizza.rs/docs/highlightings/node-settings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/node-settings/</guid><description>&lt;h1 id="runtime-node-settings-and-dynamic-log-level">
+ Runtime node settings and dynamic log level
+ &lt;a class="anchor" href="#runtime-node-settings-and-dynamic-log-level">#&lt;/a>
+&lt;/h1>
+&lt;p>Node-local knobs no longer require a restart. &lt;code>GET/PUT /_node/_local/settings&lt;/code> exposes transient overrides over the &lt;code>pizza.yml&lt;/code>
+values — search lane budgets, the slowlog threshold, the default search
+timeout, trash retention — and they take effect immediately:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># drop the slowlog threshold to 200ms on one node, effective immediately&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -X PUT http://127.0.0.1:28000/_node/_local/settings &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -H &lt;span class="s1">&amp;#39;Content-Type: application/json&amp;#39;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s1">&amp;#39;{&amp;#34;node.search.slow_threshold_ms&amp;#34;: 200}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The flagship: &lt;code>log.level&lt;/code> flips live — no restart, no dropped requests —
+which turns &amp;ldquo;turn on debug logging on the suspicious node&amp;rdquo; into a
+one-liner while preserving target-specific directives like
+&lt;code>openraft=warn&lt;/code>.&lt;/p></description></item><item><title>Node observability APIs</title><link>https://pizza.rs/docs/administration/observability/node/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/administration/observability/node/</guid><description>&lt;h1 id="node-observability-apis">
+ Node observability APIs
+ &lt;a class="anchor" href="#node-observability-apis">#&lt;/a>
+&lt;/h1>
+&lt;p>The &lt;code>/_node/_local/*&lt;/code> surface exposes this node&amp;rsquo;s runtime state —
+recovery progress, build backlog, shard inventory, storage layout,
+slowlogs, logs and the trash. All of it is read-only except where noted,
+and every endpoint can be reached &lt;strong>on a remote node&lt;/strong> through the
+unified forward: replace &lt;code>_local&lt;/code> with the node id
+(&lt;code>/_node/&amp;lt;node_id&amp;gt;/...&lt;/code>) — the console&amp;rsquo;s node pages are
+built on this.&lt;/p>
+&lt;p>Runtime knobs live on the sibling
+
+ &lt;a href="https://pizza.rs/docs/references/configuration/node_settings/">Node Settings&lt;/a> page.&lt;/p></description></item><item><title>FIRE storage explorer in the console</title><link>https://pizza.rs/docs/highlightings/storage-explorer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/storage-explorer/</guid><description>&lt;h1 id="fire-storage-explorer-in-the-console">
+ FIRE storage explorer in the console
+ &lt;a class="anchor" href="#fire-storage-explorer-in-the-console">#&lt;/a>
+&lt;/h1>
+&lt;p>
+ &lt;img src="https://pizza.rs/img/console/storage-explorer.png" alt="FIRE storage explorer with a per-field cost treemap" />&lt;/p>
+&lt;p>The web console (&lt;code>/_ui/&lt;/code>) gained a FIRE storage explorer: drill from a
+node&amp;rsquo;s shards down to a single segment&amp;rsquo;s &lt;code>.fire&lt;/code> files and see exactly
+where the bytes go — a per-field cost treemap of the columnar FIRE
+storage, next to the inverted index and stored-field payloads. In the
+screenshot above, the collection&amp;rsquo;s &lt;strong>Storage&lt;/strong> tab sizes every field by
+its on-disk cost, each block split into storage categories — so the
+question &amp;ldquo;which field is eating my disk&amp;rdquo; is answered by the biggest
+rectangle on screen.&lt;/p></description></item><item><title>Host &amp; capability probes — see the machine, not just the node</title><link>https://pizza.rs/docs/highlightings/host-capability/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/host-capability/</guid><description>&lt;h1 id="host--capability-probes--see-the-machine-not-just-the-node">
+ Host &amp;amp; capability probes — see the machine, not just the node
+ &lt;a class="anchor" href="#host--capability-probes--see-the-machine-not-just-the-node">#&lt;/a>
+&lt;/h1>
+&lt;p>Every node now reports what its host actually is and what it can actually
+do, on &lt;code>GET /_node/_local&lt;/code> under &lt;code>host&lt;/code>: the OS distribution and kernel,
+NUMA topology (node count + per-node CPU lists and distances), NIC
+inventory with negotiated link speeds, the data disk&amp;rsquo;s bus (NVMe or not)
+with its I/O scheduler and atime policy, the container and seccomp
+environment, the DMI platform, transparent-hugepage state — and the
+resource ceilings: fd limit vs usage, mmap count vs &lt;code>max_map_count&lt;/code>,
+swap, conntrack fill, TCP sysctls, and cgroup CPU/memory quotas with
+throttle counts. The stats API adds a &lt;code>steal_percent&lt;/code> trend — the
+noisy-neighbor line on shared tenancy.&lt;/p></description></item></channel></rss>

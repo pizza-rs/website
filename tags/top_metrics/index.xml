@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Top_metrics on INFINI Pizza</title><link>https://pizza.rs/tags/top_metrics/</link><description>Recent content in Top_metrics on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/top_metrics/index.xml" rel="self" type="application/rss+xml"/><item><title>Top metrics aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/top-metrics/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/top-metrics/</guid><description>&lt;h1 id="top-metrics-aggregation">
+ Top metrics aggregation
+ &lt;a class="anchor" href="#top-metrics-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A metrics aggregation that returns metric values from the leading
+matching documents — a cheaper alternative to 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/top-hits/">&lt;code>top_hits&lt;/code>&lt;/a>
+when you only need field values, not whole documents.&lt;/p>
+&lt;blockquote>
+&lt;p>Engine note: &lt;code>sort&lt;/code> is accepted for compatibility; the current
+implementation returns the metrics of the first &lt;code>size&lt;/code> matching
+documents.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>top_metrics&lt;/code> walks the bucket&amp;rsquo;s documents and emits one entry per
+document for the first &lt;code>size&lt;/code> of them, in index order. Each entry maps
+every configured metric field to its value in that document. The
+response is the flat form &lt;code>{&amp;quot;top&amp;quot;: [{&amp;quot;price&amp;quot;: 15.0}, …]}&lt;/code>.&lt;/p></description></item></channel></rss>

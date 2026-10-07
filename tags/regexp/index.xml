@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Regexp on INFINI Pizza</title><link>https://pizza.rs/tags/regexp/</link><description>Recent content in Regexp on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/regexp/index.xml" rel="self" type="application/rss+xml"/><item><title>Regexp query</title><link>https://pizza.rs/docs/references/search/term-level/regexp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/regexp/</guid><description>&lt;h1 id="regexp-query">
+ Regexp query
+ &lt;a class="anchor" href="#regexp-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain terms matching a
+
+ &lt;a href="https://en.wikipedia.org/wiki/Regular_expression">regular expression&lt;/a>.&lt;/p>
+&lt;p>A regular expression is a way to match patterns in data using placeholder
+characters, called operators. For a list of operators supported by the
+&lt;code>regexp&lt;/code> query, see 
+ &lt;a href="https://docs.rs/regex/latest/#syntax">Regular expression syntax&lt;/a>.
+Use the &lt;code>regexp&lt;/code> query when neither 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/prefix/">&lt;code>prefix&lt;/code>&lt;/a>,
+
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/suffix/">&lt;code>suffix&lt;/code>&lt;/a> nor 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/wildcard/">&lt;code>wildcard&lt;/code>&lt;/a> can express the
+shape — alternation, character classes, repetition.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause.&lt;/p></description></item></channel></rss>

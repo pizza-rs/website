@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Weighted_avg on INFINI Pizza</title><link>https://pizza.rs/tags/weighted_avg/</link><description>Recent content in Weighted_avg on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/weighted_avg/index.xml" rel="self" type="application/rss+xml"/><item><title>Weighted average aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/weighted-avg/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/weighted-avg/</guid><description>&lt;h1 id="weighted-average-aggregation">
+ Weighted average aggregation
+ &lt;a class="anchor" href="#weighted-average-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-value metrics aggregation that computes the weighted average of
+numeric values. Each document contributes &lt;code>value × weight&lt;/code>, divided by
+the total weight — e.g. an average price weighted by quantity sold. When
+documents are not all equally important, 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/avg/">&lt;code>avg&lt;/code>&lt;/a> is the wrong tool
+and this is the right one.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine walks the matching documents once, accumulating &lt;code>Σ(value × weight)&lt;/code> in the numerator and &lt;code>Σ weight&lt;/code> in the denominator; the result is
+their quotient. Both sides are computed in the same pass over two columns,
+so the pairing of a document&amp;rsquo;s value with its own weight is never lost.&lt;/p></description></item></channel></rss>

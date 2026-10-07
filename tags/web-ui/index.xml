@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Web Ui on INFINI Pizza</title><link>https://pizza.rs/tags/web-ui/</link><description>Recent content in Web Ui on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/web-ui/index.xml" rel="self" type="application/rss+xml"/><item><title>Pizza Console</title><link>https://pizza.rs/docs/getting-started/console/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/getting-started/console/</guid><description>&lt;h1 id="pizza-console">
+ Pizza Console
+ &lt;a class="anchor" href="#pizza-console">#&lt;/a>
+&lt;/h1>
+&lt;p>The Pizza Console is the built-in web console for a Pizza cluster. It is
+embedded in the &lt;code>pizza-server&lt;/code> binary at build time, so there is nothing to
+install or deploy — every node serves it. Use it to browse the cluster,
+manage namespaces and collections, edit settings, and run API requests
+from the browser.&lt;/p>
+&lt;h2 id="open-the-console">
+ Open the console
+ &lt;a class="anchor" href="#open-the-console">#&lt;/a>
+&lt;/h2>
+&lt;p>With a node running on the default binding, open:&lt;/p></description></item></channel></rss>

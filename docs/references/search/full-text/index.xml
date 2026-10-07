@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Full-text queries on INFINI Pizza</title><link>https://pizza.rs/docs/references/search/full-text/</link><description>Recent content in Full-text queries on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/docs/references/search/full-text/index.xml" rel="self" type="application/rss+xml"/><item><title>Match query</title><link>https://pizza.rs/docs/references/search/full-text/match/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/match/</guid><description>&lt;h1 id="match-query">
+ Match query
+ &lt;a class="anchor" href="#match-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that match a provided text, number, date or boolean
+value. The provided text is analyzed before matching — this is the
+primary full-text query.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> supported — the text is matched per array element.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine resolves the analyzer first — the &lt;code>analyzer&lt;/code> parameter when
+given, else the field&amp;rsquo;s search analyzer, else the built-in &lt;code>standard&lt;/code>
+analyzer — and runs it over the query text. Each resulting token becomes
+one term clause:&lt;/p></description></item><item><title>Phrase query</title><link>https://pizza.rs/docs/references/search/full-text/phrase/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/phrase/</guid><description>&lt;h1 id="phrase-query">
+ Phrase query
+ &lt;a class="anchor" href="#phrase-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain the exact sequence of terms, in order,
+with no other terms in between (modulo &lt;code>slop&lt;/code>). The text is analyzed
+before matching, like the 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/match/">&lt;code>match&lt;/code>&lt;/a> query.&lt;/p>
+&lt;p>The query&amp;rsquo;s native name is &lt;code>phrase&lt;/code>; the &lt;code>match_phrase&lt;/code> spelling
+deserializes to the same query — an accepted alias, not
+a different feature.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> supported — the phrase, including its &lt;code>slop&lt;/code>, must be satisfied by ONE array element; terms keep query order.&lt;/p></description></item><item><title>Multi-match query</title><link>https://pizza.rs/docs/references/search/full-text/multi_match/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/multi_match/</guid><description>&lt;h1 id="multi-match-query">
+ Multi-match query
+ &lt;a class="anchor" href="#multi-match-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that match a provided text across several fields —
+like the 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/match/">&lt;code>match&lt;/code>&lt;/a> query, with per-field boosts and
+multi-field scoring strategies.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> supported — fields under the nested path are matched per array element.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>multi_match&lt;/code> is expanded before execution (&lt;code>Query::simplify&lt;/code>) into a
+tree the segment executors already know:&lt;/p>
+&lt;ol>
+&lt;li>Each entry in &lt;code>fields&lt;/code> — after splitting off a &lt;code>^boost&lt;/code> suffix —
+becomes one 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/match/">&lt;code>match&lt;/code>&lt;/a> query over that field, carrying the
+query-level &lt;code>boost&lt;/code> multiplied by the field boost (&lt;code>&amp;quot;title^3&amp;quot;&lt;/code> →
+per-field boost 3).&lt;/li>
+&lt;li>For &lt;code>type: &amp;quot;phrase&amp;quot;&lt;/code> and &lt;code>type: &amp;quot;phrase_prefix&amp;quot;&lt;/code> each field instead
+becomes a 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/phrase/">&lt;code>phrase&lt;/code>&lt;/a> query with &lt;code>slop: 0&lt;/code>. The prefix part
+is not implemented: &lt;code>phrase_prefix&lt;/code> currently behaves as an exact
+phrase and does not expand its last term as a prefix.&lt;/li>
+&lt;li>Two or more fields are wrapped in a &lt;code>bool&lt;/code> whose &lt;code>should&lt;/code> clauses
+are the per-field queries, with at least one field required; a
+single field collapses to that field&amp;rsquo;s query — a plain &lt;code>match&lt;/code>.&lt;/li>
+&lt;/ol>
+&lt;p>Scores: should clauses add their per-document scores (the bool
+default). The &lt;code>type&lt;/code> additionally picks the combination used when one
+field name resolves to several indexed sub-fields — &lt;code>best_fields&lt;/code>
+keeps the maximum, &lt;code>most_fields&lt;/code> and &lt;code>cross_fields&lt;/code> sum. &lt;code>cross_fields&lt;/code>
+does not blend term statistics across fields; each
+field scores independently and the results merge.&lt;/p></description></item><item><title>Query string query</title><link>https://pizza.rs/docs/references/search/full-text/query_string/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/query_string/</guid><description>&lt;h1 id="query-string-query">
+ Query string query
+ &lt;a class="anchor" href="#query-string-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that match a compact query-syntax string, e.g.
+&lt;code>status:active AND title:search&lt;/code>. The same parser powers the
+
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/#query-parameters">URI search&lt;/a> parameter &lt;code>?q=&lt;/code>.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The &lt;code>query&lt;/code> string is parsed with the classic query-string grammar and converted
+to native queries: bare and field-qualified terms become analyzed
+&lt;code>match&lt;/code> queries, quoted phrases become 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/phrase/">&lt;code>phrase&lt;/code>&lt;/a> queries,
+and the boolean operators become 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/bool/">&lt;code>bool&lt;/code>&lt;/a> clauses. Terms
+without a &lt;code>field:&lt;/code> prefix go to &lt;code>default_field&lt;/code> (or, when &lt;code>fields&lt;/code> is
+set, the query fans out into a &lt;code>bool.should&lt;/code> across those fields with
+their &lt;code>field^boost&lt;/code> weights). The operator subset:&lt;/p></description></item><item><title>Boolean query</title><link>https://pizza.rs/docs/references/search/full-text/bool/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/bool/</guid><description>&lt;h1 id="boolean-query">
+ Boolean query
+ &lt;a class="anchor" href="#boolean-query">#&lt;/a>
+&lt;/h1>
+&lt;p>A query that matches documents matching boolean combinations of other
+queries. It is built using one or more boolean clauses.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> supported — &lt;code>must&lt;/code>/&lt;code>filter&lt;/code>/&lt;code>should&lt;/code>/&lt;code>must_not&lt;/code> and &lt;code>minimum_should_match&lt;/code> all apply within ONE array element; clauses matched by different elements never combine.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>bool&lt;/code> compiles each clause list into iterator algebra: &lt;code>must&lt;/code> clauses
+intersect (AND), &lt;code>must_not&lt;/code> clauses subtract, &lt;code>filter&lt;/code> clauses intersect
+without scoring, and &lt;code>should&lt;/code> clauses are probed per matched document —
+a streaming two-pointer walk that adds each matching should score on
+top of the base hit, with no intermediate materialization.&lt;/p></description></item><item><title>Match all query</title><link>https://pizza.rs/docs/references/search/full-text/match_all/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/match_all/</guid><description>&lt;h1 id="match-all-query">
+ Match all query
+ &lt;a class="anchor" href="#match-all-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Matches every document. This is the default query used when no &lt;code>query&lt;/code>
+is sent in a search request — relevance-free, constant-scored, and the
+base every &amp;ldquo;everything, then narrow&amp;rdquo; pattern builds on.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>match_all&lt;/code> walks every document in the target indexes with a constant
+score — &lt;code>1.0&lt;/code> — so &lt;code>_score&lt;/code> carries no
+ranking information and downstream score arithmetic (&lt;code>indices_boost&lt;/code>,
+bool &lt;code>should&lt;/code> boosts, cross-engine merges) sees the same baseline
+everywhere. &lt;code>boost&lt;/code> multiplies the constant, and is the only parameter
+there is.&lt;/p></description></item><item><title>Span queries</title><link>https://pizza.rs/docs/references/search/full-text/span/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/span/</guid><description>&lt;h1 id="span-queries">
+ Span queries
+ &lt;a class="anchor" href="#span-queries">#&lt;/a>
+&lt;/h1>
+&lt;p>Span queries are low-level positional queries that expose and control
+the positions of terms — the building blocks for phrase-adjacent logic
+that 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/phrase/">&lt;code>phrase&lt;/code>&lt;/a> does not express directly.
+Most use cases are better served by &lt;code>match_phrase&lt;/code> (or its &lt;code>slop&lt;/code>); the
+span family exists for the remaining ones.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — span clauses are rejected with an HTTP 400 naming the offending clause. Use 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/phrase/">&lt;code>phrase&lt;/code>&lt;/a> with &lt;code>slop&lt;/code> for positional logic.&lt;/p></description></item><item><title>Intervals query</title><link>https://pizza.rs/docs/references/search/full-text/intervals/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/intervals/</guid><description>&lt;h1 id="intervals-query">
+ Intervals query
+ &lt;a class="anchor" href="#intervals-query">#&lt;/a>
+&lt;/h1>
+&lt;p>The &lt;code>intervals&lt;/code> query is a rule language for term positions: it matches
+documents whose analyzed token stream satisfies proximity rules you
+express as a tree — fixed token sequences, maximum gaps, required
+order, unions, multi-term leaves, and positional filters between
+sibling rules. It covers everything
+
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/phrase/">&lt;code>phrase&lt;/code>&lt;/a> expresses plus the shapes a phrase
+cannot: unordered combinations with bounded width, disjunctions of
+positional rules, and prefix/wildcard/fuzzy/regexp leaves inside
+positional composition.&lt;/p></description></item></channel></rss>

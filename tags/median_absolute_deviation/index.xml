@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Median_absolute_deviation on INFINI Pizza</title><link>https://pizza.rs/tags/median_absolute_deviation/</link><description>Recent content in Median_absolute_deviation on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/median_absolute_deviation/index.xml" rel="self" type="application/rss+xml"/><item><title>Median absolute deviation aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/median-absolute-deviation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/median-absolute-deviation/</guid><description>&lt;h1 id="median-absolute-deviation-aggregation">
+ Median absolute deviation aggregation
+ &lt;a class="anchor" href="#median-absolute-deviation-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-value metrics aggregation that computes the median absolute
+deviation — the median of the distances from each value to the median of
+all values. A robust measure of spread: unlike standard deviation it is
+not skewed by a few extreme values.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The aggregation runs in three steps over the collected values of the
+field:&lt;/p>
+&lt;ol>
+&lt;li>Compute the &lt;strong>median&lt;/strong> with the same TDigest arithmetic
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/percentiles/">&lt;code>percentiles&lt;/code>&lt;/a> uses — weight-1 centroids at
+&lt;code>(i + 0.5) / n&lt;/code>, linear interpolation between the two bracketing
+values.&lt;/li>
+&lt;li>Take each value&amp;rsquo;s absolute distance to that median,
+&lt;code>|v − median|&lt;/code>.&lt;/li>
+&lt;li>Return the &lt;strong>median of those distances&lt;/strong>, using the same arithmetic
+again.&lt;/li>
+&lt;/ol>
+&lt;p>Because both medians interpolate, the result can land between observed
+values (over the 120 teaching sale prices: median &lt;code>22.5&lt;/code>, MAD &lt;code>7.5&lt;/code> —
+neither is a price anyone paid). The value is expressed in the same units
+as the field, so a MAD of &lt;code>7.5&lt;/code> on prices means &amp;ldquo;a typical sale is $7.50
+away from the median price&amp;rdquo;.&lt;/p></description></item></channel></rss>

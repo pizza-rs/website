@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Span on INFINI Pizza</title><link>https://pizza.rs/tags/span/</link><description>Recent content in Span on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/span/index.xml" rel="self" type="application/rss+xml"/><item><title>Span queries</title><link>https://pizza.rs/docs/references/search/full-text/span/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/span/</guid><description>&lt;h1 id="span-queries">
+ Span queries
+ &lt;a class="anchor" href="#span-queries">#&lt;/a>
+&lt;/h1>
+&lt;p>Span queries are low-level positional queries that expose and control
+the positions of terms — the building blocks for phrase-adjacent logic
+that 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/phrase/">&lt;code>phrase&lt;/code>&lt;/a> does not express directly.
+Most use cases are better served by &lt;code>match_phrase&lt;/code> (or its &lt;code>slop&lt;/code>); the
+span family exists for the remaining ones.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — span clauses are rejected with an HTTP 400 naming the offending clause. Use 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/phrase/">&lt;code>phrase&lt;/code>&lt;/a> with &lt;code>slop&lt;/code> for positional logic.&lt;/p></description></item></channel></rss>

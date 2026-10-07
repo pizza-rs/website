@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Extended_stats_bucket on INFINI Pizza</title><link>https://pizza.rs/tags/extended_stats_bucket/</link><description>Recent content in Extended_stats_bucket on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/extended_stats_bucket/index.xml" rel="self" type="application/rss+xml"/><item><title>Extended stats bucket aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/extended-stats-bucket/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/extended-stats-bucket/</guid><description>&lt;h1 id="extended-stats-bucket-aggregation">
+ Extended stats bucket aggregation
+ &lt;a class="anchor" href="#extended-stats-bucket-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A sibling pipeline aggregation extending
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/stats-bucket/">&lt;code>stats_bucket&lt;/code>&lt;/a> with variance, standard deviation
+and their sampling variants of the per-bucket metric distribution. Use
+it when the spread of the per-bucket numbers matters — how uneven the
+days or categories are — not just their min/avg/max envelope.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;day_xstats&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;extended_stats_bucket&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;per_day&amp;gt;revenue&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>extended_stats_bucket&lt;/code> is declared &lt;strong>next to&lt;/strong> the bucket aggregation
+it consumes and runs after every regular aggregation — including the
+distributed merge — has finished. It walks the parent&amp;rsquo;s finished
+buckets, collects one number per bucket, and emits an
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/extended-stats/">&lt;code>extended_stats&lt;/code>&lt;/a>-shaped result over that
+sample:&lt;/p></description></item></channel></rss>

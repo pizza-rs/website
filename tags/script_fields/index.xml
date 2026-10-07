@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Script_fields on INFINI Pizza</title><link>https://pizza.rs/tags/script_fields/</link><description>Recent content in Script_fields on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/script_fields/index.xml" rel="self" type="application/rss+xml"/><item><title>Script fields</title><link>https://pizza.rs/docs/references/search/request/script-fields/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/request/script-fields/</guid><description>&lt;h1 id="script-fields">
+ Script fields
+ &lt;a class="anchor" href="#script-fields">#&lt;/a>
+&lt;/h1>
+&lt;p>Compute extra values for each hit, at fetch time, from the hit&amp;rsquo;s own
+&lt;code>_source&lt;/code> — like 
+ &lt;a href="https://pizza.rs/docs/references/search/request/highlight/">highlighting&lt;/a>, but producing numbers and
+strings instead of fragments. Scripts run on Pizza&amp;rsquo;s sandboxed script
+engine (see 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/scripts/">the script language reference&lt;/a>),
+only for the hits actually returned on the page.&lt;/p>
+&lt;div class="pizza-playground" data-dataset="sales" data-dsl="{
+ &amp;#34;size&amp;#34;: 3,
+ &amp;#34;script_fields&amp;#34;: {
+ &amp;#34;doubled&amp;#34;: { &amp;#34;script&amp;#34;: &amp;#34;doc[&amp;#39;amount&amp;#39;].value * 2&amp;#34; },
+ &amp;#34;with_vat&amp;#34;: {
+ &amp;#34;script&amp;#34;: {
+ &amp;#34;source&amp;#34;: &amp;#34;doc.amount.value * params.vat&amp;#34;,
+ &amp;#34;params&amp;#34;: { &amp;#34;vat&amp;#34;: 1.23 }
+ }
+ }
+ }
+}">
+ &lt;noscript>JavaScript is disabled — use the curl form of this example instead.&lt;/noscript>
+&lt;/div>
+&lt;p>Every returned hit carries the computed values under &lt;code>fields&lt;/code>, as arrays:&lt;/p></description></item></channel></rss>

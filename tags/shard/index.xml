@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Shard on INFINI Pizza</title><link>https://pizza.rs/tags/shard/</link><description>Recent content in Shard on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/shard/index.xml" rel="self" type="application/rss+xml"/><item><title>Reshard a rolling</title><link>https://pizza.rs/docs/references/collection/rolling_reshard/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/collection/rolling_reshard/</guid><description>&lt;h1 id="reshard-a-rolling">
+ Reshard a rolling
+ &lt;a class="anchor" href="#reshard-a-rolling">#&lt;/a>
+&lt;/h1>
+&lt;p>Change the number of shards of a rolling, online. Splitting raises the shard
+count (finer partition ranges, e.g. &lt;code>1 → 2&lt;/code>); merging lowers it
+(e.g. &lt;code>2 → 1&lt;/code>).&lt;/p>
+&lt;p>The reshard builds a hidden target rolling while the source keeps serving
+every read and write. Existing documents are streamed into the target with
+their &lt;code>_id&lt;/code> preserved, the write tail is replayed until the target converges,
+and a single metadata commit then swaps the target in atomically. Documents
+stay addressable under the same &lt;code>_id&lt;/code> and &lt;code>_key&lt;/code> throughout, including for
+writes issued while the reshard is building.&lt;/p></description></item></channel></rss>

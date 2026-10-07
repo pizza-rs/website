@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Changes on INFINI Pizza</title><link>https://pizza.rs/tags/changes/</link><description>Recent content in Changes on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/changes/index.xml" rel="self" type="application/rss+xml"/><item><title>Release notes</title><link>https://pizza.rs/docs/release-notes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/release-notes/</guid><description>&lt;h1 id="release-notes">
+ Release notes
+ &lt;a class="anchor" href="#release-notes">#&lt;/a>
+&lt;/h1>
+&lt;p>Information about release notes of INFINI Pizza is provided here.&lt;/p>
+&lt;h2 id="latest">
+ Latest
+ &lt;a class="anchor" href="#latest">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;strong>v0.1 is pending&lt;/strong> — nothing has been released yet. Everything below is
+the full feature set heading into the first release, in active
+development.&lt;/p>
+&lt;h2 id="v01-pending">
+ v0.1 (pending)
+ &lt;a class="anchor" href="#v01-pending">#&lt;/a>
+&lt;/h2>
+&lt;p>Hello World, Hello Pizza！The first release: a distributed, real-time,
+AI-native search engine.&lt;/p>
+&lt;h3 id="distributed-core">
+ Distributed core
+ &lt;a class="anchor" href="#distributed-core">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>Cluster catalog metadata management, synchronized through Raft
+(&lt;code>openraft&lt;/code>, with a monoio runtime binding)&lt;/li>
+&lt;li>RPC over Cap&amp;rsquo;n Proto, zero-copy both ways&lt;/li>
+&lt;li>Multi-region organization for large clusters&lt;/li>
+&lt;li>Promotion hardening — WAL catch-up barrier, primary-less sweep,
+idempotent role swaps; membership self-fence closes the zombie-primary
+window&lt;/li>
+&lt;li>Online rolling reshard — progress and events API, fast-drain
+orchestration, hardlink staging&lt;/li>
+&lt;li>WAN-safe Raft timing knobs; join tokens and API keys persisted
+through the catalog Raft; &lt;code>network.advertise&lt;/code> split from binding&lt;/li>
+&lt;li>Formal verification — the consistency-critical protocols (promotion,
+allocation, reshard, doc-id reservation, layered visibility,
+fencing) are model-checked in TLA+; counterexamples have caught 18+
+real bugs&lt;/li>
+&lt;/ul>
+&lt;h3 id="realtime-engine-and-storage">
+ Realtime engine and storage
+ &lt;a class="anchor" href="#realtime-engine-and-storage">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>True real-time indexing — no refresh, no flush; documents are
+searchable the moment they are acked&lt;/li>
+&lt;li>WAL durability, local and Kafka-backed&lt;/li>
+&lt;li>FireV11 segment format with a compaction pipeline, maintenance
+states, and task-lane metrics; per-collection manual compaction API
+with batched jobs&lt;/li>
+&lt;li>Partial field updates (&lt;code>_update&lt;/code>) — toggle operator, optimistic
+concurrency over RPC, replicated fast lane, inplace checkpoints, and
+&lt;code>inplace&lt;/code> typed columns that turn hot counter / flag updates into
+O(1) column writes&lt;/li>
+&lt;li>Trash / recycle-bin lifecycle with a sweeper&lt;/li>
+&lt;li>Memory profile dump endpoint; deletion-ledger rebuild at mount
+(documents can no longer resurrect after restart)&lt;/li>
+&lt;/ul>
+&lt;h3 id="query-engine">
+ Query engine
+ &lt;a class="anchor" href="#query-engine">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>BM25 scoring with execution explain&lt;/li>
+&lt;li>Lucene query syntax and the Elasticsearch QueryDSL surface&lt;/li>
+&lt;li>Distributed query execution with cross-shard aggregation reduce&lt;/li>
+&lt;li>Point-in-time (PIT) pinned snapshot reads, ES &lt;code>pit&lt;/code> API&lt;/li>
+&lt;li>Supported query types: &lt;code>match&lt;/code>, &lt;code>match_all&lt;/code>, &lt;code>match_phrase&lt;/code>,
+&lt;code>multi_match&lt;/code>, &lt;code>term&lt;/code>, &lt;code>terms&lt;/code>, &lt;code>bool&lt;/code>, &lt;code>range&lt;/code>, &lt;code>prefix&lt;/code>, &lt;code>fuzzy&lt;/code>,
+&lt;code>wildcard&lt;/code>, &lt;code>regexp&lt;/code>, &lt;code>suffix&lt;/code>, &lt;code>exists&lt;/code>, &lt;code>span&lt;/code>, &lt;code>query_string&lt;/code>,
+&lt;code>collapse&lt;/code>, &lt;code>nested&lt;/code>, &lt;code>join&lt;/code> and &lt;code>traverse&lt;/code> (relations), a &lt;code>graph&lt;/code>
+projection block that renders any hit set as nodes and edges,
+&lt;code>geo_bounding_box&lt;/code>, &lt;code>geo_distance&lt;/code>, &lt;code>geo_polygon&lt;/code>, &lt;code>geo_shape&lt;/code>,
+&lt;code>vector&lt;/code>/&lt;code>multi_vector&lt;/code> (kNN), &lt;code>hybrid&lt;/code>, &lt;code>semantic&lt;/code>, and streaming
+search&lt;/li>
+&lt;li>Supported field types: keyword, text, booleans, all fixed-width
+signed/unsigned integers (&lt;code>i8&lt;/code>…&lt;code>u64&lt;/code>), floats and doubles, dates,
+arrays, objects, dense and sparse vectors&lt;/li>
+&lt;li>Rhai scripting — &lt;code>script_fields&lt;/code> on the search request, &lt;code>script_score&lt;/code>
+and script filters in queries, pipeline-aggregation scripts and
+scripted metrics&lt;/li>
+&lt;/ul>
+&lt;h3 id="sql-and-prql">
+ SQL and PRQL
+ &lt;a class="anchor" href="#sql-and-prql">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>POST /_sql&lt;/code> — a SQL-92-shaped SELECT subset over collections,
+lowered into the same engine pipeline as the DSL: projection with
+expressions, aliases and &lt;code>CASE&lt;/code>, filters with three-valued NULL logic
+(&lt;code>IN&lt;/code>/&lt;code>BETWEEN&lt;/code>/&lt;code>LIKE&lt;/code>/&lt;code>IS [NOT] NULL&lt;/code>), &lt;code>GROUP BY&lt;/code>/&lt;code>HAVING&lt;/code> with
+expression keys and &lt;code>DATE_TRUNC&lt;/code>/&lt;code>HISTOGRAM&lt;/code> bucketing, all five
+aggregates with &lt;code>DISTINCT&lt;/code>, &lt;code>ORDER BY&lt;/code>/&lt;code>LIMIT&lt;/code>/&lt;code>OFFSET&lt;/code>, and grouped
+keyset cursor pages (see
+
+ &lt;a href="https://pizza.rs/docs/references/sql/syntax/">the syntax walkthrough&lt;/a>)&lt;/li>
+&lt;li>&lt;code>$1&lt;/code> positional parameters bound on the parsed tree (one cached plan
+serves every param set), PIT snapshot pinning, per-request &lt;code>timeout&lt;/code>,
+and a 256 KiB statement cap; plan errors answer with 1-based source
+positions&lt;/li>
+&lt;li>Pizza extension functions inside SQL — &lt;code>MATCH&lt;/code>, &lt;code>MATCH_PHRASE&lt;/code>,
+&lt;code>FUZZY&lt;/code>, &lt;code>KNN&lt;/code>, &lt;code>QUERY&lt;/code> (raw DSL predicate), &lt;code>SCORE()&lt;/code> and
+&lt;code>HIGHLIGHT&lt;/code>&lt;/li>
+&lt;li>&lt;code>POST /_prql&lt;/code> — 
+ &lt;a href="https://prql-lang.org/">PRQL&lt;/a> pipelines compiled by a
+pinned &lt;code>prqlc&lt;/code> onto the same &lt;code>/_sql&lt;/code> pipeline; the concise leading-pipe
+form is accepted, and compile errors carry positions mapped onto the
+original PRQL text&lt;/li>
+&lt;li>The SQL frontend lives in the engine itself (feature &lt;code>sql&lt;/code>) — the
+gateway wire and the WebAssembly build ride the same parse/lower, so
+the two hosts cannot drift&lt;/li>
+&lt;/ul>
+&lt;h3 id="ai-native-search">
+ AI-native search
+ &lt;a class="anchor" href="#ai-native-search">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>Server-side embedding inference — text→vector at index and query
+time through any OpenAI-compatible embedding service&lt;/li>
+&lt;li>AI services registry — embedding model entries with provider
+presets, credentials resolved through the node keystore&lt;/li>
+&lt;li>&lt;code>semantic&lt;/code> query — semantic search with zero field knowledge: no
+vector field, no dimensions, no model config in the query body&lt;/li>
+&lt;li>TurboQuant 4-bit quantized vector search, with compaction and
+rolling-reshard support end to end&lt;/li>
+&lt;li>&lt;code>sparse_vector&lt;/code> fields over HTTP, indexing through search&lt;/li>
+&lt;/ul>
+&lt;h3 id="elasticsearch-compatibility">
+ Elasticsearch compatibility
+ &lt;a class="anchor" href="#elasticsearch-compatibility">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>ES &lt;code>retriever&lt;/code>/&lt;code>knn&lt;/code> hybrid syntax translated into the native DSL&lt;/li>
+&lt;li>Execute or reject, never skip — a strict stage gate and top-level
+key whitelist: unsupported ES syntax fails loudly instead of
+silently degrading&lt;/li>
+&lt;li>Keyed writes replace in place, render ES-style &lt;code>updated&lt;/code>/200;
+&lt;code>?key_as_id=true&lt;/code> surfaces the user key as &lt;code>_id&lt;/code>; delete-by-key
+included&lt;/li>
+&lt;/ul>
+&lt;h3 id="text-analysis">
+ Text analysis
+ &lt;a class="anchor" href="#text-analysis">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>Built-in standard and whitespace analyzers, configurable stopwords,
+CJK-aware tokenization, lowercase/uppercase normalizers&lt;/li>
+&lt;li>Analysis workbench in the console — catalog, pipeline builder,
+stage-by-stage debugging with per-stage diffs&lt;/li>
+&lt;li>40+ language analyzer family (&lt;code>contrib/analysis-*&lt;/code>): ICU
+segmentation, jieba/SmartCN/IK/pinyin/stconvert for Chinese, lindera
+(kuromoji/nori) for Japanese and Korean, the European stemmer set,
+and more&lt;/li>
+&lt;/ul>
+&lt;h3 id="security">
+ Security
+ &lt;a class="anchor" href="#security">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>Two-plane role model — built-in roles, API token lifecycle with
+one-time reveal, namespace-scoped key minting&lt;/li>
+&lt;li>Authn/authz middleware across the data plane and write path&lt;/li>
+&lt;/ul>
+&lt;h3 id="observability-and-operations">
+ Observability and operations
+ &lt;a class="anchor" href="#observability-and-operations">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>Search audit ring with &lt;code>_node&lt;/code> endpoints; request-id correlation
+middleware&lt;/li>
+&lt;li>Per-node ES-shaped stats API and golden-metric trends&lt;/li>
+&lt;li>Node task manager — batch flush, priority gate, unified lane view&lt;/li>
+&lt;li>Node-local keystore for secrets — &lt;code>${keystore:}&lt;/code> config references,
+CLI management, masked view&lt;/li>
+&lt;li>Runtime node settings with dynamic log level; process RSS watchdog;
+recovery-time API and concurrency controls&lt;/li>
+&lt;/ul>
+&lt;h3 id="web-console">
+ Web console
+ &lt;a class="anchor" href="#web-console">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>Redesigned home with live cluster telemetry, topology and monitoring
+views, a FIRE storage explorer with per-field cost treemap, WAL entry
+drill-down, tasks tabs with compaction controls, a settings editor,
+and an AI services panel&lt;/li>
+&lt;li>Web CLI — curl → console DSL conversion on paste, multi-select
+Run-N batch execution with stacked results&lt;/li>
+&lt;li>SQL/PRQL runs directly in the console drawer (⌘/Ctrl+Shift+O): bare
+statement blocks with keyword and schema completion, typed table
+results with a raw-JSON toggle, &lt;code>$1&lt;/code> params and PIT snapshot pinning
+behind the sql options popover, cursor paging via the table&amp;rsquo;s Next
+page button, and statements recorded distinctly in history&lt;/li>
+&lt;/ul>
+&lt;h3 id="tools-and-playground">
+ Tools and playground
+ &lt;a class="anchor" href="#tools-and-playground">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/getting-started/cli/">Pizza CLI&lt;/a> — quick interaction with the
+Pizza server&lt;/li>
+&lt;li>&lt;strong>In-browser playground&lt;/strong> — the same engine compiled to WebAssembly,
+mounting real &lt;code>.fire&lt;/code> segments over a deterministic teaching dataset;
+every tutorial query runs live (
+ &lt;a href="https://pizza.rs/docs/playground/">try it&lt;/a>)&lt;/li>
+&lt;li>Docs site with dark mode, tutorials, a full reference sweep, and
+headless smoke tests asserting documented examples against the
+dataset&lt;/li>
+&lt;/ul></description></item><item><title>Change feed (CDC)</title><link>https://pizza.rs/docs/references/document/changes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/document/changes/</guid><description>&lt;h1 id="change-feed-cdc">
+ Change feed (CDC)
+ &lt;a class="anchor" href="#change-feed-cdc">#&lt;/a>
+&lt;/h1>
+&lt;p>&lt;code>GET /_changes&lt;/code> serves a collection&amp;rsquo;s change log tail from the shard
+engines&amp;rsquo; WALs, so external systems can replicate Pizza data elsewhere —
+off-site disaster recovery, secondary indexing, audit pipelines — with a
+standard poll loop:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /demo:orders/_changes?since&lt;span class="o">=&lt;/span>abc:3,def:1&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="nv">limit&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1000&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;results&amp;#34;&lt;/span>: &lt;span class="o">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;shard&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;abc…&amp;#34;&lt;/span>,&lt;span class="s2">&amp;#34;rolling_id&amp;#34;&lt;/span>:0,&lt;span class="s2">&amp;#34;epoch_id&amp;#34;&lt;/span>:4,&lt;span class="s2">&amp;#34;seq&amp;#34;&lt;/span>:0,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;id&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;0,7&amp;#34;&lt;/span>,&lt;span class="s2">&amp;#34;key&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;u1&amp;#34;&lt;/span>,&lt;span class="s2">&amp;#34;op&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;create&amp;#34;&lt;/span>,&lt;span class="s2">&amp;#34;doc&amp;#34;&lt;/span>:&lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;qty&amp;#34;&lt;/span>:3&lt;span class="o">}}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;shard&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;abc…&amp;#34;&lt;/span>,&lt;span class="s2">&amp;#34;rolling_id&amp;#34;&lt;/span>:0,&lt;span class="s2">&amp;#34;epoch_id&amp;#34;&lt;/span>:4,&lt;span class="s2">&amp;#34;seq&amp;#34;&lt;/span>:1,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;id&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;0,8&amp;#34;&lt;/span>,&lt;span class="s2">&amp;#34;op&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;delete&amp;#34;&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">]&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;cursors&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;abc…&amp;#34;&lt;/span>: 4, &lt;span class="s2">&amp;#34;def…&amp;#34;&lt;/span>: 1&lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;purged_below&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;abc…&amp;#34;&lt;/span>: 3&lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;active&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;abc…&amp;#34;&lt;/span>: 5&lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;pending&amp;#34;&lt;/span>: &lt;span class="nb">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /_changes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GET /&amp;lt;targets&amp;gt;/_changes
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>targets&lt;/code> &lt;br>
+(Optional, string) Comma-separated collection names (wildcard
+supported); the target-less form feeds every collection.&lt;/li>
+&lt;/ul>
+&lt;h3 id="query-parameters">
+ Query parameters
+ &lt;a class="anchor" href="#query-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>since&lt;/code> &lt;br>
+(Optional, string) Per-shard epoch cursors from a previous response,
+&lt;code>shard_hex:epoch,shard_hex:epoch&lt;/code>. Omit to start from the beginning of
+the retained tail.&lt;/li>
+&lt;li>&lt;code>limit&lt;/code> &lt;br>
+(Optional, integer) Maximum rows to return. Defaults to &lt;code>1000&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;h2 id="consuming-the-feed">
+ Consuming the feed
+ &lt;a class="anchor" href="#consuming-the-feed">#&lt;/a>
+&lt;/h2>
+&lt;ol>
+&lt;li>Poll with the &lt;code>cursors&lt;/code> of the previous response as the next &lt;code>since&lt;/code>
+(persist the cursors — they are the checkpoint).&lt;/li>
+&lt;li>&lt;code>pending: true&lt;/code> means more rows exist beyond &lt;code>limit&lt;/code>; poll again
+immediately, otherwise poll at your cadence.&lt;/li>
+&lt;li>Compare each cursor against &lt;code>purged_below&lt;/code>: a cursor below that
+floor means the WAL retention window (&lt;code>wal.local.retention_epoch&lt;/code> /
+&lt;code>retention_bytes&lt;/code>) has already purged part of the tail for that
+shard. The tail is incomplete — run a full resync (search + re-bulk
+into the DR cluster) and resume from the current &lt;code>cursors&lt;/code>.&lt;/li>
+&lt;/ol>
+
+&lt;p class="mermaid">
+graph TD
+ P("poll — since = the cursors you saved") --> R["rows + new cursors"]
+ R -->|"pending: true — rows remain past limit"| P
+ R --> C{"every cursor at or above&lt;br/>purged_below?"}
+ C -->|"yes — the tail is complete"| W["persist the cursors,&lt;br/>poll again at your cadence"]
+ C -->|"no — retention already purged&lt;br/>part of the tail"| X["full resync: search + re-bulk,&lt;br/>resume from the current cursors"]
+&lt;/p></description></item></channel></rss>

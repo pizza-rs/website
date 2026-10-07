@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Match_all on INFINI Pizza</title><link>https://pizza.rs/tags/match_all/</link><description>Recent content in Match_all on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/match_all/index.xml" rel="self" type="application/rss+xml"/><item><title>Match all query</title><link>https://pizza.rs/docs/references/search/full-text/match_all/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/match_all/</guid><description>&lt;h1 id="match-all-query">
+ Match all query
+ &lt;a class="anchor" href="#match-all-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Matches every document. This is the default query used when no &lt;code>query&lt;/code>
+is sent in a search request — relevance-free, constant-scored, and the
+base every &amp;ldquo;everything, then narrow&amp;rdquo; pattern builds on.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>match_all&lt;/code> walks every document in the target indexes with a constant
+score — &lt;code>1.0&lt;/code> — so &lt;code>_score&lt;/code> carries no
+ranking information and downstream score arithmetic (&lt;code>indices_boost&lt;/code>,
+bool &lt;code>should&lt;/code> boosts, cross-engine merges) sees the same baseline
+everywhere. &lt;code>boost&lt;/code> multiplies the constant, and is the only parameter
+there is.&lt;/p></description></item></channel></rss>

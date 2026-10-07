@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Flush on INFINI Pizza</title><link>https://pizza.rs/tags/flush/</link><description>Recent content in Flush on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/flush/index.xml" rel="self" type="application/rss+xml"/><item><title>Flush a collection</title><link>https://pizza.rs/docs/references/collection/flush/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/collection/flush/</guid><description>&lt;h1 id="flush-a-collection">
+ Flush a collection
+ &lt;a class="anchor" href="#flush-a-collection">#&lt;/a>
+&lt;/h1>
+&lt;p>Queue a flush of every live shard copy of the collection, cluster-wide —
+primaries and started replicas. A flush seals the shard&amp;rsquo;s mutable state
+into the WAL and builds a new immutable &lt;code>.fire&lt;/code> segment from the WAL tail,
+turning in-memory writes into durable segment storage so the WAL can be
+purged afterwards.&lt;/p>
+&lt;p>Both a flush and a 
+ &lt;a href="https://pizza.rs/docs/references/collection/compact/">Compact a collection&lt;/a> request queue
+node-local jobs that run &lt;strong>asynchronously&lt;/strong> — the request returns as
+soon as the jobs are queued. Track or cancel them on the node&amp;rsquo;s task
+list (&lt;code>GET /_node/_local/tasks&lt;/code>): flush jobs under &lt;code>flush_jobs&lt;/code>,
+compaction under &lt;code>compaction_tasks[]&lt;/code>. Only one flush job runs per node
+at a time — a node already running one answers &lt;code>409&lt;/code> in its row. The
+difference is what the job does: compaction merges existing immutable
+segments, a flush seals the mutable tail into a new one.&lt;/p></description></item></channel></rss>

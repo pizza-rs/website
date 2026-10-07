@@ -1,0 +1,95 @@
+{
+ "version": 1,
+ "collections": [
+  {
+   "name": "articles",
+   "docs": 44,
+   "files": [
+    "51ad0afe626f4398a755.0.fire"
+   ]
+  },
+  {
+   "name": "customers",
+   "docs": 20,
+   "files": [
+    "493db0300fd9489d8bac.0.fire",
+    "987798130b0c43528031.0.fire",
+    "c013e3b6b88f4349bb17.0.fire",
+    "cd01d5f2c9b644e59ea6.0.fire",
+    "d30e54967fa948b1af1d.0.fire",
+    "ece872cd7b6044cf8386.0.fire",
+    "f4a8ef273de9484ab515.0.fire"
+   ]
+  },
+  {
+   "name": "embeddings",
+   "docs": 24,
+   "files": [
+    "015cbd45e065445ea9f9.0.fire",
+    "674f795e4e5146d48513.0.fire",
+    "6c1fce383ff0459e8f3d.0.fire",
+    "8c50807df1084f89aed2.0.fire",
+    "b9538facd5744fd39f51.0.fire",
+    "c34886473c7846698df9.0.fire",
+    "c4c4a884bb444156bd62.0.fire",
+    "d6eac3cf4d3149598e23.0.fire"
+   ]
+  },
+  {
+   "name": "logs",
+   "docs": 150,
+   "files": [
+    "25f4aa7328204725a6c8.0.fire",
+    "8411fb8be8eb4d8fac35.0.fire",
+    "89d86aa2387b4f8ea41f.0.fire",
+    "bab660ffeaa445abaae4.0.fire",
+    "caa9b02123ee4eacaf88.0.fire",
+    "cbcab6659c3044b0bafd.0.fire",
+    "dcb05059d65d4394a04c.0.fire",
+    "f1f13904f638484a89c1.0.fire"
+   ]
+  },
+  {
+   "name": "places",
+   "docs": 15,
+   "files": [
+    "4598e2d880cc4a448c98.0.fire",
+    "68a6558c93c34d869e5c.0.fire",
+    "6cedc7338b524f329965.0.fire",
+    "7b8a0a95876a4166a42b.0.fire",
+    "94d4d149754c43f8964e.0.fire",
+    "a46ce741d2b84c969786.0.fire",
+    "b46bc9f39dc14e8c8aa1.0.fire",
+    "c0ea71144248403fae33.0.fire"
+   ]
+  },
+  {
+   "name": "products",
+   "docs": 30,
+   "files": [
+    "10619b4b6ccb47778462.0.fire",
+    "268c3bb3fe4349a699f4.0.fire",
+    "99ee109632704174a98b.0.fire",
+    "c0a5dd8a6bc8425f9709.0.fire",
+    "cd5c8c37b8974894aa92.0.fire",
+    "e0138a05abaf45468273.0.fire",
+    "f06c3ee2844a48458984.0.fire",
+    "f7935fb4d15446f79993.0.fire"
+   ]
+  },
+  {
+   "name": "sales",
+   "docs": 120,
+   "files": [
+    "13488f8659044f809739.0.fire",
+    "41891defd3eb4072a586.0.fire",
+    "4d236cf95622410996cd.0.fire",
+    "5725188ab9e541c8b05d.0.fire",
+    "697249117b8a4fefa300.0.fire",
+    "ae291f5802b44c2b93c1.0.fire",
+    "c011c86d325540e5a196.0.fire",
+    "f198163316c14a129cba.0.fire"
+   ]
+  }
+ ]
+}

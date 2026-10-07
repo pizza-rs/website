@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Max on INFINI Pizza</title><link>https://pizza.rs/tags/max/</link><description>Recent content in Max on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/max/index.xml" rel="self" type="application/rss+xml"/><item><title>Max aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/max/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/max/</guid><description>&lt;h1 id="max-aggregation">
+ Max aggregation
+ &lt;a class="anchor" href="#max-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-value metrics aggregation that keeps track and returns the maximum
+value among the numeric values extracted from the aggregated documents. It
+answers &amp;ldquo;how high does this field go&amp;rdquo; over any query — the top of a price
+range, the latest timestamp in a window, the biggest order that matches a
+filter.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine walks the matching documents once, keeping the largest value seen;
+any smaller value costs one comparison. Values are coerced to doubles as they
+are read — integers, floats and booleans (&lt;code>true&lt;/code> = 1, &lt;code>false&lt;/code> = 0) qualify,
+non-numeric values such as keyword strings do not.&lt;/p></description></item></channel></rss>

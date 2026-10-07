@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Compact on INFINI Pizza</title><link>https://pizza.rs/tags/compact/</link><description>Recent content in Compact on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/compact/index.xml" rel="self" type="application/rss+xml"/><item><title>Compact a collection</title><link>https://pizza.rs/docs/references/collection/compact/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/collection/compact/</guid><description>&lt;h1 id="compact-a-collection">
+ Compact a collection
+ &lt;a class="anchor" href="#compact-a-collection">#&lt;/a>
+&lt;/h1>
+&lt;p>Queue one manual compaction (merge) pass on every started primary copy of
+the collection, cluster-wide. Useful when you want to reclaim disk space
+or reduce the segment count on demand, without waiting for the background
+compaction cadence.&lt;/p>
+&lt;p>The API is asynchronous: it fans out to at most one request per node
+hosting a started primary, and each node queues its own batch compaction
+job (one job per node, mutual exclusion — HTTP 409 from that node&amp;rsquo;s row
+while one runs). The request returns as soon as the jobs are queued; a
+pass can run for minutes, so nothing waits for the merges. Per-shard job
+state and live merge progress (phase, per-mille) are observable in each
+node&amp;rsquo;s task view, and a job is cancellable there too. A node-level
+failure fails that node&amp;rsquo;s row, not the whole request.&lt;/p></description></item></channel></rss>

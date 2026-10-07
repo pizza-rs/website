@@ -1,0 +1,24 @@
+{
+  "settings": {},
+  "schema": {
+    "dynamic": "true",
+    "properties": {
+      "level": {
+        "type": "keyword"
+      },
+      "message": {
+        "type": "text",
+        "analyzer": "standard"
+      },
+      "url.path": {
+        "type": "keyword"
+      },
+      "host": {
+        "type": "keyword"
+      },
+      "date": {
+        "type": "date"
+      }
+    }
+  }
+}

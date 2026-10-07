@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Variable_width_histogram on INFINI Pizza</title><link>https://pizza.rs/tags/variable_width_histogram/</link><description>Recent content in Variable_width_histogram on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/variable_width_histogram/index.xml" rel="self" type="application/rss+xml"/><item><title>Variable width histogram aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/variable-width-histogram/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/variable-width-histogram/</guid><description>&lt;h1 id="variable-width-histogram-aggregation">
+ Variable width histogram aggregation
+ &lt;a class="anchor" href="#variable-width-histogram-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-bucket aggregation like 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/bucket/histogram/">&lt;code>histogram&lt;/code>&lt;/a>, but
+bucket edges adapt to the data so each bucket holds roughly the same
+number of documents. Fixed grids go blind where data is sparse and
+waste resolution where it is dense; the variable-width form spends its
+buckets where the documents actually are.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine collects every numeric value, sorts it, and partitions the
+sorted run into &lt;code>buckets&lt;/code> contiguous segments such that the sum of
+squared distances to each segment&amp;rsquo;s mean is minimal — the classic
+one-dimensional k-segmentation problem, solved exactly with dynamic
+programming and prefix sums (an O(1) cost function per candidate cut).
+When &lt;code>n × k&lt;/code> exceeds 1,048,576 it falls back to equal-count chunking,
+a linear-time approximation. &lt;code>buckets&lt;/code> is capped at the number of
+distinct values, so asking for more buckets than there are values
+simply yields one bucket per value.&lt;/p></description></item></channel></rss>

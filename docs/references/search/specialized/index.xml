@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Specialized queries on INFINI Pizza</title><link>https://pizza.rs/docs/references/search/specialized/</link><description>Recent content in Specialized queries on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/docs/references/search/specialized/index.xml" rel="self" type="application/rss+xml"/><item><title>Distance feature</title><link>https://pizza.rs/docs/references/search/specialized/distance_feature/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/specialized/distance_feature/</guid><description>&lt;h1 id="distance-feature-query">
+ Distance feature query
+ &lt;a class="anchor" href="#distance-feature-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Recalls &lt;strong>every&lt;/strong> document and scores each by its proximity to an
+origin — the closer, the higher:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">score = boost × pivot / (pivot + distance(document, origin))
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>A document exactly at the origin scores &lt;code>boost&lt;/code>; one &lt;code>pivot&lt;/code> units away
+scores &lt;code>boost / 2&lt;/code>. The decay is gradual — unlike a range filter, a
+document three pivots out still scores &lt;code>boost / 4&lt;/code>, so nothing is
+excluded, only demoted. It answers &amp;ldquo;rank by recency or by distance&amp;rdquo;
+without a second index or a script.&lt;/p></description></item><item><title>More like this query</title><link>https://pizza.rs/docs/references/search/specialized/more_like_this/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/specialized/more_like_this/</guid><description>&lt;h1 id="more-like-this-query">
+ More like this query
+ &lt;a class="anchor" href="#more-like-this-query">#&lt;/a>
+&lt;/h1>
+&lt;p>&lt;code>more_like_this&lt;/code> finds documents similar to given text or documents.
+The engine extracts the input&amp;rsquo;s terms, keeps the significant ones, and
+runs the resulting top terms as a disjunctive query — a &amp;ldquo;find more of
+this&amp;rdquo; query without any embedding model.&lt;/p>
+&lt;p>&lt;code>fields&lt;/code> is required and limited to text fields.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The query is rewritten at the search entry point — it is a client of
+the analysis and term pipeline, not an index structure. Per field:
+gather the &lt;code>like&lt;/code> text (free text is
+analyzed with the first field&amp;rsquo;s analyzer; a referenced document
+contributes the text of every query field), tokenize it, drop terms
+below &lt;code>min_term_freq&lt;/code>, outside the word-length bounds, or listed in
+&lt;code>stop_words&lt;/code>, and remove every term the &lt;code>unlike&lt;/code> inputs produced.
+The surviving terms from all fields are pooled, ranked by source term
+frequency (ties broken alphabetically for determinism), and the top
+&lt;code>max_query_terms&lt;/code> become a &lt;code>bool.should&lt;/code> of &lt;code>term&lt;/code> queries governed
+by &lt;code>minimum_should_match&lt;/code>. If nothing survives, the query matches
+nothing. When &lt;code>include&lt;/code> is &lt;code>false&lt;/code> (the default) and the &lt;code>like&lt;/code> input
+named documents, their ids are added as a &lt;code>must_not&lt;/code> — the seed
+documents trivially contain every selected term.&lt;/p></description></item><item><title>Scripted queries</title><link>https://pizza.rs/docs/references/search/specialized/script-score/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/specialized/script-score/</guid><description>&lt;h1 id="scripted-queries">
+ Scripted queries
+ &lt;a class="anchor" href="#scripted-queries">#&lt;/a>
+&lt;/h1>
+&lt;p>Scripts in the search request: &lt;code>script_score&lt;/code> to compute
+the score, a &lt;code>script&lt;/code> predicate in a boolean filter, and a &lt;code>_script&lt;/code> sort
+key. All run on Pizza&amp;rsquo;s sandboxed script engine (see
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/scripts/">the script language reference&lt;/a>) —
+Rhai, not Painless, but the &lt;code>doc['x'].value&lt;/code>, &lt;code>_score&lt;/code>,
+&lt;code>params.&amp;lt;name&amp;gt;&lt;/code> spellings run unmodified.&lt;/p>
+&lt;h2 id="script_score--score-by-script">
+ &lt;code>script_score&lt;/code> — score by script
+ &lt;a class="anchor" href="#script_score--score-by-script">#&lt;/a>
+&lt;/h2>
+&lt;p>Wrap a query; the script&amp;rsquo;s value &lt;strong>replaces&lt;/strong> the score. The script sees
+&lt;code>_score&lt;/code> (the wrapped query&amp;rsquo;s BM25 score), &lt;code>doc&lt;/code> (the hit&amp;rsquo;s &lt;code>_source&lt;/code> in
+doc-values shape) and &lt;code>params&lt;/code>:&lt;/p></description></item></channel></rss>

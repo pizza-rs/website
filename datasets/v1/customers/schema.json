@@ -1,0 +1,20 @@
+{
+  "settings": {},
+  "schema": {
+    "dynamic": "true",
+    "properties": {
+      "name": {
+        "type": "keyword"
+      },
+      "tier": {
+        "type": "keyword"
+      },
+      "city": {
+        "type": "keyword"
+      },
+      "since": {
+        "type": "date"
+      }
+    }
+  }
+}

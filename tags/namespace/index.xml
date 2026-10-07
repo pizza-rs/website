@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Namespace on INFINI Pizza</title><link>https://pizza.rs/tags/namespace/</link><description>Recent content in Namespace on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/namespace/index.xml" rel="self" type="application/rss+xml"/><item><title>Create a namespace</title><link>https://pizza.rs/docs/references/namespace/create/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/namespace/create/</guid><description>&lt;h1 id="create-a-namespace">
+ Create a namespace
+ &lt;a class="anchor" href="#create-a-namespace">#&lt;/a>
+&lt;/h1>
+&lt;p>Creates a new namespace.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>If creating a website namespace, the following request creates a new namespace called &lt;code>website&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">PUT /_namespace/website
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">PUT /_namespace/&amp;lt;name&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>/_ns/&amp;lt;name&amp;gt;&lt;/code> is accepted as a shorter alias.&lt;/p>
+&lt;h3 id="path-parameters">
+ Path parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>&amp;lt;name&amp;gt;&lt;/code> &lt;br>
+(Required, string) The name of the namespace. Namespace names
+must meet the following criteria:
+&lt;ul>
+&lt;li>Lowercase only&lt;/li>
+&lt;li>Cannot include &lt;code>\&lt;/code> &lt;code>/&lt;/code>, &lt;code>*&lt;/code>, &lt;code>?&lt;/code>, &lt;code>&amp;quot;&lt;/code>, &lt;code>&amp;lt;&lt;/code>, &lt;code>&amp;gt;&lt;/code>, &lt;code>|&lt;/code>, &lt;code> &lt;/code>, &lt;code>,&lt;/code>, &lt;code>#&lt;/code>&lt;/li>
+&lt;li>Cannot start with &lt;code>-&lt;/code>, &lt;code>_&lt;/code>, &lt;code>+&lt;/code>&lt;/li>
+&lt;li>Cannot be &lt;code>.&lt;/code> or &lt;code>..&lt;/code>&lt;/li>
+&lt;li>Cannot be longer than 255 bytes (note it is bytes, so multi-byte characters
+will count towards the 255 limit faster)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul></description></item><item><title>Namespace</title><link>https://pizza.rs/docs/references/namespace/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/namespace/</guid><description>&lt;h1 id="namespace">
+ Namespace
+ &lt;a class="anchor" href="#namespace">#&lt;/a>
+&lt;/h1>
+&lt;p>Pizza supports a multi-tenant architecture,
+allowing different sets of data for various scenarios to be stored within a single engine.
+Each set is referred to as a namespace, and different namespaces can have distinct topologies
+and access permissions configured.&lt;/p>
+&lt;p>Usually, there&amp;rsquo;s no need to set up an additional namespace, and the default namespace is &lt;code>default&lt;/code>.&lt;/p>
+&lt;p>Within a namespace, there are several types of data:&lt;/p>
+&lt;ul>
+&lt;li>Collection, Docs: Collections of documents.&lt;/li>
+&lt;li>Data: Source data, stored in columns layout.&lt;/li>
+&lt;li>Index: Indexed data, built based on Data, optional.&lt;/li>
+&lt;li>View: View data, composite views of data across collections.&lt;/li>
+&lt;/ul>
+&lt;h2 id="namespace-management">
+ Namespace management
+ &lt;a class="anchor" href="#namespace-management">#&lt;/a>
+&lt;/h2>
+&lt;p>Namespace APIs are used to manage individual Namespace and settings.&lt;/p></description></item><item><title>Delete a namespace</title><link>https://pizza.rs/docs/references/namespace/delete/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/namespace/delete/</guid><description>&lt;h1 id="delete-a-namespace">
+ Delete a namespace
+ &lt;a class="anchor" href="#delete-a-namespace">#&lt;/a>
+&lt;/h1>
+&lt;p>Delete an existing namespace.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>The following request delete the namespace called &lt;code>website&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">DELETE /_namespace/website
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">DELETE /_namespace/&amp;lt;name&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>/_ns/&amp;lt;name&amp;gt;&lt;/code> is accepted as a shorter alias.&lt;/p>
+&lt;h3 id="path-parameters">
+ Path parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>&amp;lt;name&amp;gt;&lt;/code> &lt;br>
+(Required, string) The name of the namespace that you want to delete.&lt;/li>
+&lt;/ul>
+&lt;h2 id="response">
+ Response
+ &lt;a class="anchor" href="#response">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;acknowledged&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="trash-semantics">
+ Trash semantics
+ &lt;a class="anchor" href="#trash-semantics">#&lt;/a>
+&lt;/h2>
+&lt;p>Deleting a namespace moves the WHOLE namespace into the trash: every
+collection&amp;rsquo;s data directory is retained under &lt;code>&amp;lt;data_path&amp;gt;/trash/&lt;/code>
+together with a namespace-level restore snapshot (one snapshot per
+collection — schemas, shard UUIDs, partition routing, placements). The
+sweeper physically deletes it after &lt;code>trash.retention_secs&lt;/code>.&lt;/p></description></item></channel></rss>

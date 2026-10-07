@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rare_terms on INFINI Pizza</title><link>https://pizza.rs/tags/rare_terms/</link><description>Recent content in Rare_terms on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/rare_terms/index.xml" rel="self" type="application/rss+xml"/><item><title>Rare terms aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/rare-terms/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/rare-terms/</guid><description>&lt;h1 id="rare-terms-aggregation">
+ Rare terms aggregation
+ &lt;a class="anchor" href="#rare-terms-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-bucket aggregation that keeps only RARE terms — bucket keys
+whose document count is at or below &lt;code>max_doc_count&lt;/code>. The mirror image of
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/bucket/terms/">&lt;code>terms&lt;/code>&lt;/a> for finding the long tail: instead of the top-N most
+frequent values, it returns every low-frequency value.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Bucketing works exactly like 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/bucket/terms/">&lt;code>terms&lt;/code>&lt;/a>: one bucket per unique
+value of &lt;code>field&lt;/code>, multi-valued fields counted per element, and documents
+without the field either skipped or folded into a &lt;code>missing&lt;/code> bucket.
+&lt;code>include&lt;/code>/&lt;code>exclude&lt;/code> filter candidate keys up front (exact-value arrays
+or a single wildcard string &lt;code>prefix*&lt;/code> / &lt;code>*suffix&lt;/code>).&lt;/p></description></item></channel></rss>

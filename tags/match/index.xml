@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Match on INFINI Pizza</title><link>https://pizza.rs/tags/match/</link><description>Recent content in Match on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/match/index.xml" rel="self" type="application/rss+xml"/><item><title>Match query</title><link>https://pizza.rs/docs/references/search/full-text/match/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/match/</guid><description>&lt;h1 id="match-query">
+ Match query
+ &lt;a class="anchor" href="#match-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that match a provided text, number, date or boolean
+value. The provided text is analyzed before matching — this is the
+primary full-text query.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> supported — the text is matched per array element.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine resolves the analyzer first — the &lt;code>analyzer&lt;/code> parameter when
+given, else the field&amp;rsquo;s search analyzer, else the built-in &lt;code>standard&lt;/code>
+analyzer — and runs it over the query text. Each resulting token becomes
+one term clause:&lt;/p></description></item></channel></rss>

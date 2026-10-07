@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Children on INFINI Pizza</title><link>https://pizza.rs/tags/children/</link><description>Recent content in Children on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/children/index.xml" rel="self" type="application/rss+xml"/><item><title>Children aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/children-agg/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/children-agg/</guid><description>&lt;h1 id="children-aggregation">
+ Children aggregation
+ &lt;a class="anchor" href="#children-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-bucket aggregation that scopes its sub-aggregations to the
+child documents of a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/traverse/">relation&lt;/a>
+field (parent-child joins). In a corpus where parents and children
+share an index, it is the lens that looks at the child side while the
+outer query talks about parents.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;blockquote>
+&lt;p>Engine note: the current implementation runs sub-aggregations over
+the scoped document set keyed by the relation; it does not resolve
+per-parent child sets.&lt;/p></description></item></channel></rss>

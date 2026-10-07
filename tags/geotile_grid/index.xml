@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Geotile_grid on INFINI Pizza</title><link>https://pizza.rs/tags/geotile_grid/</link><description>Recent content in Geotile_grid on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/geotile_grid/index.xml" rel="self" type="application/rss+xml"/><item><title>Geotile grid aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/geotile-grid/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/geotile-grid/</guid><description>&lt;h1 id="geotile-grid-aggregation">
+ Geotile grid aggregation
+ &lt;a class="anchor" href="#geotile-grid-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-bucket aggregation grouping &lt;code>geo_point&lt;/code> values into
+&lt;code>zoom/x/y&lt;/code> map tiles — the native grid of web maps. Where
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/bucket/geohash-grid/">&lt;code>geohash_grid&lt;/code>&lt;/a> speaks in geohash strings, this one
+emits exactly the tile addresses a Leaflet/MapLibre layer already
+understands, so clustering needs no coordinate translation.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Each point is mapped to its Web-Mercator tile: &lt;code>x&lt;/code> and &lt;code>y&lt;/code> are computed
+from longitude/latitude scaled by &lt;code>2^zoom&lt;/code>, latitude clamped to the
+projection&amp;rsquo;s ±85.0511° limit. &lt;code>precision&lt;/code> is the zoom level — 0–29,
+default &lt;code>7&lt;/code> (a tile spans ~300 km at the equator; each zoom step
+halves it). The bucket key is the &lt;code>z/x/y&lt;/code> string, e.g. Amsterdam at
+zoom 8 → &lt;code>8/131/84&lt;/code>.&lt;/p></description></item></channel></rss>

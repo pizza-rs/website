@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Create on INFINI Pizza</title><link>https://pizza.rs/tags/create/</link><description>Recent content in Create on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/create/index.xml" rel="self" type="application/rss+xml"/><item><title>Create a collection</title><link>https://pizza.rs/docs/references/collection/create/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/collection/create/</guid><description>&lt;h1 id="create-a-collection">
+ Create a collection
+ &lt;a class="anchor" href="#create-a-collection">#&lt;/a>
+&lt;/h1>
+&lt;p>Creates a new collection.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>The following request creates a new collection called &lt;code>my-collection&lt;/code> in the
+namespace &lt;code>my-namespace&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">PUT /my-namespace:my-collection
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>If creating a collection within the default namespace, it can be simplified as:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">PUT /my-collection
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">PUT /&lt;span class="o">[&lt;/span>&amp;lt;namespace&amp;gt;:&lt;span class="o">]&lt;/span>&amp;lt;name&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>&amp;lt;namespace&amp;gt;&lt;/code> &lt;br>
+(Optional, string) The namespace which the collection belongs to. Namespace names
+must meet the following criteria:
+&lt;ul>
+&lt;li>Lowercase only&lt;/li>
+&lt;li>Cannot include &lt;code>\&lt;/code> &lt;code>/&lt;/code>, &lt;code>*&lt;/code>, &lt;code>?&lt;/code>, &lt;code>&amp;quot;&lt;/code>, &lt;code>&amp;lt;&lt;/code>, &lt;code>&amp;gt;&lt;/code>, &lt;code>|&lt;/code>, &lt;code> &lt;/code>, &lt;code>,&lt;/code>, &lt;code>#&lt;/code>&lt;/li>
+&lt;li>Cannot start with &lt;code>-&lt;/code>, &lt;code>_&lt;/code>, &lt;code>+&lt;/code>&lt;/li>
+&lt;li>Cannot be &lt;code>.&lt;/code> or &lt;code>..&lt;/code>&lt;/li>
+&lt;li>Cannot be longer than 255 bytes (note it is bytes, so multi-byte characters
+will count towards the 255 limit faster)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>&amp;lt;name&amp;gt;&lt;/code> &lt;br>
+(Required, string) Name of the collection you wish to create. Collection names
+must meet the same criteria as namespace names.&lt;/li>
+&lt;/ul>
+&lt;h3 id="query-parameters">
+ Query parameters
+ &lt;a class="anchor" href="#query-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>&amp;lt;wait_for_active_shards&amp;gt;&lt;/code> \&lt;/p></description></item><item><title>Create a document</title><link>https://pizza.rs/docs/references/document/create/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/document/create/</guid><description>&lt;h1 id="create-a-document">
+ Create a document
+ &lt;a class="anchor" href="#create-a-document">#&lt;/a>
+&lt;/h1>
+&lt;p>Creates a new document.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>Insert a JSON document into the &lt;code>my-collection&lt;/code> collection:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /my-collection/_doc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;message&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;GET /search HTTP/1.1 200 1070000&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;org&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;infini&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The API returns the following result:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_collection&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;default:my-collection&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;0,0&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;result&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;created&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_shards&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;total&amp;#34;&lt;/span>: 2, &lt;span class="s2">&amp;#34;successful&amp;#34;&lt;/span>: 1, &lt;span class="s2">&amp;#34;failed&amp;#34;&lt;/span>: &lt;span class="m">0&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The API supports passing a customized UUID as the document identify, eg:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /my-collection/_doc/news_001
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;message&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;GET /search HTTP/1.1 200 1070000&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;org&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;infini&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The keyed form answers with the user key as &lt;code>_key&lt;/code>:&lt;/p></description></item><item><title>Create a namespace</title><link>https://pizza.rs/docs/references/namespace/create/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/namespace/create/</guid><description>&lt;h1 id="create-a-namespace">
+ Create a namespace
+ &lt;a class="anchor" href="#create-a-namespace">#&lt;/a>
+&lt;/h1>
+&lt;p>Creates a new namespace.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>If creating a website namespace, the following request creates a new namespace called &lt;code>website&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">PUT /_namespace/website
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">PUT /_namespace/&amp;lt;name&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>/_ns/&amp;lt;name&amp;gt;&lt;/code> is accepted as a shorter alias.&lt;/p>
+&lt;h3 id="path-parameters">
+ Path parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>&amp;lt;name&amp;gt;&lt;/code> &lt;br>
+(Required, string) The name of the namespace. Namespace names
+must meet the following criteria:
+&lt;ul>
+&lt;li>Lowercase only&lt;/li>
+&lt;li>Cannot include &lt;code>\&lt;/code> &lt;code>/&lt;/code>, &lt;code>*&lt;/code>, &lt;code>?&lt;/code>, &lt;code>&amp;quot;&lt;/code>, &lt;code>&amp;lt;&lt;/code>, &lt;code>&amp;gt;&lt;/code>, &lt;code>|&lt;/code>, &lt;code> &lt;/code>, &lt;code>,&lt;/code>, &lt;code>#&lt;/code>&lt;/li>
+&lt;li>Cannot start with &lt;code>-&lt;/code>, &lt;code>_&lt;/code>, &lt;code>+&lt;/code>&lt;/li>
+&lt;li>Cannot be &lt;code>.&lt;/code> or &lt;code>..&lt;/code>&lt;/li>
+&lt;li>Cannot be longer than 255 bytes (note it is bytes, so multi-byte characters
+will count towards the 255 limit faster)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul></description></item><item><title>Create an index</title><link>https://pizza.rs/docs/references/index/create/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/index/create/</guid><description>&lt;h1 id="create-an-index">
+ Create an index
+ &lt;a class="anchor" href="#create-an-index">#&lt;/a>
+&lt;/h1>
+&lt;p>Creates a new index under a collection.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>The following request creates a new index called &lt;code>my-index&lt;/code> under collection
+&lt;code>my-namespace:my-collection&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">PUT /my-namespace:my-collection/_index/my-index
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">PUT /&amp;lt;target&amp;gt;/_index/&amp;lt;name&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>&amp;lt;target&amp;gt;&lt;/code> &lt;br>
+(Required, string) The collection which the index belongs to.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>&amp;lt;name&amp;gt;&lt;/code> &lt;br>
+(Required, string) Name of the index you wish to create.&lt;/p>
+&lt;/li>
+&lt;/ul></description></item></channel></rss>

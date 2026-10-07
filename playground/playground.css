@@ -1,0 +1,573 @@
+/* Pizza docs playground */
+.pizza-playground, #pizza-playground-app {
+  border: 1px solid var(--pz-border, #e4e4e7);
+  border-radius: 6px;
+  padding: 12px;
+  margin: 12px 0;
+  background: #fafafa;
+  font-size: 13px;
+}
+/* Editor chrome lives on the wrapper; the textarea itself is a
+   transparent layer over the token-painting .pg-hl pre. */
+.pg-editwrap {
+  position: relative;
+  border: 1px solid #d4d4d8;
+  border-radius: 4px;
+  background: #fff;
+  /* light editor palette (dark-mode overrides below) */
+  --pg-key: #6b0bea;
+  --pg-str: #0a7d32;
+  --pg-num: #b45309;
+  --pg-bool: #953800;
+  --pg-null: #b91c1c;
+  --pg-punct: #71717a;
+}
+/* Scoped under the widget containers — the book theme's `.markdown pre`
+   rule (specificity 0,1,1) otherwise overrides the shared font/padding
+   here and forces the overlay back into the flow with position:relative. */
+.pizza-playground .pg-editor, #pizza-playground-app .pg-editor,
+.pizza-playground .pg-hl, #pizza-playground-app .pg-hl {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  /* The theme sets letter-spacing .33px + text-rendering optimizeLegibility
+     on body; a pre overlay inherits that, a textarea does not — the layers
+     would drift apart a fraction of a px per character and the visible text
+     stops matching the caret. Normalize glyph metrics on BOTH layers. */
+  letter-spacing: normal;
+  text-rendering: auto;
+  font-variant-ligatures: none;
+  /* extra left padding hosts the fold carets (absolute, over whitespace) */
+  padding: 8px 8px 8px 26px;
+  white-space: pre;
+  tab-size: 2;
+  margin: 0;
+}
+.pizza-playground .pg-editor, #pizza-playground-app .pg-editor {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  border: 0;
+  background: transparent;
+  color: transparent;
+  caret-color: #d9482b;
+  resize: vertical;
+  overflow: auto;
+  position: relative;
+  z-index: 1;
+}
+.pizza-playground .pg-hl, #pizza-playground-app .pg-hl {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: 0;
+  background: transparent;
+  overflow: hidden;
+  pointer-events: none;
+  box-sizing: border-box;
+  z-index: 0;
+}
+/* Per-line structure of the editor overlay; empty lines keep their height
+   so the overlay stays pixel-aligned with the textarea above them. */
+.pg-hline {
+  position: relative;
+  min-height: 18px;
+  line-height: 1.5;
+}
+/* Fold caret — purely visual, parked over the line's leading whitespace,
+   ending 4px short of the first non-space character so the glyph never
+   crowds the field name (inline `left` per line; the -18px default only
+   covers the no-indent root). Clicks are captured on
+   the textarea by coordinate zone — the textarea sits above the overlay
+   and would swallow any pointer events aimed at these spans. */
+.pg-hcaret {
+  position: absolute;
+  left: -18px;
+  top: 0;
+  width: 14px;
+  color: var(--pg-punct);
+  transition: transform 0.1s ease;
+}
+.pg-hcaret.pg-folded { transform: rotate(-90deg); }
+.pg-run {
+  background: #d9482b;
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  padding: 4px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.pg-run:hover { background: #b8321b; }
+/* In the app widget the Run row sits BELOW the editor (inline widgets put
+   the button above it, which margin-bottom covers) — give it air. */
+#pizza-playground-app .pg-run { margin-top: 10px; }
+.pg-status { color: var(--pz-muted, #71717a); margin: 6px 0; font-size: 12px; }
+.pg-status.pg-error { color: #b91c1c; }
+/* Scoped under the widget containers so `.markdown pre` from the book
+   theme (specificity 0,1,1) cannot stomp the panel's own background,
+   padding or font. */
+/* An empty result panel renders as a stray bar — hide it until a
+   query actually produces output. */
+.pizza-playground .pg-result:empty,
+#pizza-playground-app .pg-result:empty {
+  display: none;
+}
+
+.pizza-playground .pg-result,
+#pizza-playground-app .pg-result {
+  position: relative;
+  border-radius: 4px;
+  padding: 10px;
+  max-height: 360px;
+  overflow: auto;
+  font-size: 12px;
+  white-space: pre;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* light surface — the same token palette as the light editor; the
+     dark-mode blocks below flip surface, tokens and table chrome.
+     --pg-th/--pg-tborder/--pg-stripe feed the SQL envelope table and
+     the keyset cursor bar; --pg-onkey is the text on a --pg-key fill. */
+  background: #fff;
+  color: #27272a;
+  border: 1px solid #d4d4d8;
+  --pg-key: #6b0bea;
+  --pg-str: #0a7d32;
+  --pg-num: #b45309;
+  --pg-bool: #953800;
+  --pg-null: #b91c1c;
+  --pg-punct: #71717a;
+  --pg-th: #f4f4f5;
+  --pg-tborder: #e4e4e7;
+  --pg-stripe: #fafafa;
+  --pg-onkey: #fff;
+}
+html[data-theme='dark'] .pizza-playground .pg-result,
+html[data-theme='dark'] #pizza-playground-app .pg-result {
+  background: #18181b;
+  color: #e4e4e7;
+  border-color: #27272a;
+  --pg-key: #c792ea;
+  --pg-str: #c3e88d;
+  --pg-num: #f78c6c;
+  --pg-bool: #ffcb6b;
+  --pg-null: #ff5370;
+  --pg-punct: #8b8b94;
+  --pg-th: #27272a;
+  --pg-tborder: #3a3940;
+  --pg-stripe: #1d1d21;
+  --pg-onkey: #14141a;
+}
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme='light']) .pizza-playground .pg-result,
+  html:not([data-theme='light']) #pizza-playground-app .pg-result {
+    background: #18181b;
+    color: #e4e4e7;
+    border-color: #27272a;
+    --pg-key: #c792ea;
+    --pg-str: #c3e88d;
+    --pg-num: #f78c6c;
+    --pg-bool: #ffcb6b;
+    --pg-null: #ff5370;
+    --pg-punct: #8b8b94;
+    --pg-th: #27272a;
+    --pg-tborder: #3a3940;
+    --pg-stripe: #1d1d21;
+    --pg-onkey: #14141a;
+  }
+}
+
+/* ── JSON token colors (shared by editor overlay and result tree) ── */
+.pg-tok-key { color: var(--pg-key); }
+.pg-tok-str { color: var(--pg-str); }
+.pg-tok-num { color: var(--pg-num); }
+.pg-tok-bool { color: var(--pg-bool); }
+.pg-tok-null { color: var(--pg-null); }
+.pg-tok-punct { color: var(--pg-punct); }
+
+/* ── Foldable result tree ──
+   A container node is head / kids / tail; folded hides kids+tail and
+   reveals the "… N }" placeholder in the head line. */
+.pg-jline { min-height: 18px; }
+.pg-jcaret {
+  display: inline-block;
+  width: 14px;
+  cursor: pointer;
+  user-select: none;
+  color: var(--pg-punct);
+  transition: transform 0.1s ease;
+}
+.pg-jnode.pg-folded > .pg-jcaret { transform: rotate(-90deg); }
+/* Invisible stand-in on lines without a fold — reserves the caret's 14px
+   so sibling field names share one column (app.js caretSlot()). */
+.pg-jcaret.pg-jcaret-slot { visibility: hidden; cursor: default; }
+.pg-jkids { margin-left: 14px; }
+.pg-jnode.pg-folded > .pg-jkids,
+.pg-jnode.pg-folded > .pg-jtail { display: none; }
+.pg-jell { display: none; color: var(--pg-punct); }
+.pg-jnode.pg-folded > .pg-jhead .pg-jell { display: inline; }
+
+/* ── Toolbar with small tool icons ── */
+.pg-tools {
+  position: absolute;
+  top: 5px;
+  right: 6px;
+  display: flex;
+  gap: 2px;
+  z-index: 2;
+}
+.pg-tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--pg-punct, #71717a);
+  cursor: pointer;
+  opacity: 0.8;
+}
+.pg-tool:hover { opacity: 1; background: rgba(127, 127, 127, 0.18); }
+.pg-editwrap .pg-tool:hover { color: var(--pg-key); }
+.pg-result .pg-tool:hover { color: #27272a; }
+.pg-tool.pg-done { opacity: 1; }
+.pg-editwrap .pg-tool.pg-done { color: #16a34a; }
+.pg-result .pg-tool.pg-done { color: #16a34a; }
+.pg-editwrap .pg-tool.pg-bad { color: #b91c1c; opacity: 1; }
+/* Result-panel tool states ride the panel surface (theme-following since
+   the panel dropped its fixed-dark coat) — dark keeps the light-tinted
+   greens/grays it had. */
+html[data-theme='dark'] .pg-result .pg-tool:hover { color: #e4e4e7; }
+html[data-theme='dark'] .pg-result .pg-tool.pg-done { color: #4ade80; }
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme='light']) .pg-result .pg-tool:hover { color: #e4e4e7; }
+  html:not([data-theme='light']) .pg-result .pg-tool.pg-done { color: #4ade80; }
+}
+/* Active debug toggle — parsed_query shown */
+.pg-tool.pg-on {
+  color: var(--pg-key, #6b0bea);
+  opacity: 1;
+  background: rgba(167, 139, 250, 0.18);
+}
+
+/* ── Dataset picker — custom dropdown (native <select> popups can't be
+   themed to match the widget). Button + absolutely-positioned menu;
+   the menu overlays the editor (z-index above .pg-editwrap's layers). */
+#pizza-playground-app .pg-datarow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 8px;
+}
+.pg-sel { position: relative; display: inline-block; }
+.pg-sel-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  border: 1px solid #d4d4d8;
+  border-radius: 4px;
+  background: #fff;
+  color: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  line-height: 1.4;
+}
+.pg-sel-btn:hover { border-color: var(--pg-key, #6b0bea); }
+.pg-sel-lbl { white-space: nowrap; }
+.pg-sel-chev {
+  display: inline-flex;
+  color: var(--pz-muted, #71717a);
+  transition: transform 0.15s ease;
+}
+.pg-sel.pg-open .pg-sel-chev { transform: rotate(180deg); }
+.pg-sel-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 100%;
+  max-height: 264px;
+  overflow: auto;
+  padding: 4px;
+  background: #fff;
+  border: 1px solid #d4d4d8;
+  border-radius: 4px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  z-index: 30;
+  outline: none;
+}
+.pg-sel.pg-open .pg-sel-menu { display: block; }
+.pg-sel-opt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 5px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.pg-sel-name { font-size: 13px; }
+.pg-sel-hint {
+  font-size: 11px;
+  color: var(--pz-muted, #71717a);
+}
+.pg-sel-opt.pg-sel-hi { background: rgba(107, 11, 234, 0.08); }
+.pg-sel-opt.pg-sel-on .pg-sel-name { color: var(--pg-key, #6b0bea); font-weight: 600; }
+html[data-theme='dark'] .pg-sel-btn,
+html[data-theme='dark'] .pg-sel-menu {
+  background: #1d1d23;
+  color: #e6e4df;
+  border-color: #3a3940;
+}
+html[data-theme='dark'] .pg-sel-btn:hover { border-color: var(--pg-key, #a78bfa); }
+html[data-theme='dark'] .pg-sel-menu { box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45); }
+html[data-theme='dark'] .pg-sel-opt.pg-sel-hi { background: rgba(167, 139, 250, 0.16); }
+html[data-theme='dark'] .pg-sel-opt.pg-sel-on .pg-sel-name { color: var(--pg-key, #a78bfa); }
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme='light']) .pg-sel-btn,
+  html:not([data-theme='light']) .pg-sel-menu {
+    background: #1d1d23;
+    color: #e6e4df;
+    border-color: #3a3940;
+  }
+  html:not([data-theme='light']) .pg-sel-btn:hover { border-color: var(--pg-key, #a78bfa); }
+  html:not([data-theme='light']) .pg-sel-menu { box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45); }
+  html:not([data-theme='light']) .pg-sel-opt.pg-sel-hi { background: rgba(167, 139, 250, 0.16); }
+  html:not([data-theme='light']) .pg-sel-opt.pg-sel-on .pg-sel-name { color: var(--pg-key, #a78bfa); }
+}
+
+/* Footer row — status on the left, wasm badge on the right, one line.
+   Wraps gracefully when a long status (or a narrow screen) needs it. */
+.pg-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2px 12px;
+  margin-top: 8px;
+}
+.pg-footer .pg-status { margin: 0; min-width: 0; }
+.pg-footer .pg-power { margin-top: 0; }
+
+/* "Powered by Pizza WebAssembly" badge — quiet, right-aligned, under
+   the result panel. The slice mark inherits the brand purple and reads
+   on both widget backgrounds. */
+.pg-power {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  font-size: 11px;
+  letter-spacing: 0.01em;
+  color: var(--pz-muted, #71717a);
+  text-decoration: none;
+}
+.pg-power img { display: block; opacity: 0.9; }
+a.pg-power:hover { color: #6b0bea; }
+a.pg-power:hover img { opacity: 1; }
+html[data-theme='dark'] .pg-power { color: #9d9da7; }
+html[data-theme='dark'] a.pg-power:hover { color: #a78bfa; }
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme='light']) .pg-power { color: #9d9da7; }
+  html:not([data-theme='light']) a.pg-power:hover { color: #a78bfa; }
+}
+
+/* Dark mode — follow the docs theme (data-theme or OS preference).
+   The widget container itself must flip too: its light #fafafa panel
+   would otherwise sit under the dark-inherited label/status text. */
+html[data-theme='dark'] .pizza-playground,
+html[data-theme='dark'] #pizza-playground-app {
+  background: #1e1e23;
+  border-color: #2c2b30;
+}
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme='light']) .pizza-playground,
+  html:not([data-theme='light']) #pizza-playground-app {
+    background: #1e1e23;
+    border-color: #2c2b30;
+  }
+}
+
+html[data-theme='dark'] .pg-editwrap {
+  background: #1d1d23;
+  border-color: #3a3940;
+  --pg-key: #a78bfa;
+  --pg-str: #7ee787;
+  --pg-num: #f69d50;
+  --pg-bool: #d2a8ff;
+  --pg-null: #ff7b72;
+  --pg-punct: #8b949e;
+}
+html[data-theme='dark'] .pg-editor { caret-color: #a78bfa; }
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme='light']) .pg-editwrap {
+    background: #1d1d23;
+    border-color: #3a3940;
+    --pg-key: #a78bfa;
+    --pg-str: #7ee787;
+    --pg-num: #f69d50;
+    --pg-bool: #d2a8ff;
+    --pg-null: #ff7b72;
+    --pg-punct: #8b949e;
+  }
+  html:not([data-theme='light']) .pg-editor { caret-color: #a78bfa; }
+}
+
+/* ── SQL mode ──────────────────────────────────────────────────────
+   The app's mode bar sits between the dataset row and the editor:
+   [JSON DSL | SQL] toggle, per-dataset example chips, and the $1
+   params box — the latter two only visible while the bar carries
+   .pg-sql (inline SQL widgets render their params row statically). */
+.pg-sqlbar { margin: 10px 0 8px; }
+.pg-mode { display: flex; gap: 6px; align-items: center; }
+.pg-mode-btn {
+  font: inherit;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  padding: 3px 10px;
+  border: 1px solid var(--pz-border, #d4d4d8);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--pz-muted, #71717a);
+  cursor: pointer;
+}
+.pg-mode-btn:hover { border-color: var(--pg-key, #6b0bea); color: var(--pg-key, #6b0bea); }
+.pg-mode-btn.pg-on {
+  background: var(--pg-key, #6b0bea);
+  border-color: var(--pg-key, #6b0bea);
+  color: #fff;
+}
+/* Dark: the rest-state override (html-attr selector) OUTRANKS the light
+   .pg-on rule, so the selected pill needs its own background here too —
+   without it the pill kept the rest-state #1d1d23 under the dark-rule
+   near-black text (contrast 1.09:1, label invisible). */
+html[data-theme='dark'] .pg-mode-btn { background: #1d1d23; border-color: #3a3940; }
+html[data-theme='dark'] .pg-mode-btn:hover { border-color: #a78bfa; color: #a78bfa; }
+html[data-theme='dark'] .pg-mode-btn.pg-on { background: #a78bfa; border-color: #a78bfa; color: #14141a; }
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme='light']) .pg-mode-btn { background: #1d1d23; border-color: #3a3940; }
+  html:not([data-theme='light']) .pg-mode-btn:hover { border-color: #a78bfa; color: #a78bfa; }
+  html:not([data-theme='light']) .pg-mode-btn.pg-on { background: #a78bfa; border-color: #a78bfa; color: #14141a; }
+}
+#pizza-playground-app .pg-sqlbar:not(.pg-sql) .pg-examples,
+#pizza-playground-app .pg-sqlbar:not(.pg-sql) .pg-paramsrow { display: none; }
+/* Dual-syntax inline widgets: Run button with the [DSL|SQL] pills to its
+   right (each spelling authored per page; DSL is the default lane). */
+.pg-runrow { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.pg-runrow .pg-run { margin-bottom: 0; }
+.pg-mode.pg-inlinemode { gap: 4px; }
+.pg-mode.pg-inlinemode .pg-mode-btn { padding: 2px 8px; }
+.pg-examples { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.pg-chip {
+  font: inherit;
+  font-size: 11px;
+  padding: 2px 9px;
+  border: 1px dashed var(--pz-border, #d4d4d8);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--pz-muted, #71717a);
+  cursor: pointer;
+}
+.pg-chip:hover { border-color: var(--pg-key, #6b0bea); color: var(--pg-key, #6b0bea); border-style: solid; }
+html[data-theme='dark'] .pg-chip { border-color: #3a3940; }
+html[data-theme='dark'] .pg-chip:hover { border-color: #a78bfa; color: #a78bfa; }
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme='light']) .pg-chip { border-color: #3a3940; }
+  html:not([data-theme='light']) .pg-chip:hover { border-color: #a78bfa; color: #a78bfa; }
+}
+.pg-paramsrow { display: flex; margin-top: 8px; }
+.pg-params {
+  flex: 1;
+  box-sizing: border-box;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  padding: 5px 8px;
+  border: 1px solid #d4d4d8;
+  border-radius: 4px;
+  background: #fff;
+  color: inherit;
+}
+.pg-params::placeholder { color: var(--pz-muted, #a1a1aa); }
+.pg-params:focus { outline: none; border-color: var(--pg-key, #6b0bea); }
+html[data-theme='dark'] .pg-params { background: #1d1d23; border-color: #3a3940; }
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme='light']) .pg-params { background: #1d1d23; border-color: #3a3940; }
+}
+/* SQL text has no JSON to format — hide the Format tool in SQL editors. */
+.pg-editwrap.pg-sql .pg-t-fmt { display: none; }
+
+/* ── SQL envelope table (P3): columns/rows/cursor rendered as a table.
+   The result panel follows the site theme (see .pg-result); the table
+   chrome rides the panel's vars (--pg-th/--pg-tborder/--pg-stripe) so
+   both modes paint one coherent surface. */
+.pg-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12px;
+  margin-top: 4px;
+}
+#pizza-playground-app .pg-table th,
+#pizza-playground-app .pg-table td,
+.pizza-playground .pg-table th,
+.pizza-playground .pg-table td {
+  border: 1px solid var(--pg-tborder, #e4e4e7);
+  padding: 4px 8px;
+  text-align: left;
+  vertical-align: top;
+  max-width: 340px;
+  overflow-wrap: anywhere;
+}
+#pizza-playground-app .pg-table th,
+.pizza-playground .pg-table th {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 600;
+  background: var(--pg-th, #f4f4f5);
+  color: inherit;
+  white-space: nowrap;
+}
+.pg-th-type {
+  margin-left: 6px;
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--pg-punct, #71717a);
+}
+/* The site theme stripes `tr:nth-child(2n) td` with a LIGHT surface — the
+   background sits on the TD, painting over any tr-level stripe. Put the
+   widget's stripe on the td too (odd cells transparent, the panel shows
+   through); both container spellings outrank the theme rule. */
+#pizza-playground-app .pg-table tbody td,
+.pizza-playground .pg-table tbody td { background: transparent; }
+#pizza-playground-app .pg-table tbody tr:nth-child(even) td,
+.pizza-playground .pg-table tbody tr:nth-child(even) td { background: var(--pg-stripe, #fafafa); }
+.pg-td-null { color: var(--pg-null, #b91c1c); }
+.pg-td-long { cursor: help; }
+
+/* Keyset cursor bar: a full grouped page hands one back — Next walks it. */
+.pg-cursorbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+  padding: 6px 8px;
+  border: 1px dashed var(--pg-tborder, #d4d4d8);
+  border-radius: 4px;
+}
+.pg-cursor-note { font-size: 11px; color: var(--pg-punct, #71717a); }
+.pg-next-btn {
+  font-size: 12px;
+  padding: 4px 10px;
+  border: 1px solid var(--pg-key, #6b0bea);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--pg-key, #6b0bea);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.pg-next-btn:hover { background: var(--pg-key, #6b0bea); color: var(--pg-onkey, #fff); }

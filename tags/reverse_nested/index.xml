@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Reverse_nested on INFINI Pizza</title><link>https://pizza.rs/tags/reverse_nested/</link><description>Recent content in Reverse_nested on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/reverse_nested/index.xml" rel="self" type="application/rss+xml"/><item><title>Nested aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/nested-agg/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/nested-agg/</guid><description>&lt;h1 id="nested-aggregation">
+ Nested aggregation
+ &lt;a class="anchor" href="#nested-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-bucket aggregation that scopes its sub-aggregations to a
+nested object path. Nested field values are addressable as dotted
+columns, so sub-aggregations read &lt;code>variants.color&lt;/code> style fields
+directly — counting per array element where it matters, not per parent
+document.&lt;/p>
+&lt;p>&lt;code>reverse_nested&lt;/code> (only valid inside a &lt;code>nested&lt;/code> aggregation) jumps back
+out to the parent-document scope.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine returns a single bucket shaped
+&lt;code>{ &amp;quot;doc_count&amp;quot;: &amp;lt;parents&amp;gt;, …sub-aggs }&lt;/code>. Sub-aggregations run over the
+parent documents, but the nested path&amp;rsquo;s values live in multivalue
+dotted columns, so a &lt;code>terms&lt;/code> on &lt;code>variants.color&lt;/code> buckets every array
+ELEMENT: over the 30 teaching &lt;code>products&lt;/code> with 60 variant elements,
+&lt;code>black&lt;/code> / &lt;code>white&lt;/code> / &lt;code>blue&lt;/code> each collect 20. One exception is
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/top-hits/">&lt;code>top_hits&lt;/code>&lt;/a>, which is element-level here: each
+hit is one stored element carrying &lt;code>_nested: {field, offset}&lt;/code>
+identity, sorted per the requested sort.&lt;/p></description></item></channel></rss>

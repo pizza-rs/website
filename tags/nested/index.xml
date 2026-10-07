@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Nested on INFINI Pizza</title><link>https://pizza.rs/tags/nested/</link><description>Recent content in Nested on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/nested/index.xml" rel="self" type="application/rss+xml"/><item><title>Nested query</title><link>https://pizza.rs/docs/references/search/relational/nested/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/relational/nested/</guid><description>&lt;h1 id="nested-query">
+ Nested query
+ &lt;a class="anchor" href="#nested-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Matches parent documents whose &lt;strong>nested&lt;/strong> sub-documents — objects mapped
+with &lt;code>&amp;quot;nested&amp;quot;: true&lt;/code> — satisfy a query &lt;strong>within one element at a time&lt;/strong>.
+It exists because a flattened object index cannot keep two field values
+inside the same array element together — the pitfall the next section
+makes concrete.&lt;/p>
+&lt;h2 id="the-cross-element-problem">
+ The cross-element problem
+ &lt;a class="anchor" href="#the-cross-element-problem">#&lt;/a>
+&lt;/h2>
+&lt;p>A flattened index correlates across array &lt;em>elements&lt;/em>, not within them:
+&lt;code>variants.color = blue AND variants.size = L&lt;/code> matches a document as soon
+as &lt;em>some&lt;/em> element is blue and &lt;em>some&lt;/em> element is L — not necessarily the
+same one. The teaching dataset&amp;rsquo;s &lt;code>products&lt;/code> makes the difference visible
+(each element pairs blue with L, never with M):&lt;/p></description></item><item><title>Nested aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/nested-agg/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/nested-agg/</guid><description>&lt;h1 id="nested-aggregation">
+ Nested aggregation
+ &lt;a class="anchor" href="#nested-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-bucket aggregation that scopes its sub-aggregations to a
+nested object path. Nested field values are addressable as dotted
+columns, so sub-aggregations read &lt;code>variants.color&lt;/code> style fields
+directly — counting per array element where it matters, not per parent
+document.&lt;/p>
+&lt;p>&lt;code>reverse_nested&lt;/code> (only valid inside a &lt;code>nested&lt;/code> aggregation) jumps back
+out to the parent-document scope.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine returns a single bucket shaped
+&lt;code>{ &amp;quot;doc_count&amp;quot;: &amp;lt;parents&amp;gt;, …sub-aggs }&lt;/code>. Sub-aggregations run over the
+parent documents, but the nested path&amp;rsquo;s values live in multivalue
+dotted columns, so a &lt;code>terms&lt;/code> on &lt;code>variants.color&lt;/code> buckets every array
+ELEMENT: over the 30 teaching &lt;code>products&lt;/code> with 60 variant elements,
+&lt;code>black&lt;/code> / &lt;code>white&lt;/code> / &lt;code>blue&lt;/code> each collect 20. One exception is
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/top-hits/">&lt;code>top_hits&lt;/code>&lt;/a>, which is element-level here: each
+hit is one stored element carrying &lt;code>_nested: {field, offset}&lt;/code>
+identity, sorted per the requested sort.&lt;/p></description></item></channel></rss>

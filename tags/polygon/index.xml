@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Polygon on INFINI Pizza</title><link>https://pizza.rs/tags/polygon/</link><description>Recent content in Polygon on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/polygon/index.xml" rel="self" type="application/rss+xml"/><item><title>Geo-polygon query</title><link>https://pizza.rs/docs/references/search/geo/geo_polygon/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/geo/geo_polygon/</guid><description>&lt;h1 id="geo-polygon-query">
+ Geo-polygon query
+ &lt;a class="anchor" href="#geo-polygon-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Matches documents whose &lt;code>geo_point&lt;/code> field lies inside an arbitrary
+polygon. The ring is given as &lt;code>points&lt;/code> in &lt;code>(lat, lon)&lt;/code> order; vertices
+on the boundary count as inside, and holes can be modelled with a
+concave ring.&lt;/p>
+&lt;p>Real regions are rarely rectangular. City limits, districts, service
+areas and lakes have corners everywhere — this query filters points by
+an exact ring instead of the four edges of a bounding box.&lt;/p></description></item></channel></rss>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Partial on INFINI Pizza</title><link>https://pizza.rs/tags/partial/</link><description>Recent content in Partial on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/partial/index.xml" rel="self" type="application/rss+xml"/><item><title>Partial update a document</title><link>https://pizza.rs/docs/references/document/partial_update/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/document/partial_update/</guid><description>&lt;h1 id="partial-update-a-document">
+ Partial update a document
+ &lt;a class="anchor" href="#partial-update-a-document">#&lt;/a>
+&lt;/h1>
+&lt;p>Sometimes we may only need to update a portion of the fields of a document.
+A partial update fetches the stored document, merges the partial &lt;code>doc&lt;/code> body,
+applies the ordered &lt;code>ops&lt;/code> operators, and replaces the document in place under
+its original &lt;code>_id&lt;/code> — the new values are visible to search immediately.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>Update the &lt;code>org.id&lt;/code> field of the document with system id &lt;code>0,0&lt;/code> in the
+collection &lt;code>my-collection&lt;/code>:&lt;/p></description></item></channel></rss>

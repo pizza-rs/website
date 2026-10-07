@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Roadmap on INFINI Pizza</title><link>https://pizza.rs/tags/roadmap/</link><description>Recent content in Roadmap on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/roadmap/index.xml" rel="self" type="application/rss+xml"/><item><title>Roadmap</title><link>https://pizza.rs/docs/overview/roadmap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/overview/roadmap/</guid><description>&lt;h1 id="roadmap">
+ Roadmap
+ &lt;a class="anchor" href="#roadmap">#&lt;/a>
+&lt;/h1>
+&lt;p>A living list of what is planned next. Items land when they are done —
+the 
+ &lt;a href="https://pizza.rs/docs/overview/limitations/">limitations page&lt;/a> tracks the counterpart &amp;ldquo;what
+does not work today&amp;rdquo;.&lt;/p>
+&lt;h2 id="querying-and-analytics">
+ Querying and analytics
+ &lt;a class="anchor" href="#querying-and-analytics">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>SQL&lt;/strong> — the query subset over the search DSL is live on
+&lt;code>POST /_sql&lt;/code> — filter/aggregate/sort/paginate, &lt;code>$1&lt;/code> parameters, PIT
+snapshots, grouped cursor pages — with &lt;code>POST /_prql&lt;/code> alongside it
+(see 
+ &lt;a href="https://pizza.rs/docs/references/sql/">the SQL &amp;amp; PRQL reference&lt;/a> and
+
+ &lt;a href="https://pizza.rs/docs/references/sql/syntax/">the syntax walkthrough&lt;/a>). The frontend
+now lives in the engine (feature &lt;code>sql&lt;/code>), and the WebAssembly build
+runs statements through the same parse/lower (&lt;code>search_with_sql&lt;/code>) —
+the base for SQL demos in the live playground. What remains:
+&lt;code>JOIN&lt;/code> across collections, subqueries, window functions, the
+&lt;code>EXPLAIN&lt;/code> lowering trace, the two-layer cache closeout, and the
+playground rollout (envelope parity plus demo pages).&lt;/li>
+&lt;/ul>
+&lt;h2 id="storage">
+ Storage
+ &lt;a class="anchor" href="#storage">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Object storage backends&lt;/strong> — the segment file layout is already
+object-storage-friendly (content-addressed write-once files,
+generationed manifests with replication-safe publish ordering, so an
+external replicator can mirror a shard to S3/OSS). What remains is
+the first-class option: storage-tier configuration, bucket lifecycle
+and recovery straight from remote storage.&lt;/li>
+&lt;li>&lt;strong>Parquet interop&lt;/strong> — the engine already reads Parquet columns
+through its column API (opt-in engine feature). What remains is the
+user-facing mount: exposing standard Parquet data as a collection,
+as an exchange format with big-data systems.&lt;/li>
+&lt;/ul>
+&lt;h2 id="operations">
+ Operations
+ &lt;a class="anchor" href="#operations">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Backup and restore API&lt;/strong> — point-in-time snapshots with
+restore semantics, replacing today&amp;rsquo;s manual data-directory procedure
+(see 
+ &lt;a href="https://pizza.rs/docs/administration/backup/">Backup and restore&lt;/a>).&lt;/li>
+&lt;li>&lt;strong>Cluster-wide state and health&lt;/strong> — aggregating &lt;code>/_cluster/state&lt;/code> and
+health across regions instead of the serving region only.&lt;/li>
+&lt;/ul>
+&lt;h2 id="ai-and-semantic-search">
+ AI and semantic search
+ &lt;a class="anchor" href="#ai-and-semantic-search">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Chunking for &lt;code>semantic_text&lt;/code>&lt;/strong> — long-document semantic search:
+split field text into overlapping chunks, embed each, keep
+several vectors per document, score by the best-matching chunk.
+Blocked on engine support for multiple vectors per (document, field) —
+today&amp;rsquo;s vector store keeps exactly one (&lt;code>FlatVectorStore::add&lt;/code>
+overwrites), so this spans the mutable store, the epoch builder, the
+HNSW index and score aggregation. Until then the field embeds whole
+texts in one call (fine for titles, names, log lines; bounded by the
+model&amp;rsquo;s input limit), and long documents have a working pattern:
+chunk into child documents at write time, search with the &lt;code>semantic&lt;/code>
+query and collapse by parent id (see
+
+ &lt;a href="https://pizza.rs/docs/references/search/request/collapse/">field collapsing&lt;/a>).&lt;/li>
+&lt;/ul>
+&lt;h2 id="multi-tenancy">
+ Multi-tenancy
+ &lt;a class="anchor" href="#multi-tenancy">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Tenant grouping&lt;/strong> — namespaces grouped under one tenant identity,
+generalizing today&amp;rsquo;s 1:1 namespace mapping.&lt;/li>
+&lt;/ul></description></item></channel></rss>

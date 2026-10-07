@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Query_string on INFINI Pizza</title><link>https://pizza.rs/tags/query_string/</link><description>Recent content in Query_string on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/query_string/index.xml" rel="self" type="application/rss+xml"/><item><title>Query string query</title><link>https://pizza.rs/docs/references/search/full-text/query_string/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/query_string/</guid><description>&lt;h1 id="query-string-query">
+ Query string query
+ &lt;a class="anchor" href="#query-string-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that match a compact query-syntax string, e.g.
+&lt;code>status:active AND title:search&lt;/code>. The same parser powers the
+
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/#query-parameters">URI search&lt;/a> parameter &lt;code>?q=&lt;/code>.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The &lt;code>query&lt;/code> string is parsed with the classic query-string grammar and converted
+to native queries: bare and field-qualified terms become analyzed
+&lt;code>match&lt;/code> queries, quoted phrases become 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/phrase/">&lt;code>phrase&lt;/code>&lt;/a> queries,
+and the boolean operators become 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/bool/">&lt;code>bool&lt;/code>&lt;/a> clauses. Terms
+without a &lt;code>field:&lt;/code> prefix go to &lt;code>default_field&lt;/code> (or, when &lt;code>fields&lt;/code> is
+set, the query fans out into a &lt;code>bool.should&lt;/code> across those fields with
+their &lt;code>field^boost&lt;/code> weights). The operator subset:&lt;/p></description></item></channel></rss>

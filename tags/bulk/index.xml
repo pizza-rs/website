@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bulk on INFINI Pizza</title><link>https://pizza.rs/tags/bulk/</link><description>Recent content in Bulk on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/bulk/index.xml" rel="self" type="application/rss+xml"/><item><title>Batch document operation</title><link>https://pizza.rs/docs/references/document/bulk/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/document/bulk/</guid><description>&lt;h1 id="batch-document-operation">
+ Batch document operation
+ &lt;a class="anchor" href="#batch-document-operation">#&lt;/a>
+&lt;/h1>
+&lt;p>Provides a efficient way to perform multiple &lt;code>index&lt;/code>, &lt;code>create&lt;/code>, &lt;code>delete&lt;/code>, and &lt;code>update&lt;/code>
+operations in a single request.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /_bulk
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;index&amp;#34;&lt;/span> : &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;_index&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;1&amp;#34;&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;field1&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;value1&amp;#34;&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;delete&amp;#34;&lt;/span> : &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;_index&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;2&amp;#34;&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;create&amp;#34;&lt;/span> : &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;_index&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;3&amp;#34;&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;field1&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;value3&amp;#34;&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;update&amp;#34;&lt;/span> : &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;1&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;_index&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>&lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;doc&amp;#34;&lt;/span> : &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;field2&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;value2&amp;#34;&lt;/span>&lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The API returns the following result:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;took&amp;#34;&lt;/span>: 30,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;errors&amp;#34;&lt;/span>: false,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;items&amp;#34;&lt;/span>: &lt;span class="o">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;index&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_collection&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;default:test&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;0,0&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;result&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;created&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;delete&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_collection&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;default:test&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;0,1&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;result&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;not_found&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;create&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_collection&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;default:test&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;0,2&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;result&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;created&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;update&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_collection&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;default:test&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;0,0&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;result&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;updated&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /_bulk
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">POST /&amp;lt;target&amp;gt;/_bulk
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>&amp;lt;target&amp;gt;&lt;/code> &lt;br>
+(Optional, string) Name of the collection to target. Actions that don&amp;rsquo;t
+explicitly specify their target in the action line use it.&lt;/li>
+&lt;/ul>
+&lt;h3 id="query-parameters">
+ Query parameters
+ &lt;a class="anchor" href="#query-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>realtime&lt;/code> &lt;br>
+(Optional, boolean, default: &lt;code>true&lt;/code>) Request-level write-mode switch that
+overrides schema property-level realtime settings for every document in
+this request: &lt;code>false&lt;/code> applies the batch WAL-only (durable immediately,
+searchable after the offline epoch build).&lt;/li>
+&lt;li>&lt;code>key_as_id&lt;/code> &lt;br>
+(Optional, boolean, default: &lt;code>false&lt;/code>) compatibility rendering: keyed
+documents answer with the user key AS &lt;code>_id&lt;/code> (see the index API).&lt;/li>
+&lt;li>&lt;code>sync_replication&lt;/code> &lt;br>
+(Optional, boolean) Opt back into synchronous inline replication for
+this request (wait for the replica RPC and count it in the response).&lt;/li>
+&lt;/ul>
+&lt;h3 id="request-body">
+ Request body
+ &lt;a class="anchor" href="#request-body">#&lt;/a>
+&lt;/h3>
+&lt;p>The actions are specified in the request body using a newline delimited JSON
+(NDJSON) structure:&lt;/p></description></item></channel></rss>

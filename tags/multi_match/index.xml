@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Multi_match on INFINI Pizza</title><link>https://pizza.rs/tags/multi_match/</link><description>Recent content in Multi_match on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/multi_match/index.xml" rel="self" type="application/rss+xml"/><item><title>Multi-match query</title><link>https://pizza.rs/docs/references/search/full-text/multi_match/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/multi_match/</guid><description>&lt;h1 id="multi-match-query">
+ Multi-match query
+ &lt;a class="anchor" href="#multi-match-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that match a provided text across several fields —
+like the 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/match/">&lt;code>match&lt;/code>&lt;/a> query, with per-field boosts and
+multi-field scoring strategies.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> supported — fields under the nested path are matched per array element.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>multi_match&lt;/code> is expanded before execution (&lt;code>Query::simplify&lt;/code>) into a
+tree the segment executors already know:&lt;/p>
+&lt;ol>
+&lt;li>Each entry in &lt;code>fields&lt;/code> — after splitting off a &lt;code>^boost&lt;/code> suffix —
+becomes one 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/match/">&lt;code>match&lt;/code>&lt;/a> query over that field, carrying the
+query-level &lt;code>boost&lt;/code> multiplied by the field boost (&lt;code>&amp;quot;title^3&amp;quot;&lt;/code> →
+per-field boost 3).&lt;/li>
+&lt;li>For &lt;code>type: &amp;quot;phrase&amp;quot;&lt;/code> and &lt;code>type: &amp;quot;phrase_prefix&amp;quot;&lt;/code> each field instead
+becomes a 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/phrase/">&lt;code>phrase&lt;/code>&lt;/a> query with &lt;code>slop: 0&lt;/code>. The prefix part
+is not implemented: &lt;code>phrase_prefix&lt;/code> currently behaves as an exact
+phrase and does not expand its last term as a prefix.&lt;/li>
+&lt;li>Two or more fields are wrapped in a &lt;code>bool&lt;/code> whose &lt;code>should&lt;/code> clauses
+are the per-field queries, with at least one field required; a
+single field collapses to that field&amp;rsquo;s query — a plain &lt;code>match&lt;/code>.&lt;/li>
+&lt;/ol>
+&lt;p>Scores: should clauses add their per-document scores (the bool
+default). The &lt;code>type&lt;/code> additionally picks the combination used when one
+field name resolves to several indexed sub-fields — &lt;code>best_fields&lt;/code>
+keeps the maximum, &lt;code>most_fields&lt;/code> and &lt;code>cross_fields&lt;/code> sum. &lt;code>cross_fields&lt;/code>
+does not blend term statistics across fields; each
+field scores independently and the results merge.&lt;/p></description></item></channel></rss>

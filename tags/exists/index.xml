@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Exists on INFINI Pizza</title><link>https://pizza.rs/tags/exists/</link><description>Recent content in Exists on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/exists/index.xml" rel="self" type="application/rss+xml"/><item><title>Exists query</title><link>https://pizza.rs/docs/references/search/term-level/exists/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/exists/</guid><description>&lt;h1 id="exists-query">
+ Exists query
+ &lt;a class="anchor" href="#exists-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain an indexed value for a specific field.&lt;/p>
+&lt;p>A document matches when the field has at least one non-null value — an
+empty string or an empty array does &lt;strong>not&lt;/strong> count as existing.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> supported — matches elements that carry the field.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>exists&lt;/code> never touches the inverted index. It is answered from the
+stored-field / column layer, where every document either carries the key
+or does not:&lt;/p></description></item></channel></rss>

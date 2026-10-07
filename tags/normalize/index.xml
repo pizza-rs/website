@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Normalize on INFINI Pizza</title><link>https://pizza.rs/tags/normalize/</link><description>Recent content in Normalize on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/normalize/index.xml" rel="self" type="application/rss+xml"/><item><title>Normalize aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/normalize/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/normalize/</guid><description>&lt;h1 id="normalize-aggregation">
+ Normalize aggregation
+ &lt;a class="anchor" href="#normalize-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A parent pipeline aggregation &lt;strong>rescaling&lt;/strong> a bucket metric into a
+share or rank — e.g. each bucket&amp;rsquo;s revenue as a percent of the total
+(&lt;code>percent_of_sum&lt;/code>), a &lt;code>0..1&lt;/code> position (&lt;code>rescale_0_1&lt;/code>), or standard
+deviations from the mean (&lt;code>z-score&lt;/code>).&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;share&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;normalize&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;per_type&amp;gt;revenue&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nt">&amp;#34;method&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;percent_of_sum&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>In this engine &lt;code>normalize&lt;/code> is evaluated in the &lt;strong>sibling placement&lt;/strong>:
+declare it &lt;strong>next to&lt;/strong> the bucket aggregation and point
+&lt;code>buckets_path&lt;/code> at the series with the full &lt;code>parent&amp;gt;metric&lt;/code> form. The
+engine collects one value per bucket, applies the chosen &lt;code>method&lt;/code>
+across the whole series, and emits a standalone buckets array
+(keys &lt;code>0..n−1&lt;/code>) with one &lt;code>value&lt;/code> per consumed bucket.&lt;/p></description></item></channel></rss>

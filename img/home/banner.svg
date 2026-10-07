@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1508" viewBox="0 0 1508 721" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>banner</title>
+    <defs>
+        <radialGradient cx="49.2436949%" cy="100%" fx="49.2436949%" fy="100%" r="73.9531209%" gradientTransform="translate(0.4924, 1), scale(0.1194, 1), rotate(90), scale(1, 6.1358), translate(-0.4924, -1)" id="radialGradient-1">
+            <stop stop-color="#7D28ED" offset="0%"></stop>
+            <stop stop-color="#000000" offset="100%"></stop>
+        </radialGradient>
+        <linearGradient x1="10.7739063%" y1="10.6808848%" x2="96.7580074%" y2="95.9952428%" id="linearGradient-2">
+            <stop stop-color="#00FFA3" offset="0%"></stop>
+            <stop stop-color="#002BFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#00FFA2" stop-opacity="0.683047421" offset="0%"></stop>
+            <stop stop-color="#002BFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="10.7739063%" y1="36.1566332%" x2="96.7580074%" y2="66.1938796%" id="linearGradient-4">
+            <stop stop-color="#00FFA3" offset="0%"></stop>
+            <stop stop-color="#002BFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="47.3701256%" y1="10.6808848%" x2="53.1348441%" y2="95.9952428%" id="linearGradient-5">
+            <stop stop-color="#00FFA3" offset="0%"></stop>
+            <stop stop-color="#002BFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="10.7739063%" y1="18.3950988%" x2="96.7580074%" y2="86.9712059%" id="linearGradient-6">
+            <stop stop-color="#00FFA3" offset="0%"></stop>
+            <stop stop-color="#002BFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="10.7739063%" y1="46.4166274%" x2="96.7580074%" y2="54.1918057%" id="linearGradient-7">
+            <stop stop-color="#00FFA3" offset="0%"></stop>
+            <stop stop-color="#002BFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="15.116913%" y1="10.6808848%" x2="91.5810877%" y2="95.9952428%" id="linearGradient-8">
+            <stop stop-color="#00FFA3" offset="0%"></stop>
+            <stop stop-color="#002BFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="10.7739063%" y1="40.9294436%" x2="96.7580074%" y2="60.6106773%" id="linearGradient-9">
+            <stop stop-color="#00FFA3" offset="0%"></stop>
+            <stop stop-color="#002BFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-10">
+            <stop stop-color="#00FFA2" stop-opacity="0.683047421" offset="0%"></stop>
+            <stop stop-color="#002BFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="bainzu123" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <!-- 背景层 -->
+        <g id="background">
+            <rect id="jianban" fill="url(#radialGradient-1)" x="0" y="540" width="1507" height="180"></rect>
+        </g>
+
+        <!-- 背景层2 -->
+        <g id="background2">
+            <polyline id="zhexian" stroke="url(#linearGradient-9)" points="0 0 144.158917 85.4326329 91.7774935 366.991941 358.551134 212.318958 214.302643 128.496825 157.993935 406.873856 847.119521 0"></polyline>
+        </g>
+
+           <!-- 背景层3 -->
+        <g id="background3">
+             <g id="shuju" transform="translate(1281.4022, 123.9968) rotate(-270) translate(-1281.4022, -123.9968)translate(1265.4022, -6.0032)">
+                <circle id="4" stroke="url(#linearGradient-2)" cx="16.5" cy="58.5" r="12.5"></circle>
+                <rect id="0" stroke="url(#linearGradient-2)" x="5" y="-8.26630758e-14" width="23" height="23"></rect>
+                <polygon id="3" stroke="url(#linearGradient-6)" transform="translate(16.3846, 106) rotate(-90) translate(-16.3846, -106)" points="16.3846154 94 29.7692308 118 3 118"></polygon>
+                <rect id="2" stroke="url(#linearGradient-7)" transform="translate(16, 207) rotate(-90) translate(-16, -207)" x="-37" y="191" width="106" height="32" rx="16"></rect>
+            </g>
+        </g>
+
+        <!-- 中景层 -->
+        <g id="midground">
+            <g id="fangdajing" transform="translate(968.3867, 352.2895)">
+                <circle id="r1" stroke="url(#linearGradient-2)" cx="119.077186" cy="119.077186" r="119.077186"></circle>
+                <circle id="r2" fill="url(#linearGradient-3)" cx="119.077186" cy="119.077186" r="119.077186"></circle>
+                <g id="bing" transform="translate(340.4616, 259.3552) scale(-1, 1) translate(-340.4616, -259.3552)translate(219.6133, 181.7105)">
+                    <line x1="0.696619273" y1="5.60323461e-16" x2="241.696619" y2="143" id="line" stroke="url(#linearGradient-4)" transform="translate(121.1966, 71.5) scale(-1, 1) translate(-121.1966, -71.5)"></line>
+                    <polygon id="fang" stroke="url(#linearGradient-5)" transform="translate(81.2162, 95.5342) rotate(59.5) translate(-81.2162, -95.5342)" points="60.0397077 13.7492927 102.392631 13.7492927 102.392631 177.319204 60.0397077 177.319204"></polygon>
+                </g>
+            </g>
+        </g>
+
+        <!-- 前景层 -->
+        <g id="foreground">
+            <polyline id="pizza" stroke="url(#linearGradient-8)" points="1149.16673 168.568528 1087.22218 471.340215 1372.74129 302.320735"></polyline>
+            <polygon id="sanjiaogang" fill="url(#linearGradient-10)" opacity="0.529831659" points="215.178314 127.648344 174.997422 319.954371 358.66835 212.318958"></polygon>
+        </g>
+    </g>
+    <script type="text/ecmascript">
+        <![CDATA[
+        var lastMouseX = 900;
+        var lastMouseY = 350;
+        var maxOffsetX = 150; // 设置最大横向偏移量
+        var maxOffsetY = 150; // 设置最大纵向偏移量
+
+        function onMouseMove(evt) {
+          var mouseX = evt.clientX;
+          var mouseY = evt.clientY;
+
+          var deltaX = mouseX - lastMouseX;
+          var deltaY = mouseY - lastMouseY;
+
+          // 应用视差效果
+          applyParallaxEffect('background', deltaX, deltaY, -0.03, -0.03);
+          applyParallaxEffect('midground', deltaX, deltaY, -0.05, -0.05);
+          applyParallaxEffect('foreground', deltaX, deltaY, -0.01, -0.01);
+          applyParallaxEffect('background2', deltaX, deltaY, -0.02, -0.02);
+          applyParallaxEffect('background3', deltaX, deltaY, -0.02, -0.02);
+
+          lastMouseX = mouseX;
+          lastMouseY = mouseY;
+
+          // 输出调试信息
+          //console.log('Mouse X: ' + mouseX + ', Mouse Y: ' + mouseY + ', Delta X: ' + deltaX + ', Delta Y: ' + deltaY);
+        }
+
+        function applyParallaxEffect(layerId, deltaX, deltaY, xMultiplier, yMultiplier) {
+  var layer = document.getElementById(layerId);
+  var currentTransform = layer.getAttribute('transform') || 'translate(0, 0)';
+  var match = currentTransform.match(/translate\((-?\d+\.?\d*),\s*(-?\d+\.?\d*)\)/);
+
+  // 初始化 newX 和 newY 为 0
+  var newX = 0;
+  var newY = 0;
+
+  // 如果 match 不为 null，则更新 newX 和 newY
+  if (match) {
+    newX = (parseFloat(match[1]) || 0) + (deltaX * xMultiplier);
+    newY = (parseFloat(match[2]) || 0) + (deltaY * yMultiplier);
+  } else {
+    // 如果没有匹配到 translate，就从 0 开始
+    newX = deltaX * xMultiplier;
+    newY = deltaY * yMultiplier;
+  }
+
+  // 限制偏移量
+  var maxOffset = 150; // 你可以根据需要调整这个值
+  newX = Math.min(Math.max(newX, -maxOffset), maxOffset);
+  newY = Math.min(Math.max(newY, -maxOffset), maxOffset);
+
+  layer.setAttribute('transform', 'translate(' + newX + ', ' + newY + ')');
+}
+
+        // 添加事件监听器
+        document.addEventListener('mousemove', onMouseMove);
+        ]]>
+    </script>
+</svg>

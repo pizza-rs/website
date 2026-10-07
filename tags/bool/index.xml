@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bool on INFINI Pizza</title><link>https://pizza.rs/tags/bool/</link><description>Recent content in Bool on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/bool/index.xml" rel="self" type="application/rss+xml"/><item><title>Boolean query</title><link>https://pizza.rs/docs/references/search/full-text/bool/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/bool/</guid><description>&lt;h1 id="boolean-query">
+ Boolean query
+ &lt;a class="anchor" href="#boolean-query">#&lt;/a>
+&lt;/h1>
+&lt;p>A query that matches documents matching boolean combinations of other
+queries. It is built using one or more boolean clauses.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> supported — &lt;code>must&lt;/code>/&lt;code>filter&lt;/code>/&lt;code>should&lt;/code>/&lt;code>must_not&lt;/code> and &lt;code>minimum_should_match&lt;/code> all apply within ONE array element; clauses matched by different elements never combine.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>bool&lt;/code> compiles each clause list into iterator algebra: &lt;code>must&lt;/code> clauses
+intersect (AND), &lt;code>must_not&lt;/code> clauses subtract, &lt;code>filter&lt;/code> clauses intersect
+without scoring, and &lt;code>should&lt;/code> clauses are probed per matched document —
+a streaming two-pointer walk that adds each matching should score on
+top of the base hit, with no intermediate materialization.&lt;/p></description></item></channel></rss>

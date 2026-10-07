@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Date on INFINI Pizza</title><link>https://pizza.rs/tags/date/</link><description>Recent content in Date on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/date/index.xml" rel="self" type="application/rss+xml"/><item><title>Date histogram aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/date-histogram/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/date-histogram/</guid><description>&lt;h1 id="date-histogram-aggregation">
+ Date histogram aggregation
+ &lt;a class="anchor" href="#date-histogram-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>This multi-bucket aggregation is similar to the normal histogram, but it
+can only be used with date fields. Dates are represented internally as
+epoch milliseconds, so the plain histogram can technically run on them
+too — but calendar intervals are not a fixed length (a month is 28–31
+days), which is exactly what this aggregation handles.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Date fields store epoch milliseconds at ingest, and the aggregation
+builds its grid on those numbers. &lt;code>calendar_interval&lt;/code> and
+&lt;code>fixed_interval&lt;/code> select between two grid types (exactly one must be
+set):&lt;/p></description></item></channel></rss>

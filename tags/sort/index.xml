@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Sort on INFINI Pizza</title><link>https://pizza.rs/tags/sort/</link><description>Recent content in Sort on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/sort/index.xml" rel="self" type="application/rss+xml"/><item><title>Sort and pagination</title><link>https://pizza.rs/docs/references/search/request/sort/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/request/sort/</guid><description>&lt;h1 id="sort-and-pagination">
+ Sort and pagination
+ &lt;a class="anchor" href="#sort-and-pagination">#&lt;/a>
+&lt;/h1>
+&lt;p>Control which documents come back and in what order — &lt;code>sort&lt;/code>, &lt;code>from&lt;/code>/&lt;code>size&lt;/code>,
+&lt;code>search_after&lt;/code>/&lt;code>search_before&lt;/code>, and total-hit accounting.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /my-collection/_search
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>sort&lt;/code> is an array of sort clauses evaluated in order; the first clause
+that produces a difference decides the order. Sorting on an indexed field
+lets the collector skip documents that cannot make the cut (early
+termination), so field sorts — and &lt;code>_doc&lt;/code> above all — are cheaper than
+score sorts, not just differently ordered.&lt;/p></description></item><item><title>Lesson 3 — Structure and numbers</title><link>https://pizza.rs/docs/tutorial/structure-numbers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/tutorial/structure-numbers/</guid><description>&lt;h1 id="lesson-3--structure-and-numbers">
+ Lesson 3 — Structure and numbers
+ &lt;a class="anchor" href="#lesson-3--structure-and-numbers">#&lt;/a>
+&lt;/h1>
+&lt;p>Ranges, sorts, and cursor pagination over the &lt;code>sales&lt;/code> collection (120
+documents: &lt;code>type&lt;/code>, &lt;code>price&lt;/code>, &lt;code>qty&lt;/code>, &lt;code>amount&lt;/code>, &lt;code>merchant&lt;/code>, &lt;code>status&lt;/code>, &lt;code>date&lt;/code>).&lt;/p>
+&lt;h2 id="the-use-case">
+ The use case
+ &lt;a class="anchor" href="#the-use-case">#&lt;/a>
+&lt;/h2>
+&lt;p>Most queries are not about words — they are filters and ordering over
+the structured half of the document: prices, quantities, timestamps.
+And real interfaces page through result sets, sometimes deeply. The
+questions this lesson answers:&lt;/p>
+&lt;ul>
+&lt;li>&lt;em>&amp;ldquo;Sales priced $45 to $60&amp;rdquo;&lt;/em> / &lt;em>&amp;ldquo;everything from 2024&amp;rdquo;&lt;/em> — &lt;code>range&lt;/code>
+over a typed field.&lt;/li>
+&lt;li>&lt;em>&amp;ldquo;Top 5 by amount&amp;rdquo;&lt;/em> — the canonical &lt;code>sort&lt;/code> clause.&lt;/li>
+&lt;li>&lt;em>&amp;ldquo;Page 3000 of a big result set, without re-ranking the world&amp;rdquo;&lt;/em> —
+cursor pagination (&lt;code>search_after&lt;/code>), where &lt;code>from&lt;/code>+&lt;code>size&lt;/code> breaks down.&lt;/li>
+&lt;li>&lt;em>&amp;ldquo;Why did my filter miss the row with &lt;code>45&lt;/code>?&amp;rdquo;&lt;/em> — the field-type
+system: &lt;code>45&lt;/code> the number and &lt;code>&amp;quot;45&amp;quot;&lt;/code> the keyword are different
+values.&lt;/li>
+&lt;/ul>
+&lt;h2 id="the-types-behind-the-data">
+ The types behind the data
+ &lt;a class="anchor" href="#the-types-behind-the-data">#&lt;/a>
+&lt;/h2>
+&lt;p>Numbers are indexed as their real types (&lt;code>float&lt;/code> for &lt;code>price&lt;/code>, integers for
+&lt;code>qty&lt;/code>), dates as epoch millis. That is what makes the queries below precise
+— see the 
+ &lt;a href="https://pizza.rs/docs/references/schema/field-types/">field types&lt;/a> reference for the
+full catalog.&lt;/p></description></item></channel></rss>

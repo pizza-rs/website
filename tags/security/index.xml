@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Security on INFINI Pizza</title><link>https://pizza.rs/tags/security/</link><description>Recent content in Security on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/security/index.xml" rel="self" type="application/rss+xml"/><item><title>Security</title><link>https://pizza.rs/docs/administration/security/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/administration/security/</guid><description>&lt;h1 id="security">
+ Security
+ &lt;a class="anchor" href="#security">#&lt;/a>
+&lt;/h1>
+&lt;p>Pizza ships an API-key based authentication and role model for the data
+plane and management APIs. It is &lt;strong>off by default&lt;/strong>; the shipped
+&lt;code>pizza.yml&lt;/code> enables it.&lt;/p>
+&lt;h2 id="enabling-authentication">
+ Enabling authentication
+ &lt;a class="anchor" href="#enabling-authentication">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">security&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">auth_enabled&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># no bootstrap_key here — see below&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>With auth enabled, every data-plane and management request must carry a
+valid API key — &lt;code>Authorization: Bearer &amp;lt;key&amp;gt;&lt;/code> or &lt;code>X-Api-Key: &amp;lt;key&amp;gt;&lt;/code>.
+Unauthenticated requests are answered with &lt;code>401&lt;/code> and a deliberately
+generic body. Anonymous operational-plane reads (console assets,
+readiness probes) stay open; mutating &lt;code>/_cluster&lt;/code> and &lt;code>/_node&lt;/code>
+management requires a key once auth is on.&lt;/p></description></item><item><title>Keystore</title><link>https://pizza.rs/docs/references/configuration/keystore/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/configuration/keystore/</guid><description>&lt;h1 id="keystore">
+ Keystore
+ &lt;a class="anchor" href="#keystore">#&lt;/a>
+&lt;/h1>
+&lt;p>The keystore is a node-local file of secrets referenced from
+&lt;code>pizza.yml&lt;/code> — API keys and tokens never have to live in the config
+file itself. Entries resolve through &lt;code>${keystore:NAME}&lt;/code> references:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">node&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">embedding&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">endpoints&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">openai&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://api.openai.com/v1/embeddings&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">api_key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${keystore:openai}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The file is &lt;code>&amp;lt;config dir&amp;gt;/keystore.json&lt;/code> — next to the config file it
+serves, so one instance per config (multi-instance hosts keep separate
+keystores) and it never enters the data directory&amp;rsquo;s lifecycle. It is
+written 0600 and replaced atomically; entries never enter cluster
+metadata, raft logs, or API responses — views answer with a masked
+hint only (&lt;code>sk-…4f2a&lt;/code>).&lt;/p></description></item><item><title>Keystore hot-reload</title><link>https://pizza.rs/docs/highlightings/keystore-hot-reload/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/keystore-hot-reload/</guid><description>&lt;h1 id="keystore-hot-reload">
+ Keystore hot-reload
+ &lt;a class="anchor" href="#keystore-hot-reload">#&lt;/a>
+&lt;/h1>
+&lt;p>Rotating a secret no longer restarts the node. &lt;code>${keystore:...}&lt;/code>
+references re-resolve into the running configuration on demand: console
+edits trigger the reload themselves, and out-of-band changes (a CLI
+edit, a replaced mounted Secret) are one call away.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">curl -X POST http://127.0.0.1:28000/_node/_local/keystore/_reload &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -H &lt;span class="s1">&amp;#39;Authorization: Bearer pz_bootstrap_key&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The answer says exactly what happened — key names only, values stay
+write-only:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;entries&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;read_only&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;references&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;changed&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;node.embedding.endpoints&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;catalog.join_token&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;unchanged&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;failed&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>A rotated embedding API key applies to the next inference call; a
+rotated &lt;code>catalog.join_token&lt;/code> to the next join attempt. A reference
+whose entry disappeared keeps its running value and lands in &lt;code>failed&lt;/code>
+until the entry returns — reload never aborts the node the way a
+missing entry aborts boot.&lt;/p></description></item></channel></rss>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bucket_selector on INFINI Pizza</title><link>https://pizza.rs/tags/bucket_selector/</link><description>Recent content in Bucket_selector on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/bucket_selector/index.xml" rel="self" type="application/rss+xml"/><item><title>Bucket selector aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/bucket-selector/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/bucket-selector/</guid><description>&lt;h1 id="bucket-selector-aggregation">
+ Bucket selector aggregation
+ &lt;a class="anchor" href="#bucket-selector-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A parent pipeline aggregation &lt;strong>filtering the bucket list itself&lt;/strong>: a
+script predicate per bucket — buckets whose script evaluates false
+are dropped from the response. It is the &lt;code>HAVING&lt;/code> clause of the
+aggregation world: the predicate sees computed metrics, not
+documents.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;big_days&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;bucket_selector&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;r&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;revenue&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;script&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;params.r &amp;gt; 150&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>bucket_selector&lt;/code> is declared &lt;strong>inside&lt;/strong> the multi-bucket aggregation
+it decorates, next to the metrics it consumes. After the buckets are
+built, the engine resolves each named path against every bucket,
+evaluates the script once as a boolean, and &lt;strong>removes the buckets
+that fail&lt;/strong> from the owning aggregation&amp;rsquo;s response. The selector
+itself never appears in the output — it is a filter, not a metric.&lt;/p></description></item></channel></rss>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>下载</title>
+    <g id="pizza" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页修改" transform="translate(-485, -4304)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="下载" transform="translate(485, 4304)">
+                <rect id="矩形" opacity="0" x="0" y="0" width="16" height="16"></rect>
+                <path d="M13.9428594,7.23809375 L12.8,6.17142188 L8.76190625,10.2095313 L8.76190625,0.457140625 L7.23809375,0.457140625 L7.23809375,10.2095313 L3.2,6.17140625 L2.05714063,7.23807813 L8,13.1809531 L13.9428594,7.23809375 Z M1.6761875,14.0190625 L14.247625,14.0190625 L14.247625,15.542875 L1.6761875,15.542875 L1.6761875,14.0190625 Z" id="形状"></path>
+            </g>
+        </g>
+    </g>
+</svg>

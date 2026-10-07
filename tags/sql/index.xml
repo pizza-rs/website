@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Sql on INFINI Pizza</title><link>https://pizza.rs/tags/sql/</link><description>Recent content in Sql on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/sql/index.xml" rel="self" type="application/rss+xml"/><item><title>SQL syntax &amp; examples</title><link>https://pizza.rs/docs/references/sql/syntax/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/sql/syntax/</guid><description>&lt;h1 id="sql-syntax--examples">
+ SQL syntax &amp;amp; examples
+ &lt;a class="anchor" href="#sql-syntax--examples">#&lt;/a>
+&lt;/h1>
+&lt;p>The &lt;code>/_sql&lt;/code> frontend accepts a SQL-92-shaped SELECT subset with Pizza
+extension functions. This page walks it clause by clause, with runnable
+examples — every shape below is covered by the gateway&amp;rsquo;s end-to-end
+tests. See
+
+ &lt;a href="https://pizza.rs/docs/references/sql/">SQL &amp;amp; PRQL&lt;/a> for the wire contract and the
+response envelope, and 
+ &lt;a href="https://pizza.rs/docs/references/sql/prql/">PRQL queries&lt;/a> for the
+pipeline frontend.&lt;/p>
+&lt;p>Statements are case-insensitive (&lt;code>SELECT&lt;/code> = &lt;code>select&lt;/code>), &lt;code>--&lt;/code> starts a line
+comment, and the overall shape is:&lt;/p></description></item><item><title>PRQL queries</title><link>https://pizza.rs/docs/references/sql/prql/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/sql/prql/</guid><description>&lt;h1 id="prql-queries">
+ PRQL queries
+ &lt;a class="anchor" href="#prql-queries">#&lt;/a>
+&lt;/h1>
+&lt;p>&lt;code>POST /_prql&lt;/code> accepts 
+ &lt;a href="https://prql-lang.org/">PRQL&lt;/a> pipeline text in the
+same request shape as &lt;code>POST /_sql&lt;/code> — &lt;code>query&lt;/code>, plus &lt;code>cursor&lt;/code>, &lt;code>params&lt;/code>,
+&lt;code>snapshot_id&lt;/code> and &lt;code>timeout&lt;/code> riding alongside exactly as they do for SQL.
+The statement is compiled by a pinned &lt;code>prqlc&lt;/code> and executed as its
+equivalent SQL through the identical pipeline, so cursors, snapshots,
+timeouts and the response envelope behave the same
+(see 
+ &lt;a href="https://pizza.rs/docs/references/sql/">SQL &amp;amp; PRQL&lt;/a>).&lt;/p>
+&lt;p>A cursor walk resubmits the SAME PRQL text plus the cursor object; the
+compiled statement is cached by text, so the walk compiles once.&lt;/p></description></item></channel></rss>

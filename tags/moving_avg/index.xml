@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Moving_avg on INFINI Pizza</title><link>https://pizza.rs/tags/moving_avg/</link><description>Recent content in Moving_avg on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/moving_avg/index.xml" rel="self" type="application/rss+xml"/><item><title>Moving avg aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/moving-avg/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/moving-avg/</guid><description>&lt;h1 id="moving-avg-aggregation">
+ Moving avg aggregation
+ &lt;a class="anchor" href="#moving-avg-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A parent pipeline aggregation smoothing a metric with a &lt;strong>moving
+average&lt;/strong> over the last N buckets — one averaged point per bucket,
+flattening noise so the trend underneath shows.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;smooth&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;moving_avg&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;per_day&amp;gt;revenue&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nt">&amp;#34;window&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">3&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>In this engine &lt;code>moving_avg&lt;/code> is evaluated in the &lt;strong>sibling
+placement&lt;/strong>: declare it &lt;strong>next to&lt;/strong> the bucket aggregation and point
+&lt;code>buckets_path&lt;/code> at the series with the full &lt;code>parent&amp;gt;metric&lt;/code> form. After
+the buckets are built, the engine slides a &lt;strong>trailing window&lt;/strong> over
+their values and emits a standalone buckets array (keys &lt;code>0..n−1&lt;/code>)
+with one &lt;code>value&lt;/code> per consumed bucket — the average of the window
+ending at that bucket.&lt;/p></description></item></channel></rss>

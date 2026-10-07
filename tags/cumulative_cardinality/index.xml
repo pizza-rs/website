@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cumulative_cardinality on INFINI Pizza</title><link>https://pizza.rs/tags/cumulative_cardinality/</link><description>Recent content in Cumulative_cardinality on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/cumulative_cardinality/index.xml" rel="self" type="application/rss+xml"/><item><title>Cumulative cardinality aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/cumulative-cardinality/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/cumulative-cardinality/</guid><description>&lt;h1 id="cumulative-cardinality-aggregation">
+ Cumulative cardinality aggregation
+ &lt;a class="anchor" href="#cumulative-cardinality-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A parent pipeline aggregation reporting a &lt;strong>running total of a
+per-bucket distinct count&lt;/strong> — typically a &lt;code>cardinality&lt;/code> metric —
+answering &amp;ldquo;how many unique values have been counted up to and
+including each bucket&amp;rdquo;.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;seen_so_far&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;cumulative_cardinality&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;buyers&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>cumulative_cardinality&lt;/code> is declared &lt;strong>inside&lt;/strong> the multi-bucket
+aggregation it decorates, next to the metric it consumes. The engine
+walks the finished buckets in order and attaches the running total of
+the referenced values under the pipeline&amp;rsquo;s own name — mechanically the
+same accumulation as 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/cumulative-sum/">&lt;code>cumulative_sum&lt;/code>&lt;/a>; only the
+intended input (a per-bucket distinct count) differs.&lt;/p></description></item></channel></rss>

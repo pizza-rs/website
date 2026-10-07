@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Shape on INFINI Pizza</title><link>https://pizza.rs/tags/shape/</link><description>Recent content in Shape on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/shape/index.xml" rel="self" type="application/rss+xml"/><item><title>Geo-shape query</title><link>https://pizza.rs/docs/references/search/geo/geo_shape/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/geo/geo_shape/</guid><description>&lt;h1 id="geo-shape-query">
+ Geo-shape query
+ &lt;a class="anchor" href="#geo-shape-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Matches documents whose &lt;code>geo_shape&lt;/code> field relates to a query geometry by
+a spatial relation. The query geometry is a GeoJSON geometry object or a
+WKT string; the indexed shape was written the same way.&lt;/p>
+&lt;p>Where the &lt;code>geo_point&lt;/code> queries ask &amp;ldquo;is this point inside my region?&amp;rdquo;,
+&lt;code>geo_shape&lt;/code> asks it of whole geometries — the document carries a
+polygon, line or envelope (a delivery zone, a pipeline route, a parcel)
+and the query tests it against another geometry.&lt;/p></description></item></channel></rss>

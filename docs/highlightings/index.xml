@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Highlights on INFINI Pizza</title><link>https://pizza.rs/docs/highlightings/</link><description>Recent content in Highlights on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/docs/highlightings/index.xml" rel="self" type="application/rss+xml"/><item><title>In-place columns for hot counters and flags</title><link>https://pizza.rs/docs/highlightings/inplace-columns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/inplace-columns/</guid><description>&lt;h1 id="in-place-columns-for-hot-counters-and-flags">
+ In-place columns for hot counters and flags
+ &lt;a class="anchor" href="#in-place-columns-for-hot-counters-and-flags">#&lt;/a>
+&lt;/h1>
+&lt;p>Fields that change constantly — view counters, stock levels, feature
+flags, ranking scores — used to pay a full document rebuild on every
+partial update. Marking a numeric or boolean field with
+&lt;code>&amp;quot;inplace&amp;quot;: true&lt;/code> gives it a dedicated typed column instead:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">PUT /my-collection
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;properties&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;title&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;type&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;keyword&amp;#34;&lt;/span> &lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;views&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;type&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;integer&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;inplace&amp;#34;&lt;/span>: &lt;span class="nb">true&lt;/span> &lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;score&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;type&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;double&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;inplace&amp;#34;&lt;/span>: &lt;span class="nb">true&lt;/span> &lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;active&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;type&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;boolean&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;inplace&amp;#34;&lt;/span>: &lt;span class="nb">true&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Partial updates on such fields become O(1) column writes — no fetch,
+merge, and re-index of the document. Atomic-style operators work
+directly against the column:&lt;/p></description></item><item><title>Runtime node settings and dynamic log level</title><link>https://pizza.rs/docs/highlightings/node-settings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/node-settings/</guid><description>&lt;h1 id="runtime-node-settings-and-dynamic-log-level">
+ Runtime node settings and dynamic log level
+ &lt;a class="anchor" href="#runtime-node-settings-and-dynamic-log-level">#&lt;/a>
+&lt;/h1>
+&lt;p>Node-local knobs no longer require a restart. &lt;code>GET/PUT /_node/_local/settings&lt;/code> exposes transient overrides over the &lt;code>pizza.yml&lt;/code>
+values — search lane budgets, the slowlog threshold, the default search
+timeout, trash retention — and they take effect immediately:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># drop the slowlog threshold to 200ms on one node, effective immediately&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -X PUT http://127.0.0.1:28000/_node/_local/settings &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -H &lt;span class="s1">&amp;#39;Content-Type: application/json&amp;#39;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s1">&amp;#39;{&amp;#34;node.search.slow_threshold_ms&amp;#34;: 200}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The flagship: &lt;code>log.level&lt;/code> flips live — no restart, no dropped requests —
+which turns &amp;ldquo;turn on debug logging on the suspicious node&amp;rdquo; into a
+one-liner while preserving target-specific directives like
+&lt;code>openraft=warn&lt;/code>.&lt;/p></description></item><item><title>Collection-wide manual compaction</title><link>https://pizza.rs/docs/highlightings/manual-compaction/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/manual-compaction/</guid><description>&lt;h1 id="collection-wide-manual-compaction">
+ Collection-wide manual compaction
+ &lt;a class="anchor" href="#collection-wide-manual-compaction">#&lt;/a>
+&lt;/h1>
+&lt;p>Reclaiming disk no longer means waiting for the background cadence or
+poking shards one by one. One request runs a merge pass on every started
+primary copy of the collection, cluster-wide:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">curl -X POST http://127.0.0.1:28000/my-collection/_compact &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -H &lt;span class="s1">&amp;#39;Authorization: Bearer pz_bootstrap_key&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The response reports the queued batch job per hosting node — job id plus
+how many local primary passes it covers — so a node-level failure fails
+the row, not the request:&lt;/p></description></item><item><title>FIRE storage explorer in the console</title><link>https://pizza.rs/docs/highlightings/storage-explorer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/storage-explorer/</guid><description>&lt;h1 id="fire-storage-explorer-in-the-console">
+ FIRE storage explorer in the console
+ &lt;a class="anchor" href="#fire-storage-explorer-in-the-console">#&lt;/a>
+&lt;/h1>
+&lt;p>
+ &lt;img src="https://pizza.rs/img/console/storage-explorer.png" alt="FIRE storage explorer with a per-field cost treemap" />&lt;/p>
+&lt;p>The web console (&lt;code>/_ui/&lt;/code>) gained a FIRE storage explorer: drill from a
+node&amp;rsquo;s shards down to a single segment&amp;rsquo;s &lt;code>.fire&lt;/code> files and see exactly
+where the bytes go — a per-field cost treemap of the columnar FIRE
+storage, next to the inverted index and stored-field payloads. In the
+screenshot above, the collection&amp;rsquo;s &lt;strong>Storage&lt;/strong> tab sizes every field by
+its on-disk cost, each block split into storage categories — so the
+question &amp;ldquo;which field is eating my disk&amp;rdquo; is answered by the biggest
+rectangle on screen.&lt;/p></description></item><item><title>semantic_text — one-field semantic search</title><link>https://pizza.rs/docs/highlightings/semantic-text/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/semantic-text/</guid><description>&lt;h1 id="semantic_text--one-field-semantic-search">
+ semantic_text — one-field semantic search
+ &lt;a class="anchor" href="#semantic_text--one-field-semantic-search">#&lt;/a>
+&lt;/h1>
+&lt;p>Semantic search used to mean wiring two fields: a &lt;code>text&lt;/code> field for the
+source, a &lt;code>dense_vector&lt;/code> field with &lt;code>vector_options&lt;/code> pointing back at
+it. The &lt;code>semantic_text&lt;/code> field type collapses all of that into one
+declaration:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">PUT /my-collection
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;schema&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;properties&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;body&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;type&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;semantic_text&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;service&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;zai&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;model&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;GLM-4.6V&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;dims&amp;#34;&lt;/span>: &lt;span class="m">3072&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>From there everything derives. Writes carry plain text — the vector is
+embedded server-side at write time, in bulk and after partial updates
+alike. Search needs no field names and no vectors:&lt;/p></description></item><item><title>Keystore hot-reload</title><link>https://pizza.rs/docs/highlightings/keystore-hot-reload/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/keystore-hot-reload/</guid><description>&lt;h1 id="keystore-hot-reload">
+ Keystore hot-reload
+ &lt;a class="anchor" href="#keystore-hot-reload">#&lt;/a>
+&lt;/h1>
+&lt;p>Rotating a secret no longer restarts the node. &lt;code>${keystore:...}&lt;/code>
+references re-resolve into the running configuration on demand: console
+edits trigger the reload themselves, and out-of-band changes (a CLI
+edit, a replaced mounted Secret) are one call away.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">curl -X POST http://127.0.0.1:28000/_node/_local/keystore/_reload &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -H &lt;span class="s1">&amp;#39;Authorization: Bearer pz_bootstrap_key&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The answer says exactly what happened — key names only, values stay
+write-only:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;entries&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;read_only&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;references&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;changed&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;node.embedding.endpoints&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;catalog.join_token&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;unchanged&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;failed&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>A rotated embedding API key applies to the next inference call; a
+rotated &lt;code>catalog.join_token&lt;/code> to the next join attempt. A reference
+whose entry disappeared keeps its running value and lands in &lt;code>failed&lt;/code>
+until the entry returns — reload never aborts the node the way a
+missing entry aborts boot.&lt;/p></description></item><item><title>Model features &amp; the /_chat facade</title><link>https://pizza.rs/docs/highlightings/model-features/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/model-features/</guid><description>&lt;h1 id="model-features--the-_chat-facade">
+ Model features &amp;amp; the /_chat facade
+ &lt;a class="anchor" href="#model-features--the-_chat-facade">#&lt;/a>
+&lt;/h1>
+&lt;p>Every model in the AI-services registry can now declare what it is
+&lt;strong>for&lt;/strong> and what it &lt;strong>accepts&lt;/strong> — &lt;code>features&lt;/code> (&lt;code>embedding&lt;/code> or
+&lt;code>generation&lt;/code>) and &lt;code>inputs&lt;/code> (&lt;code>text&lt;/code> or &lt;code>image&lt;/code>). The two axes are
+orthogonal: &amp;ldquo;multimodal&amp;rdquo; is not a category of its own but an &lt;code>inputs&lt;/code>
+list beyond text.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">node&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">embedding&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">endpoints&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">zai&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://api.z.ai/api/coding/paas/v4/embeddings&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">chat_url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://api.z.ai/api/coding/paas/v4/chat/completions&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">api_key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">sk-…&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">models&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">embedding-3 &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># embedding + text (the defaults)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- {&lt;span class="nt">id: GLM-4.6V, dims&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">3072&lt;/span>}&lt;span class="w"> &lt;/span>&lt;span class="c"># embedding, dims declared&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- {&lt;span class="nt">id: glm-4-flash, features&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="l">generation]} &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># text generation&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- {&lt;span class="nt">id: glm-4v, features: [generation], inputs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="l">text, image]} &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># vision LLM&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- {&lt;span class="nt">id: clip-v2, features: [embedding], inputs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="l">text, image]} &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># multimodal embedder&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Omitted fields keep the historical defaults, so every existing
+plain-string listing still means embedding + text — nothing to migrate.&lt;/p></description></item><item><title>Cluster-wide recycle bin</title><link>https://pizza.rs/docs/highlightings/cluster-trash/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/cluster-trash/</guid><description>&lt;h1 id="cluster-wide-recycle-bin">
+ Cluster-wide recycle bin
+ &lt;a class="anchor" href="#cluster-wide-recycle-bin">#&lt;/a>
+&lt;/h1>
+&lt;p>Accidental deletes used to be a race against the sweeper: deleting a
+namespace only dropped metadata, and the data directories drifted into
+the trash WITHOUT a recovery snapshot — permanently unrestorable. The
+recycle bin is now a first-class, cluster-wide surface with a
+namespace-centric view, a pre-restore integrity check, and one-request
+restore:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># One cluster-wide list — every node&amp;#39;s trash merged by item, grouped by&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># namespace, with the delete-time snapshot summary of each item.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GET /_cluster/trash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Deleting a namespace captures a restore snapshot for every collection it
+contains, so the WHOLE namespace comes back as a unit — original
+schemas, shard UUIDs, partition routing and placements included:&lt;/p></description></item><item><title>Host &amp; capability probes — see the machine, not just the node</title><link>https://pizza.rs/docs/highlightings/host-capability/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/host-capability/</guid><description>&lt;h1 id="host--capability-probes--see-the-machine-not-just-the-node">
+ Host &amp;amp; capability probes — see the machine, not just the node
+ &lt;a class="anchor" href="#host--capability-probes--see-the-machine-not-just-the-node">#&lt;/a>
+&lt;/h1>
+&lt;p>Every node now reports what its host actually is and what it can actually
+do, on &lt;code>GET /_node/_local&lt;/code> under &lt;code>host&lt;/code>: the OS distribution and kernel,
+NUMA topology (node count + per-node CPU lists and distances), NIC
+inventory with negotiated link speeds, the data disk&amp;rsquo;s bus (NVMe or not)
+with its I/O scheduler and atime policy, the container and seccomp
+environment, the DMI platform, transparent-hugepage state — and the
+resource ceilings: fd limit vs usage, mmap count vs &lt;code>max_map_count&lt;/code>,
+swap, conntrack fill, TCP sysctls, and cgroup CPU/memory quotas with
+throttle counts. The stats API adds a &lt;code>steal_percent&lt;/code> trend — the
+noisy-neighbor line on shared tenancy.&lt;/p></description></item><item><title>Relations that route — joins, FK placement, salting</title><link>https://pizza.rs/docs/highlightings/relational-routing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/relational-routing/</guid><description>&lt;h1 id="relations-that-route--joins-fk-placement-salting">
+ Relations that route — joins, FK placement, salting
+ &lt;a class="anchor" href="#relations-that-route--joins-fk-placement-salting">#&lt;/a>
+&lt;/h1>
+&lt;p>A fact collection can now behave like one. Declare the relationship in the
+schema and the engine takes over:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;org_id&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;type&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;keyword&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;immutable&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;references&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nt">&amp;#34;collection&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;orgs&amp;#34;&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;routing&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;ref&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;strong>
+ &lt;a href="https://pizza.rs/docs/references/search/relational/join/">Join queries&lt;/a> are live&lt;/strong> — a
+semi-join over the wire: the inner query runs on the referenced
+collection, its matching keys become a membership filter on the outer
+side, and joins through a declared &lt;code>references&lt;/code> field resolve without a
+second fan-out.&lt;/li>
+&lt;li>&lt;strong>Writes place by the foreign key&amp;rsquo;s value&lt;/strong> — &lt;code>hash(org_id)&lt;/code> picks the
+home partition, not the document key, so an org&amp;rsquo;s facts colocate.
+Key-addressed operations take &lt;code>?routing=&amp;lt;value&amp;gt;&lt;/code>
+(
+ &lt;a href="https://pizza.rs/docs/references/document/fetch/">fetch&lt;/a>,
+
+ &lt;a href="https://pizza.rs/docs/references/document/partial_update/">update&lt;/a>,
+
+ &lt;a href="https://pizza.rs/docs/references/document/delete/">delete&lt;/a>).&lt;/li>
+&lt;li>&lt;strong>Salting splits the hot org&lt;/strong> — when one routing value dominates, the
+
+ &lt;a href="https://pizza.rs/docs/references/collection/salting/">_salting API&lt;/a> spreads its writes
+across a partition SET (deterministic per key, round-robin for auto-IDs),
+with a terms feed that flags candidates against your threshold.
+Assignments are never auto-applied and searches stay oblivious — salting
+changes placement, never visibility.&lt;/li>
+&lt;/ul>
+&lt;p>One declaration, three consequences:&lt;/p></description></item><item><title>Intervals and more-like-this queries</title><link>https://pizza.rs/docs/highlightings/intervals-mlt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/intervals-mlt/</guid><description>&lt;h1 id="intervals-and-more-like-this-queries">
+ Intervals and more-like-this queries
+ &lt;a class="anchor" href="#intervals-and-more-like-this-queries">#&lt;/a>
+&lt;/h1>
+&lt;p>Two Elasticsearch-compatible queries landed natively in the engine —
+no more shape-shifting through &lt;code>match_phrase&lt;/code> compositions.&lt;/p>
+&lt;p>&lt;strong>&lt;code>intervals&lt;/code>&lt;/strong> is a rule language over term positions. Say &amp;ldquo;these two
+phrases within two positions of each other, but only if neither
+overlaps this third one&amp;rdquo;:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /my-collection/_search
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;query&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;intervals&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;body&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;all_of&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;ordered&amp;#34;&lt;/span>: true,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;intervals&amp;#34;&lt;/span>: &lt;span class="o">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;match&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;query&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;search engine&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;max_gaps&amp;#34;&lt;/span>: 0, &lt;span class="s2">&amp;#34;ordered&amp;#34;&lt;/span>: &lt;span class="nb">true&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;match&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;query&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;ranking&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;max_gaps&amp;#34;&lt;/span>: &lt;span class="m">2&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">]&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;filter&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;not_overlapping&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;match&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;query&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;deprecated&amp;#34;&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Eight rule shapes (&lt;code>match&lt;/code>, &lt;code>all_of&lt;/code>, &lt;code>any_of&lt;/code>, &lt;code>prefix&lt;/code>, &lt;code>wildcard&lt;/code>,
+&lt;code>fuzzy&lt;/code>, &lt;code>regexp&lt;/code>, &lt;code>range&lt;/code>) and eight positional filter predicates
+(&lt;code>containing&lt;/code>, &lt;code>before&lt;/code>, &lt;code>not_overlapping&lt;/code>, …) compose into one tree.
+Unsupported knobs are rejected with named errors instead of silently
+ignored — ask for a &lt;code>script&lt;/code> filter and you will be told no.&lt;/p></description></item><item><title>Sandboxed scripting — scripted_metric, script_fields, script_score</title><link>https://pizza.rs/docs/highlightings/scripting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/scripting/</guid><description>&lt;h1 id="sandboxed-scripting--scripted_metric-script_fields-script_score">
+ Sandboxed scripting — scripted_metric, script_fields, script_score
+ &lt;a class="anchor" href="#sandboxed-scripting--scripted_metric-script_fields-script_score">#&lt;/a>
+&lt;/h1>
+&lt;p>Scripts landed across the whole request path — the engine runs the
+examples from the Elasticsearch docs unmodified. The engine is Rhai
+rather than Painless, but &lt;code>doc['x'].value&lt;/code>, &lt;code>_score&lt;/code> and
+&lt;code>params.&amp;lt;name&amp;gt;&lt;/code> mean what they mean there.&lt;/p>
+&lt;p>&lt;strong>Aggregations.&lt;/strong>
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/scripted-metric/">&lt;code>scripted_metric&lt;/code>&lt;/a>
+runs your own four-phase map/reduce — &lt;code>init_script&lt;/code>, &lt;code>map_script&lt;/code>,
+&lt;code>combine_script&lt;/code>, &lt;code>reduce_script&lt;/code> — with per-segment states folded at the
+end. The single-value metric aggs (&lt;code>sum&lt;/code>, &lt;code>avg&lt;/code>, &lt;code>min&lt;/code>, &lt;code>max&lt;/code>,
+&lt;code>cardinality&lt;/code>) accept a &lt;code>script&lt;/code> in place of a &lt;code>field&lt;/code>
+(
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/#scripted-value-sources">details&lt;/a>),
+and pipeline aggregations keep their &lt;code>buckets_path&lt;/code> arithmetic.&lt;/p></description></item></channel></rss>

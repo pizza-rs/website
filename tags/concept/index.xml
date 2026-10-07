@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Concept on INFINI Pizza</title><link>https://pizza.rs/tags/concept/</link><description>Recent content in Concept on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/concept/index.xml" rel="self" type="application/rss+xml"/><item><title>Concepts</title><link>https://pizza.rs/docs/overview/concept/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/overview/concept/</guid><description>&lt;h1 id="concepts">
+ Concepts
+ &lt;a class="anchor" href="#concepts">#&lt;/a>
+&lt;/h1>
+&lt;p>Pizza is a distributed search engine designed to efficiently index and retrieve documents across large-scale datasets.
+It organizes data in a hierarchical structure, allowing for flexible management and retrieval capabilities.&lt;/p>
+&lt;p>Before you start using Pizza, familiarize yourself with the following key concepts:&lt;/p>
+&lt;p>
+ &lt;img src="https://pizza.rs/img/concepts.png" alt="Pizza concepts" />&lt;/p>
+&lt;center>[Pizza Concepts]&lt;/center>
+&lt;h2 id="concepts-1">
+ Concepts
+ &lt;a class="anchor" href="#concepts-1">#&lt;/a>
+&lt;/h2>
+&lt;h3 id="cluster">
+ Cluster
+ &lt;a class="anchor" href="#cluster">#&lt;/a>
+&lt;/h3>
+&lt;p>A cluster represents a set of interconnected nodes that collectively form the Pizza search engine. Nodes within a cluster collaborate to store and process data efficiently. Clusters can span multiple physical locations for fault tolerance and scalability.&lt;/p></description></item></channel></rss>

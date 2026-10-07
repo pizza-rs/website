@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Global on INFINI Pizza</title><link>https://pizza.rs/tags/global/</link><description>Recent content in Global on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/global/index.xml" rel="self" type="application/rss+xml"/><item><title>Global aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/global/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/global/</guid><description>&lt;h1 id="global-aggregation">
+ Global aggregation
+ &lt;a class="anchor" href="#global-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-bucket aggregation whose nested aggregations run over &lt;strong>all&lt;/strong>
+documents in the search context, ignoring the query scope. It is the
+baseline column of every analytic table: &amp;ldquo;this slice&amp;rdquo; next to &amp;ldquo;the
+whole dataset&amp;rdquo;, computed in the same request instead of a second
+round-trip.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Normally an aggregation sees only the documents the query matched.
+&lt;code>global&lt;/code> detaches its sub-aggregations from that scope: the engine
+takes the exact set of live documents — visibility and tombstones
+honored, per segment — and aggregates over that instead. The result is
+one bucket shaped &lt;code>{ &amp;quot;doc_count&amp;quot;: &amp;lt;all live docs&amp;gt;, …sub-aggs }&lt;/code>; the
+aggregation itself takes no parameters beyond its sub-aggregations.&lt;/p></description></item></channel></rss>

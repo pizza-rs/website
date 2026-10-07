@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Geo_centroid on INFINI Pizza</title><link>https://pizza.rs/tags/geo_centroid/</link><description>Recent content in Geo_centroid on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/geo_centroid/index.xml" rel="self" type="application/rss+xml"/><item><title>Geo centroid aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/geo-centroid/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/geo-centroid/</guid><description>&lt;h1 id="geo-centroid-aggregation">
+ Geo centroid aggregation
+ &lt;a class="anchor" href="#geo-centroid-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A metrics aggregation computing the centroid (mean latitude and
+longitude) of all &lt;code>geo_point&lt;/code> values.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine sums latitudes and longitudes across the bucket&amp;rsquo;s
+&lt;code>geo_point&lt;/code> values and divides by the count:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;location&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;lat&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="err">..&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nt">&amp;#34;lon&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="err">..&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;count&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">15&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>The mean is arithmetic per axis (a planar average, not spherical) —
+exact enough at city or country scale, drifting only for extents
+that cross the 180th meridian or span hemispheres.&lt;/li>
+&lt;li>Every parseable point counts once; there is no weight field. The
+result is &lt;code>null&lt;/code> when the bucket holds no points.&lt;/li>
+&lt;li>Under distributed fan-out the coordinator keeps its own shard&amp;rsquo;s
+value (geo metrics have no mergeable intermediate), so single-node
+results are the exact ones.&lt;/li>
+&lt;li>Like every &lt;code>geo_point&lt;/code> consumer, the aggregation sees points
+normalized at ingestion: &lt;code>{&amp;quot;lat&amp;quot;: .., &amp;quot;lon&amp;quot;: ..}&lt;/code>, &lt;code>[lon, lat]&lt;/code>
+(longitude first) or a &lt;code>&amp;quot;lat,lon&amp;quot;&lt;/code> string, all stored as
+two-dimensional BKD points.&lt;/li>
+&lt;/ul>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;div class="pizza-playground" data-dataset="places" data-dsl="{
+ &amp;#34;size&amp;#34;: 0,
+ &amp;#34;aggs&amp;#34;: {
+ &amp;#34;map_center&amp;#34;: {
+ &amp;#34;geo_centroid&amp;#34;: {
+ &amp;#34;field&amp;#34;: &amp;#34;location&amp;#34;
+ }
+ }
+ }
+}">
+ &lt;noscript>JavaScript is disabled — use the curl form of this example instead.&lt;/noscript>
+&lt;/div>
+&lt;p>Returns the &lt;code>count&lt;/code> of points and their centroid — the natural center
+point for map placement. Over the 15 places: &lt;code>count: 15&lt;/code>, location
+about &lt;code>{lat 31.7484, lon 111.2181}&lt;/code>.&lt;/p></description></item></channel></rss>

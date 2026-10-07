@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Console on INFINI Pizza</title><link>https://pizza.rs/tags/console/</link><description>Recent content in Console on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/console/index.xml" rel="self" type="application/rss+xml"/><item><title>FIRE storage explorer in the console</title><link>https://pizza.rs/docs/highlightings/storage-explorer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/storage-explorer/</guid><description>&lt;h1 id="fire-storage-explorer-in-the-console">
+ FIRE storage explorer in the console
+ &lt;a class="anchor" href="#fire-storage-explorer-in-the-console">#&lt;/a>
+&lt;/h1>
+&lt;p>
+ &lt;img src="https://pizza.rs/img/console/storage-explorer.png" alt="FIRE storage explorer with a per-field cost treemap" />&lt;/p>
+&lt;p>The web console (&lt;code>/_ui/&lt;/code>) gained a FIRE storage explorer: drill from a
+node&amp;rsquo;s shards down to a single segment&amp;rsquo;s &lt;code>.fire&lt;/code> files and see exactly
+where the bytes go — a per-field cost treemap of the columnar FIRE
+storage, next to the inverted index and stored-field payloads. In the
+screenshot above, the collection&amp;rsquo;s &lt;strong>Storage&lt;/strong> tab sizes every field by
+its on-disk cost, each block split into storage categories — so the
+question &amp;ldquo;which field is eating my disk&amp;rdquo; is answered by the biggest
+rectangle on screen.&lt;/p></description></item><item><title>Pizza Console</title><link>https://pizza.rs/docs/getting-started/console/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/getting-started/console/</guid><description>&lt;h1 id="pizza-console">
+ Pizza Console
+ &lt;a class="anchor" href="#pizza-console">#&lt;/a>
+&lt;/h1>
+&lt;p>The Pizza Console is the built-in web console for a Pizza cluster. It is
+embedded in the &lt;code>pizza-server&lt;/code> binary at build time, so there is nothing to
+install or deploy — every node serves it. Use it to browse the cluster,
+manage namespaces and collections, edit settings, and run API requests
+from the browser.&lt;/p>
+&lt;h2 id="open-the-console">
+ Open the console
+ &lt;a class="anchor" href="#open-the-console">#&lt;/a>
+&lt;/h2>
+&lt;p>With a node running on the default binding, open:&lt;/p></description></item><item><title>Host &amp; capability probes — see the machine, not just the node</title><link>https://pizza.rs/docs/highlightings/host-capability/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/host-capability/</guid><description>&lt;h1 id="host--capability-probes--see-the-machine-not-just-the-node">
+ Host &amp;amp; capability probes — see the machine, not just the node
+ &lt;a class="anchor" href="#host--capability-probes--see-the-machine-not-just-the-node">#&lt;/a>
+&lt;/h1>
+&lt;p>Every node now reports what its host actually is and what it can actually
+do, on &lt;code>GET /_node/_local&lt;/code> under &lt;code>host&lt;/code>: the OS distribution and kernel,
+NUMA topology (node count + per-node CPU lists and distances), NIC
+inventory with negotiated link speeds, the data disk&amp;rsquo;s bus (NVMe or not)
+with its I/O scheduler and atime policy, the container and seccomp
+environment, the DMI platform, transparent-hugepage state — and the
+resource ceilings: fd limit vs usage, mmap count vs &lt;code>max_map_count&lt;/code>,
+swap, conntrack fill, TCP sysctls, and cgroup CPU/memory quotas with
+throttle counts. The stats API adds a &lt;code>steal_percent&lt;/code> trend — the
+noisy-neighbor line on shared tenancy.&lt;/p></description></item></channel></rss>

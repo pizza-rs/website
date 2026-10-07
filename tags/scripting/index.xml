@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Scripting on INFINI Pizza</title><link>https://pizza.rs/tags/scripting/</link><description>Recent content in Scripting on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/scripting/index.xml" rel="self" type="application/rss+xml"/><item><title>Sandboxed scripting — scripted_metric, script_fields, script_score</title><link>https://pizza.rs/docs/highlightings/scripting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/scripting/</guid><description>&lt;h1 id="sandboxed-scripting--scripted_metric-script_fields-script_score">
+ Sandboxed scripting — scripted_metric, script_fields, script_score
+ &lt;a class="anchor" href="#sandboxed-scripting--scripted_metric-script_fields-script_score">#&lt;/a>
+&lt;/h1>
+&lt;p>Scripts landed across the whole request path — the engine runs the
+examples from the Elasticsearch docs unmodified. The engine is Rhai
+rather than Painless, but &lt;code>doc['x'].value&lt;/code>, &lt;code>_score&lt;/code> and
+&lt;code>params.&amp;lt;name&amp;gt;&lt;/code> mean what they mean there.&lt;/p>
+&lt;p>&lt;strong>Aggregations.&lt;/strong>
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/scripted-metric/">&lt;code>scripted_metric&lt;/code>&lt;/a>
+runs your own four-phase map/reduce — &lt;code>init_script&lt;/code>, &lt;code>map_script&lt;/code>,
+&lt;code>combine_script&lt;/code>, &lt;code>reduce_script&lt;/code> — with per-segment states folded at the
+end. The single-value metric aggs (&lt;code>sum&lt;/code>, &lt;code>avg&lt;/code>, &lt;code>min&lt;/code>, &lt;code>max&lt;/code>,
+&lt;code>cardinality&lt;/code>) accept a &lt;code>script&lt;/code> in place of a &lt;code>field&lt;/code>
+(
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/#scripted-value-sources">details&lt;/a>),
+and pipeline aggregations keep their &lt;code>buckets_path&lt;/code> arithmetic.&lt;/p></description></item><item><title>Script fields</title><link>https://pizza.rs/docs/references/search/request/script-fields/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/request/script-fields/</guid><description>&lt;h1 id="script-fields">
+ Script fields
+ &lt;a class="anchor" href="#script-fields">#&lt;/a>
+&lt;/h1>
+&lt;p>Compute extra values for each hit, at fetch time, from the hit&amp;rsquo;s own
+&lt;code>_source&lt;/code> — like 
+ &lt;a href="https://pizza.rs/docs/references/search/request/highlight/">highlighting&lt;/a>, but producing numbers and
+strings instead of fragments. Scripts run on Pizza&amp;rsquo;s sandboxed script
+engine (see 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/scripts/">the script language reference&lt;/a>),
+only for the hits actually returned on the page.&lt;/p>
+&lt;div class="pizza-playground" data-dataset="sales" data-dsl="{
+ &amp;#34;size&amp;#34;: 3,
+ &amp;#34;script_fields&amp;#34;: {
+ &amp;#34;doubled&amp;#34;: { &amp;#34;script&amp;#34;: &amp;#34;doc[&amp;#39;amount&amp;#39;].value * 2&amp;#34; },
+ &amp;#34;with_vat&amp;#34;: {
+ &amp;#34;script&amp;#34;: {
+ &amp;#34;source&amp;#34;: &amp;#34;doc.amount.value * params.vat&amp;#34;,
+ &amp;#34;params&amp;#34;: { &amp;#34;vat&amp;#34;: 1.23 }
+ }
+ }
+ }
+}">
+ &lt;noscript>JavaScript is disabled — use the curl form of this example instead.&lt;/noscript>
+&lt;/div>
+&lt;p>Every returned hit carries the computed values under &lt;code>fields&lt;/code>, as arrays:&lt;/p></description></item><item><title>Scripted queries</title><link>https://pizza.rs/docs/references/search/specialized/script-score/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/specialized/script-score/</guid><description>&lt;h1 id="scripted-queries">
+ Scripted queries
+ &lt;a class="anchor" href="#scripted-queries">#&lt;/a>
+&lt;/h1>
+&lt;p>Scripts in the search request: &lt;code>script_score&lt;/code> to compute
+the score, a &lt;code>script&lt;/code> predicate in a boolean filter, and a &lt;code>_script&lt;/code> sort
+key. All run on Pizza&amp;rsquo;s sandboxed script engine (see
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/scripts/">the script language reference&lt;/a>) —
+Rhai, not Painless, but the &lt;code>doc['x'].value&lt;/code>, &lt;code>_score&lt;/code>,
+&lt;code>params.&amp;lt;name&amp;gt;&lt;/code> spellings run unmodified.&lt;/p>
+&lt;h2 id="script_score--score-by-script">
+ &lt;code>script_score&lt;/code> — score by script
+ &lt;a class="anchor" href="#script_score--score-by-script">#&lt;/a>
+&lt;/h2>
+&lt;p>Wrap a query; the script&amp;rsquo;s value &lt;strong>replaces&lt;/strong> the score. The script sees
+&lt;code>_score&lt;/code> (the wrapped query&amp;rsquo;s BM25 score), &lt;code>doc&lt;/code> (the hit&amp;rsquo;s &lt;code>_source&lt;/code> in
+doc-values shape) and &lt;code>params&lt;/code>:&lt;/p></description></item><item><title>Scripted metric aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/scripted-metric/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/scripted-metric/</guid><description>&lt;h1 id="scripted-metric-aggregation">
+ Scripted metric aggregation
+ &lt;a class="anchor" href="#scripted-metric-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A metrics aggregation whose result is computed by your own scripts, in
+four phases, running on Pizza&amp;rsquo;s sandboxed script engine (see
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/scripts/">the script language reference&lt;/a>).&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>One state map per segment, folded once at the end:&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Phase&lt;/th>
+ &lt;th>Runs&lt;/th>
+ &lt;th>Scope&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>init_script&lt;/code>&lt;/td>
+ &lt;td>once per segment&lt;/td>
+ &lt;td>&lt;code>state&lt;/code>, &lt;code>params&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>map_script&lt;/code>&lt;/td>
+ &lt;td>once per document&lt;/td>
+ &lt;td>&lt;code>state&lt;/code>, &lt;code>doc&lt;/code>, &lt;code>params&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>combine_script&lt;/code>&lt;/td>
+ &lt;td>once per segment&lt;/td>
+ &lt;td>&lt;code>state&lt;/code>, &lt;code>params&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>reduce_script&lt;/code>&lt;/td>
+ &lt;td>once, at the end&lt;/td>
+ &lt;td>&lt;code>states&lt;/code>, &lt;code>params&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>&lt;code>state&lt;/code> is a map you own — initialize it in &lt;code>init_script&lt;/code>, accumulate into
+it in &lt;code>map_script&lt;/code>. &lt;code>combine_script&lt;/code> folds one segment&amp;rsquo;s state into a
+single value (a script that ends in a statement returns the state itself,
+the default when &lt;code>combine_script&lt;/code> is omitted). &lt;code>reduce_script&lt;/code> receives
+all combined values as the &lt;code>states&lt;/code> array; if it is omitted, a single
+state passes through unchanged and several come back as an array — the
+parts, rather than a wrong merge. Builds without the &lt;code>scripting&lt;/code> feature
+return &lt;code>null&lt;/code> for the whole aggregation.&lt;/p></description></item></channel></rss>

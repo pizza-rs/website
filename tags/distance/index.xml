@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Distance on INFINI Pizza</title><link>https://pizza.rs/tags/distance/</link><description>Recent content in Distance on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/distance/index.xml" rel="self" type="application/rss+xml"/><item><title>Geo-distance query</title><link>https://pizza.rs/docs/references/search/geo/geo_distance/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/geo/geo_distance/</guid><description>&lt;h1 id="geo-distance-query">
+ Geo-distance query
+ &lt;a class="anchor" href="#geo-distance-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Matches documents whose &lt;code>geo_point&lt;/code> field lies within a great-circle
+distance of a centre point. Distances are in metres.&lt;/p>
+&lt;p>This is the &amp;ldquo;find me things nearby&amp;rdquo; query: given one centre and one
+radius, it returns exactly the documents inside that disc on the
+sphere — the shape behind store locators, delivery zones and proximity
+alerts.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The field is the same two-dimensional &lt;code>(lat, lon)&lt;/code> BKD tree the other
+geo queries use (points indexed in any of the three ingest forms —
+object, &lt;code>[lon, lat]&lt;/code> array, &lt;code>&amp;quot;lat,lon&amp;quot;&lt;/code> string). Execution is
+two-phase:&lt;/p></description></item></channel></rss>

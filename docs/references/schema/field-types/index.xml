@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Field types on INFINI Pizza</title><link>https://pizza.rs/docs/references/schema/field-types/</link><description>Recent content in Field types on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/docs/references/schema/field-types/index.xml" rel="self" type="application/rss+xml"/><item><title>Full-text types</title><link>https://pizza.rs/docs/references/schema/field-types/full-text/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/schema/field-types/full-text/</guid><description>&lt;h1 id="full-text-types">
+ Full-text types
+ &lt;a class="anchor" href="#full-text-types">#&lt;/a>
+&lt;/h1>
+&lt;h2 id="text">
+ &lt;code>text&lt;/code>
+ &lt;a class="anchor" href="#text">#&lt;/a>
+&lt;/h2>
+&lt;p>Field type to index full-text values.&lt;/p>
+&lt;h3 id="parameters-for-text-fields">
+ Parameters for &lt;code>text&lt;/code> fields
+ &lt;a class="anchor" href="#parameters-for-text-fields">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/analysis/#analyzer">analyzer&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/analysis/#search_analyzer">search_analyzer&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/realtime-inplace/#realtime">realtime&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/indexing/#index">index&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/indexing/#norms">norms&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/indexing/#index_options">index_options&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/structural/#fields">fields&lt;/a> (multi-fields; a &lt;code>dense_vector&lt;/code> sub-field declares schema-driven semantic embedding)&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/storage/#profile">profile&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/storage/#source-column-store">source / column / store&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/indexing/#null_value">null_value&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="support-indexing-multiple-values">
+ Support indexing multiple values
+ &lt;a class="anchor" href="#support-indexing-multiple-values">#&lt;/a>
+&lt;/h3>
+&lt;p>Yes&lt;/p>
+&lt;h2 id="keyword">
+ &lt;code>keyword&lt;/code>
+ &lt;a class="anchor" href="#keyword">#&lt;/a>
+&lt;/h2>
+&lt;p>Used for structured content such as IDs, email addresses, hostnames,
+status codes, zip codes, or tags.&lt;/p>
+&lt;h3 id="parameters-for-keyword-fields">
+ Parameters for &lt;code>keyword&lt;/code> fields
+ &lt;a class="anchor" href="#parameters-for-keyword-fields">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/realtime-inplace/#realtime">realtime&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/indexing/#index">index&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/indexing/#norms">norms&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/indexing/#index_options">index_options&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/analysis/#normalizer">normalizer&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/structural/#fields">fields&lt;/a> (multi-fields; a &lt;code>dense_vector&lt;/code> sub-field declares schema-driven semantic embedding)&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/storage/#profile">profile&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/storage/#source-column-store">source / column / store&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/indexing/#null_value">null_value&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="support-indexing-multiple-values-1">
+ Support indexing multiple values
+ &lt;a class="anchor" href="#support-indexing-multiple-values-1">#&lt;/a>
+&lt;/h3>
+&lt;p>Yes&lt;/p></description></item><item><title>Numeric and boolean types</title><link>https://pizza.rs/docs/references/schema/field-types/numeric/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/schema/field-types/numeric/</guid><description>&lt;h1 id="numeric-and-boolean-types">
+ Numeric and boolean types
+ &lt;a class="anchor" href="#numeric-and-boolean-types">#&lt;/a>
+&lt;/h1>
+&lt;p>All numeric types and &lt;code>boolean&lt;/code> accept the same parameter set; only the
+value range differs per type.&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Type&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>tiny_int&lt;/code>&lt;/td>
+ &lt;td>signed 8-bit integer&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>small_int&lt;/code>&lt;/td>
+ &lt;td>signed 16-bit integer&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>integer&lt;/code>&lt;/td>
+ &lt;td>signed 32-bit integer&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>big_int&lt;/code>&lt;/td>
+ &lt;td>signed 64-bit integer&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>byte&lt;/code>&lt;/td>
+ &lt;td>unsigned 8-bit integer&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>unsigned_small_int&lt;/code>&lt;/td>
+ &lt;td>unsigned 16-bit integer&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>unsigned_integer&lt;/code>&lt;/td>
+ &lt;td>unsigned 32-bit integer&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>unsigned_big_int&lt;/code>&lt;/td>
+ &lt;td>unsigned 64-bit integer&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>float&lt;/code>&lt;/td>
+ &lt;td>single precision floating-point number&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>double&lt;/code>&lt;/td>
+ &lt;td>double precision floating-point number&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>boolean&lt;/code>&lt;/td>
+ &lt;td>logical Boolean (&lt;code>true&lt;/code>/&lt;code>false&lt;/code>)&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="parameters">
+ Parameters
+ &lt;a class="anchor" href="#parameters">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/realtime-inplace/#realtime">realtime&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/indexing/#index">index&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/realtime-inplace/#inplace">inplace&lt;/a> — O(1) in-place column writes for hot counters and flags&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/structural/#fields">fields&lt;/a> (multi-fields)&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/storage/#profile">profile&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/storage/#source-column-store">source / column / store&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/indexing/#null_value">null_value&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="support-indexing-multiple-values">
+ Support indexing multiple values
+ &lt;a class="anchor" href="#support-indexing-multiple-values">#&lt;/a>
+&lt;/h2>
+&lt;p>Yes&lt;/p></description></item><item><title>Date and geo types</title><link>https://pizza.rs/docs/references/schema/field-types/date-geo/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/schema/field-types/date-geo/</guid><description>&lt;h1 id="date-and-geo-types">
+ Date and geo types
+ &lt;a class="anchor" href="#date-and-geo-types">#&lt;/a>
+&lt;/h1>
+&lt;h2 id="date">
+ &lt;code>date&lt;/code>
+ &lt;a class="anchor" href="#date">#&lt;/a>
+&lt;/h2>
+&lt;p>A date-time value. Internally stored as epoch milliseconds; accepted input
+depends on the field&amp;rsquo;s 
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/type-specific/#format">format&lt;/a>
+(default &lt;code>strict_date_optional_time||epoch_millis&lt;/code>), so both ISO-8601
+strings (&lt;code>&amp;quot;2024-06-15T10:30:00Z&amp;quot;&lt;/code>) and raw millisecond integers work. Used
+by 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/range/">date range&lt;/a>, 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/bucket/date-histogram/">date histogram
+aggregations&lt;/a> and sort.&lt;/p>
+&lt;h3 id="parameters-for-date-fields">
+ Parameters for &lt;code>date&lt;/code> fields
+ &lt;a class="anchor" href="#parameters-for-date-fields">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/type-specific/#format">format&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/realtime-inplace/#realtime">realtime&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/indexing/#index">index&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/structural/#fields">fields&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/storage/#profile">profile&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/storage/#source-column-store">source / column / store&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/indexing/#null_value">null_value&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="support-indexing-multiple-values">
+ Support indexing multiple values
+ &lt;a class="anchor" href="#support-indexing-multiple-values">#&lt;/a>
+&lt;/h3>
+&lt;p>Yes&lt;/p>
+&lt;h2 id="geo_point">
+ &lt;code>geo_point&lt;/code>
+ &lt;a class="anchor" href="#geo_point">#&lt;/a>
+&lt;/h2>
+&lt;p>A latitude/longitude point (&lt;code>{&amp;quot;lat&amp;quot;: 39.9, &amp;quot;lon&amp;quot;: 116.4}&lt;/code>), indexed for
+
+ &lt;a href="https://pizza.rs/docs/references/search/geo/geo_bounding_box/">geo bounding box&lt;/a>,
+
+ &lt;a href="https://pizza.rs/docs/references/search/geo/geo_distance/">geo distance&lt;/a> and
+
+ &lt;a href="https://pizza.rs/docs/references/search/geo/geo_polygon/">geo polygon&lt;/a> queries. Distances use
+haversine on WGS-84 in metres.&lt;/p></description></item><item><title>Vector types</title><link>https://pizza.rs/docs/references/schema/field-types/vector/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/schema/field-types/vector/</guid><description>&lt;h1 id="vector-types">
+ Vector types
+ &lt;a class="anchor" href="#vector-types">#&lt;/a>
+&lt;/h1>
+&lt;h2 id="semantic_text">
+ &lt;code>semantic_text&lt;/code>
+ &lt;a class="anchor" href="#semantic_text">#&lt;/a>
+&lt;/h2>
+&lt;p>The field type for semantic search: declare one field, writes embed it server-side, and the
+
+ &lt;a href="https://pizza.rs/docs/references/search/vector/vector/#semantic-query">&lt;code>semantic&lt;/code> query&lt;/a> searches
+it with plain text — no field names, no manual vectors.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">PUT /my-collection
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;schema&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;properties&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;body&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;type&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;semantic_text&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;service&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;zai&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;model&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;GLM-4.6V&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;dims&amp;#34;&lt;/span>: 3072,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;similarity&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;cosine&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Documents carry plain text (&lt;code>{&amp;quot;body&amp;quot;: &amp;quot;some text&amp;quot;}&lt;/code>); the vector derives
+at write time into the internal &lt;code>body.embedding&lt;/code> sub-field. The field is
+&lt;strong>pure semantic&lt;/strong>: the text is kept in
+&lt;code>_source&lt;/code> but is &lt;strong>not&lt;/strong> inverted-indexed — &lt;code>match&lt;/code>/&lt;code>term&lt;/code> queries do not
+hit it; search goes through the derived vectors. A sibling regular &lt;code>text&lt;/code>
+field plus &lt;code>bool.should&lt;/code> composition gives hybrid retrieval.&lt;/p></description></item><item><title>Object and nested types</title><link>https://pizza.rs/docs/references/schema/field-types/object/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/schema/field-types/object/</guid><description>&lt;h1 id="object-and-nested-types">
+ Object and nested types
+ &lt;a class="anchor" href="#object-and-nested-types">#&lt;/a>
+&lt;/h1>
+&lt;h2 id="object">
+ &lt;code>object&lt;/code>
+ &lt;a class="anchor" href="#object">#&lt;/a>
+&lt;/h2>
+&lt;p>JSON documents are hierarchical in nature: the document may contain inner
+objects which, in turn, may contain inner objects themselves. The &lt;code>object&lt;/code>
+type introduces inner objects.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;album&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;artists&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Bill Danoff&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;Taffy Nivert&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;John Denver&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>In the above JSON document, field &amp;ldquo;album&amp;rdquo; is of type object.&lt;/p>
+&lt;h3 id="parameters-for-object-fields">
+ Parameters for &lt;code>object&lt;/code> fields
+ &lt;a class="anchor" href="#parameters-for-object-fields">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/realtime-inplace/#realtime">realtime&lt;/a> — an &lt;code>object&lt;/code> field&amp;rsquo;s &lt;code>realtime&lt;/code> parameter would overwrite its sub-fields&amp;rsquo; &lt;code>realtime&lt;/code> parameter, even when they are explicitly set.&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/indexing/#index">index&lt;/a> — an &lt;code>object&lt;/code> field&amp;rsquo;s &lt;code>index&lt;/code> parameter would overwrite its sub-fields&amp;rsquo; &lt;code>index&lt;/code> parameter, even when they are explicitly set.&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/structural/#properties">properties&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/storage/#profile">profile&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/storage/#source-column-store">source / column / store&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="support-indexing-multiple-values">
+ Support indexing multiple values
+ &lt;a class="anchor" href="#support-indexing-multiple-values">#&lt;/a>
+&lt;/h3>
+&lt;p>Yes&lt;/p></description></item><item><title>Relation type</title><link>https://pizza.rs/docs/references/schema/field-types/relation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/schema/field-types/relation/</guid><description>&lt;h1 id="relation-type">
+ Relation type
+ &lt;a class="anchor" href="#relation-type">#&lt;/a>
+&lt;/h1>
+&lt;h2 id="relation">
+ &lt;code>relation&lt;/code>
+ &lt;a class="anchor" href="#relation">#&lt;/a>
+&lt;/h2>
+&lt;p>A graph edge value (&lt;code>{&amp;quot;from&amp;quot;: ..., &amp;quot;to&amp;quot;: ...}&lt;/code>, by document id or key) that
+materializes adjacency for the 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/traverse/">traverse&lt;/a>
+query and the graph projection block. The
+
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/type-specific/#relation">relation&lt;/a> parameter declares
+the connected types.&lt;/p>
+&lt;h3 id="parameters-for-relation-fields">
+ Parameters for &lt;code>relation&lt;/code> fields
+ &lt;a class="anchor" href="#parameters-for-relation-fields">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/realtime-inplace/#realtime">realtime&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/indexing/#index">index&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/type-specific/#relation">relation&lt;/a> (from_type / to_type meta)&lt;/li>
+&lt;/ul>
+&lt;h3 id="support-indexing-multiple-values">
+ Support indexing multiple values
+ &lt;a class="anchor" href="#support-indexing-multiple-values">#&lt;/a>
+&lt;/h3>
+&lt;p>Yes — a document may carry multiple edges.&lt;/p></description></item></channel></rss>

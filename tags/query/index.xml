@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Query on INFINI Pizza</title><link>https://pizza.rs/tags/query/</link><description>Recent content in Query on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/query/index.xml" rel="self" type="application/rss+xml"/><item><title>How query works</title><link>https://pizza.rs/docs/overview/query-engine/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/overview/query-engine/</guid><description>&lt;h1 id="how-query-works">
+ How query works?
+ &lt;a class="anchor" href="#how-query-works">#&lt;/a>
+&lt;/h1>
+&lt;p>A search request fans out from the coordinating node to every shard
+copy of the target collections, executes against a snapshot of the
+index, and merges ranked results back — this page walks that pipeline
+and the mechanisms that keep it fast:&lt;/p>
+
+&lt;p class="mermaid">
+graph LR
+ R["search request"] --> C("coordinator")
+ C -->|"one copy per shard group —&lt;br/>saturated nodes are skipped"| G0("shard group 0 — any copy")
+ C --> G1("shard group 1 — any copy")
+ C --> G2("shard group 2 — any copy")
+ G0 --> Q["top-K + aggs against the snapshot —&lt;br/>mutable layer + immutable segments"]
+ G1 --> Q
+ G2 --> Q
+ Q --> M("merge — rank, dedupe, paginate")
+ M --> H["hits and aggregations,&lt;br/>or partial results on timeout"]
+&lt;/p></description></item><item><title>Geo-bounding-box query</title><link>https://pizza.rs/docs/references/search/geo/geo_bounding_box/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/geo/geo_bounding_box/</guid><description>&lt;h1 id="geo-bounding-box-query">
+ Geo-bounding-box query
+ &lt;a class="anchor" href="#geo-bounding-box-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Matches documents whose &lt;code>geo_point&lt;/code> field falls inside a rectangle
+defined by its top-left and bottom-right corners. Coordinates are
+WGS-84 degrees; filtering only (does not contribute distance scoring).&lt;/p>
+&lt;p>It is the cheapest geographic filter. When the region you need is a
+rectangle of latitude and longitude — a map viewport, a city&amp;rsquo;s extents,
+a country&amp;rsquo;s outline approximated by its bounds — the engine answers
+with a single index range and no per-document geometry math.&lt;/p></description></item><item><title>Match query</title><link>https://pizza.rs/docs/references/search/full-text/match/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/match/</guid><description>&lt;h1 id="match-query">
+ Match query
+ &lt;a class="anchor" href="#match-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that match a provided text, number, date or boolean
+value. The provided text is analyzed before matching — this is the
+primary full-text query.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> supported — the text is matched per array element.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine resolves the analyzer first — the &lt;code>analyzer&lt;/code> parameter when
+given, else the field&amp;rsquo;s search analyzer, else the built-in &lt;code>standard&lt;/code>
+analyzer — and runs it over the query text. Each resulting token becomes
+one term clause:&lt;/p></description></item><item><title>Nested query</title><link>https://pizza.rs/docs/references/search/relational/nested/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/relational/nested/</guid><description>&lt;h1 id="nested-query">
+ Nested query
+ &lt;a class="anchor" href="#nested-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Matches parent documents whose &lt;strong>nested&lt;/strong> sub-documents — objects mapped
+with &lt;code>&amp;quot;nested&amp;quot;: true&lt;/code> — satisfy a query &lt;strong>within one element at a time&lt;/strong>.
+It exists because a flattened object index cannot keep two field values
+inside the same array element together — the pitfall the next section
+makes concrete.&lt;/p>
+&lt;h2 id="the-cross-element-problem">
+ The cross-element problem
+ &lt;a class="anchor" href="#the-cross-element-problem">#&lt;/a>
+&lt;/h2>
+&lt;p>A flattened index correlates across array &lt;em>elements&lt;/em>, not within them:
+&lt;code>variants.color = blue AND variants.size = L&lt;/code> matches a document as soon
+as &lt;em>some&lt;/em> element is blue and &lt;em>some&lt;/em> element is L — not necessarily the
+same one. The teaching dataset&amp;rsquo;s &lt;code>products&lt;/code> makes the difference visible
+(each element pairs blue with L, never with M):&lt;/p></description></item><item><title>Term query</title><link>https://pizza.rs/docs/references/search/term-level/term/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/term/</guid><description>&lt;h1 id="term-query">
+ Term query
+ &lt;a class="anchor" href="#term-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain an &lt;strong>exact&lt;/strong> term in a provided field.&lt;/p>
+&lt;p>You can use the term query to find documents based on a precise value such as a
+price, a product ID, or a username. It is also the atom the rest of the
+term-level family resolves to: 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/terms/">&lt;code>terms&lt;/code>&lt;/a> expands into a &lt;code>should&lt;/code> of
+&lt;code>term&lt;/code> clauses, and prefix / wildcard / regexp / fuzzy all resolve to term
+sets before execution.&lt;/p></description></item><item><title>Geo-distance query</title><link>https://pizza.rs/docs/references/search/geo/geo_distance/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/geo/geo_distance/</guid><description>&lt;h1 id="geo-distance-query">
+ Geo-distance query
+ &lt;a class="anchor" href="#geo-distance-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Matches documents whose &lt;code>geo_point&lt;/code> field lies within a great-circle
+distance of a centre point. Distances are in metres.&lt;/p>
+&lt;p>This is the &amp;ldquo;find me things nearby&amp;rdquo; query: given one centre and one
+radius, it returns exactly the documents inside that disc on the
+sphere — the shape behind store locators, delivery zones and proximity
+alerts.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The field is the same two-dimensional &lt;code>(lat, lon)&lt;/code> BKD tree the other
+geo queries use (points indexed in any of the three ingest forms —
+object, &lt;code>[lon, lat]&lt;/code> array, &lt;code>&amp;quot;lat,lon&amp;quot;&lt;/code> string). Execution is
+two-phase:&lt;/p></description></item><item><title>Join query</title><link>https://pizza.rs/docs/references/search/relational/join/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/relational/join/</guid><description>&lt;h1 id="join-query">
+ Join query
+ &lt;a class="anchor" href="#join-query">#&lt;/a>
+&lt;/h1>
+&lt;blockquote>
+&lt;p>&lt;strong>Status: functional (semi-join).&lt;/strong> Joins need a running node — the
+gateway orchestrates and the engine executes, which is why the wasm
+
+ &lt;a href="https://pizza.rs/docs/playground/">playground&lt;/a> does not host them. The
+
+ &lt;a href="https://pizza.rs/docs/tutorial/joins/">joins tutorial&lt;/a> walks the complete relational
+sequence — references → join → FK-routed writes → salting →
+&lt;code>?routing=&lt;/code> addressing — step by step against a live node.&lt;/p>
+&lt;/blockquote>
+&lt;p>Matches documents in the &lt;strong>outer&lt;/strong> collection — the one in the request
+URL — whose &lt;code>field&lt;/code> values intersect the &lt;code>join_on&lt;/code> values of documents
+matching a query on the &lt;strong>inner&lt;/strong> collection — the one named by
+&lt;code>target&lt;/code>. The result is a semi-join: outer documents that have at least
+one matching inner document, each reported once. It is the moral
+equivalent of SQL&amp;rsquo;s&lt;/p></description></item><item><title>Multi-vector query</title><link>https://pizza.rs/docs/references/search/vector/multi_vector/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/vector/multi_vector/</guid><description>&lt;h1 id="multi-vector-query">
+ Multi-vector query
+ &lt;a class="anchor" href="#multi-vector-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Executes several 
+ &lt;a href="https://pizza.rs/docs/references/search/vector/vector/">&lt;code>vector&lt;/code>&lt;/a> queries — each targeting a
+(potentially different) vector field — and fuses their results into one
+ranking.&lt;/p>
+&lt;p>One document often has more than one useful representation: a title
+embedding and a body embedding, a dense vector and a learned-sparse
+vector, an image embedding beside its caption. A single &lt;code>vector&lt;/code> query
+can read only one of them; this query runs them all and merges the
+rankings.&lt;/p></description></item><item><title>Phrase query</title><link>https://pizza.rs/docs/references/search/full-text/phrase/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/phrase/</guid><description>&lt;h1 id="phrase-query">
+ Phrase query
+ &lt;a class="anchor" href="#phrase-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain the exact sequence of terms, in order,
+with no other terms in between (modulo &lt;code>slop&lt;/code>). The text is analyzed
+before matching, like the 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/match/">&lt;code>match&lt;/code>&lt;/a> query.&lt;/p>
+&lt;p>The query&amp;rsquo;s native name is &lt;code>phrase&lt;/code>; the &lt;code>match_phrase&lt;/code> spelling
+deserializes to the same query — an accepted alias, not
+a different feature.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> supported — the phrase, including its &lt;code>slop&lt;/code>, must be satisfied by ONE array element; terms keep query order.&lt;/p></description></item><item><title>Terms query</title><link>https://pizza.rs/docs/references/search/term-level/terms/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/terms/</guid><description>&lt;h1 id="terms-query">
+ Terms query
+ &lt;a class="anchor" href="#terms-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain one or more exact terms in a provided
+field. Equivalent to a boolean &lt;code>should&lt;/code> of individual
+
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> queries — a document matches if it contains &lt;strong>any&lt;/strong>
+of the values.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause. Expand into a &lt;code>bool&lt;/code> &lt;code>should&lt;/code> of 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> clauses instead.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The planner expands the query before execution: each value becomes a
+
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> clause inside a &lt;code>BooleanQuery&lt;/code> with
+&lt;code>minimum_should_match: 1&lt;/code>, and a single-value &lt;code>terms&lt;/code> collapses straight
+into one bare &lt;code>term&lt;/code> query. Everything said on the 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> page
+about verbatim lookup, index routing (dictionary for keyword/text, BKD for
+numeric/date, Bool column for boolean) and BM25 scoring therefore applies
+per value here, with the per-value scores OR-ed together.&lt;/p></description></item><item><title>Geo-polygon query</title><link>https://pizza.rs/docs/references/search/geo/geo_polygon/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/geo/geo_polygon/</guid><description>&lt;h1 id="geo-polygon-query">
+ Geo-polygon query
+ &lt;a class="anchor" href="#geo-polygon-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Matches documents whose &lt;code>geo_point&lt;/code> field lies inside an arbitrary
+polygon. The ring is given as &lt;code>points&lt;/code> in &lt;code>(lat, lon)&lt;/code> order; vertices
+on the boundary count as inside, and holes can be modelled with a
+concave ring.&lt;/p>
+&lt;p>Real regions are rarely rectangular. City limits, districts, service
+areas and lakes have corners everywhere — this query filters points by
+an exact ring instead of the four edges of a bounding box.&lt;/p></description></item><item><title>Keys query</title><link>https://pizza.rs/docs/references/search/term-level/keys/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/keys/</guid><description>&lt;h1 id="keys-query">
+ Keys query
+ &lt;a class="anchor" href="#keys-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents whose key is in the provided set. There is no field
+argument — the match is against the document identity itself, and
+values that do not exist in the collection are skipped.&lt;/p>
+&lt;p>The query&amp;rsquo;s native name is &lt;code>keys&lt;/code>: it speaks Pizza&amp;rsquo;s &lt;code>_key&lt;/code> vocabulary,
+the same word the REST API uses for by-key addressing. The &lt;code>ids&lt;/code>
+spelling deserializes to the same query — an accepted alias, not a
+different feature.&lt;/p></description></item><item><title>Multi-match query</title><link>https://pizza.rs/docs/references/search/full-text/multi_match/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/multi_match/</guid><description>&lt;h1 id="multi-match-query">
+ Multi-match query
+ &lt;a class="anchor" href="#multi-match-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that match a provided text across several fields —
+like the 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/match/">&lt;code>match&lt;/code>&lt;/a> query, with per-field boosts and
+multi-field scoring strategies.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> supported — fields under the nested path are matched per array element.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>multi_match&lt;/code> is expanded before execution (&lt;code>Query::simplify&lt;/code>) into a
+tree the segment executors already know:&lt;/p>
+&lt;ol>
+&lt;li>Each entry in &lt;code>fields&lt;/code> — after splitting off a &lt;code>^boost&lt;/code> suffix —
+becomes one 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/match/">&lt;code>match&lt;/code>&lt;/a> query over that field, carrying the
+query-level &lt;code>boost&lt;/code> multiplied by the field boost (&lt;code>&amp;quot;title^3&amp;quot;&lt;/code> →
+per-field boost 3).&lt;/li>
+&lt;li>For &lt;code>type: &amp;quot;phrase&amp;quot;&lt;/code> and &lt;code>type: &amp;quot;phrase_prefix&amp;quot;&lt;/code> each field instead
+becomes a 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/phrase/">&lt;code>phrase&lt;/code>&lt;/a> query with &lt;code>slop: 0&lt;/code>. The prefix part
+is not implemented: &lt;code>phrase_prefix&lt;/code> currently behaves as an exact
+phrase and does not expand its last term as a prefix.&lt;/li>
+&lt;li>Two or more fields are wrapped in a &lt;code>bool&lt;/code> whose &lt;code>should&lt;/code> clauses
+are the per-field queries, with at least one field required; a
+single field collapses to that field&amp;rsquo;s query — a plain &lt;code>match&lt;/code>.&lt;/li>
+&lt;/ol>
+&lt;p>Scores: should clauses add their per-document scores (the bool
+default). The &lt;code>type&lt;/code> additionally picks the combination used when one
+field name resolves to several indexed sub-fields — &lt;code>best_fields&lt;/code>
+keeps the maximum, &lt;code>most_fields&lt;/code> and &lt;code>cross_fields&lt;/code> sum. &lt;code>cross_fields&lt;/code>
+does not blend term statistics across fields; each
+field scores independently and the results merge.&lt;/p></description></item><item><title>Prefix query</title><link>https://pizza.rs/docs/references/search/term-level/prefix/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/prefix/</guid><description>&lt;h1 id="prefix-query">
+ Prefix query
+ &lt;a class="anchor" href="#prefix-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain a specific prefix in a provided field.&lt;/p>
+&lt;p>Use it when the values share a known beginning — a hostname family, an
+ID scheme, a URL section — and you want every term that starts with it.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The prefix is expanded against the inverted index&amp;rsquo;s &lt;strong>term dictionary&lt;/strong>.
+Because the dictionary is kept in sorted order, the expansion is an
+ordered seek to the first term greater than or equal to the prefix,
+followed by reading the subtree of terms that start with it — no scan of
+the whole dictionary. Each expanded term&amp;rsquo;s postings are then unioned
+(OR semantics), exactly as if you had written a &lt;code>should&lt;/code> of
+
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> queries.&lt;/p></description></item><item><title>Traverse query</title><link>https://pizza.rs/docs/references/search/relational/traverse/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/relational/traverse/</guid><description>&lt;h1 id="traverse-query">
+ Traverse query
+ &lt;a class="anchor" href="#traverse-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Term and full-text queries match document &lt;em>content&lt;/em>; none of them can
+ask &amp;ldquo;what is &lt;em>connected&lt;/em> to these documents?&amp;rdquo; — the question citation
+graphs, reference data and knowledge graphs are made of. The traverse
+query answers it: a bounded graph traversal over a &lt;code>relation&lt;/code>-typed
+edge field — starting from seed documents, walk the edges up to
+&lt;code>max_depth&lt;/code> hops and emit every reached node as a hit.&lt;/p>
+&lt;p>Scores encode distance — &lt;code>1.0 / (1.0 + depth)&lt;/code> — so seeds outrank
+1-hop neighbors, which outrank 2-hop neighbors, and the standard top-K
+collector orders the results.&lt;/p></description></item><item><title>Fuzzy query</title><link>https://pizza.rs/docs/references/search/term-level/fuzzy/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/fuzzy/</guid><description>&lt;h1 id="fuzzy-query">
+ Fuzzy query
+ &lt;a class="anchor" href="#fuzzy-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain terms similar to the search term, within
+the maximum edit distance (Levenshtein — with transpositions counting
+as a single edit by default).&lt;/p>
+&lt;p>Use it when the indexed terms are only approximately known: typos in
+identifiers, OCR noise, or human-entered names.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The value is expanded against the inverted index&amp;rsquo;s &lt;strong>term dictionary&lt;/strong>
+by edit distance, then the survivors&amp;rsquo; postings are unioned like a
+&lt;code>should&lt;/code> of 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> queries. The engine takes the &lt;strong>union&lt;/strong> of
+three resolution passes — the value recorded as an exact term, a
+whole-value fuzzy walk, and (on non-keyword fields) a per-token walk
+after running the field&amp;rsquo;s search analyzer over the value — so the query
+works on keyword fields and on analyzed text alike (the per-token pass
+matters for CJK and multi-word input). On &lt;code>keyword&lt;/code> fields the raw
+value is used, with the field&amp;rsquo;s normalizer applied first and no
+tokenization.&lt;/p></description></item><item><title>Geo-shape query</title><link>https://pizza.rs/docs/references/search/geo/geo_shape/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/geo/geo_shape/</guid><description>&lt;h1 id="geo-shape-query">
+ Geo-shape query
+ &lt;a class="anchor" href="#geo-shape-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Matches documents whose &lt;code>geo_shape&lt;/code> field relates to a query geometry by
+a spatial relation. The query geometry is a GeoJSON geometry object or a
+WKT string; the indexed shape was written the same way.&lt;/p>
+&lt;p>Where the &lt;code>geo_point&lt;/code> queries ask &amp;ldquo;is this point inside my region?&amp;rdquo;,
+&lt;code>geo_shape&lt;/code> asks it of whole geometries — the document carries a
+polygon, line or envelope (a delivery zone, a pipeline route, a parcel)
+and the query tests it against another geometry.&lt;/p></description></item><item><title>Query string query</title><link>https://pizza.rs/docs/references/search/full-text/query_string/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/query_string/</guid><description>&lt;h1 id="query-string-query">
+ Query string query
+ &lt;a class="anchor" href="#query-string-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that match a compact query-syntax string, e.g.
+&lt;code>status:active AND title:search&lt;/code>. The same parser powers the
+
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/#query-parameters">URI search&lt;/a> parameter &lt;code>?q=&lt;/code>.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The &lt;code>query&lt;/code> string is parsed with the classic query-string grammar and converted
+to native queries: bare and field-qualified terms become analyzed
+&lt;code>match&lt;/code> queries, quoted phrases become 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/phrase/">&lt;code>phrase&lt;/code>&lt;/a> queries,
+and the boolean operators become 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/bool/">&lt;code>bool&lt;/code>&lt;/a> clauses. Terms
+without a &lt;code>field:&lt;/code> prefix go to &lt;code>default_field&lt;/code> (or, when &lt;code>fields&lt;/code> is
+set, the query fans out into a &lt;code>bool.should&lt;/code> across those fields with
+their &lt;code>field^boost&lt;/code> weights). The operator subset:&lt;/p></description></item><item><title>Boolean query</title><link>https://pizza.rs/docs/references/search/full-text/bool/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/bool/</guid><description>&lt;h1 id="boolean-query">
+ Boolean query
+ &lt;a class="anchor" href="#boolean-query">#&lt;/a>
+&lt;/h1>
+&lt;p>A query that matches documents matching boolean combinations of other
+queries. It is built using one or more boolean clauses.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> supported — &lt;code>must&lt;/code>/&lt;code>filter&lt;/code>/&lt;code>should&lt;/code>/&lt;code>must_not&lt;/code> and &lt;code>minimum_should_match&lt;/code> all apply within ONE array element; clauses matched by different elements never combine.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>bool&lt;/code> compiles each clause list into iterator algebra: &lt;code>must&lt;/code> clauses
+intersect (AND), &lt;code>must_not&lt;/code> clauses subtract, &lt;code>filter&lt;/code> clauses intersect
+without scoring, and &lt;code>should&lt;/code> clauses are probed per matched document —
+a streaming two-pointer walk that adds each matching should score on
+top of the base hit, with no intermediate materialization.&lt;/p></description></item><item><title>Wildcard query</title><link>https://pizza.rs/docs/references/search/term-level/wildcard/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/wildcard/</guid><description>&lt;h1 id="wildcard-query">
+ Wildcard query
+ &lt;a class="anchor" href="#wildcard-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain terms matching a wildcard pattern. The
+pattern supports &lt;code>*&lt;/code> (any sequence of characters, including none) and
+&lt;code>?&lt;/code> (any single character).&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The pattern is expanded against the inverted index&amp;rsquo;s &lt;strong>term dictionary&lt;/strong>:
+the engine walks the field&amp;rsquo;s terms, keeps those matching the pattern, and
+unions their postings lists — the same result as a &lt;code>should&lt;/code> of
+
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> queries over the surviving terms. Matching is anchored
+at both ends: &lt;code>web-1&lt;/code> is the whole term, so &lt;code>web-*&lt;/code> matches &lt;code>web-10&lt;/code> and
+&lt;code>web-1&lt;/code> itself, but &lt;code>*web-1*&lt;/code> is required for anything with text on both
+sides.&lt;/p></description></item><item><title>Match all query</title><link>https://pizza.rs/docs/references/search/full-text/match_all/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/match_all/</guid><description>&lt;h1 id="match-all-query">
+ Match all query
+ &lt;a class="anchor" href="#match-all-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Matches every document. This is the default query used when no &lt;code>query&lt;/code>
+is sent in a search request — relevance-free, constant-scored, and the
+base every &amp;ldquo;everything, then narrow&amp;rdquo; pattern builds on.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>match_all&lt;/code> walks every document in the target indexes with a constant
+score — &lt;code>1.0&lt;/code> — so &lt;code>_score&lt;/code> carries no
+ranking information and downstream score arithmetic (&lt;code>indices_boost&lt;/code>,
+bool &lt;code>should&lt;/code> boosts, cross-engine merges) sees the same baseline
+everywhere. &lt;code>boost&lt;/code> multiplies the constant, and is the only parameter
+there is.&lt;/p></description></item><item><title>Regexp query</title><link>https://pizza.rs/docs/references/search/term-level/regexp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/regexp/</guid><description>&lt;h1 id="regexp-query">
+ Regexp query
+ &lt;a class="anchor" href="#regexp-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain terms matching a
+
+ &lt;a href="https://en.wikipedia.org/wiki/Regular_expression">regular expression&lt;/a>.&lt;/p>
+&lt;p>A regular expression is a way to match patterns in data using placeholder
+characters, called operators. For a list of operators supported by the
+&lt;code>regexp&lt;/code> query, see 
+ &lt;a href="https://docs.rs/regex/latest/#syntax">Regular expression syntax&lt;/a>.
+Use the &lt;code>regexp&lt;/code> query when neither 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/prefix/">&lt;code>prefix&lt;/code>&lt;/a>,
+
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/suffix/">&lt;code>suffix&lt;/code>&lt;/a> nor 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/wildcard/">&lt;code>wildcard&lt;/code>&lt;/a> can express the
+shape — alternation, character classes, repetition.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause.&lt;/p></description></item><item><title>Span queries</title><link>https://pizza.rs/docs/references/search/full-text/span/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/span/</guid><description>&lt;h1 id="span-queries">
+ Span queries
+ &lt;a class="anchor" href="#span-queries">#&lt;/a>
+&lt;/h1>
+&lt;p>Span queries are low-level positional queries that expose and control
+the positions of terms — the building blocks for phrase-adjacent logic
+that 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/phrase/">&lt;code>phrase&lt;/code>&lt;/a> does not express directly.
+Most use cases are better served by &lt;code>match_phrase&lt;/code> (or its &lt;code>slop&lt;/code>); the
+span family exists for the remaining ones.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — span clauses are rejected with an HTTP 400 naming the offending clause. Use 
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/phrase/">&lt;code>phrase&lt;/code>&lt;/a> with &lt;code>slop&lt;/code> for positional logic.&lt;/p></description></item><item><title>Suffix query</title><link>https://pizza.rs/docs/references/search/term-level/suffix/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/suffix/</guid><description>&lt;h1 id="suffix-query">
+ Suffix query
+ &lt;a class="anchor" href="#suffix-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain terms &lt;strong>ending&lt;/strong> in the provided value.
+This is the mirror of the 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/prefix/">&lt;code>prefix&lt;/code>&lt;/a> query; like a leading
+wildcard, it is more expensive than a prefix match.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>A term dictionary is sorted by its &lt;strong>beginnings&lt;/strong>, so a prefix can seek
+directly to its subtree — but a suffix cannot. The engine therefore
+walks the whole dictionary of the field and keeps the terms that end
+with the value, then unions their postings lists exactly like a &lt;code>should&lt;/code>
+of 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> queries. The cost is proportional to the number of
+distinct terms in the field, not to the number of matches, which is why
+the suffix query is marked more expensive than 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/prefix/">&lt;code>prefix&lt;/code>&lt;/a>.&lt;/p></description></item><item><title>Intervals query</title><link>https://pizza.rs/docs/references/search/full-text/intervals/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/intervals/</guid><description>&lt;h1 id="intervals-query">
+ Intervals query
+ &lt;a class="anchor" href="#intervals-query">#&lt;/a>
+&lt;/h1>
+&lt;p>The &lt;code>intervals&lt;/code> query is a rule language for term positions: it matches
+documents whose analyzed token stream satisfies proximity rules you
+express as a tree — fixed token sequences, maximum gaps, required
+order, unions, multi-term leaves, and positional filters between
+sibling rules. It covers everything
+
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/phrase/">&lt;code>phrase&lt;/code>&lt;/a> expresses plus the shapes a phrase
+cannot: unordered combinations with bounded width, disjunctions of
+positional rules, and prefix/wildcard/fuzzy/regexp leaves inside
+positional composition.&lt;/p></description></item><item><title>Range query</title><link>https://pizza.rs/docs/references/search/term-level/range/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/range/</guid><description>&lt;h1 id="range-query">
+ Range query
+ &lt;a class="anchor" href="#range-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain terms within a provided range.&lt;/p>
+&lt;p>Use it for intervals: prices between two numbers, events inside a time
+window, names inside an alphabetical span — anything expressible as
+&amp;ldquo;from / to&amp;rdquo; bounds rather than a list of exact values.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> supported — the bounds apply per array element.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine picks the index by field type:&lt;/p></description></item><item><title>Exists query</title><link>https://pizza.rs/docs/references/search/term-level/exists/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/exists/</guid><description>&lt;h1 id="exists-query">
+ Exists query
+ &lt;a class="anchor" href="#exists-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain an indexed value for a specific field.&lt;/p>
+&lt;p>A document matches when the field has at least one non-null value — an
+empty string or an empty array does &lt;strong>not&lt;/strong> count as existing.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> supported — matches elements that carry the field.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>exists&lt;/code> never touches the inverted index. It is answered from the
+stored-field / column layer, where every document either carries the key
+or does not:&lt;/p></description></item><item><title>More like this query</title><link>https://pizza.rs/docs/references/search/specialized/more_like_this/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/specialized/more_like_this/</guid><description>&lt;h1 id="more-like-this-query">
+ More like this query
+ &lt;a class="anchor" href="#more-like-this-query">#&lt;/a>
+&lt;/h1>
+&lt;p>&lt;code>more_like_this&lt;/code> finds documents similar to given text or documents.
+The engine extracts the input&amp;rsquo;s terms, keeps the significant ones, and
+runs the resulting top terms as a disjunctive query — a &amp;ldquo;find more of
+this&amp;rdquo; query without any embedding model.&lt;/p>
+&lt;p>&lt;code>fields&lt;/code> is required and limited to text fields.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The query is rewritten at the search entry point — it is a client of
+the analysis and term pipeline, not an index structure. Per field:
+gather the &lt;code>like&lt;/code> text (free text is
+analyzed with the first field&amp;rsquo;s analyzer; a referenced document
+contributes the text of every query field), tokenize it, drop terms
+below &lt;code>min_term_freq&lt;/code>, outside the word-length bounds, or listed in
+&lt;code>stop_words&lt;/code>, and remove every term the &lt;code>unlike&lt;/code> inputs produced.
+The surviving terms from all fields are pooled, ranked by source term
+frequency (ties broken alphabetically for determinism), and the top
+&lt;code>max_query_terms&lt;/code> become a &lt;code>bool.should&lt;/code> of &lt;code>term&lt;/code> queries governed
+by &lt;code>minimum_should_match&lt;/code>. If nothing survives, the query matches
+nothing. When &lt;code>include&lt;/code> is &lt;code>false&lt;/code> (the default) and the &lt;code>like&lt;/code> input
+named documents, their ids are added as a &lt;code>must_not&lt;/code> — the seed
+documents trivially contain every selected term.&lt;/p></description></item></channel></rss>

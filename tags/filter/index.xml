@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Filter on INFINI Pizza</title><link>https://pizza.rs/tags/filter/</link><description>Recent content in Filter on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/filter/index.xml" rel="self" type="application/rss+xml"/><item><title>Filter aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/filter/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/filter/</guid><description>&lt;h1 id="filter-aggregation">
+ Filter aggregation
+ &lt;a class="anchor" href="#filter-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-bucket aggregation that narrows the documents a nested
+aggregation runs on, with a query acting as the filter condition.
+Where the request&amp;rsquo;s &lt;code>query&lt;/code> scopes everything, &lt;code>filter&lt;/code> carves out one
+named sub-scope inside the aggregation tree — the aggregation
+equivalent of a &lt;code>WHERE&lt;/code> clause.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Every matching document is tested against the condition; those that
+pass form the bucket. The response is a single-bucket object carrying
+the filtered &lt;code>doc_count&lt;/code> plus any nested aggregation results:&lt;/p></description></item></channel></rss>

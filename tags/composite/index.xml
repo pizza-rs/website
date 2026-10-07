@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Composite on INFINI Pizza</title><link>https://pizza.rs/tags/composite/</link><description>Recent content in Composite on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/composite/index.xml" rel="self" type="application/rss+xml"/><item><title>Composite aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/composite/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/composite/</guid><description>&lt;h1 id="composite-aggregation">
+ Composite aggregation
+ &lt;a class="anchor" href="#composite-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>Paginated multi-source bucket aggregation: the composite key is a tuple
+built from several sources (a &lt;code>terms&lt;/code> field, a &lt;code>histogram&lt;/code> interval, a
+&lt;code>date_histogram&lt;/code>, a &lt;code>geotile_grid&lt;/code>), and pages are pulled with an
+&lt;code>after&lt;/code> cursor. It does what a single 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/bucket/terms/">&lt;code>terms&lt;/code>&lt;/a> cannot: group
+by several dimensions at once, and stream &lt;em>all&lt;/em> combinations without
+oversizing &lt;code>size&lt;/code>.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Each entry in &lt;code>sources&lt;/code> is named: &lt;code>{ &amp;quot;day&amp;quot;: { … } }&lt;/code> binds &lt;code>day&lt;/code> to one
+dimension of the composite key. A bucket&amp;rsquo;s &lt;code>key&lt;/code> maps each source name
+to its value; buckets come back in ascending key order — first source
+most significant, values compared as numbers when both are (numbers
+sort before strings), as strings otherwise.&lt;/p></description></item></channel></rss>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bounding_box on INFINI Pizza</title><link>https://pizza.rs/tags/bounding_box/</link><description>Recent content in Bounding_box on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/bounding_box/index.xml" rel="self" type="application/rss+xml"/><item><title>Geo-bounding-box query</title><link>https://pizza.rs/docs/references/search/geo/geo_bounding_box/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/geo/geo_bounding_box/</guid><description>&lt;h1 id="geo-bounding-box-query">
+ Geo-bounding-box query
+ &lt;a class="anchor" href="#geo-bounding-box-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Matches documents whose &lt;code>geo_point&lt;/code> field falls inside a rectangle
+defined by its top-left and bottom-right corners. Coordinates are
+WGS-84 degrees; filtering only (does not contribute distance scoring).&lt;/p>
+&lt;p>It is the cheapest geographic filter. When the region you need is a
+rectangle of latitude and longitude — a map viewport, a city&amp;rsquo;s extents,
+a country&amp;rsquo;s outline approximated by its bounds — the engine answers
+with a single index range and no per-document geometry math.&lt;/p></description></item></channel></rss>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Node on INFINI Pizza</title><link>https://pizza.rs/tags/node/</link><description>Recent content in Node on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/node/index.xml" rel="self" type="application/rss+xml"/><item><title>Node observability APIs</title><link>https://pizza.rs/docs/administration/observability/node/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/administration/observability/node/</guid><description>&lt;h1 id="node-observability-apis">
+ Node observability APIs
+ &lt;a class="anchor" href="#node-observability-apis">#&lt;/a>
+&lt;/h1>
+&lt;p>The &lt;code>/_node/_local/*&lt;/code> surface exposes this node&amp;rsquo;s runtime state —
+recovery progress, build backlog, shard inventory, storage layout,
+slowlogs, logs and the trash. All of it is read-only except where noted,
+and every endpoint can be reached &lt;strong>on a remote node&lt;/strong> through the
+unified forward: replace &lt;code>_local&lt;/code> with the node id
+(&lt;code>/_node/&amp;lt;node_id&amp;gt;/...&lt;/code>) — the console&amp;rsquo;s node pages are
+built on this.&lt;/p>
+&lt;p>Runtime knobs live on the sibling
+
+ &lt;a href="https://pizza.rs/docs/references/configuration/node_settings/">Node Settings&lt;/a> page.&lt;/p></description></item></channel></rss>

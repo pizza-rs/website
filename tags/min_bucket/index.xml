@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Min_bucket on INFINI Pizza</title><link>https://pizza.rs/tags/min_bucket/</link><description>Recent content in Min_bucket on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/min_bucket/index.xml" rel="self" type="application/rss+xml"/><item><title>Min bucket aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/min-bucket/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/min-bucket/</guid><description>&lt;h1 id="min-bucket-aggregation">
+ Min bucket aggregation
+ &lt;a class="anchor" href="#min-bucket-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A sibling pipeline aggregation identifying the &lt;strong>smallest&lt;/strong>
+per-bucket metric value. Bucket aggregations rank groups by their own
+key or doc_count; &lt;code>min_bucket&lt;/code> answers the orthogonal question — which
+of the per-bucket numbers (a revenue, a latency, a rate) is the lowest,
+and how low.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;worst_seller&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;min_bucket&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;per_type&amp;gt;revenue&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>min_bucket&lt;/code> is declared &lt;strong>next to&lt;/strong> the bucket aggregation it consumes
+and runs after every regular aggregation — including the distributed
+merge — has finished. It walks the parent&amp;rsquo;s finished buckets, collects
+one number per bucket, and returns their minimum as a single-value
+metric (&lt;code>{&amp;quot;value&amp;quot;: 1350}&lt;/code>) placed alongside the parent. Only the value
+is returned — not which bucket produced it; read the parent&amp;rsquo;s bucket
+list when you need the winner&amp;rsquo;s key.&lt;/p></description></item></channel></rss>

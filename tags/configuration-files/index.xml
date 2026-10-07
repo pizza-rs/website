@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Configuration Files on INFINI Pizza</title><link>https://pizza.rs/tags/configuration-files/</link><description>Recent content in Configuration Files on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/configuration-files/index.xml" rel="self" type="application/rss+xml"/><item><title>Configuration</title><link>https://pizza.rs/docs/getting-started/configuration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/getting-started/configuration/</guid><description>&lt;h1 id="configuration">
+ Configuration
+ &lt;a class="anchor" href="#configuration">#&lt;/a>
+&lt;/h1>
+&lt;p>Pizza supports several methods to overwrite the default configuration.&lt;/p>
+&lt;h2 id="command-lines">
+ Command lines
+ &lt;a class="anchor" href="#command-lines">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">➜ ./bin/pizza --help
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">A Distributed Real-Time Search &lt;span class="p">&amp;amp;&lt;/span> AI-Native Innovation Engine.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Usage: pizza &lt;span class="o">[&lt;/span>OPTIONS&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>COMMAND&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Commands:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> service Builtin service management &lt;span class="o">(&lt;/span>install, uninstall, start, stop&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> keystore Manage the node-local keystore &lt;span class="k">for&lt;/span> config secrets &lt;span class="o">(&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">keystore&lt;/span>&lt;span class="p">:...&lt;/span>&lt;span class="si">}&lt;/span> references&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">help&lt;/span> Print this message or the &lt;span class="nb">help&lt;/span> of the given subcommand&lt;span class="o">(&lt;/span>s&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Options:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -l, --log &amp;lt;LEVEL&amp;gt; Set the logging level, options: trace,debug,info,warn,error
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --debug Run in debug mode, panic immediately with full stack trace
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -c, --config &amp;lt;FILE&amp;gt; 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -p, --pid &amp;lt;FILE&amp;gt; Place pid to this file
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -E, --override &amp;lt;&lt;span class="nv">KEY&lt;/span>&lt;span class="o">=&lt;/span>VALUE&amp;gt; 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -h, --help Print &lt;span class="nb">help&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -V, --version Print version
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="configuration-file">
+ Configuration file
+ &lt;a class="anchor" href="#configuration-file">#&lt;/a>
+&lt;/h2>
+&lt;p>You can fully customize Pizza by utilizing the &lt;code>pizza.yml&lt;/code> configuration
+file (the default lookup path; override it with &lt;code>-c/--config&lt;/code>):&lt;/p></description></item></channel></rss>

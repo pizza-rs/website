@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cdc on INFINI Pizza</title><link>https://pizza.rs/tags/cdc/</link><description>Recent content in Cdc on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/cdc/index.xml" rel="self" type="application/rss+xml"/><item><title>Change feed (CDC)</title><link>https://pizza.rs/docs/references/document/changes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/document/changes/</guid><description>&lt;h1 id="change-feed-cdc">
+ Change feed (CDC)
+ &lt;a class="anchor" href="#change-feed-cdc">#&lt;/a>
+&lt;/h1>
+&lt;p>&lt;code>GET /_changes&lt;/code> serves a collection&amp;rsquo;s change log tail from the shard
+engines&amp;rsquo; WALs, so external systems can replicate Pizza data elsewhere —
+off-site disaster recovery, secondary indexing, audit pipelines — with a
+standard poll loop:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /demo:orders/_changes?since&lt;span class="o">=&lt;/span>abc:3,def:1&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="nv">limit&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1000&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;results&amp;#34;&lt;/span>: &lt;span class="o">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;shard&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;abc…&amp;#34;&lt;/span>,&lt;span class="s2">&amp;#34;rolling_id&amp;#34;&lt;/span>:0,&lt;span class="s2">&amp;#34;epoch_id&amp;#34;&lt;/span>:4,&lt;span class="s2">&amp;#34;seq&amp;#34;&lt;/span>:0,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;id&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;0,7&amp;#34;&lt;/span>,&lt;span class="s2">&amp;#34;key&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;u1&amp;#34;&lt;/span>,&lt;span class="s2">&amp;#34;op&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;create&amp;#34;&lt;/span>,&lt;span class="s2">&amp;#34;doc&amp;#34;&lt;/span>:&lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;qty&amp;#34;&lt;/span>:3&lt;span class="o">}}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;shard&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;abc…&amp;#34;&lt;/span>,&lt;span class="s2">&amp;#34;rolling_id&amp;#34;&lt;/span>:0,&lt;span class="s2">&amp;#34;epoch_id&amp;#34;&lt;/span>:4,&lt;span class="s2">&amp;#34;seq&amp;#34;&lt;/span>:1,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;id&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;0,8&amp;#34;&lt;/span>,&lt;span class="s2">&amp;#34;op&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;delete&amp;#34;&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">]&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;cursors&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;abc…&amp;#34;&lt;/span>: 4, &lt;span class="s2">&amp;#34;def…&amp;#34;&lt;/span>: 1&lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;purged_below&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;abc…&amp;#34;&lt;/span>: 3&lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;active&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;abc…&amp;#34;&lt;/span>: 5&lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;pending&amp;#34;&lt;/span>: &lt;span class="nb">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /_changes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GET /&amp;lt;targets&amp;gt;/_changes
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>targets&lt;/code> &lt;br>
+(Optional, string) Comma-separated collection names (wildcard
+supported); the target-less form feeds every collection.&lt;/li>
+&lt;/ul>
+&lt;h3 id="query-parameters">
+ Query parameters
+ &lt;a class="anchor" href="#query-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>since&lt;/code> &lt;br>
+(Optional, string) Per-shard epoch cursors from a previous response,
+&lt;code>shard_hex:epoch,shard_hex:epoch&lt;/code>. Omit to start from the beginning of
+the retained tail.&lt;/li>
+&lt;li>&lt;code>limit&lt;/code> &lt;br>
+(Optional, integer) Maximum rows to return. Defaults to &lt;code>1000&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;h2 id="consuming-the-feed">
+ Consuming the feed
+ &lt;a class="anchor" href="#consuming-the-feed">#&lt;/a>
+&lt;/h2>
+&lt;ol>
+&lt;li>Poll with the &lt;code>cursors&lt;/code> of the previous response as the next &lt;code>since&lt;/code>
+(persist the cursors — they are the checkpoint).&lt;/li>
+&lt;li>&lt;code>pending: true&lt;/code> means more rows exist beyond &lt;code>limit&lt;/code>; poll again
+immediately, otherwise poll at your cadence.&lt;/li>
+&lt;li>Compare each cursor against &lt;code>purged_below&lt;/code>: a cursor below that
+floor means the WAL retention window (&lt;code>wal.local.retention_epoch&lt;/code> /
+&lt;code>retention_bytes&lt;/code>) has already purged part of the tail for that
+shard. The tail is incomplete — run a full resync (search + re-bulk
+into the DR cluster) and resume from the current &lt;code>cursors&lt;/code>.&lt;/li>
+&lt;/ol>
+
+&lt;p class="mermaid">
+graph TD
+ P("poll — since = the cursors you saved") --> R["rows + new cursors"]
+ R -->|"pending: true — rows remain past limit"| P
+ R --> C{"every cursor at or above&lt;br/>purged_below?"}
+ C -->|"yes — the tail is complete"| W["persist the cursors,&lt;br/>poll again at your cadence"]
+ C -->|"no — retention already purged&lt;br/>part of the tail"| X["full resync: search + re-bulk,&lt;br/>resume from the current cursors"]
+&lt;/p></description></item></channel></rss>

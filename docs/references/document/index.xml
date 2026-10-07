@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Document on INFINI Pizza</title><link>https://pizza.rs/docs/references/document/</link><description>Recent content in Document on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/docs/references/document/index.xml" rel="self" type="application/rss+xml"/><item><title>Create a document</title><link>https://pizza.rs/docs/references/document/create/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/document/create/</guid><description>&lt;h1 id="create-a-document">
+ Create a document
+ &lt;a class="anchor" href="#create-a-document">#&lt;/a>
+&lt;/h1>
+&lt;p>Creates a new document.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>Insert a JSON document into the &lt;code>my-collection&lt;/code> collection:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /my-collection/_doc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;message&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;GET /search HTTP/1.1 200 1070000&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;org&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;infini&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The API returns the following result:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_collection&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;default:my-collection&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;0,0&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;result&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;created&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_shards&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;total&amp;#34;&lt;/span>: 2, &lt;span class="s2">&amp;#34;successful&amp;#34;&lt;/span>: 1, &lt;span class="s2">&amp;#34;failed&amp;#34;&lt;/span>: &lt;span class="m">0&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The API supports passing a customized UUID as the document identify, eg:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /my-collection/_doc/news_001
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;message&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;GET /search HTTP/1.1 200 1070000&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;org&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;infini&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The keyed form answers with the user key as &lt;code>_key&lt;/code>:&lt;/p></description></item><item><title>Fetch a document</title><link>https://pizza.rs/docs/references/document/fetch/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/document/fetch/</guid><description>&lt;h1 id="fetch-a-document">
+ Fetch a document
+ &lt;a class="anchor" href="#fetch-a-document">#&lt;/a>
+&lt;/h1>
+&lt;p>Retrieve an existing document by specifying its unique identifier.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>Fetch a document from the &lt;code>my-collection&lt;/code> collection with customized uuid &lt;code>news_001&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /my-collection/_doc/news_001
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The API returns the following result:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_collection&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;default:my-collection&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;0,0&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_key&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;news_001&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;found&amp;#34;&lt;/span>: true,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;source&amp;#34;&lt;/span> : &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;message&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;GET /search HTTP/1.1 200 1070000&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;org&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;infini&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>As you can see, the customized uuid are represented as &lt;code>_key&lt;/code> within the document,
+and there is also a &lt;code>_id&lt;/code> returned with value &lt;code>0,0&lt;/code>,
+this is the internal id generated by Pizza, and it is guaranteed to be unique,
+so you can also fetch this document by this value like this:&lt;/p></description></item><item><title>Replace a document</title><link>https://pizza.rs/docs/references/document/replace/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/document/replace/</guid><description>&lt;h1 id="replace-a-document">
+ Replace a document
+ &lt;a class="anchor" href="#replace-a-document">#&lt;/a>
+&lt;/h1>
+&lt;p>Replace an existing document by specifying its unique identifier and the new content.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>Replace a document &lt;code>news_001&lt;/code> of the collection &lt;code>my-collection&lt;/code> with new content:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">PUT /my-collection/_doc/news_001
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;message&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;GET /search HTTP/1.1 200 1070000&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;org&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;infinilabs&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The API returns as following result:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;0,0&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;_key&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;news_001&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;result&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;updated&amp;#34;&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>After the document modification, If you perform the fetch request:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /my-collection/_doc/news_001
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>It returns an updated document like:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_collection&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;default:my-collection&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;0,0&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_key&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;news_001&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;found&amp;#34;&lt;/span>: true,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;source&amp;#34;&lt;/span> : &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;message&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;GET /search HTTP/1.1 200 1070000&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;org&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;infinilabs&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The replacement happens in place: the document keeps its original &lt;code>_id&lt;/code>, and the
+index entries of the old version are rebuilt under the same &lt;code>_id&lt;/code>. Since this is
+a full replacement, fields that are omitted from the request body are cleared.&lt;/p></description></item><item><title>Partial update a document</title><link>https://pizza.rs/docs/references/document/partial_update/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/document/partial_update/</guid><description>&lt;h1 id="partial-update-a-document">
+ Partial update a document
+ &lt;a class="anchor" href="#partial-update-a-document">#&lt;/a>
+&lt;/h1>
+&lt;p>Sometimes we may only need to update a portion of the fields of a document.
+A partial update fetches the stored document, merges the partial &lt;code>doc&lt;/code> body,
+applies the ordered &lt;code>ops&lt;/code> operators, and replaces the document in place under
+its original &lt;code>_id&lt;/code> — the new values are visible to search immediately.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>Update the &lt;code>org.id&lt;/code> field of the document with system id &lt;code>0,0&lt;/code> in the
+collection &lt;code>my-collection&lt;/code>:&lt;/p></description></item><item><title>Delete a document</title><link>https://pizza.rs/docs/references/document/delete/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/document/delete/</guid><description>&lt;h1 id="delete-a-document">
+ Delete a document
+ &lt;a class="anchor" href="#delete-a-document">#&lt;/a>
+&lt;/h1>
+&lt;p>Delete a specific document from the specified collection by specifying its unique identifier.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>Delete the document &lt;code>0,0&lt;/code> from collection &lt;code>my-collection&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">DELETE /my-collection/_doc/0,0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The API returns the following result:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;0,0&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_version&amp;#34;&lt;/span>: 0,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;result&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;deleted&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Deleting a document again (or fetching it after deletion) answers
+&lt;code>404&lt;/code> with &lt;code>&amp;quot;result&amp;quot;: &amp;quot;not_found&amp;quot;&lt;/code> — the delete itself still succeeds
+and reports &lt;code>&amp;quot;result&amp;quot;: &amp;quot;deleted&amp;quot;&lt;/code> only for a document that was live.&lt;/p></description></item><item><title>Batch document operation</title><link>https://pizza.rs/docs/references/document/bulk/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/document/bulk/</guid><description>&lt;h1 id="batch-document-operation">
+ Batch document operation
+ &lt;a class="anchor" href="#batch-document-operation">#&lt;/a>
+&lt;/h1>
+&lt;p>Provides a efficient way to perform multiple &lt;code>index&lt;/code>, &lt;code>create&lt;/code>, &lt;code>delete&lt;/code>, and &lt;code>update&lt;/code>
+operations in a single request.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /_bulk
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;index&amp;#34;&lt;/span> : &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;_index&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;1&amp;#34;&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;field1&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;value1&amp;#34;&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;delete&amp;#34;&lt;/span> : &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;_index&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;2&amp;#34;&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;create&amp;#34;&lt;/span> : &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;_index&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;3&amp;#34;&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;field1&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;value3&amp;#34;&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;update&amp;#34;&lt;/span> : &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;1&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;_index&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;test&amp;#34;&lt;/span>&lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;doc&amp;#34;&lt;/span> : &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;field2&amp;#34;&lt;/span> : &lt;span class="s2">&amp;#34;value2&amp;#34;&lt;/span>&lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The API returns the following result:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;took&amp;#34;&lt;/span>: 30,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;errors&amp;#34;&lt;/span>: false,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;items&amp;#34;&lt;/span>: &lt;span class="o">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;index&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_collection&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;default:test&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;0,0&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;result&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;created&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;delete&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_collection&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;default:test&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;0,1&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;result&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;not_found&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;create&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_collection&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;default:test&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;0,2&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;result&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;created&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;update&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_collection&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;default:test&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;0,0&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;result&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;updated&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /_bulk
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">POST /&amp;lt;target&amp;gt;/_bulk
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>&amp;lt;target&amp;gt;&lt;/code> &lt;br>
+(Optional, string) Name of the collection to target. Actions that don&amp;rsquo;t
+explicitly specify their target in the action line use it.&lt;/li>
+&lt;/ul>
+&lt;h3 id="query-parameters">
+ Query parameters
+ &lt;a class="anchor" href="#query-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>realtime&lt;/code> &lt;br>
+(Optional, boolean, default: &lt;code>true&lt;/code>) Request-level write-mode switch that
+overrides schema property-level realtime settings for every document in
+this request: &lt;code>false&lt;/code> applies the batch WAL-only (durable immediately,
+searchable after the offline epoch build).&lt;/li>
+&lt;li>&lt;code>key_as_id&lt;/code> &lt;br>
+(Optional, boolean, default: &lt;code>false&lt;/code>) compatibility rendering: keyed
+documents answer with the user key AS &lt;code>_id&lt;/code> (see the index API).&lt;/li>
+&lt;li>&lt;code>sync_replication&lt;/code> &lt;br>
+(Optional, boolean) Opt back into synchronous inline replication for
+this request (wait for the replica RPC and count it in the response).&lt;/li>
+&lt;/ul>
+&lt;h3 id="request-body">
+ Request body
+ &lt;a class="anchor" href="#request-body">#&lt;/a>
+&lt;/h3>
+&lt;p>The actions are specified in the request body using a newline delimited JSON
+(NDJSON) structure:&lt;/p></description></item><item><title>Change feed (CDC)</title><link>https://pizza.rs/docs/references/document/changes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/document/changes/</guid><description>&lt;h1 id="change-feed-cdc">
+ Change feed (CDC)
+ &lt;a class="anchor" href="#change-feed-cdc">#&lt;/a>
+&lt;/h1>
+&lt;p>&lt;code>GET /_changes&lt;/code> serves a collection&amp;rsquo;s change log tail from the shard
+engines&amp;rsquo; WALs, so external systems can replicate Pizza data elsewhere —
+off-site disaster recovery, secondary indexing, audit pipelines — with a
+standard poll loop:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /demo:orders/_changes?since&lt;span class="o">=&lt;/span>abc:3,def:1&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="nv">limit&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1000&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;results&amp;#34;&lt;/span>: &lt;span class="o">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;shard&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;abc…&amp;#34;&lt;/span>,&lt;span class="s2">&amp;#34;rolling_id&amp;#34;&lt;/span>:0,&lt;span class="s2">&amp;#34;epoch_id&amp;#34;&lt;/span>:4,&lt;span class="s2">&amp;#34;seq&amp;#34;&lt;/span>:0,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;id&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;0,7&amp;#34;&lt;/span>,&lt;span class="s2">&amp;#34;key&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;u1&amp;#34;&lt;/span>,&lt;span class="s2">&amp;#34;op&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;create&amp;#34;&lt;/span>,&lt;span class="s2">&amp;#34;doc&amp;#34;&lt;/span>:&lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;qty&amp;#34;&lt;/span>:3&lt;span class="o">}}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;shard&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;abc…&amp;#34;&lt;/span>,&lt;span class="s2">&amp;#34;rolling_id&amp;#34;&lt;/span>:0,&lt;span class="s2">&amp;#34;epoch_id&amp;#34;&lt;/span>:4,&lt;span class="s2">&amp;#34;seq&amp;#34;&lt;/span>:1,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;id&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;0,8&amp;#34;&lt;/span>,&lt;span class="s2">&amp;#34;op&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;delete&amp;#34;&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">]&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;cursors&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;abc…&amp;#34;&lt;/span>: 4, &lt;span class="s2">&amp;#34;def…&amp;#34;&lt;/span>: 1&lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;purged_below&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;abc…&amp;#34;&lt;/span>: 3&lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;active&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;abc…&amp;#34;&lt;/span>: 5&lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;pending&amp;#34;&lt;/span>: &lt;span class="nb">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /_changes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GET /&amp;lt;targets&amp;gt;/_changes
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>targets&lt;/code> &lt;br>
+(Optional, string) Comma-separated collection names (wildcard
+supported); the target-less form feeds every collection.&lt;/li>
+&lt;/ul>
+&lt;h3 id="query-parameters">
+ Query parameters
+ &lt;a class="anchor" href="#query-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>since&lt;/code> &lt;br>
+(Optional, string) Per-shard epoch cursors from a previous response,
+&lt;code>shard_hex:epoch,shard_hex:epoch&lt;/code>. Omit to start from the beginning of
+the retained tail.&lt;/li>
+&lt;li>&lt;code>limit&lt;/code> &lt;br>
+(Optional, integer) Maximum rows to return. Defaults to &lt;code>1000&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;h2 id="consuming-the-feed">
+ Consuming the feed
+ &lt;a class="anchor" href="#consuming-the-feed">#&lt;/a>
+&lt;/h2>
+&lt;ol>
+&lt;li>Poll with the &lt;code>cursors&lt;/code> of the previous response as the next &lt;code>since&lt;/code>
+(persist the cursors — they are the checkpoint).&lt;/li>
+&lt;li>&lt;code>pending: true&lt;/code> means more rows exist beyond &lt;code>limit&lt;/code>; poll again
+immediately, otherwise poll at your cadence.&lt;/li>
+&lt;li>Compare each cursor against &lt;code>purged_below&lt;/code>: a cursor below that
+floor means the WAL retention window (&lt;code>wal.local.retention_epoch&lt;/code> /
+&lt;code>retention_bytes&lt;/code>) has already purged part of the tail for that
+shard. The tail is incomplete — run a full resync (search + re-bulk
+into the DR cluster) and resume from the current &lt;code>cursors&lt;/code>.&lt;/li>
+&lt;/ol>
+
+&lt;p class="mermaid">
+graph TD
+ P("poll — since = the cursors you saved") --> R["rows + new cursors"]
+ R -->|"pending: true — rows remain past limit"| P
+ R --> C{"every cursor at or above&lt;br/>purged_below?"}
+ C -->|"yes — the tail is complete"| W["persist the cursors,&lt;br/>poll again at your cadence"]
+ C -->|"no — retention already purged&lt;br/>part of the tail"| X["full resync: search + re-bulk,&lt;br/>resume from the current cursors"]
+&lt;/p></description></item></channel></rss>

@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Metric aggregations on INFINI Pizza</title><link>https://pizza.rs/docs/references/aggregation/metric/</link><description>Recent content in Metric aggregations on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/docs/references/aggregation/metric/index.xml" rel="self" type="application/rss+xml"/><item><title>Avg aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/avg/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/avg/</guid><description>&lt;h1 id="avg-aggregation">
+ Avg aggregation
+ &lt;a class="anchor" href="#avg-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-value metrics aggregation that computes the average of numeric values
+that are extracted from the aggregated documents. It summarizes &amp;ldquo;what does a
+typical matching document look like on this field&amp;rdquo; into one number — the
+question SQL spells &lt;code>AVG(price)&lt;/code> — without fetching a single document.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine walks the matching documents once, keeping a running &lt;code>sum&lt;/code> and
+&lt;code>count&lt;/code>; the result is &lt;code>sum / count&lt;/code>. Nothing is estimated: the average is
+exact. Values are coerced to doubles as they are read — integers, floats and
+booleans (&lt;code>true&lt;/code> = 1, &lt;code>false&lt;/code> = 0) contribute, non-numeric values such as
+keyword strings do not.&lt;/p></description></item><item><title>Cardinality aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/cardinality/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/cardinality/</guid><description>&lt;h1 id="cardinality-aggregation">
+ Cardinality aggregation
+ &lt;a class="anchor" href="#cardinality-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-value metrics aggregation that counts the number of distinct
+values of a field — how many different &lt;code>type&lt;/code>s were sold, how many
+different &lt;code>host&lt;/code>s logged, how many different authors wrote.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine counts with a &lt;strong>HyperLogLog++&lt;/strong> sketch — tuned so that
+small counts stay exact:&lt;/p>
+&lt;ul>
+&lt;li>Values are hashed (MurmurHash3, 64-bit) into a sketch that keeps an
+exact set while the number of distinct values stays at or below
+&lt;code>precision_threshold&lt;/code>; those counts are returned verbatim.&lt;/li>
+&lt;li>Above the threshold the sketch promotes to dense HyperLogLog
+registers, so memory stops growing with the data: roughly 1.6%
+relative error at the default threshold of 3000, tightening to about
+0.4% at the maximum of 40000. The returned value is always a rounded
+whole number.&lt;/li>
+&lt;li>When documents lack the field and &lt;code>missing&lt;/code> is set, they all count as
+one additional distinct value; without &lt;code>missing&lt;/code> they are simply not
+counted.&lt;/li>
+&lt;/ul>
+&lt;p>Distributed queries ship the sketch itself with each shard&amp;rsquo;s partial
+result and the coordinating node &lt;strong>unions the sketches&lt;/strong> before
+estimating — the same number a single-node execution over all shards'
+documents would produce. (Cardinality nested inside bucket
+sub-aggregations still merges its per-shard finalized counts by maximum,
+a lower bound, when no sketch travels with them.)&lt;/p></description></item><item><title>Max aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/max/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/max/</guid><description>&lt;h1 id="max-aggregation">
+ Max aggregation
+ &lt;a class="anchor" href="#max-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-value metrics aggregation that keeps track and returns the maximum
+value among the numeric values extracted from the aggregated documents. It
+answers &amp;ldquo;how high does this field go&amp;rdquo; over any query — the top of a price
+range, the latest timestamp in a window, the biggest order that matches a
+filter.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine walks the matching documents once, keeping the largest value seen;
+any smaller value costs one comparison. Values are coerced to doubles as they
+are read — integers, floats and booleans (&lt;code>true&lt;/code> = 1, &lt;code>false&lt;/code> = 0) qualify,
+non-numeric values such as keyword strings do not.&lt;/p></description></item><item><title>Min aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/min/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/min/</guid><description>&lt;h1 id="min-aggregation">
+ Min aggregation
+ &lt;a class="anchor" href="#min-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-value metrics aggregation that keeps track and returns the minimum
+value among numeric values extracted from the aggregated documents. It answers
+&amp;ldquo;how low does this field go&amp;rdquo; over any query — the floor of a price range, the
+earliest timestamp in a window, the cheapest item that matches a filter.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine walks the matching documents once, keeping the smallest value seen;
+any larger value costs one comparison. Values are coerced to doubles as they
+are read — integers, floats and booleans (&lt;code>true&lt;/code> = 1, &lt;code>false&lt;/code> = 0) qualify,
+non-numeric values such as keyword strings do not.&lt;/p></description></item><item><title>Sum aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/sum/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/sum/</guid><description>&lt;h1 id="sum-aggregation">
+ Sum aggregation
+ &lt;a class="anchor" href="#sum-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-value metrics aggregation that sums up numeric values that are
+extracted from the aggregated documents. It turns &amp;ldquo;how much in total&amp;rdquo; into
+one number — revenue, bytes, durations, counts of units — without shipping
+the matching documents anywhere.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine walks the matching documents once, adding each value to a running
+total. Values are coerced to doubles as they are read — integers, floats and
+booleans (&lt;code>true&lt;/code> = 1, &lt;code>false&lt;/code> = 0) contribute, non-numeric values such as
+keyword strings do not.&lt;/p></description></item><item><title>Value count aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/value-count/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/value-count/</guid><description>&lt;h1 id="value-count-aggregation">
+ Value count aggregation
+ &lt;a class="anchor" href="#value-count-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-value metrics aggregation that counts the number of values that are
+extracted from the aggregated documents. Typically, this aggregator will be used
+in conjunction with other single-value aggregations. For example, when computing
+the &lt;code>avg&lt;/code> one might be interested in the number of values the average is
+computed over.&lt;/p>
+&lt;p>&lt;code>value_count&lt;/code> does not de-duplicate values, so even if a field has duplicates
+each value will be counted individually.&lt;/p></description></item><item><title>Median absolute deviation aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/median-absolute-deviation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/median-absolute-deviation/</guid><description>&lt;h1 id="median-absolute-deviation-aggregation">
+ Median absolute deviation aggregation
+ &lt;a class="anchor" href="#median-absolute-deviation-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-value metrics aggregation that computes the median absolute
+deviation — the median of the distances from each value to the median of
+all values. A robust measure of spread: unlike standard deviation it is
+not skewed by a few extreme values.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The aggregation runs in three steps over the collected values of the
+field:&lt;/p>
+&lt;ol>
+&lt;li>Compute the &lt;strong>median&lt;/strong> with the same TDigest arithmetic
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/percentiles/">&lt;code>percentiles&lt;/code>&lt;/a> uses — weight-1 centroids at
+&lt;code>(i + 0.5) / n&lt;/code>, linear interpolation between the two bracketing
+values.&lt;/li>
+&lt;li>Take each value&amp;rsquo;s absolute distance to that median,
+&lt;code>|v − median|&lt;/code>.&lt;/li>
+&lt;li>Return the &lt;strong>median of those distances&lt;/strong>, using the same arithmetic
+again.&lt;/li>
+&lt;/ol>
+&lt;p>Because both medians interpolate, the result can land between observed
+values (over the 120 teaching sale prices: median &lt;code>22.5&lt;/code>, MAD &lt;code>7.5&lt;/code> —
+neither is a price anyone paid). The value is expressed in the same units
+as the field, so a MAD of &lt;code>7.5&lt;/code> on prices means &amp;ldquo;a typical sale is $7.50
+away from the median price&amp;rdquo;.&lt;/p></description></item><item><title>Weighted average aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/weighted-avg/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/weighted-avg/</guid><description>&lt;h1 id="weighted-average-aggregation">
+ Weighted average aggregation
+ &lt;a class="anchor" href="#weighted-average-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-value metrics aggregation that computes the weighted average of
+numeric values. Each document contributes &lt;code>value × weight&lt;/code>, divided by
+the total weight — e.g. an average price weighted by quantity sold. When
+documents are not all equally important, 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/avg/">&lt;code>avg&lt;/code>&lt;/a> is the wrong tool
+and this is the right one.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine walks the matching documents once, accumulating &lt;code>Σ(value × weight)&lt;/code> in the numerator and &lt;code>Σ weight&lt;/code> in the denominator; the result is
+their quotient. Both sides are computed in the same pass over two columns,
+so the pairing of a document&amp;rsquo;s value with its own weight is never lost.&lt;/p></description></item><item><title>Stats aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/stats/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/stats/</guid><description>&lt;h1 id="stats-aggregation">
+ Stats aggregation
+ &lt;a class="anchor" href="#stats-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-value metrics aggregation that computes basic statistics
+(&lt;code>min&lt;/code>, &lt;code>max&lt;/code>, &lt;code>sum&lt;/code>, &lt;code>count&lt;/code>, &lt;code>avg&lt;/code>) over numeric values extracted from
+the aggregated documents. It is 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/avg/">&lt;code>avg&lt;/code>&lt;/a>, 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/min/">&lt;code>min&lt;/code>&lt;/a>,
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/max/">&lt;code>max&lt;/code>&lt;/a> and 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/sum/">&lt;code>sum&lt;/code>&lt;/a> folded into one request — the five
+numbers most dashboards put side by side, for the price of one column scan.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine walks the matching documents once, maintaining a running
+&lt;code>count&lt;/code>, &lt;code>sum&lt;/code>, minimum and maximum; &lt;code>avg&lt;/code> is derived at the end as
+&lt;code>sum / count&lt;/code>. Everything is exact — no sampling, no sketches. Values are
+coerced to doubles as they are read: integers, floats and booleans
+(&lt;code>true&lt;/code> = 1, &lt;code>false&lt;/code> = 0) contribute, non-numeric values such as keyword
+strings do not.&lt;/p></description></item><item><title>Extended stats aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/extended-stats/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/extended-stats/</guid><description>&lt;h1 id="extended-stats-aggregation">
+ Extended stats aggregation
+ &lt;a class="anchor" href="#extended-stats-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-value metrics aggregation extending 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/stats/">&lt;code>stats&lt;/code>&lt;/a> with
+squares, variance, standard deviation and their lower/upper bounds. Where
+&lt;code>stats&lt;/code> says what the values are, &lt;code>extended_stats&lt;/code> says how tightly they
+cluster around the mean — the input for outlier bands, quality gates and
+anything else built on &amp;ldquo;how unusual is this value&amp;rdquo;.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine walks the matching documents once, maintaining a running &lt;code>count&lt;/code>,
+&lt;code>sum&lt;/code>, &lt;code>sum_of_squares&lt;/code>, minimum and maximum — the same single pass as
+&lt;code>stats&lt;/code>, plus one multiply-add for the squares. Everything downstream is
+derived from these raw moments, and is exact (no sampling, no sketches):&lt;/p></description></item><item><title>Percentiles aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/percentiles/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/percentiles/</guid><description>&lt;h1 id="percentiles-aggregation">
+ Percentiles aggregation
+ &lt;a class="anchor" href="#percentiles-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-value metrics aggregation that calculates one or more percentiles over
+numeric values extracted from the aggregated documents.&lt;/p>
+&lt;p>Percentiles show the point at which a certain percentage of observed values
+occur. For example, the 95th percentile is the value which is greater than 95%
+of the observed values.&lt;/p>
+&lt;p>Percentiles are often used to find outliers. In normal distributions, the 0.13th
+and 99.87th percentiles represents three standard deviations from the mean. Any
+data which falls outside three standard deviations is often considered an
+anomaly.&lt;/p></description></item><item><title>Percentile ranks aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/percentile-ranks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/percentile-ranks/</guid><description>&lt;h1 id="percentile-ranks-aggregation">
+ Percentile ranks aggregation
+ &lt;a class="anchor" href="#percentile-ranks-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-value metrics aggregation that answers the inverse of
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/percentiles/">&lt;code>percentiles&lt;/code>&lt;/a>: for each value you provide, what
+percentage of documents is at or below it.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine collects every value of the field and sorts it once. For each
+requested value &lt;code>v&lt;/code>, the rank is the fraction of collected values that are
+less than or equal to &lt;code>v&lt;/code>:&lt;/p>
+&lt;pre tabindex="0">&lt;code>rank(v) = count(value &amp;lt;= v) / n * 100
+&lt;/code>&lt;/pre>&lt;p>The comparison is inclusive — a document exactly at &lt;code>v&lt;/code> counts toward its
+own rank, so the rank of the maximum value is &lt;code>100&lt;/code>, not &lt;code>100 − 1/n&lt;/code>. With
+no values at all (empty result set, or every document missing the field)
+each rank is &lt;code>null&lt;/code>.&lt;/p></description></item><item><title>Boxplot aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/boxplot/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/boxplot/</guid><description>&lt;h1 id="boxplot-aggregation">
+ Boxplot aggregation
+ &lt;a class="anchor" href="#boxplot-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-value metrics aggregation producing the five-number summary of a
+distribution: minimum, lower quartile (q1), median (q2), upper quartile
+(q3) and maximum, plus whiskers.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine collects and sorts the values of the field, then:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>min&lt;/code> / &lt;code>max&lt;/code> are the observed extremes (after &lt;code>missing&lt;/code> substitution).&lt;/li>
+&lt;li>&lt;code>q1&lt;/code>, &lt;code>q2&lt;/code>, &lt;code>q3&lt;/code> are the 25th, 50th and 75th percentiles, computed with
+the same TDigest arithmetic 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/percentiles/">&lt;code>percentiles&lt;/code>&lt;/a> uses —
+weight-1 centroids at &lt;code>(i + 0.5) / n&lt;/code> with linear interpolation between
+the two bracketing values. A quartile can therefore land between
+observed values (&lt;code>q2&lt;/code> of the sale prices is &lt;code>22.5&lt;/code>, between &lt;code>15&lt;/code> and
+&lt;code>30&lt;/code>).&lt;/li>
+&lt;li>The whiskers extend from the quartiles by 1.5 × IQR, where
+&lt;code>IQR = q3 − q1&lt;/code>, and are clamped to the data:
+&lt;code>lower = max(q1 − 1.5·IQR, min)&lt;/code>, &lt;code>upper = min(q3 + 1.5·IQR, max)&lt;/code>.
+Values beyond the unclamped whisker positions are the conventional
+boxplot outliers.&lt;/li>
+&lt;/ul>
+&lt;p>Clamping means on a compact distribution the whiskers simply touch the
+extremes — over the teaching sales prices the whiskers land exactly on
+&lt;code>min&lt;/code> and &lt;code>max&lt;/code>. If no document has a value for the field, all seven
+numbers are &lt;code>0&lt;/code>.&lt;/p></description></item><item><title>String stats aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/string-stats/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/string-stats/</guid><description>&lt;h1 id="string-stats-aggregation">
+ String stats aggregation
+ &lt;a class="anchor" href="#string-stats-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-value metrics aggregation computing length and character
+statistics over keyword/string values: count, min/max/avg length and
+Shannon entropy of the character distribution.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Every document that has a string value for the field contributes one
+string. Over those strings the engine reports:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>count&lt;/code> — how many values were seen (documents without the field are
+skipped, not counted);&lt;/li>
+&lt;li>&lt;code>min_length&lt;/code>, &lt;code>max_length&lt;/code>, &lt;code>avg_length&lt;/code> — length statistics in UTF-8
+&lt;strong>bytes&lt;/strong>, so a non-ASCII character counts as its encoded width;&lt;/li>
+&lt;li>&lt;code>entropy&lt;/code> — Shannon entropy of the pooled character frequencies, in
+&lt;strong>bits&lt;/strong>: &lt;code>-Σ p(c) · log2 p(c)&lt;/code> over the share &lt;code>p(c)&lt;/code> of each character
+across all strings. Constant text gives &lt;code>0&lt;/code>; text where every character
+is equally likely gives &lt;code>log2(alphabet size)&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;p>The character frequencies are pooled across all contributing values
+before the entropy is taken, so repetition across documents counts: the
+teaching &lt;code>type&lt;/code> field repeats the same few words 120 times and still
+scores ≈3.22 bits.&lt;/p></description></item><item><title>Matrix stats aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/matrix-stats/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/matrix-stats/</guid><description>&lt;h1 id="matrix-stats-aggregation">
+ Matrix stats aggregation
+ &lt;a class="anchor" href="#matrix-stats-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-value metrics aggregation computing counts, means, variances,
+skewness, kurtosis and the correlation matrix across several numeric
+fields at once.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The aggregation works row-wise: a document contributes a row only if it
+has a value for &lt;strong>every&lt;/strong> listed field (a &lt;code>missing&lt;/code> map can fill gaps
+per field). Documents with any gap are dropped entirely — the reported
+&lt;code>count&lt;/code> is the number of complete rows, and every statistic uses the
+same rows. At least two rows are required; below that the result is
+empty.&lt;/p></description></item><item><title>T-test aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/t-test/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/t-test/</guid><description>&lt;h1 id="t-test-aggregation">
+ T-test aggregation
+ &lt;a class="anchor" href="#t-test-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-value metrics aggregation for a Student&amp;rsquo;s t-test over two
+numeric fields. Positive values mean &lt;code>a&lt;/code> tends to be larger than &lt;code>b&lt;/code>.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine collects every value of &lt;code>a.field&lt;/code> and every value of
+&lt;code>b.field&lt;/code> across the bucket&amp;rsquo;s documents — the two samples grow
+independently, so a document missing one field still contributes to
+the other sample — and computes Welch&amp;rsquo;s two-sample t-statistic:&lt;/p></description></item><item><title>Rate aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/rate/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/rate/</guid><description>&lt;h1 id="rate-aggregation">
+ Rate aggregation
+ &lt;a class="anchor" href="#rate-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-value metrics aggregation that reduces a numeric field inside
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/bucket/date-histogram/">&lt;code>date_histogram&lt;/code>&lt;/a> buckets (per-interval
+totals), intended for counters that accumulate over time.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>rate&lt;/code> reads one field and reduces it per bucket, with three reduction
+modes selected by &lt;code>mode&lt;/code>:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>sum&lt;/code> (default) — the bucket&amp;rsquo;s total of the field; identical to
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/sum/">&lt;code>sum&lt;/code>&lt;/a>.&lt;/li>
+&lt;li>&lt;code>value_count&lt;/code> — how many values the field has in the bucket.&lt;/li>
+&lt;li>&lt;code>avg&lt;/code> — the bucket&amp;rsquo;s mean of the field.&lt;/li>
+&lt;/ul>
+&lt;p>If &lt;code>field&lt;/code> is omitted entirely, the aggregation counts the documents in
+the bucket (the &lt;code>value_count&lt;/code> shape over &lt;code>_doc&lt;/code>).&lt;/p></description></item><item><title>Geo bounds aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/geo-bounds/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/geo-bounds/</guid><description>&lt;h1 id="geo-bounds-aggregation">
+ Geo bounds aggregation
+ &lt;a class="anchor" href="#geo-bounds-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A metrics aggregation computing the bounding box (top-left /
+bottom-right corners) of all &lt;code>geo_point&lt;/code> values — the rectangle that
+just contains every point in the bucket.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine scans the bucket&amp;rsquo;s &lt;code>geo_point&lt;/code> column, tracks the minimum
+and maximum latitude and longitude, and emits:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;bounds&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;top_left&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;lat&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="err">&amp;lt;max&lt;/span> &lt;span class="err">lat&amp;gt;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nt">&amp;#34;lon&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="err">&amp;lt;min&lt;/span> &lt;span class="err">lon&amp;gt;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;bottom_right&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;lat&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="err">&amp;lt;min&lt;/span> &lt;span class="err">lat&amp;gt;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nt">&amp;#34;lon&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="err">&amp;lt;max&lt;/span> &lt;span class="err">lon&amp;gt;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>null&lt;/code> when the bucket holds no parseable point. The column-store fast
+path and the executor path run the same min/max scan.&lt;/p></description></item><item><title>Geo centroid aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/geo-centroid/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/geo-centroid/</guid><description>&lt;h1 id="geo-centroid-aggregation">
+ Geo centroid aggregation
+ &lt;a class="anchor" href="#geo-centroid-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A metrics aggregation computing the centroid (mean latitude and
+longitude) of all &lt;code>geo_point&lt;/code> values.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine sums latitudes and longitudes across the bucket&amp;rsquo;s
+&lt;code>geo_point&lt;/code> values and divides by the count:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;location&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;lat&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="err">..&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nt">&amp;#34;lon&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="err">..&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;count&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">15&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>The mean is arithmetic per axis (a planar average, not spherical) —
+exact enough at city or country scale, drifting only for extents
+that cross the 180th meridian or span hemispheres.&lt;/li>
+&lt;li>Every parseable point counts once; there is no weight field. The
+result is &lt;code>null&lt;/code> when the bucket holds no points.&lt;/li>
+&lt;li>Under distributed fan-out the coordinator keeps its own shard&amp;rsquo;s
+value (geo metrics have no mergeable intermediate), so single-node
+results are the exact ones.&lt;/li>
+&lt;li>Like every &lt;code>geo_point&lt;/code> consumer, the aggregation sees points
+normalized at ingestion: &lt;code>{&amp;quot;lat&amp;quot;: .., &amp;quot;lon&amp;quot;: ..}&lt;/code>, &lt;code>[lon, lat]&lt;/code>
+(longitude first) or a &lt;code>&amp;quot;lat,lon&amp;quot;&lt;/code> string, all stored as
+two-dimensional BKD points.&lt;/li>
+&lt;/ul>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;div class="pizza-playground" data-dataset="places" data-dsl="{
+ &amp;#34;size&amp;#34;: 0,
+ &amp;#34;aggs&amp;#34;: {
+ &amp;#34;map_center&amp;#34;: {
+ &amp;#34;geo_centroid&amp;#34;: {
+ &amp;#34;field&amp;#34;: &amp;#34;location&amp;#34;
+ }
+ }
+ }
+}">
+ &lt;noscript>JavaScript is disabled — use the curl form of this example instead.&lt;/noscript>
+&lt;/div>
+&lt;p>Returns the &lt;code>count&lt;/code> of points and their centroid — the natural center
+point for map placement. Over the 15 places: &lt;code>count: 15&lt;/code>, location
+about &lt;code>{lat 31.7484, lon 111.2181}&lt;/code>.&lt;/p></description></item><item><title>Top hits aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/top-hits/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/top-hits/</guid><description>&lt;h1 id="top-hits-aggregation">
+ Top hits aggregation
+ &lt;a class="anchor" href="#top-hits-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>Keeps track of the most relevant documents being aggregated — useful
+inside a bucket aggregation (e.g. &lt;code>terms&lt;/code>) to return the best-matching
+documents per bucket. Where most metric aggs reduce a bucket to one
+number, &lt;code>top_hits&lt;/code> keeps the documents themselves.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>top_hits&lt;/code> runs over a bucket&amp;rsquo;s document set and returns up to &lt;code>size&lt;/code>
+documents in a hits envelope: &lt;code>hits.total&lt;/code> — a plain count
+of the bucket&amp;rsquo;s documents — and &lt;code>hits.hits[]&lt;/code>, each entry carrying
+&lt;code>_id&lt;/code> (the engine&amp;rsquo;s internal numeric document id) and &lt;code>_source&lt;/code>.&lt;/p></description></item><item><title>Top metrics aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/top-metrics/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/top-metrics/</guid><description>&lt;h1 id="top-metrics-aggregation">
+ Top metrics aggregation
+ &lt;a class="anchor" href="#top-metrics-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A metrics aggregation that returns metric values from the leading
+matching documents — a cheaper alternative to 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/top-hits/">&lt;code>top_hits&lt;/code>&lt;/a>
+when you only need field values, not whole documents.&lt;/p>
+&lt;blockquote>
+&lt;p>Engine note: &lt;code>sort&lt;/code> is accepted for compatibility; the current
+implementation returns the metrics of the first &lt;code>size&lt;/code> matching
+documents.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>top_metrics&lt;/code> walks the bucket&amp;rsquo;s documents and emits one entry per
+document for the first &lt;code>size&lt;/code> of them, in index order. Each entry maps
+every configured metric field to its value in that document. The
+response is the flat form &lt;code>{&amp;quot;top&amp;quot;: [{&amp;quot;price&amp;quot;: 15.0}, …]}&lt;/code>.&lt;/p></description></item><item><title>Scripted metric aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/scripted-metric/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/scripted-metric/</guid><description>&lt;h1 id="scripted-metric-aggregation">
+ Scripted metric aggregation
+ &lt;a class="anchor" href="#scripted-metric-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A metrics aggregation whose result is computed by your own scripts, in
+four phases, running on Pizza&amp;rsquo;s sandboxed script engine (see
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/scripts/">the script language reference&lt;/a>).&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>One state map per segment, folded once at the end:&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Phase&lt;/th>
+ &lt;th>Runs&lt;/th>
+ &lt;th>Scope&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>init_script&lt;/code>&lt;/td>
+ &lt;td>once per segment&lt;/td>
+ &lt;td>&lt;code>state&lt;/code>, &lt;code>params&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>map_script&lt;/code>&lt;/td>
+ &lt;td>once per document&lt;/td>
+ &lt;td>&lt;code>state&lt;/code>, &lt;code>doc&lt;/code>, &lt;code>params&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>combine_script&lt;/code>&lt;/td>
+ &lt;td>once per segment&lt;/td>
+ &lt;td>&lt;code>state&lt;/code>, &lt;code>params&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>reduce_script&lt;/code>&lt;/td>
+ &lt;td>once, at the end&lt;/td>
+ &lt;td>&lt;code>states&lt;/code>, &lt;code>params&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>&lt;code>state&lt;/code> is a map you own — initialize it in &lt;code>init_script&lt;/code>, accumulate into
+it in &lt;code>map_script&lt;/code>. &lt;code>combine_script&lt;/code> folds one segment&amp;rsquo;s state into a
+single value (a script that ends in a statement returns the state itself,
+the default when &lt;code>combine_script&lt;/code> is omitted). &lt;code>reduce_script&lt;/code> receives
+all combined values as the &lt;code>states&lt;/code> array; if it is omitted, a single
+state passes through unchanged and several come back as an array — the
+parts, rather than a wrong merge. Builds without the &lt;code>scripting&lt;/code> feature
+return &lt;code>null&lt;/code> for the whole aggregation.&lt;/p></description></item></channel></rss>

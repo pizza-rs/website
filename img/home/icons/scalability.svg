@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="76px" height="67px" viewBox="0 0 76 67" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 9</title>
+    <g id="pizza" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页修改" transform="translate(-421, -2725)">
+            <g id="编组-9" transform="translate(422, 2726)">
+                <polygon id="多边形" stroke="#00FEA3" points="36.9396514 17.1830273 51.7947411 25.7459026 51.7947411 42.8716532 36.9396514 51.4345284 22.0845617 42.8716532 22.0845617 25.7459026"></polygon>
+                <polyline id="路径" stroke="#002CFF" stroke-linecap="round" points="22.0845617 17.7261507 22.0845617 8.56287528 36.9396514 0 51.7947411 8.56287528 51.7947411 17.7261507"></polyline>
+                <polyline id="路径备份-7" stroke="#002CFF" stroke-linecap="round" transform="translate(58.8968, 47.0888) rotate(-240) translate(-58.8968, -47.0888)" points="44.041717 55.9518623 44.041717 46.7885869 58.8968068 38.2257116 73.7518965 46.7885869 73.7518965 55.9518623"></polyline>
+                <polyline id="路径备份-8" stroke="#002CFF" stroke-linecap="round" transform="translate(15.1032, 47.0888) scale(-1, 1) rotate(-240) translate(-15.1032, -47.0888)" points="0.248103533 55.9518623 0.248103533 46.7885869 15.1031932 38.2257116 29.958283 46.7885869 29.958283 55.9518623"></polyline>
+                <polyline id="路径-14" stroke="#00FEA3" points="22.0845617 25.8890945 36.9396514 34.3087779 36.9396514 51.4345284"></polyline>
+                <line x1="36.9396514" y1="34.3087779" x2="51.7947411" y2="25.8890945" id="路径-15" stroke="#00FEA3"></line>
+            </g>
+        </g>
+    </g>
+</svg>

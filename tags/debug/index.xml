@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Debug on INFINI Pizza</title><link>https://pizza.rs/tags/debug/</link><description>Recent content in Debug on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/debug/index.xml" rel="self" type="application/rss+xml"/><item><title>Analyze text</title><link>https://pizza.rs/docs/references/search/analysis/analysis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/analysis/analysis/</guid><description>&lt;h1 id="analyze-text">
+ Analyze text
+ &lt;a class="anchor" href="#analyze-text">#&lt;/a>
+&lt;/h1>
+&lt;p>The analysis workbench: run the server&amp;rsquo;s tokenizers, normalizers, token
+filters and analyzers over sample text and see the exact token stream —
+the same components the indexing path uses, so what you debug here is
+exactly what collections run. The analysis chain decides what is
+searchable: query and document must reduce to the same tokens.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Every analyzer is assembled from three stages, run in this order:&lt;/p></description></item></channel></rss>

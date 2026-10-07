@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Compaction on INFINI Pizza</title><link>https://pizza.rs/tags/compaction/</link><description>Recent content in Compaction on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/compaction/index.xml" rel="self" type="application/rss+xml"/><item><title>Collection-wide manual compaction</title><link>https://pizza.rs/docs/highlightings/manual-compaction/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/manual-compaction/</guid><description>&lt;h1 id="collection-wide-manual-compaction">
+ Collection-wide manual compaction
+ &lt;a class="anchor" href="#collection-wide-manual-compaction">#&lt;/a>
+&lt;/h1>
+&lt;p>Reclaiming disk no longer means waiting for the background cadence or
+poking shards one by one. One request runs a merge pass on every started
+primary copy of the collection, cluster-wide:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">curl -X POST http://127.0.0.1:28000/my-collection/_compact &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -H &lt;span class="s1">&amp;#39;Authorization: Bearer pz_bootstrap_key&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The response reports the queued batch job per hosting node — job id plus
+how many local primary passes it covers — so a node-level failure fails
+the row, not the request:&lt;/p></description></item></channel></rss>

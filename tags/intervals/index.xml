@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Intervals on INFINI Pizza</title><link>https://pizza.rs/tags/intervals/</link><description>Recent content in Intervals on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/intervals/index.xml" rel="self" type="application/rss+xml"/><item><title>Intervals query</title><link>https://pizza.rs/docs/references/search/full-text/intervals/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/full-text/intervals/</guid><description>&lt;h1 id="intervals-query">
+ Intervals query
+ &lt;a class="anchor" href="#intervals-query">#&lt;/a>
+&lt;/h1>
+&lt;p>The &lt;code>intervals&lt;/code> query is a rule language for term positions: it matches
+documents whose analyzed token stream satisfies proximity rules you
+express as a tree — fixed token sequences, maximum gaps, required
+order, unions, multi-term leaves, and positional filters between
+sibling rules. It covers everything
+
+ &lt;a href="https://pizza.rs/docs/references/search/full-text/phrase/">&lt;code>phrase&lt;/code>&lt;/a> expresses plus the shapes a phrase
+cannot: unordered combinations with bounded width, disjunctions of
+positional rules, and prefix/wildcard/fuzzy/regexp leaves inside
+positional composition.&lt;/p></description></item></channel></rss>

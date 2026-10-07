@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cardinality on INFINI Pizza</title><link>https://pizza.rs/tags/cardinality/</link><description>Recent content in Cardinality on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/cardinality/index.xml" rel="self" type="application/rss+xml"/><item><title>Cardinality aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/cardinality/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/cardinality/</guid><description>&lt;h1 id="cardinality-aggregation">
+ Cardinality aggregation
+ &lt;a class="anchor" href="#cardinality-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-value metrics aggregation that counts the number of distinct
+values of a field — how many different &lt;code>type&lt;/code>s were sold, how many
+different &lt;code>host&lt;/code>s logged, how many different authors wrote.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine counts with a &lt;strong>HyperLogLog++&lt;/strong> sketch — tuned so that
+small counts stay exact:&lt;/p>
+&lt;ul>
+&lt;li>Values are hashed (MurmurHash3, 64-bit) into a sketch that keeps an
+exact set while the number of distinct values stays at or below
+&lt;code>precision_threshold&lt;/code>; those counts are returned verbatim.&lt;/li>
+&lt;li>Above the threshold the sketch promotes to dense HyperLogLog
+registers, so memory stops growing with the data: roughly 1.6%
+relative error at the default threshold of 3000, tightening to about
+0.4% at the maximum of 40000. The returned value is always a rounded
+whole number.&lt;/li>
+&lt;li>When documents lack the field and &lt;code>missing&lt;/code> is set, they all count as
+one additional distinct value; without &lt;code>missing&lt;/code> they are simply not
+counted.&lt;/li>
+&lt;/ul>
+&lt;p>Distributed queries ship the sketch itself with each shard&amp;rsquo;s partial
+result and the coordinating node &lt;strong>unions the sketches&lt;/strong> before
+estimating — the same number a single-node execution over all shards'
+documents would produce. (Cardinality nested inside bucket
+sub-aggregations still merges its per-shard finalized counts by maximum,
+a lower bound, when no sketch travels with them.)&lt;/p></description></item></channel></rss>

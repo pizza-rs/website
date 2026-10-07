@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Configuration on INFINI Pizza</title><link>https://pizza.rs/tags/configuration/</link><description>Recent content in Configuration on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/configuration/index.xml" rel="self" type="application/rss+xml"/><item><title>Configuration file reference</title><link>https://pizza.rs/docs/references/configuration/pizza_yml/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/configuration/pizza_yml/</guid><description>&lt;h1 id="configuration-file-reference">
+ Configuration file reference
+ &lt;a class="anchor" href="#configuration-file-reference">#&lt;/a>
+&lt;/h1>
+&lt;p>&lt;code>pizza.yml&lt;/code> (the default lookup path, override with &lt;code>-c/--config &amp;lt;file&amp;gt;&lt;/code>)
+is read once at startup. Unknown keys are &lt;strong>rejected&lt;/strong> — the node refuses
+to start on a typo, and on a key that was renamed in an upgrade.
+Individual keys can be overridden per launch with
+&lt;code>pizza -E &amp;lt;key&amp;gt;=&amp;lt;value&amp;gt;&lt;/code> (repeatable; values parse as YAML, e.g.
+&lt;code>-E node.network.binding=127.0.0.1:12200&lt;/code>).&lt;/p>
+&lt;h2 id="secret-values">
+ Secret values
+ &lt;a class="anchor" href="#secret-values">#&lt;/a>
+&lt;/h2>
+&lt;p>API keys and tokens do not have to live in the file. Any string value
+may reference an environment variable, resolved at startup:&lt;/p></description></item><item><title>Environment variables</title><link>https://pizza.rs/docs/references/configuration/env_vars/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/configuration/env_vars/</guid><description>&lt;h1 id="environment-variables">
+ Environment variables
+ &lt;a class="anchor" href="#environment-variables">#&lt;/a>
+&lt;/h1>
+&lt;p>Most tuning lives in &lt;code>pizza.yml&lt;/code> (see the
+
+ &lt;a href="https://pizza.rs/docs/references/configuration/pizza_yml/">configuration file reference&lt;/a>) or the runtime settings
+APIs. The &lt;code>PIZZA_*&lt;/code> environment variables below are escape hatches —
+mostly for benchmarking, diagnostics and crash-safety research; prefer
+the config file or the settings APIs for anything you want to keep.&lt;/p>
+&lt;h2 id="operational-knobs">
+ Operational knobs
+ &lt;a class="anchor" href="#operational-knobs">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Variable&lt;/th>
+ &lt;th>Default&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_FLUSH_CONCURRENCY&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Overrides &lt;code>node.flush_concurrency&lt;/code> (1..=16); beats the config file.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_RECOVERY_TAIL_FLUSH&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>&lt;code>0&lt;/code>/&lt;code>1&lt;/code> forces &lt;code>wal.local.recovery_tail_flush&lt;/code> off/on, beating the config file.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_RPC_TIMEOUT_SECS&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Deadline for cluster RPC calls (must be &amp;gt; 0).&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_COMPACTION_EVERY_TICKS&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Maintenance ticks (500 ms) between background compaction passes.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_COMPACT_TIERS&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Restrict background compaction to specific tier patterns (diagnostics).&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_FLUSH_AFTER_IDLE_TICKS&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Idle-tail epoch flush override (same semantics as &lt;code>wal.local.epoch_flush_after_idle_ticks&lt;/code>).&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_SEGMENT_SYNC&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>&lt;code>off&lt;/code> skips the per-segment fsync before WAL purge — the same behavior as &lt;code>wal.local.segment_durability: async&lt;/code>, without a config change.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_WAL_IO_URING&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Force WAL io_uring on/off (Linux), overriding auto-detection.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_MAX_NODE_BUILDS&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Fallback for the epoch-build concurrency default (&lt;code>PUT /_node/_local/settings/epoch_build&lt;/code> overrides it at runtime).&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_MERGE_POOL_THREADS&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Size of the dedicated compaction merge thread pool.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_ROUTE_CACHE&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Routing-table cache diagnostics/tuning.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_BUILD_BUF_POOL_MB&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Build-buffer pool size in MiB.&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="watchdog">
+ Watchdog
+ &lt;a class="anchor" href="#watchdog">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Variable&lt;/th>
+ &lt;th>Default&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_RSS_WATCHDOG&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Enable the RSS watchdog (&lt;code>0&lt;/code> explicitly disables it).&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_RSS_SOFT_MB&lt;/code>&lt;/td>
+ &lt;td>60% of MemTotal&lt;/td>
+ &lt;td>Soft RSS threshold (MiB) — sheds load, logs.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_RSS_HARD_MB&lt;/code>&lt;/td>
+ &lt;td>75% of MemTotal&lt;/td>
+ &lt;td>Hard RSS threshold (MiB) — aborts the process.&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="diagnostics-and-profiling">
+ Diagnostics and profiling
+ &lt;a class="anchor" href="#diagnostics-and-profiling">#&lt;/a>
+&lt;/h2>
+&lt;p>Off by default; presence enables.&lt;/p></description></item><item><title>AI Services</title><link>https://pizza.rs/docs/references/configuration/ai_services/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/configuration/ai_services/</guid><description>&lt;p>AI services are the external, OpenAI-compatible model endpoints behind
+server-side inference — schema-driven text→vector derivation, text
+vector queries, the &lt;code>semantic&lt;/code> query and the &lt;code>/_embedding&lt;/code> API on the
+embedding side, and the &lt;code>POST /_chat&lt;/code> generation facade on the other.
+Every service speaks the OpenAI wire format: the embeddings API
+(&lt;code>POST {url}&lt;/code> with &lt;code>{&amp;quot;model&amp;quot;, &amp;quot;input&amp;quot;: [...]}&lt;/code> and a bearer key), and —
+once it lists &lt;code>generation&lt;/code> models — the chat-completions API at its
+&lt;code>chat_url&lt;/code>.&lt;/p></description></item><item><title>Keystore</title><link>https://pizza.rs/docs/references/configuration/keystore/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/configuration/keystore/</guid><description>&lt;h1 id="keystore">
+ Keystore
+ &lt;a class="anchor" href="#keystore">#&lt;/a>
+&lt;/h1>
+&lt;p>The keystore is a node-local file of secrets referenced from
+&lt;code>pizza.yml&lt;/code> — API keys and tokens never have to live in the config
+file itself. Entries resolve through &lt;code>${keystore:NAME}&lt;/code> references:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">node&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">embedding&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">endpoints&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">openai&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://api.openai.com/v1/embeddings&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">api_key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${keystore:openai}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The file is &lt;code>&amp;lt;config dir&amp;gt;/keystore.json&lt;/code> — next to the config file it
+serves, so one instance per config (multi-instance hosts keep separate
+keystores) and it never enters the data directory&amp;rsquo;s lifecycle. It is
+written 0600 and replaced atomically; entries never enter cluster
+metadata, raft logs, or API responses — views answer with a masked
+hint only (&lt;code>sk-…4f2a&lt;/code>).&lt;/p></description></item><item><title>Keystore hot-reload</title><link>https://pizza.rs/docs/highlightings/keystore-hot-reload/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/keystore-hot-reload/</guid><description>&lt;h1 id="keystore-hot-reload">
+ Keystore hot-reload
+ &lt;a class="anchor" href="#keystore-hot-reload">#&lt;/a>
+&lt;/h1>
+&lt;p>Rotating a secret no longer restarts the node. &lt;code>${keystore:...}&lt;/code>
+references re-resolve into the running configuration on demand: console
+edits trigger the reload themselves, and out-of-band changes (a CLI
+edit, a replaced mounted Secret) are one call away.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">curl -X POST http://127.0.0.1:28000/_node/_local/keystore/_reload &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -H &lt;span class="s1">&amp;#39;Authorization: Bearer pz_bootstrap_key&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The answer says exactly what happened — key names only, values stay
+write-only:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;entries&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;read_only&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;references&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;changed&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;node.embedding.endpoints&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;catalog.join_token&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;unchanged&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;failed&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>A rotated embedding API key applies to the next inference call; a
+rotated &lt;code>catalog.join_token&lt;/code> to the next join attempt. A reference
+whose entry disappeared keeps its running value and lands in &lt;code>failed&lt;/code>
+until the entry returns — reload never aborts the node the way a
+missing entry aborts boot.&lt;/p></description></item></channel></rss>

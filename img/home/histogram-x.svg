@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="652px" height="282px" viewBox="0 0 652 282" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 15</title>
+    <defs>
+        <linearGradient x1="-1.30624678e-13%" y1="50%" x2="100%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#00FFA2" offset="0%"></stop>
+            <stop stop-color="#002BFF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="pizza" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页修改" transform="translate(-300, -3529)">
+            <g id="编组-15" transform="translate(300, 3529)">
+                <rect id="矩形备份-13" fill="#0C1015" x="0" y="0" width="652" height="282" rx="16"></rect>
+                <rect id="矩形备份-27" fill="url(#linearGradient-1)" x="56" y="65" width="484" height="41.1347518"></rect>
+                <rect id="矩形备份-28" fill="#303030" x="56" y="121.865248" width="47" height="41.1347518"></rect>
+                <rect id="矩形备份-87" fill="#303030" x="56" y="178.865248" width="157" height="41.1347518"></rect>
+                <polyline id="路径-24" stroke="#2A2A2E" points="40 40 40 242 612 242"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

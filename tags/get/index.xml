@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Get on INFINI Pizza</title><link>https://pizza.rs/tags/get/</link><description>Recent content in Get on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/get/index.xml" rel="self" type="application/rss+xml"/><item><title>Get collection</title><link>https://pizza.rs/docs/references/collection/get/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/collection/get/</guid><description>&lt;h1 id="get-collection">
+ Get collection
+ &lt;a class="anchor" href="#get-collection">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns information about one or more collections.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>The following request gets all the collections under the default namespace:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /default:*
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /&amp;lt;target&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path Parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>target&lt;/code> &lt;br>
+(Required, String) Comma-separated, names of the collections to get (wildcard supported)&lt;/li>
+&lt;/ul>
+&lt;h2 id="response">
+ Response
+ &lt;a class="anchor" href="#response">#&lt;/a>
+&lt;/h2>
+&lt;p>One entry per collection, keyed by its &lt;code>namespace:collection&lt;/code> name. Each
+entry combines the schema, settings, index definitions and rollings:&lt;/p></description></item><item><title>Get collection index</title><link>https://pizza.rs/docs/references/collection/get_index/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/collection/get_index/</guid><description>&lt;h1 id="get-collection-index">
+ Get collection index
+ &lt;a class="anchor" href="#get-collection-index">#&lt;/a>
+&lt;/h1>
+&lt;p>See the following documents:&lt;/p>
+&lt;ul>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/index/get/">Get index&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/index/get_alias/">Get index alias&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/index/get_mapping/">Get index mapping&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/index/get_settings/">Get index settings&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Get collection rollings</title><link>https://pizza.rs/docs/references/collection/get_rollings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/collection/get_rollings/</guid><description>&lt;h1 id="get-collection-rollings">
+ Get collection rollings
+ &lt;a class="anchor" href="#get-collection-rollings">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns rollings information about one or more collections.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>The following request gets the rollings information of all the collections under
+the default namespace:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /default:*/_rollings
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Retrieve the rollings information of all the collections:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /_rollings
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /&amp;lt;target&amp;gt;/_rollings
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path Parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>target&lt;/code> &lt;br>
+(Optional, String) Comma-separated, names of the collections to get (wildcard supported)&lt;/li>
+&lt;/ul></description></item><item><title>Get collection schema</title><link>https://pizza.rs/docs/references/collection/get_schema/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/collection/get_schema/</guid><description>&lt;h1 id="get-collection-schema">
+ Get collection schema
+ &lt;a class="anchor" href="#get-collection-schema">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns schema information about one or more collections.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>The following request gets the schema information of all the collections under the default namespace:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /default:*/_schema
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Retrieve the schema information of all the collections:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /_schema
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /&amp;lt;target&amp;gt;/_schema
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path Parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>target&lt;/code> &lt;br>
+(Optional, String) Comma-separated, names of the collections to get (wildcard supported)&lt;/li>
+&lt;/ul></description></item><item><title>Get collection settings</title><link>https://pizza.rs/docs/references/collection/get_settings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/collection/get_settings/</guid><description>&lt;h1 id="get-collection-settings">
+ Get collection settings
+ &lt;a class="anchor" href="#get-collection-settings">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns settings information about one or more collections.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>The following request gets the settings information of all the collections under
+the default namespace:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /default:*/_settings
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Retrieve the settings information of all the collections:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /_settings
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /&amp;lt;target&amp;gt;/_settings
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path Parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>target&lt;/code> &lt;br>
+(Optional, String) Comma-separated, names of the collections to get (wildcard supported)&lt;/li>
+&lt;/ul></description></item><item><title>Get index</title><link>https://pizza.rs/docs/references/index/get/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/index/get/</guid><description>&lt;h1 id="get-index">
+ Get index
+ &lt;a class="anchor" href="#get-index">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns information about one or more indices&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>Get the information of all indices:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /_index
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Get the information of the index named &lt;code>my-index&lt;/code> under collection &lt;code>my-collection&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /my-collection/_index/my-index
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /_index
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GET /&amp;lt;target&amp;gt;/_index
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GET /&amp;lt;target&amp;gt;/_index/&amp;lt;index&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path Parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>target&lt;/code> &lt;br>
+(Required, String) Comma-separated, names of the collections to specify (wildcard supported)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>index&lt;/code> &lt;br>
+(Required, String) Comma-separated, names of the indices to get (wildcard supported)&lt;/p></description></item><item><title>Get index alias</title><link>https://pizza.rs/docs/references/index/get_alias/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/index/get_alias/</guid><description>&lt;h1 id="get-index-alias">
+ Get index alias
+ &lt;a class="anchor" href="#get-index-alias">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns alias information about one or more indices under the specified collection.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>Get the alias information of the &lt;code>my-index&lt;/code> index under collection &lt;code>my-collection&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /my-collection/_index/my-index/_alias
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /&amp;lt;target&amp;gt;/_index/&amp;lt;index&amp;gt;/_alias
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GET /&amp;lt;target&amp;gt;/_index/_alias
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path Parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>target&lt;/code> &lt;br>
+(Required, String) Comma-separated, names of the collections to specify (wildcard supported)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>index&lt;/code> &lt;br>
+(Optional, String) Comma-separated, names of the indices to get (wildcard supported)&lt;/p>
+&lt;/li>
+&lt;/ul></description></item></channel></rss>

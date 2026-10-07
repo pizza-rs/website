@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pipeline aggregations on INFINI Pizza</title><link>https://pizza.rs/docs/references/aggregation/pipeline/</link><description>Recent content in Pipeline aggregations on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/docs/references/aggregation/pipeline/index.xml" rel="self" type="application/rss+xml"/><item><title>Avg bucket aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/avg-bucket/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/avg-bucket/</guid><description>&lt;h1 id="avg-bucket-aggregation">
+ Avg bucket aggregation
+ &lt;a class="anchor" href="#avg-bucket-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A sibling pipeline aggregation computing the &lt;strong>average&lt;/strong> of a metric
+across another aggregation&amp;rsquo;s buckets. Bucket aggregations answer &amp;ldquo;what
+is the revenue per day / per category / per range&amp;rdquo;; &lt;code>avg_bucket&lt;/code> rolls
+those per-bucket numbers into one mean — &amp;ldquo;what does a typical day or
+category bring in&amp;rdquo; — without a second query or client-side arithmetic.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;avg_day&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;avg_bucket&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;per_day&amp;gt;revenue&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>avg_bucket&lt;/code> is declared &lt;strong>next to&lt;/strong> the bucket aggregation it consumes
+(a sibling in the same &lt;code>aggs&lt;/code> object) and runs after every regular
+aggregation has finished — after the merge, too, in a distributed
+search. It reads the parent&amp;rsquo;s finished buckets, collects one number per
+bucket, and divides their sum by their count. The result is a
+single-value metric (&lt;code>{&amp;quot;value&amp;quot;: 56.25}&lt;/code>) placed alongside the parent.&lt;/p></description></item><item><title>Sum bucket aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/sum-bucket/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/sum-bucket/</guid><description>&lt;h1 id="sum-bucket-aggregation">
+ Sum bucket aggregation
+ &lt;a class="anchor" href="#sum-bucket-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A sibling pipeline aggregation computing the &lt;strong>sum&lt;/strong> of a metric across
+another aggregation&amp;rsquo;s buckets — e.g. &amp;ldquo;total of the daily totals&amp;rdquo;. Where
+&lt;code>avg_bucket&lt;/code> characterizes the typical bucket, &lt;code>sum_bucket&lt;/code> re-totals
+the per-bucket values, which is how you grand-total a figure that was
+only computed per group.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;grand_total&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;sum_bucket&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;per_day&amp;gt;revenue&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>sum_bucket&lt;/code> is declared &lt;strong>next to&lt;/strong> the bucket aggregation it consumes
+and runs after every regular aggregation — including the distributed
+merge — has finished. It walks the parent&amp;rsquo;s finished buckets, collects
+one number per bucket, and adds them up into a single-value metric
+(&lt;code>{&amp;quot;value&amp;quot;: 6750}&lt;/code>) placed alongside the parent.&lt;/p></description></item><item><title>Min bucket aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/min-bucket/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/min-bucket/</guid><description>&lt;h1 id="min-bucket-aggregation">
+ Min bucket aggregation
+ &lt;a class="anchor" href="#min-bucket-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A sibling pipeline aggregation identifying the &lt;strong>smallest&lt;/strong>
+per-bucket metric value. Bucket aggregations rank groups by their own
+key or doc_count; &lt;code>min_bucket&lt;/code> answers the orthogonal question — which
+of the per-bucket numbers (a revenue, a latency, a rate) is the lowest,
+and how low.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;worst_seller&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;min_bucket&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;per_type&amp;gt;revenue&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>min_bucket&lt;/code> is declared &lt;strong>next to&lt;/strong> the bucket aggregation it consumes
+and runs after every regular aggregation — including the distributed
+merge — has finished. It walks the parent&amp;rsquo;s finished buckets, collects
+one number per bucket, and returns their minimum as a single-value
+metric (&lt;code>{&amp;quot;value&amp;quot;: 1350}&lt;/code>) placed alongside the parent. Only the value
+is returned — not which bucket produced it; read the parent&amp;rsquo;s bucket
+list when you need the winner&amp;rsquo;s key.&lt;/p></description></item><item><title>Max bucket aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/max-bucket/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/max-bucket/</guid><description>&lt;h1 id="max-bucket-aggregation">
+ Max bucket aggregation
+ &lt;a class="anchor" href="#max-bucket-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A sibling pipeline aggregation identifying the &lt;strong>largest&lt;/strong> per-bucket
+metric value — e.g. the best-performing group. Bucket aggregations can
+sort their own output, but only inside one request&amp;rsquo;s bucket list;
+&lt;code>max_bucket&lt;/code> lifts the winning number out as a single headline metric
+next to the breakdown.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;best_seller&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;max_bucket&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;per_type&amp;gt;revenue&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>max_bucket&lt;/code> is declared &lt;strong>next to&lt;/strong> the bucket aggregation it consumes
+and runs after every regular aggregation — including the distributed
+merge — has finished. It walks the parent&amp;rsquo;s finished buckets, collects
+one number per bucket, and returns their maximum as a single-value
+metric (&lt;code>{&amp;quot;value&amp;quot;: 1800}&lt;/code>) placed alongside the parent. Only the value
+is returned — not which bucket produced it; read the parent&amp;rsquo;s bucket
+list (or sort it with 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/bucket-sort/">&lt;code>bucket_sort&lt;/code>&lt;/a>) when you need
+the winner&amp;rsquo;s key.&lt;/p></description></item><item><title>Stats bucket aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/stats-bucket/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/stats-bucket/</guid><description>&lt;h1 id="stats-bucket-aggregation">
+ Stats bucket aggregation
+ &lt;a class="anchor" href="#stats-bucket-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A sibling pipeline aggregation returning count/min/max/avg/sum of a
+metric &lt;strong>across buckets&lt;/strong> — the stats of the per-bucket values. One
+call replaces four: where &lt;code>avg_bucket&lt;/code>, &lt;code>min_bucket&lt;/code> and &lt;code>max_bucket&lt;/code>
+each reduce the bucket list to a single number, &lt;code>stats_bucket&lt;/code> returns
+the whole summary object beside the aggregation it describes.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;day_stats&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;stats_bucket&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;per_day&amp;gt;revenue&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>stats_bucket&lt;/code> is declared &lt;strong>next to&lt;/strong> the bucket aggregation it
+consumes and runs after every regular aggregation — including the
+distributed merge — has finished. It walks the parent&amp;rsquo;s finished
+buckets, collects one number per bucket, and emits the 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/stats/">&lt;code>stats&lt;/code>&lt;/a>
+result object over that sample:&lt;/p></description></item><item><title>Extended stats bucket aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/extended-stats-bucket/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/extended-stats-bucket/</guid><description>&lt;h1 id="extended-stats-bucket-aggregation">
+ Extended stats bucket aggregation
+ &lt;a class="anchor" href="#extended-stats-bucket-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A sibling pipeline aggregation extending
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/stats-bucket/">&lt;code>stats_bucket&lt;/code>&lt;/a> with variance, standard deviation
+and their sampling variants of the per-bucket metric distribution. Use
+it when the spread of the per-bucket numbers matters — how uneven the
+days or categories are — not just their min/avg/max envelope.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;day_xstats&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;extended_stats_bucket&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;per_day&amp;gt;revenue&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>extended_stats_bucket&lt;/code> is declared &lt;strong>next to&lt;/strong> the bucket aggregation
+it consumes and runs after every regular aggregation — including the
+distributed merge — has finished. It walks the parent&amp;rsquo;s finished
+buckets, collects one number per bucket, and emits an
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/extended-stats/">&lt;code>extended_stats&lt;/code>&lt;/a>-shaped result over that
+sample:&lt;/p></description></item><item><title>Percentiles bucket aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/percentiles-bucket/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/percentiles-bucket/</guid><description>&lt;h1 id="percentiles-bucket-aggregation">
+ Percentiles bucket aggregation
+ &lt;a class="anchor" href="#percentiles-bucket-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A sibling pipeline aggregation computing percentiles of a metric across
+buckets — e.g. &amp;ldquo;the daily-revenue p95&amp;rdquo;. The mean of the per-bucket
+values answers &amp;ldquo;what is typical&amp;rdquo;; percentiles answer &amp;ldquo;what the whole
+ladder of buckets looks like&amp;rdquo; — including the outlier end that a
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/stats-bucket/">&lt;code>stats_bucket&lt;/code>&lt;/a> min/max flattens into two numbers.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;day_pcts&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;percentiles_bucket&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;per_day&amp;gt;revenue&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>percentiles_bucket&lt;/code> is declared &lt;strong>next to&lt;/strong> the bucket aggregation it
+consumes and runs after every regular aggregation — including the
+distributed merge — has finished. It walks the parent&amp;rsquo;s finished
+buckets, collects one number per bucket, sorts them, and evaluates each
+requested percentile over the sorted sample, returning a
+&lt;code>{&amp;quot;values&amp;quot;: {...}}&lt;/code> object keyed by the percentile:&lt;/p></description></item><item><title>Derivative aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/derivative/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/derivative/</guid><description>&lt;h1 id="derivative-aggregation">
+ Derivative aggregation
+ &lt;a class="anchor" href="#derivative-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A parent pipeline aggregation computing the &lt;strong>difference&lt;/strong> between each
+bucket&amp;rsquo;s metric and the previous bucket&amp;rsquo;s — &amp;ldquo;how much did it change&amp;rdquo;.
+A time series says where you are; the derivative says which way and
+how fast you are moving, bucket by bucket. The first bucket has no
+predecessor and answers &lt;code>null&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;delta&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;derivative&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;revenue&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>derivative&lt;/code> is declared &lt;strong>inside&lt;/strong> the multi-bucket aggregation it
+decorates (the parent style), next to the metric it consumes. After
+the buckets are built, the engine walks them in order and attaches
+&lt;code>current − previous&lt;/code> to each bucket under the pipeline&amp;rsquo;s own name:&lt;/p></description></item><item><title>Cumulative sum aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/cumulative-sum/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/cumulative-sum/</guid><description>&lt;h1 id="cumulative-sum-aggregation">
+ Cumulative sum aggregation
+ &lt;a class="anchor" href="#cumulative-sum-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A parent pipeline aggregation adding a &lt;strong>running total&lt;/strong> column to each
+bucket — the metric plus every earlier bucket&amp;rsquo;s. A histogram says what
+each period brought in; the cumulative sum says where the whole span
+stands at every point along it, without a second query or client-side
+arithmetic.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;running&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;cumulative_sum&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;revenue&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>cumulative_sum&lt;/code> is declared &lt;strong>inside&lt;/strong> the multi-bucket aggregation it
+decorates, next to the metric it consumes. After the buckets are
+built, the engine walks them in order and attaches the running total
+to each bucket under the pipeline&amp;rsquo;s own name:&lt;/p></description></item><item><title>Cumulative cardinality aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/cumulative-cardinality/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/cumulative-cardinality/</guid><description>&lt;h1 id="cumulative-cardinality-aggregation">
+ Cumulative cardinality aggregation
+ &lt;a class="anchor" href="#cumulative-cardinality-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A parent pipeline aggregation reporting a &lt;strong>running total of a
+per-bucket distinct count&lt;/strong> — typically a &lt;code>cardinality&lt;/code> metric —
+answering &amp;ldquo;how many unique values have been counted up to and
+including each bucket&amp;rdquo;.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;seen_so_far&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;cumulative_cardinality&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;buyers&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>cumulative_cardinality&lt;/code> is declared &lt;strong>inside&lt;/strong> the multi-bucket
+aggregation it decorates, next to the metric it consumes. The engine
+walks the finished buckets in order and attaches the running total of
+the referenced values under the pipeline&amp;rsquo;s own name — mechanically the
+same accumulation as 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/cumulative-sum/">&lt;code>cumulative_sum&lt;/code>&lt;/a>; only the
+intended input (a per-bucket distinct count) differs.&lt;/p></description></item><item><title>Serial diff aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/serial-diff/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/serial-diff/</guid><description>&lt;h1 id="serial-diff-aggregation">
+ Serial diff aggregation
+ &lt;a class="anchor" href="#serial-diff-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A parent pipeline aggregation computing the difference between each
+bucket&amp;rsquo;s metric and the bucket &lt;code>lag&lt;/code> positions back — a differencing
+transform that turns a trending or seasonal series into its own
+period-over-period change.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;wowl&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;serial_diff&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;revenue&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nt">&amp;#34;lag&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>serial_diff&lt;/code> is declared &lt;strong>inside&lt;/strong> the multi-bucket aggregation it
+decorates, next to the metric it consumes. After the buckets are
+built, the engine walks them in order and attaches
+&lt;code>current − value_lag_buckets_back&lt;/code> to each bucket under the
+pipeline&amp;rsquo;s own name:&lt;/p></description></item><item><title>Moving fn aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/moving-fn/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/moving-fn/</guid><description>&lt;h1 id="moving-fn-aggregation">
+ Moving fn aggregation
+ &lt;a class="anchor" href="#moving-fn-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A parent pipeline aggregation computing a &lt;strong>window statistic&lt;/strong> over the
+last N buckets&amp;rsquo; metrics — &lt;code>MovingFunctions.max(values)&lt;/code>,
+&lt;code>MovingFunctions.sum(values)&lt;/code>, &lt;code>MovingFunctions.min(values)&lt;/code> and
+friends, with the window sliding bucket by bucket.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;smooth&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;moving_fn&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;revenue&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;window&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;script&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;MovingFunctions.max(values)&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>moving_fn&lt;/code> is declared &lt;strong>inside&lt;/strong> the multi-bucket aggregation it
+decorates, next to the metric it consumes. After the buckets are
+built, the engine slides a &lt;strong>trailing window&lt;/strong> over their values and,
+for each bucket, evaluates the script once with the window exposed as
+&lt;code>values&lt;/code> — a floating-point array, &lt;strong>oldest first&lt;/strong>, current bucket
+last. The script&amp;rsquo;s numeric result is attached to that bucket under
+the pipeline&amp;rsquo;s own name.&lt;/p></description></item><item><title>Moving avg aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/moving-avg/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/moving-avg/</guid><description>&lt;h1 id="moving-avg-aggregation">
+ Moving avg aggregation
+ &lt;a class="anchor" href="#moving-avg-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A parent pipeline aggregation smoothing a metric with a &lt;strong>moving
+average&lt;/strong> over the last N buckets — one averaged point per bucket,
+flattening noise so the trend underneath shows.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;smooth&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;moving_avg&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;per_day&amp;gt;revenue&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nt">&amp;#34;window&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">3&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>In this engine &lt;code>moving_avg&lt;/code> is evaluated in the &lt;strong>sibling
+placement&lt;/strong>: declare it &lt;strong>next to&lt;/strong> the bucket aggregation and point
+&lt;code>buckets_path&lt;/code> at the series with the full &lt;code>parent&amp;gt;metric&lt;/code> form. After
+the buckets are built, the engine slides a &lt;strong>trailing window&lt;/strong> over
+their values and emits a standalone buckets array (keys &lt;code>0..n−1&lt;/code>)
+with one &lt;code>value&lt;/code> per consumed bucket — the average of the window
+ending at that bucket.&lt;/p></description></item><item><title>Bucket script aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/bucket-script/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/bucket-script/</guid><description>&lt;h1 id="bucket-script-aggregation">
+ Bucket script aggregation
+ &lt;a class="anchor" href="#bucket-script-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A parent pipeline aggregation computing &lt;strong>arithmetic on a bucket&amp;rsquo;s own
+metrics&lt;/strong> — the script references sibling metrics by name through
+&lt;code>params&lt;/code> and its result becomes a new per-bucket value. It is the
+SQL &lt;code>SELECT a / b AS c&lt;/code> of the aggregation world: one derived column,
+evaluated once per bucket over values the bucket already holds.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;avg_order&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;bucket_script&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;r&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;revenue&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nt">&amp;#34;n&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;orders&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;script&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;params.r / params.n&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>bucket_script&lt;/code> is declared &lt;strong>inside&lt;/strong> the multi-bucket aggregation it
+decorates, next to the metrics it consumes. After the buckets are
+built, the engine resolves each named path against every bucket,
+binds the numbers into the script&amp;rsquo;s scope, evaluates the script once,
+and inserts its result under the pipeline&amp;rsquo;s own name — the
+response shape &lt;code>buckets[i].avg_order.value&lt;/code>.&lt;/p></description></item><item><title>Bucket selector aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/bucket-selector/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/bucket-selector/</guid><description>&lt;h1 id="bucket-selector-aggregation">
+ Bucket selector aggregation
+ &lt;a class="anchor" href="#bucket-selector-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A parent pipeline aggregation &lt;strong>filtering the bucket list itself&lt;/strong>: a
+script predicate per bucket — buckets whose script evaluates false
+are dropped from the response. It is the &lt;code>HAVING&lt;/code> clause of the
+aggregation world: the predicate sees computed metrics, not
+documents.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;big_days&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;bucket_selector&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;r&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;revenue&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;script&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;params.r &amp;gt; 150&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>bucket_selector&lt;/code> is declared &lt;strong>inside&lt;/strong> the multi-bucket aggregation
+it decorates, next to the metrics it consumes. After the buckets are
+built, the engine resolves each named path against every bucket,
+evaluates the script once as a boolean, and &lt;strong>removes the buckets
+that fail&lt;/strong> from the owning aggregation&amp;rsquo;s response. The selector
+itself never appears in the output — it is a filter, not a metric.&lt;/p></description></item><item><title>Bucket sort aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/bucket-sort/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/bucket-sort/</guid><description>&lt;h1 id="bucket-sort-aggregation">
+ Bucket sort aggregation
+ &lt;a class="anchor" href="#bucket-sort-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A parent pipeline aggregation &lt;strong>sorting (and paginating)&lt;/strong> the bucket
+list by any of the bucket&amp;rsquo;s metrics — the pipeline counterpart of the
+request-level &lt;code>sort&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;by_revenue&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;bucket_sort&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;sort&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;revenue&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;order&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;asc&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">]&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Status, verified against the engine: &lt;code>bucket_sort&lt;/code> is &lt;strong>accepted but
+not yet active&lt;/strong>. The request parses — &lt;code>sort&lt;/code>, &lt;code>from&lt;/code> and &lt;code>size&lt;/code> are
+accepted — but no reordering or truncation is applied:
+the parent aggregation&amp;rsquo;s buckets come back in the parent&amp;rsquo;s own order.
+A declared &lt;code>bucket_sort&lt;/code> evaluates to a null metric, and nested
+declarations currently leave a &lt;code>&amp;quot;by_revenue&amp;quot;: { &amp;quot;value&amp;quot;: null }&lt;/code>
+placeholder in each bucket (unlike
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/bucket-selector/">&lt;code>bucket_selector&lt;/code>&lt;/a>, it does not clean up after
+itself).&lt;/p></description></item><item><title>Normalize aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/normalize/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/normalize/</guid><description>&lt;h1 id="normalize-aggregation">
+ Normalize aggregation
+ &lt;a class="anchor" href="#normalize-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A parent pipeline aggregation &lt;strong>rescaling&lt;/strong> a bucket metric into a
+share or rank — e.g. each bucket&amp;rsquo;s revenue as a percent of the total
+(&lt;code>percent_of_sum&lt;/code>), a &lt;code>0..1&lt;/code> position (&lt;code>rescale_0_1&lt;/code>), or standard
+deviations from the mean (&lt;code>z-score&lt;/code>).&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;share&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;normalize&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;per_type&amp;gt;revenue&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nt">&amp;#34;method&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;percent_of_sum&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>In this engine &lt;code>normalize&lt;/code> is evaluated in the &lt;strong>sibling placement&lt;/strong>:
+declare it &lt;strong>next to&lt;/strong> the bucket aggregation and point
+&lt;code>buckets_path&lt;/code> at the series with the full &lt;code>parent&amp;gt;metric&lt;/code> form. The
+engine collects one value per bucket, applies the chosen &lt;code>method&lt;/code>
+across the whole series, and emits a standalone buckets array
+(keys &lt;code>0..n−1&lt;/code>) with one &lt;code>value&lt;/code> per consumed bucket.&lt;/p></description></item><item><title>Pipeline scripts</title><link>https://pizza.rs/docs/references/aggregation/pipeline/scripts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/scripts/</guid><description>&lt;h1 id="pipeline-scripts">
+ Pipeline scripts
+ &lt;a class="anchor" href="#pipeline-scripts">#&lt;/a>
+&lt;/h1>
+&lt;p>Three pipeline aggregations evaluate a user-supplied script per bucket:
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/bucket-script/">&lt;code>bucket_script&lt;/code>&lt;/a> (compute a new metric per bucket),
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/bucket-selector/">&lt;code>bucket_selector&lt;/code>&lt;/a> (keep/drop predicate), and
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/moving-fn/">&lt;code>moving_fn&lt;/code>&lt;/a> (window statistic). &lt;code>moving_avg&lt;/code> is a
+&lt;code>moving_fn&lt;/code> with a fixed averaging script. The same engine powers
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/scripted-metric/">&lt;code>scripted_metric&lt;/code>&lt;/a> (scripts per document
+instead of per bucket) and the 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/#scripted-value-sources">scripted value
+sources&lt;/a> on the single-value
+metric aggs (&lt;code>sum&lt;/code>, &lt;code>avg&lt;/code>, &lt;code>min&lt;/code>, &lt;code>max&lt;/code>, &lt;code>value_count&lt;/code>, &lt;code>cardinality&lt;/code>),
+the per-hit 
+ &lt;a href="https://pizza.rs/docs/references/search/request/script-fields/">&lt;code>script_fields&lt;/code>&lt;/a>
+of a search request (fetch phase), and the
+
+ &lt;a href="https://pizza.rs/docs/references/search/specialized/script-score/">scripted queries&lt;/a> —
+&lt;code>script_score&lt;/code>, &lt;code>script&lt;/code> filters, the &lt;code>_script&lt;/code> sort.&lt;/p></description></item></channel></rss>

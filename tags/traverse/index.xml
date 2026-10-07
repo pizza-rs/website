@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Traverse on INFINI Pizza</title><link>https://pizza.rs/tags/traverse/</link><description>Recent content in Traverse on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/traverse/index.xml" rel="self" type="application/rss+xml"/><item><title>Traverse query</title><link>https://pizza.rs/docs/references/search/relational/traverse/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/relational/traverse/</guid><description>&lt;h1 id="traverse-query">
+ Traverse query
+ &lt;a class="anchor" href="#traverse-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Term and full-text queries match document &lt;em>content&lt;/em>; none of them can
+ask &amp;ldquo;what is &lt;em>connected&lt;/em> to these documents?&amp;rdquo; — the question citation
+graphs, reference data and knowledge graphs are made of. The traverse
+query answers it: a bounded graph traversal over a &lt;code>relation&lt;/code>-typed
+edge field — starting from seed documents, walk the edges up to
+&lt;code>max_depth&lt;/code> hops and emit every reached node as a hit.&lt;/p>
+&lt;p>Scores encode distance — &lt;code>1.0 / (1.0 + depth)&lt;/code> — so seeds outrank
+1-hop neighbors, which outrank 2-hop neighbors, and the standard top-K
+collector orders the results.&lt;/p></description></item></channel></rss>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Administration on INFINI Pizza</title><link>https://pizza.rs/docs/administration/</link><description>Recent content in Administration on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/docs/administration/index.xml" rel="self" type="application/rss+xml"/><item><title>Cluster management APIs</title><link>https://pizza.rs/docs/administration/cluster/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/administration/cluster/</guid><description>&lt;h1 id="cluster-management-apis">
+ Cluster management APIs
+ &lt;a class="anchor" href="#cluster-management-apis">#&lt;/a>
+&lt;/h1>
+&lt;p>Operator-facing &lt;code>/_cluster/*&lt;/code> endpoints beyond
+
+ &lt;a href="https://pizza.rs/docs/administration/observability/health/">health&lt;/a> and 
+ &lt;a href="https://pizza.rs/docs/administration/observability/state/">state&lt;/a>:
+the allocation dashboard, node removal, and join-token management.&lt;/p>
+&lt;h2 id="regions">
+ Regions
+ &lt;a class="anchor" href="#regions">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /_cluster/_regions
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>A lightweight summary of every region this node knows about — identity
+(name, uuid, zone), leader, member nodes with their API/RPC addresses,
+and per-region counts. The region serving the request is marked &lt;code>local&lt;/code>,
+telling you which &lt;code>/_cluster/_region/_local/...&lt;/code> endpoints apply to it.&lt;/p>
+&lt;h2 id="allocation-dashboard">
+ Allocation dashboard
+ &lt;a class="anchor" href="#allocation-dashboard">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /_cluster/allocation
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The leader&amp;rsquo;s shard-allocation view: the effective &lt;code>cluster.routing.*&lt;/code>
+settings, per-node shard load, the recent allocation/relocation task
+history (newest first) and how many tasks are in flight. Answers &amp;ldquo;what
+is the allocator doing right now&amp;rdquo;.&lt;/p></description></item></channel></rss>

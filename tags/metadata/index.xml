@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Metadata on INFINI Pizza</title><link>https://pizza.rs/tags/metadata/</link><description>Recent content in Metadata on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/metadata/index.xml" rel="self" type="application/rss+xml"/><item><title>Region Settings</title><link>https://pizza.rs/docs/references/configuration/region_settings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/configuration/region_settings/</guid><description>&lt;h1 id="get-region-settings">
+ Get Region Settings
+ &lt;a class="anchor" href="#get-region-settings">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns the settings configured for the region.&lt;/p>
+&lt;h2 id="requests">
+ Requests
+ &lt;a class="anchor" href="#requests">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /_cluster/_region/&amp;lt;region_id&amp;gt;/settings
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="path-parameters">
+ Path Parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>region_id&lt;/code> &lt;br>
+(Required, String) The UUID of the region you want to query. A special ID
+&lt;code>_local&lt;/code> can be specified to query the state of the region that handles
+this request.&lt;/li>
+&lt;/ul>
+&lt;h2 id="query-parameters">
+ Query Parameters
+ &lt;a class="anchor" href="#query-parameters">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>include_defaults&lt;/code> &lt;br>
+(Optional, Boolean) If true, returns all default region settings. Defaults to false.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>flat_settings&lt;/code> &lt;br>
+(Optional, Boolean) If true, returns settings in flat format. Defaults to false.&lt;/p></description></item><item><title>Node Settings</title><link>https://pizza.rs/docs/references/configuration/node_settings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/configuration/node_settings/</guid><description>&lt;p>Node settings are &lt;strong>runtime-tunable knobs that apply to a single node&lt;/strong>.
+Every setting is a transient override over the persistent &lt;code>pizza.yml&lt;/code>
+value (or the built-in default): a change takes effect immediately via
+&lt;code>PUT&lt;/code> and disappears at restart — set the same key in the yml for a
+persistent value. This is the node-scope sibling of the Raft-replicated
+
+ &lt;a href="https://pizza.rs/docs/references/configuration/region_settings/">Region Settings&lt;/a>: routing policy is cluster-wide,
+while log verbosity, search lane budgets and trash retention are per-node
+concerns.&lt;/p></description></item></channel></rss>

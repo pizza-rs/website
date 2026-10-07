@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Terms on INFINI Pizza</title><link>https://pizza.rs/tags/terms/</link><description>Recent content in Terms on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/terms/index.xml" rel="self" type="application/rss+xml"/><item><title>Terms aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/terms/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/terms/</guid><description>&lt;h1 id="terms-aggregation">
+ Terms aggregation
+ &lt;a class="anchor" href="#terms-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-bucket value source based aggregation where buckets are dynamically
+built - one per unique value. It answers &amp;ldquo;group by this field, count (and
+aggregate) per value&amp;rdquo; without knowing the values in advance, which a
+fixed-bucket aggregation like &lt;code>histogram&lt;/code> or &lt;code>range&lt;/code> cannot do.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Every matching document is placed in the bucket keyed by its value of
+&lt;code>field&lt;/code>. Multi-valued fields bucket per element: a document whose &lt;code>tags&lt;/code>
+holds &lt;code>[&amp;quot;search&amp;quot;, &amp;quot;architecture&amp;quot;]&lt;/code> is counted once in the &lt;code>search&lt;/code> bucket
+and once in the &lt;code>architecture&lt;/code> bucket. Documents without the field are
+skipped — unless &lt;code>missing&lt;/code> is set, in which case they land together in one
+bucket keyed by that value.&lt;/p></description></item><item><title>Terms query</title><link>https://pizza.rs/docs/references/search/term-level/terms/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/terms/</guid><description>&lt;h1 id="terms-query">
+ Terms query
+ &lt;a class="anchor" href="#terms-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain one or more exact terms in a provided
+field. Equivalent to a boolean &lt;code>should&lt;/code> of individual
+
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> queries — a document matches if it contains &lt;strong>any&lt;/strong>
+of the values.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause. Expand into a &lt;code>bool&lt;/code> &lt;code>should&lt;/code> of 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> clauses instead.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The planner expands the query before execution: each value becomes a
+
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> clause inside a &lt;code>BooleanQuery&lt;/code> with
+&lt;code>minimum_should_match: 1&lt;/code>, and a single-value &lt;code>terms&lt;/code> collapses straight
+into one bare &lt;code>term&lt;/code> query. Everything said on the 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> page
+about verbatim lookup, index routing (dictionary for keyword/text, BKD for
+numeric/date, Bool column for boolean) and BM25 scoring therefore applies
+per value here, with the per-value scores OR-ed together.&lt;/p></description></item></channel></rss>

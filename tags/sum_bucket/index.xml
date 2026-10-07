@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Sum_bucket on INFINI Pizza</title><link>https://pizza.rs/tags/sum_bucket/</link><description>Recent content in Sum_bucket on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/sum_bucket/index.xml" rel="self" type="application/rss+xml"/><item><title>Sum bucket aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/sum-bucket/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/sum-bucket/</guid><description>&lt;h1 id="sum-bucket-aggregation">
+ Sum bucket aggregation
+ &lt;a class="anchor" href="#sum-bucket-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A sibling pipeline aggregation computing the &lt;strong>sum&lt;/strong> of a metric across
+another aggregation&amp;rsquo;s buckets — e.g. &amp;ldquo;total of the daily totals&amp;rdquo;. Where
+&lt;code>avg_bucket&lt;/code> characterizes the typical bucket, &lt;code>sum_bucket&lt;/code> re-totals
+the per-bucket values, which is how you grand-total a figure that was
+only computed per group.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;grand_total&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;sum_bucket&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;per_day&amp;gt;revenue&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>sum_bucket&lt;/code> is declared &lt;strong>next to&lt;/strong> the bucket aggregation it consumes
+and runs after every regular aggregation — including the distributed
+merge — has finished. It walks the parent&amp;rsquo;s finished buckets, collects
+one number per bucket, and adds them up into a single-value metric
+(&lt;code>{&amp;quot;value&amp;quot;: 6750}&lt;/code>) placed alongside the parent.&lt;/p></description></item></channel></rss>

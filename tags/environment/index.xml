@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Environment on INFINI Pizza</title><link>https://pizza.rs/tags/environment/</link><description>Recent content in Environment on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/environment/index.xml" rel="self" type="application/rss+xml"/><item><title>Environment variables</title><link>https://pizza.rs/docs/references/configuration/env_vars/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/configuration/env_vars/</guid><description>&lt;h1 id="environment-variables">
+ Environment variables
+ &lt;a class="anchor" href="#environment-variables">#&lt;/a>
+&lt;/h1>
+&lt;p>Most tuning lives in &lt;code>pizza.yml&lt;/code> (see the
+
+ &lt;a href="https://pizza.rs/docs/references/configuration/pizza_yml/">configuration file reference&lt;/a>) or the runtime settings
+APIs. The &lt;code>PIZZA_*&lt;/code> environment variables below are escape hatches —
+mostly for benchmarking, diagnostics and crash-safety research; prefer
+the config file or the settings APIs for anything you want to keep.&lt;/p>
+&lt;h2 id="operational-knobs">
+ Operational knobs
+ &lt;a class="anchor" href="#operational-knobs">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Variable&lt;/th>
+ &lt;th>Default&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_FLUSH_CONCURRENCY&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Overrides &lt;code>node.flush_concurrency&lt;/code> (1..=16); beats the config file.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_RECOVERY_TAIL_FLUSH&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>&lt;code>0&lt;/code>/&lt;code>1&lt;/code> forces &lt;code>wal.local.recovery_tail_flush&lt;/code> off/on, beating the config file.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_RPC_TIMEOUT_SECS&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Deadline for cluster RPC calls (must be &amp;gt; 0).&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_COMPACTION_EVERY_TICKS&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Maintenance ticks (500 ms) between background compaction passes.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_COMPACT_TIERS&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Restrict background compaction to specific tier patterns (diagnostics).&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_FLUSH_AFTER_IDLE_TICKS&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Idle-tail epoch flush override (same semantics as &lt;code>wal.local.epoch_flush_after_idle_ticks&lt;/code>).&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_SEGMENT_SYNC&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>&lt;code>off&lt;/code> skips the per-segment fsync before WAL purge — the same behavior as &lt;code>wal.local.segment_durability: async&lt;/code>, without a config change.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_WAL_IO_URING&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Force WAL io_uring on/off (Linux), overriding auto-detection.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_MAX_NODE_BUILDS&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Fallback for the epoch-build concurrency default (&lt;code>PUT /_node/_local/settings/epoch_build&lt;/code> overrides it at runtime).&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_MERGE_POOL_THREADS&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Size of the dedicated compaction merge thread pool.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_ROUTE_CACHE&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Routing-table cache diagnostics/tuning.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_BUILD_BUF_POOL_MB&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Build-buffer pool size in MiB.&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="watchdog">
+ Watchdog
+ &lt;a class="anchor" href="#watchdog">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Variable&lt;/th>
+ &lt;th>Default&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_RSS_WATCHDOG&lt;/code>&lt;/td>
+ &lt;td>unset&lt;/td>
+ &lt;td>Enable the RSS watchdog (&lt;code>0&lt;/code> explicitly disables it).&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_RSS_SOFT_MB&lt;/code>&lt;/td>
+ &lt;td>60% of MemTotal&lt;/td>
+ &lt;td>Soft RSS threshold (MiB) — sheds load, logs.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>PIZZA_RSS_HARD_MB&lt;/code>&lt;/td>
+ &lt;td>75% of MemTotal&lt;/td>
+ &lt;td>Hard RSS threshold (MiB) — aborts the process.&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="diagnostics-and-profiling">
+ Diagnostics and profiling
+ &lt;a class="anchor" href="#diagnostics-and-profiling">#&lt;/a>
+&lt;/h2>
+&lt;p>Off by default; presence enables.&lt;/p></description></item></channel></rss>

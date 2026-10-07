@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Embedding on INFINI Pizza</title><link>https://pizza.rs/tags/embedding/</link><description>Recent content in Embedding on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/embedding/index.xml" rel="self" type="application/rss+xml"/><item><title>AI Services</title><link>https://pizza.rs/docs/references/configuration/ai_services/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/configuration/ai_services/</guid><description>&lt;p>AI services are the external, OpenAI-compatible model endpoints behind
+server-side inference — schema-driven text→vector derivation, text
+vector queries, the &lt;code>semantic&lt;/code> query and the &lt;code>/_embedding&lt;/code> API on the
+embedding side, and the &lt;code>POST /_chat&lt;/code> generation facade on the other.
+Every service speaks the OpenAI wire format: the embeddings API
+(&lt;code>POST {url}&lt;/code> with &lt;code>{&amp;quot;model&amp;quot;, &amp;quot;input&amp;quot;: [...]}&lt;/code> and a bearer key), and —
+once it lists &lt;code>generation&lt;/code> models — the chat-completions API at its
+&lt;code>chat_url&lt;/code>.&lt;/p></description></item><item><title>semantic_text — one-field semantic search</title><link>https://pizza.rs/docs/highlightings/semantic-text/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/semantic-text/</guid><description>&lt;h1 id="semantic_text--one-field-semantic-search">
+ semantic_text — one-field semantic search
+ &lt;a class="anchor" href="#semantic_text--one-field-semantic-search">#&lt;/a>
+&lt;/h1>
+&lt;p>Semantic search used to mean wiring two fields: a &lt;code>text&lt;/code> field for the
+source, a &lt;code>dense_vector&lt;/code> field with &lt;code>vector_options&lt;/code> pointing back at
+it. The &lt;code>semantic_text&lt;/code> field type collapses all of that into one
+declaration:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">PUT /my-collection
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;schema&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;properties&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;body&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;type&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;semantic_text&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;service&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;zai&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;model&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;GLM-4.6V&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;dims&amp;#34;&lt;/span>: &lt;span class="m">3072&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>From there everything derives. Writes carry plain text — the vector is
+embedded server-side at write time, in bulk and after partial updates
+alike. Search needs no field names and no vectors:&lt;/p></description></item><item><title>Model features &amp; the /_chat facade</title><link>https://pizza.rs/docs/highlightings/model-features/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/model-features/</guid><description>&lt;h1 id="model-features--the-_chat-facade">
+ Model features &amp;amp; the /_chat facade
+ &lt;a class="anchor" href="#model-features--the-_chat-facade">#&lt;/a>
+&lt;/h1>
+&lt;p>Every model in the AI-services registry can now declare what it is
+&lt;strong>for&lt;/strong> and what it &lt;strong>accepts&lt;/strong> — &lt;code>features&lt;/code> (&lt;code>embedding&lt;/code> or
+&lt;code>generation&lt;/code>) and &lt;code>inputs&lt;/code> (&lt;code>text&lt;/code> or &lt;code>image&lt;/code>). The two axes are
+orthogonal: &amp;ldquo;multimodal&amp;rdquo; is not a category of its own but an &lt;code>inputs&lt;/code>
+list beyond text.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">node&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">embedding&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">endpoints&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">zai&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://api.z.ai/api/coding/paas/v4/embeddings&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">chat_url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://api.z.ai/api/coding/paas/v4/chat/completions&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">api_key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">sk-…&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">models&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">embedding-3 &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># embedding + text (the defaults)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- {&lt;span class="nt">id: GLM-4.6V, dims&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">3072&lt;/span>}&lt;span class="w"> &lt;/span>&lt;span class="c"># embedding, dims declared&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- {&lt;span class="nt">id: glm-4-flash, features&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="l">generation]} &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># text generation&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- {&lt;span class="nt">id: glm-4v, features: [generation], inputs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="l">text, image]} &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># vision LLM&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- {&lt;span class="nt">id: clip-v2, features: [embedding], inputs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="l">text, image]} &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># multimodal embedder&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Omitted fields keep the historical defaults, so every existing
+plain-string listing still means embedding + text — nothing to migrate.&lt;/p></description></item></channel></rss>

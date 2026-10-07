@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Suffix on INFINI Pizza</title><link>https://pizza.rs/tags/suffix/</link><description>Recent content in Suffix on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/suffix/index.xml" rel="self" type="application/rss+xml"/><item><title>Suffix query</title><link>https://pizza.rs/docs/references/search/term-level/suffix/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/suffix/</guid><description>&lt;h1 id="suffix-query">
+ Suffix query
+ &lt;a class="anchor" href="#suffix-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain terms &lt;strong>ending&lt;/strong> in the provided value.
+This is the mirror of the 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/prefix/">&lt;code>prefix&lt;/code>&lt;/a> query; like a leading
+wildcard, it is more expensive than a prefix match.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>A term dictionary is sorted by its &lt;strong>beginnings&lt;/strong>, so a prefix can seek
+directly to its subtree — but a suffix cannot. The engine therefore
+walks the whole dictionary of the field and keeps the terms that end
+with the value, then unions their postings lists exactly like a &lt;code>should&lt;/code>
+of 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> queries. The cost is proportional to the number of
+distinct terms in the field, not to the number of matches, which is why
+the suffix query is marked more expensive than 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/prefix/">&lt;code>prefix&lt;/code>&lt;/a>.&lt;/p></description></item></channel></rss>

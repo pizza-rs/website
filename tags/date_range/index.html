@@ -1,0 +1,506 @@
+<!doctype html><html lang=en dir=ZgotmplZ><head><meta name=generator content="Hugo 0.139.3"><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=theme-color content="#FFFFFF"><meta property="og:url" content="https://pizza.rs/tags/date_range/"><meta property="og:site_name" content="INFINI Pizza"><meta property="og:title" content="Date_range"><meta property="og:locale" content="en"><meta property="og:type" content="website"><title>Date_range | INFINI Pizza</title>
+<link rel=manifest href=/manifest.json><link rel=icon href=/favicon.svg type=image/svg+xml><link rel=stylesheet href=/book.min.a9787eded68d3d2962bfe1f90bd63ff3f7656c6124f6c048a7d0578ed469cfaa.css integrity="sha256-qXh+3taNPSliv+H5C9Y/8/dlbGEk9sBIp9BXjtRpz6o="><link rel=alternate type=application/rss+xml href=https://pizza.rs/tags/date_range/index.xml title="INFINI Pizza"><script defer src=/js/jquery-2.x.min.js></script><script defer src=/js/doc.js></script><link rel=stylesheet crossorigin href=/assets/index-C1z1vz3D.css><script>(function(){try{var e=localStorage.getItem("pz-theme");(e==="light"||e==="dark")&&document.documentElement.setAttribute("data-theme",e)}catch{}})()</script></head><body dir=ZgotmplZ><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><img class="pz-logo pz-logo-light" src=/img/logo-en.svg alt=Logo>
+<img class="pz-logo pz-logo-dark" src=/img/logo/pizza-logo-dark.svg alt=Logo></a></h2><div style=margin-bottom:20px;height:36px id=docsearch></div><div class=heading><select class=version-selector><option value>(latest)</option></select></div><ul><li><input type=checkbox id=section-28426c20be8902640db29de9488968ba class=toggle>
+<label for=section-28426c20be8902640db29de9488968ba class="flex justify-between"><a href=https://pizza.rs/docs/overview/><svg class="pz-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>Overview</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/overview/concept/>Concepts</a></li><li><a href=https://pizza.rs/docs/overview/features/>Features</a></li><li><a href=https://pizza.rs/docs/overview/limitations/>Limitations</a></li><li><a href=https://pizza.rs/docs/overview/architecture/>Architecture</a></li><li><a href=https://pizza.rs/docs/overview/sharding/>Why named Pizza</a></li><li><a href=https://pizza.rs/docs/overview/realtime/>How realtime works</a></li><li><a href=https://pizza.rs/docs/overview/query-engine/>How query works</a></li><li><a href=https://pizza.rs/docs/overview/use-cases/>Use cases</a></li><li><a href=https://pizza.rs/docs/overview/roadmap/>Roadmap</a></li><li><a href=https://pizza.rs/docs/overview/credits/>Credits</a></li></ul></li><li><input type=checkbox id=section-2ef291a133453c2935f9b1f8fca384be class=toggle>
+<label for=section-2ef291a133453c2935f9b1f8fca384be class="flex justify-between"><a href=https://pizza.rs/docs/getting-started/><svg class="pz-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Getting started</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/getting-started/installation/>Installation</a></li><li><a href=https://pizza.rs/docs/getting-started/configuration/>Configuration</a></li><li><a href=https://pizza.rs/docs/getting-started/cli/>Pizza CLI</a></li><li><a href=https://pizza.rs/docs/getting-started/console/>Pizza Console</a></li></ul></li><li><input type=checkbox id=section-5a3ca97153caabb88b72cc3ae6fafffe class=toggle>
+<label for=section-5a3ca97153caabb88b72cc3ae6fafffe class="flex justify-between"><a href=https://pizza.rs/docs/highlightings/><svg class="pz-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Highlights</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/highlightings/inplace-columns/>In-place columns for hot counters and flags</a></li><li><a href=https://pizza.rs/docs/highlightings/node-settings/>Runtime node settings and dynamic log level</a></li><li><a href=https://pizza.rs/docs/highlightings/manual-compaction/>Collection-wide manual compaction</a></li><li><a href=https://pizza.rs/docs/highlightings/storage-explorer/>FIRE storage explorer in the console</a></li><li><a href=https://pizza.rs/docs/highlightings/semantic-text/>semantic_text — one-field semantic search</a></li><li><a href=https://pizza.rs/docs/highlightings/keystore-hot-reload/>Keystore hot-reload</a></li><li><a href=https://pizza.rs/docs/highlightings/model-features/>Model features & the /_chat facade</a></li><li><a href=https://pizza.rs/docs/highlightings/cluster-trash/>Cluster-wide recycle bin</a></li><li><a href=https://pizza.rs/docs/highlightings/host-capability/>Host & capability probes — see the machine, not just the node</a></li><li><a href=https://pizza.rs/docs/highlightings/relational-routing/>Relations that route — joins, FK placement, salting</a></li><li><a href=https://pizza.rs/docs/highlightings/intervals-mlt/>Intervals and more-like-this queries</a></li><li><a href=https://pizza.rs/docs/highlightings/scripting/>Sandboxed scripting — scripted_metric, script_fields, script_score</a></li></ul></li><li><input type=checkbox id=section-6774e9f75621f56d12d9eb0a12b60823 class=toggle>
+<label for=section-6774e9f75621f56d12d9eb0a12b60823 class="flex justify-between"><a href=https://pizza.rs/docs/tutorial/><svg class="pz-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>Tutorial</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/tutorial/first-search/>Lesson 1 — First search</a></li><li><a href=https://pizza.rs/docs/tutorial/text-search/>Lesson 2 — Text search</a></li><li><a href=https://pizza.rs/docs/tutorial/structure-numbers/>Lesson 3 — Structure and numbers</a></li><li><a href=https://pizza.rs/docs/tutorial/aggregations/>Lesson 4 — Aggregations</a></li><li><a href=https://pizza.rs/docs/tutorial/graph-traversal/>Lesson 5 — Graph traversal</a></li><li><a href=https://pizza.rs/docs/tutorial/hybrid-search/>Lesson 6 — Hybrid search</a></li><li><a href=https://pizza.rs/docs/tutorial/geo-search/>Lesson 7 — Geographic search</a></li><li><a href=https://pizza.rs/docs/tutorial/joins/>Lesson 8 — Joins</a></li><li><a href=https://pizza.rs/docs/tutorial/operations/>Lesson 9 — Operations</a></li></ul></li><li><a href=https://pizza.rs/docs/playground/><svg class="pz-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>Playground</a><ul></ul></li><li><input type=checkbox id=section-daff0fcedc99766e9d042f7aa4159b78 class=toggle>
+<label for=section-daff0fcedc99766e9d042f7aa4159b78 class="flex justify-between"><a href=https://pizza.rs/docs/references/><svg class="pz-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>References</a>
+<span>▾</span></label><ul><li><input type=checkbox id=section-ac27d2241b43efcf506dab05a602d07d class=toggle>
+<label for=section-ac27d2241b43efcf506dab05a602d07d class="flex justify-between"><a href=https://pizza.rs/docs/references/namespace/>Namespace</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/namespace/create/>Create a namespace</a></li><li><a href=https://pizza.rs/docs/references/namespace/delete/>Delete a namespace</a></li></ul></li><li><input type=checkbox id=section-cac05bf2caa07930a51fdec627e16ad1 class=toggle>
+<label for=section-cac05bf2caa07930a51fdec627e16ad1 class="flex justify-between"><a href=https://pizza.rs/docs/references/collection/>Collection</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/collection/create/>Create a collection</a></li><li><a href=https://pizza.rs/docs/references/collection/delete/>Delete a collection</a></li><li><a href=https://pizza.rs/docs/references/collection/get/>Get collection</a></li><li><a href=https://pizza.rs/docs/references/collection/get_index/>Get collection index</a></li><li><a href=https://pizza.rs/docs/references/collection/get_rollings/>Get collection rollings</a></li><li><a href=https://pizza.rs/docs/references/collection/get_schema/>Get collection schema</a></li><li><a href=https://pizza.rs/docs/references/collection/get_settings/>Get collection settings</a></li><li><a href=https://pizza.rs/docs/references/collection/update_schema/>Update collection schema</a></li><li><a href=https://pizza.rs/docs/references/collection/update_settings/>Update collection settings</a></li><li><a href=https://pizza.rs/docs/references/collection/compact/>Compact a collection</a></li><li><a href=https://pizza.rs/docs/references/collection/flush/>Flush a collection</a></li><li><a href=https://pizza.rs/docs/references/collection/rolling/>Roll over a collection</a></li><li><a href=https://pizza.rs/docs/references/collection/rolling_settings/>Update rolling settings</a></li><li><a href=https://pizza.rs/docs/references/collection/rolling_reshard/>Reshard a rolling</a></li><li><a href=https://pizza.rs/docs/references/collection/salting/>Salting (salt-split routing)</a></li></ul></li><li><input type=checkbox id=section-9bfed4b99e4a15526b110c4a43dc0cad class=toggle>
+<label for=section-9bfed4b99e4a15526b110c4a43dc0cad class="flex justify-between"><a href=https://pizza.rs/docs/references/index/>Index</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/index/create/>Create an index</a></li><li><a href=https://pizza.rs/docs/references/index/delete/>Delete an index</a></li><li><a href=https://pizza.rs/docs/references/index/get/>Get index</a></li><li><a href=https://pizza.rs/docs/references/index/get_alias/>Get index alias</a></li><li><a href=https://pizza.rs/docs/references/index/get_mapping/>Get index mapping</a></li><li><a href=https://pizza.rs/docs/references/index/get_settings/>Get index settings</a></li></ul></li><li><input type=checkbox id=section-85b602de94e3300c2b6c05b0e0d69c37 class=toggle>
+<label for=section-85b602de94e3300c2b6c05b0e0d69c37 class="flex justify-between"><a href=https://pizza.rs/docs/references/document/>Document</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/document/create/>Create a document</a></li><li><a href=https://pizza.rs/docs/references/document/fetch/>Fetch a document</a></li><li><a href=https://pizza.rs/docs/references/document/replace/>Replace a document</a></li><li><a href=https://pizza.rs/docs/references/document/partial_update/>Partial update a document</a></li><li><a href=https://pizza.rs/docs/references/document/delete/>Delete a document</a></li><li><a href=https://pizza.rs/docs/references/document/bulk/>Batch document operation</a></li><li><a href=https://pizza.rs/docs/references/document/changes/>Change feed (CDC)</a></li></ul></li><li><input type=checkbox id=section-6efdb7660ba6638c591e6d37d4a790d2 class=toggle>
+<label for=section-6efdb7660ba6638c591e6d37d4a790d2 class="flex justify-between"><a href=https://pizza.rs/docs/references/api_convention/>API conventions</a>
+<span>▾</span></label><ul></ul></li><li><input type=checkbox id=section-2ac2faa92ecbfed60ebc5800dc08092c class=toggle>
+<label for=section-2ac2faa92ecbfed60ebc5800dc08092c class="flex justify-between"><a href=https://pizza.rs/docs/references/schema/>Schema</a>
+<span>▾</span></label><ul><li><input type=checkbox id=section-39a555f5e8674d0a6cb4997c9ef962fe class=toggle>
+<label for=section-39a555f5e8674d0a6cb4997c9ef962fe class="flex justify-between"><a href=https://pizza.rs/docs/references/schema/field-types/>Field types</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/schema/field-types/full-text/>Full-text types</a></li><li><a href=https://pizza.rs/docs/references/schema/field-types/numeric/>Numeric and boolean types</a></li><li><a href=https://pizza.rs/docs/references/schema/field-types/date-geo/>Date and geo types</a></li><li><a href=https://pizza.rs/docs/references/schema/field-types/vector/>Vector types</a></li><li><a href=https://pizza.rs/docs/references/schema/field-types/object/>Object and nested types</a></li><li><a href=https://pizza.rs/docs/references/schema/field-types/relation/>Relation type</a></li></ul></li><li><input type=checkbox id=section-0cc2d3729969f5c46c1f8dd6202139aa class=toggle>
+<label for=section-0cc2d3729969f5c46c1f8dd6202139aa class="flex justify-between"><a href=https://pizza.rs/docs/references/schema/field-parameters/>Field parameters</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/schema/field-parameters/analysis/>Analysis parameters</a></li><li><a href=https://pizza.rs/docs/references/schema/field-parameters/indexing/>Indexing parameters</a></li><li><a href=https://pizza.rs/docs/references/schema/field-parameters/storage/>Storage layout parameters</a></li><li><a href=https://pizza.rs/docs/references/schema/field-parameters/realtime-inplace/>Realtime and in-place parameters</a></li><li><a href=https://pizza.rs/docs/references/schema/field-parameters/structural/>Structural parameters</a></li><li><a href=https://pizza.rs/docs/references/schema/field-parameters/type-specific/>Type-specific parameters</a></li><li><a href=https://pizza.rs/docs/references/schema/field-parameters/relational/>Relational parameters</a></li></ul></li></ul></li><li><input type=checkbox id=section-eb014576e7cf3e48932963a8d2af2dde class=toggle>
+<label for=section-eb014576e7cf3e48932963a8d2af2dde class="flex justify-between"><a href=https://pizza.rs/docs/references/search/>Search</a>
+<span>▾</span></label><ul><li><input type=checkbox id=section-be0f4f9bea3af7d2bd3f2dc606b30910 class=toggle>
+<label for=section-be0f4f9bea3af7d2bd3f2dc606b30910 class="flex justify-between"><a href=https://pizza.rs/docs/references/search/full-text/>Full-text queries</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/search/full-text/match/>Match query</a></li><li><a href=https://pizza.rs/docs/references/search/full-text/phrase/>Phrase query</a></li><li><a href=https://pizza.rs/docs/references/search/full-text/multi_match/>Multi-match query</a></li><li><a href=https://pizza.rs/docs/references/search/full-text/query_string/>Query string query</a></li><li><a href=https://pizza.rs/docs/references/search/full-text/bool/>Boolean query</a></li><li><a href=https://pizza.rs/docs/references/search/full-text/match_all/>Match all query</a></li><li><a href=https://pizza.rs/docs/references/search/full-text/span/>Span queries</a></li><li><a href=https://pizza.rs/docs/references/search/full-text/intervals/>Intervals query</a></li></ul></li><li><input type=checkbox id=section-d8f885b8e01e34c9025a801bbd726c81 class=toggle>
+<label for=section-d8f885b8e01e34c9025a801bbd726c81 class="flex justify-between"><a href=https://pizza.rs/docs/references/search/term-level/>Term-level queries</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/search/term-level/term/>Term query</a></li><li><a href=https://pizza.rs/docs/references/search/term-level/terms/>Terms query</a></li><li><a href=https://pizza.rs/docs/references/search/term-level/keys/>Keys query</a></li><li><a href=https://pizza.rs/docs/references/search/term-level/prefix/>Prefix query</a></li><li><a href=https://pizza.rs/docs/references/search/term-level/fuzzy/>Fuzzy query</a></li><li><a href=https://pizza.rs/docs/references/search/term-level/wildcard/>Wildcard query</a></li><li><a href=https://pizza.rs/docs/references/search/term-level/regexp/>Regexp query</a></li><li><a href=https://pizza.rs/docs/references/search/term-level/suffix/>Suffix query</a></li><li><a href=https://pizza.rs/docs/references/search/term-level/range/>Range query</a></li><li><a href=https://pizza.rs/docs/references/search/term-level/exists/>Exists query</a></li></ul></li><li><input type=checkbox id=section-c219a6afb1badb9f89fb914957966cd4 class=toggle>
+<label for=section-c219a6afb1badb9f89fb914957966cd4 class="flex justify-between"><a href=https://pizza.rs/docs/references/search/geo/>Geo queries</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/search/geo/geo_bounding_box/>Geo-bounding-box query</a></li><li><a href=https://pizza.rs/docs/references/search/geo/geo_distance/>Geo-distance query</a></li><li><a href=https://pizza.rs/docs/references/search/geo/geo_polygon/>Geo-polygon query</a></li><li><a href=https://pizza.rs/docs/references/search/geo/geo_shape/>Geo-shape query</a></li></ul></li><li><input type=checkbox id=section-27f00ce0d391302b0c798c16eb88d0c5 class=toggle>
+<label for=section-27f00ce0d391302b0c798c16eb88d0c5 class="flex justify-between"><a href=https://pizza.rs/docs/references/search/vector/>Vector queries</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/search/vector/vector/>Vector query (kNN)</a></li><li><a href=https://pizza.rs/docs/references/search/vector/multi_vector/>Multi-vector query</a></li><li><a href=https://pizza.rs/docs/references/search/vector/semantic/>Semantic query</a></li></ul></li><li><input type=checkbox id=section-6e6d1091aa17adcdf0db6883007b3faf class=toggle>
+<label for=section-6e6d1091aa17adcdf0db6883007b3faf class="flex justify-between"><a href=https://pizza.rs/docs/references/search/relational/>Relational queries</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/search/relational/nested/>Nested query</a></li><li><a href=https://pizza.rs/docs/references/search/relational/join/>Join query</a></li><li><a href=https://pizza.rs/docs/references/search/relational/traverse/>Traverse query</a></li><li><a href=https://pizza.rs/docs/references/search/relational/graph/>Graph projection block</a></li></ul></li><li><input type=checkbox id=section-a52d6bab8fcf0300716db7edd41805e7 class=toggle>
+<label for=section-a52d6bab8fcf0300716db7edd41805e7 class="flex justify-between"><a href=https://pizza.rs/docs/references/search/specialized/>Specialized queries</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/search/specialized/distance_feature/>Distance feature</a></li><li><a href=https://pizza.rs/docs/references/search/specialized/more_like_this/>More like this query</a></li><li><a href=https://pizza.rs/docs/references/search/specialized/script-score/>Scripted queries</a></li></ul></li><li><input type=checkbox id=section-7924c92b10e7f37ccc9587acc3aa76b9 class=toggle>
+<label for=section-7924c92b10e7f37ccc9587acc3aa76b9 class="flex justify-between"><a href=https://pizza.rs/docs/references/search/request/>Request-level options</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/search/request/sort/>Sort and pagination</a></li><li><a href=https://pizza.rs/docs/references/search/request/highlight/>Highlighting</a></li><li><a href=https://pizza.rs/docs/references/search/request/hybrid/>Hybrid search and scoring pipeline</a></li><li><a href=https://pizza.rs/docs/references/search/request/collapse/>Field collapsing</a></li><li><a href=https://pizza.rs/docs/references/search/request/streaming/>Streaming search</a></li><li><a href=https://pizza.rs/docs/references/search/request/script-fields/>Script fields</a></li><li><a href=https://pizza.rs/docs/references/search/request/rescore/>Rescore</a></li></ul></li><li><input type=checkbox id=section-07f37dbe3908305a42317fc29839f785 class=toggle>
+<label for=section-07f37dbe3908305a42317fc29839f785 class="flex justify-between"><a href=https://pizza.rs/docs/references/search/analysis/>Analysis</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/search/analysis/analysis/>Analyze text</a></li><li><a href=https://pizza.rs/docs/references/search/analysis/analysis-builtins/>Built-in analysis components</a></li></ul></li></ul></li><li><input type=checkbox id=section-14029228e9b936d35f91addb8dcfd077 class=toggle>
+<label for=section-14029228e9b936d35f91addb8dcfd077 class="flex justify-between"><a href=https://pizza.rs/docs/references/aggregation/>Aggregation</a>
+<span>▾</span></label><ul><li><input type=checkbox id=section-e0f08afc2433c372b636fda56949ffe9 class=toggle>
+<label for=section-e0f08afc2433c372b636fda56949ffe9 class="flex justify-between"><a href=https://pizza.rs/docs/references/aggregation/metric/>Metric aggregations</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/aggregation/metric/avg/>Avg aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/cardinality/>Cardinality aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/max/>Max aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/min/>Min aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/sum/>Sum aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/value-count/>Value count aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/median-absolute-deviation/>Median absolute deviation aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/weighted-avg/>Weighted average aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/stats/>Stats aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/extended-stats/>Extended stats aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/percentiles/>Percentiles aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/percentile-ranks/>Percentile ranks aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/boxplot/>Boxplot aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/string-stats/>String stats aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/matrix-stats/>Matrix stats aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/t-test/>T-test aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/rate/>Rate aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/geo-bounds/>Geo bounds aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/geo-centroid/>Geo centroid aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/top-hits/>Top hits aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/top-metrics/>Top metrics aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/metric/scripted-metric/>Scripted metric aggregation</a></li></ul></li><li><input type=checkbox id=section-49f730f9c607f1ae968c6c20cc1ce1e1 class=toggle>
+<label for=section-49f730f9c607f1ae968c6c20cc1ce1e1 class="flex justify-between"><a href=https://pizza.rs/docs/references/aggregation/bucket/>Bucket aggregations</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/aggregation/bucket/terms/>Terms aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/multi-terms/>Multi terms aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/rare-terms/>Rare terms aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/significant-terms/>Significant terms aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/range/>Range aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/date-range/>Date range aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/histogram/>Histogram aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/variable-width-histogram/>Variable width histogram aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/date-histogram/>Date histogram aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/auto-date-histogram/>Auto date histogram aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/ip-range/>IP range aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/filter/>Filter aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/filters/>Filters aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/adjacency-matrix/>Adjacency matrix aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/global/>Global aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/missing/>Missing aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/sampler/>Sampler aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/diversified-sampler/>Diversified sampler aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/geo-distance-bucket/>Geo distance aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/geohash-grid/>Geohash grid aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/geotile-grid/>Geotile grid aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/nested-agg/>Nested aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/children-agg/>Children aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/bucket/composite/>Composite aggregation</a></li></ul></li><li><input type=checkbox id=section-b44253be5db989a4216d48c01802292b class=toggle>
+<label for=section-b44253be5db989a4216d48c01802292b class="flex justify-between"><a href=https://pizza.rs/docs/references/aggregation/pipeline/>Pipeline aggregations</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/aggregation/pipeline/avg-bucket/>Avg bucket aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/pipeline/sum-bucket/>Sum bucket aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/pipeline/min-bucket/>Min bucket aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/pipeline/max-bucket/>Max bucket aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/pipeline/stats-bucket/>Stats bucket aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/pipeline/extended-stats-bucket/>Extended stats bucket aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/pipeline/percentiles-bucket/>Percentiles bucket aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/pipeline/derivative/>Derivative aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/pipeline/cumulative-sum/>Cumulative sum aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/pipeline/cumulative-cardinality/>Cumulative cardinality aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/pipeline/serial-diff/>Serial diff aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/pipeline/moving-fn/>Moving fn aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/pipeline/moving-avg/>Moving avg aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/pipeline/bucket-script/>Bucket script aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/pipeline/bucket-selector/>Bucket selector aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/pipeline/bucket-sort/>Bucket sort aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/pipeline/normalize/>Normalize aggregation</a></li><li><a href=https://pizza.rs/docs/references/aggregation/pipeline/scripts/>Pipeline scripts</a></li></ul></li></ul></li><li><input type=checkbox id=section-e58eae774ac708b1384c5ebb40f888e7 class=toggle>
+<label for=section-e58eae774ac708b1384c5ebb40f888e7 class="flex justify-between"><a href=https://pizza.rs/docs/references/trash/>Trash APIs</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/trash/list/>List the cluster trash</a></li><li><a href=https://pizza.rs/docs/references/trash/verify/>Verify a trash item</a></li><li><a href=https://pizza.rs/docs/references/trash/restore/>Restore a trash item</a></li><li><a href=https://pizza.rs/docs/references/trash/delete-item/>Delete a trash item everywhere</a></li><li><a href=https://pizza.rs/docs/references/trash/empty/>Empty the trash everywhere</a></li></ul></li><li><input type=checkbox id=section-cb9d7e02cc1a576ca29119d927841faa class=toggle>
+<label for=section-cb9d7e02cc1a576ca29119d927841faa class="flex justify-between"><a href=https://pizza.rs/docs/references/security/>Security</a>
+<span>▾</span></label><ul></ul></li><li><input type=checkbox id=section-8d52eb379c74e4cc06c1433d2cc66948 class=toggle>
+<label for=section-8d52eb379c74e4cc06c1433d2cc66948 class="flex justify-between"><a href=https://pizza.rs/docs/references/sql/>SQL & PRQL</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/sql/syntax/>SQL syntax & examples</a></li><li><a href=https://pizza.rs/docs/references/sql/prql/>PRQL queries</a></li></ul></li><li><input type=checkbox id=section-18c45a5ef6af1b1ef6643f9c753466b7 class=toggle>
+<label for=section-18c45a5ef6af1b1ef6643f9c753466b7 class="flex justify-between"><a href=https://pizza.rs/docs/references/configuration/>Configuration</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/references/configuration/region_settings/>Region Settings</a></li><li><a href=https://pizza.rs/docs/references/configuration/node_settings/>Node Settings</a></li><li><a href=https://pizza.rs/docs/references/configuration/pizza_yml/>Configuration file reference</a></li><li><a href=https://pizza.rs/docs/references/configuration/env_vars/>Environment variables</a></li><li><a href=https://pizza.rs/docs/references/configuration/ai_services/>AI Services</a></li><li><a href=https://pizza.rs/docs/references/configuration/keystore/>Keystore</a></li></ul></li></ul></li><li><input type=checkbox id=section-6097ccc4bd26a9b66fdeb64ad324dcc3 class=toggle>
+<label for=section-6097ccc4bd26a9b66fdeb64ad324dcc3 class="flex justify-between"><a href=https://pizza.rs/docs/administration/><svg class="pz-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>Administration</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/administration/backup/>Backup and restore</a><ul></ul></li><li><input type=checkbox id=section-dc942a5b68a1849b44ccf437bbe27481 class=toggle>
+<label for=section-dc942a5b68a1849b44ccf437bbe27481 class="flex justify-between"><a href=https://pizza.rs/docs/administration/deployment/>Deployment</a>
+<span>▾</span></label><ul></ul></li><li><input type=checkbox id=section-d7ea8ed5b70b21cfb2fed53ca78635ad class=toggle>
+<label for=section-d7ea8ed5b70b21cfb2fed53ca78635ad class="flex justify-between"><a href=https://pizza.rs/docs/administration/observability/>Observability</a>
+<span>▾</span></label><ul><li><a href=https://pizza.rs/docs/administration/observability/health/>Cluster health</a></li><li><a href=https://pizza.rs/docs/administration/observability/state/>Cluster state</a></li><li><a href=https://pizza.rs/docs/administration/observability/node/>Node observability APIs</a></li></ul></li><li><a href=https://pizza.rs/docs/administration/security/>Security</a><ul></ul></li><li><a href=https://pizza.rs/docs/administration/cluster/>Cluster management APIs</a></li></ul></li><li><a href=https://pizza.rs/docs/troubleshooting/><svg class="pz-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Troubleshooting</a><ul></ul></li><li><input type=checkbox id=section-7c6e9ea0a03aca8afabe01f9b98fa0d1 class=toggle>
+<label for=section-7c6e9ea0a03aca8afabe01f9b98fa0d1 class="flex justify-between"><a href=https://pizza.rs/docs/integration/><svg class="pz-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>Integration</a>
+<span>▾</span></label><ul></ul></li><li><a href=https://pizza.rs/docs/release-notes/><svg class="pz-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83.0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>Release notes</a><ul></ul></li><li><a href=https://pizza.rs/docs/community/><svg class="pz-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>Community</a><ul></ul></li></ul><ul><li><a href=https://engine-benchmarks.pizza.rs/ target=_blank rel=noopener>Benchmarks
+<img height=10px style=vertical-align:middle src=/svg/external-link.svg class=book-icon alt="Open in new window"></a></li><li><a href=https://github.com/pizza-rs/pizza target=_blank rel=noopener>Github
+<img height=10px style=vertical-align:middle src=/svg/external-link.svg class=book-icon alt="Open in new window"></a></li></ul><div class=pz-theme-toggle><button type=button id=pz-theme-btn aria-label="Toggle color theme">
+<svg id="pz-theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg id="pz-theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<span id=pz-theme-label>Theme</span></button></div><script>(function(){var s="pz-theme",e=document.documentElement,t=document.getElementById("pz-theme-btn");if(!t)return;function n(){var n=document.getElementById("pz-theme-label"),s=document.getElementById("pz-theme-icon-sun"),o=document.getElementById("pz-theme-icon-moon"),t=e.getAttribute("data-theme")||"auto",a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,i=t==="dark"||t==="auto"&&a;n&&(n.textContent=t==="auto"?"Auto":t==="dark"?"Dark":"Light"),s&&(s.style.display=i?"none":"inline"),o&&(o.style.display=i?"inline":"none")}t.addEventListener("click",function(){var t=["auto","light","dark"],i=e.getAttribute("data-theme")||"auto",o=t[(t.indexOf(i)+1)%t.length];o==="auto"?e.removeAttribute("data-theme"):e.setAttribute("data-theme",o);try{localStorage.setItem(s,o)}catch{}n()}),n()})()</script></nav><script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu>
+</label><strong>Date_range</strong>
+<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav><ul><li class=book-section-flat><strong>Categories</strong><ul></ul></li><li class=book-section-flat><strong>Tags</strong><ul><li class="flex justify-between"><a href=/tags/_script/>_Script</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/adjacency_matrix/>Adjacency_matrix</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/aggregation/>Aggregation</a>
+<span>66</span></li><li class="flex justify-between"><a href=/tags/ai/>Ai</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/alias/>Alias</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/allocation/>Allocation</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/analysis/>Analysis</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/analyzer/>Analyzer</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/architecture/>Architecture</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/authentication/>Authentication</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/auto_date_histogram/>Auto_date_histogram</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/avg/>Avg</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/avg_bucket/>Avg_bucket</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/backup/>Backup</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/bool/>Bool</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/bounding_box/>Bounding_box</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/boxplot/>Boxplot</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/bucket_script/>Bucket_script</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/bucket_selector/>Bucket_selector</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/bucket_sort/>Bucket_sort</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/bulk/>Bulk</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/capacity/>Capacity</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/cardinality/>Cardinality</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/cdc/>Cdc</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/changes/>Changes</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/chat/>Chat</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/children/>Children</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/cli/>Cli</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/cluster/>Cluster</a>
+<span>3</span></li><li class="flex justify-between"><a href=/tags/collapse/>Collapse</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/collection/>Collection</a>
+<span>8</span></li><li class="flex justify-between"><a href=/tags/community/>Community</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/compact/>Compact</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/compaction/>Compaction</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/composite/>Composite</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/concept/>Concept</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/configuration/>Configuration</a>
+<span>5</span></li><li class="flex justify-between"><a href=/tags/configuration-files/>Configuration Files</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/console/>Console</a>
+<span>3</span></li><li class="flex justify-between"><a href=/tags/create/>Create</a>
+<span>4</span></li><li class="flex justify-between"><a href=/tags/cumulative_cardinality/>Cumulative_cardinality</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/cumulative_sum/>Cumulative_sum</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/date/>Date</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/date_range/>Date_range</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/debug/>Debug</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/deduplication/>Deduplication</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/delete/>Delete</a>
+<span>6</span></li><li class="flex justify-between"><a href=/tags/derivative/>Derivative</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/distance/>Distance</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/distance_feature/>Distance_feature</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/distributed/>Distributed</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/diversified_sampler/>Diversified_sampler</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/embedding/>Embedding</a>
+<span>3</span></li><li class="flex justify-between"><a href=/tags/engine/>Engine</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/environment/>Environment</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/exists/>Exists</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/extended_stats/>Extended_stats</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/extended_stats_bucket/>Extended_stats_bucket</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/features/>Features</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/fetch/>Fetch</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/filter/>Filter</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/filters/>Filters</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/flush/>Flush</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/fusion/>Fusion</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/fuzzy/>Fuzzy</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/geo/>Geo</a>
+<span>5</span></li><li class="flex justify-between"><a href=/tags/geo_bounds/>Geo_bounds</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/geo_centroid/>Geo_centroid</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/geo_distance/>Geo_distance</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/geohash_grid/>Geohash_grid</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/geotile_grid/>Geotile_grid</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/get/>Get</a>
+<span>7</span></li><li class="flex justify-between"><a href=/tags/getting-started/>Getting-Started</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/global/>Global</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/graph/>Graph</a>
+<span>3</span></li><li class="flex justify-between"><a href=/tags/health/>Health</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/highlight/>Highlight</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/histogram/>Histogram</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/hybrid/>Hybrid</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/index/>Index</a>
+<span>13</span></li><li class="flex justify-between"><a href=/tags/inplace/>Inplace</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/installation/>Installation</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/intervals/>Intervals</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/ip_range/>Ip_range</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/join/>Join</a>
+<span>3</span></li><li class="flex justify-between"><a href=/tags/join-token/>Join Token</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/keys/>Keys</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/keystore/>Keystore</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/knn/>Knn</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/limitations/>Limitations</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/list/>List</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/mapping/>Mapping</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/match/>Match</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/match_all/>Match_all</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/matrix_stats/>Matrix_stats</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/max/>Max</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/max_bucket/>Max_bucket</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/median_absolute_deviation/>Median_absolute_deviation</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/merge/>Merge</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/metadata/>Metadata</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/min/>Min</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/min_bucket/>Min_bucket</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/missing/>Missing</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/more_like_this/>More_like_this</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/moving_avg/>Moving_avg</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/moving_fn/>Moving_fn</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/multi_match/>Multi_match</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/multi_terms/>Multi_terms</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/multi_vector/>Multi_vector</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/namespace/>Namespace</a>
+<span>3</span></li><li class="flex justify-between"><a href=/tags/nested/>Nested</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/node/>Node</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/normalize/>Normalize</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/observability/>Observability</a>
+<span>4</span></li><li class="flex justify-between"><a href=/tags/operations/>Operations</a>
+<span>6</span></li><li class="flex justify-between"><a href=/tags/overview/>Overview</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/pagination/>Pagination</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/partial/>Partial</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/percentile/>Percentile</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/percentile_ranks/>Percentile_ranks</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/percentiles_bucket/>Percentiles_bucket</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/performance/>Performance</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/phrase/>Phrase</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/pizza-server/>Pizza-Server</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/pizza.yml/>Pizza.yml</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/playground/>Playground</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/polygon/>Polygon</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/prefix/>Prefix</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/projection/>Projection</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/proximity/>Proximity</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/prql/>Prql</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/query/>Query</a>
+<span>28</span></li><li class="flex justify-between"><a href=/tags/query_string/>Query_string</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/query-dsl/>Query-Dsl</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/range/>Range</a>
+<span>3</span></li><li class="flex justify-between"><a href=/tags/rare_terms/>Rare_terms</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/rate/>Rate</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/rbac/>Rbac</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/realtime/>Realtime</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/reference/>Reference</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/regexp/>Regexp</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/relational/>Relational</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/relevance/>Relevance</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/replace/>Replace</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/replication/>Replication</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/request/>Request</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/rescore/>Rescore</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/rescoring/>Rescoring</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/reshard/>Reshard</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/restore/>Restore</a>
+<span>4</span></li><li class="flex justify-between"><a href=/tags/reverse_nested/>Reverse_nested</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/roadmap/>Roadmap</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/rolling/>Rolling</a>
+<span>4</span></li><li class="flex justify-between"><a href=/tags/routing/>Routing</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/salting/>Salting</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/sampler/>Sampler</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/schema/>Schema</a>
+<span>4</span></li><li class="flex justify-between"><a href=/tags/script/>Script</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/script_fields/>Script_fields</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/script_score/>Script_score</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/scripted_metric/>Scripted_metric</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/scripting/>Scripting</a>
+<span>4</span></li><li class="flex justify-between"><a href=/tags/search/>Search</a>
+<span>10</span></li><li class="flex justify-between"><a href=/tags/security/>Security</a>
+<span>3</span></li><li class="flex justify-between"><a href=/tags/semantic/>Semantic</a>
+<span>3</span></li><li class="flex justify-between"><a href=/tags/serial_diff/>Serial_diff</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/setting/>Setting</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/settings/>Settings</a>
+<span>4</span></li><li class="flex justify-between"><a href=/tags/shape/>Shape</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/shard/>Shard</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/sharding/>Sharding</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/significant_terms/>Significant_terms</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/similarity/>Similarity</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/sort/>Sort</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/span/>Span</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/sql/>Sql</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/state/>State</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/stats/>Stats</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/stats_bucket/>Stats_bucket</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/storage/>Storage</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/stream/>Stream</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/string_stats/>String_stats</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/suffix/>Suffix</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/sum/>Sum</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/sum_bucket/>Sum_bucket</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/t_test/>T_test</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/term/>Term</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/terms/>Terms</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/text/>Text</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/tips/>Tips</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/top_hits/>Top_hits</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/top_metrics/>Top_metrics</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/trash/>Trash</a>
+<span>7</span></li><li class="flex justify-between"><a href=/tags/traverse/>Traverse</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/tutorial/>Tutorial</a>
+<span>9</span></li><li class="flex justify-between"><a href=/tags/update/>Update</a>
+<span>5</span></li><li class="flex justify-between"><a href=/tags/use-cases/>Use Cases</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/value_count/>Value_count</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/variable_width_histogram/>Variable_width_histogram</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/vector/>Vector</a>
+<span>4</span></li><li class="flex justify-between"><a href=/tags/verify/>Verify</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/wal/>Wal</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/wasm/>Wasm</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/web-ui/>Web Ui</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/weighted_avg/>Weighted_avg</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/wildcard/>Wildcard</a>
+<span>1</span></li></ul></li></ul></nav></aside></header><article class="markdown book-post"><h2><a href=/docs/references/aggregation/bucket/date-range/>Date range aggregation</a></h2><h5></h5><span style=font-size:12px>/ <a href=/tags/date_range/>Date_range</a>,
+/ <a href=/tags/aggregation/>Aggregation</a></span><p><h1 id=date-range-aggregation>Date range aggregation
+<a class=anchor href=#date-range-aggregation>#</a></h1><p>A multi-bucket aggregation like
+<a href=/docs/references/aggregation/bucket/range/><code>range</code></a>, but for date
+fields. Each bucket is a from/to period you name — &ldquo;before the launch&rdquo;,
+&ldquo;launch week&rdquo;, &ldquo;after&rdquo; — which is the shape reporting questions
+naturally take, rather than the uniform grid of
+<a href=/docs/references/aggregation/bucket/date-histogram/><code>date_histogram</code></a>.</p><h2 id=how-it-works>How it works
+<a class=anchor href=#how-it-works>#</a></h2><p>Bounds are epoch milliseconds: <code>from</code> accepts a number (or a numeric
+string) and is inclusive, <code>to</code> is exclusive, and either may be omitted
+for an open-ended period. Date strings like <code>"2024-06-04"</code> are not
+parsed by the aggregation — convert them to epoch millis first (the
+teaching examples below show the constants).</p><a href=/docs/references/aggregation/bucket/date-range/>...</a></p></article><nav class=pz-pager><a class="pz-pager-card pz-pager-prev" href=/tags/date/><span class=pz-pager-dir>← Previous</span>
+<span class=pz-pager-title>Date</span>
+</a><a class="pz-pager-card pz-pager-next" href=/tags/debug/><span class=pz-pager-dir>Next →</span>
+<span class=pz-pager-title>Debug</span></a></nav><script>function pzContentAfter(){function h(e,t){navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(e).then(t,function(){n()}):n();function n(){var n=document.createElement("textarea");n.value=e,n.style.position="fixed",n.style.opacity="0",document.body.appendChild(n),n.select();try{document.execCommand("copy"),t()}catch{}document.body.removeChild(n)}}document.querySelectorAll(".markdown pre").forEach(function(e){if(e.closest(".pizza-playground, #pizza-playground-app"))return;var t=document.createElement("button");t.type="button",t.className="pz-copy",t.textContent="Copy",t.addEventListener("click",function(){h(e.innerText,function(){t.textContent="Copied",t.classList.add("pz-copy-done"),setTimeout(function(){t.textContent="Copy",t.classList.remove("pz-copy-done")},1600)})}),e.appendChild(t)}),document.querySelectorAll(".markdown h2[id], .markdown h3[id]").forEach(function(e){var t=document.createElement("a");t.className="pz-anchor",t.href="#"+e.id,t.textContent="#",t.setAttribute("aria-label","Link to this section"),e.appendChild(t)});var e,t,n,s,i,a,r,l,o=document.querySelector(".book-toc #TableOfContents")||document.getElementById("TableOfContents");if(o){if(s={},t={},o.querySelectorAll('a[href^="#"]').forEach(function(e){var n,o=e.getAttribute("href").slice(1);s[o]=e,n=e.closest("li"),n&&(t[o]=n)}),e=[],Object.keys(s).forEach(function(t){var n=document.getElementById(t);n&&e.push(n)}),!e.length)return;i=document.createElement("a"),i.className="pz-backtop",i.href="#",i.textContent="Back to top ↑",o.appendChild(i),n=!1,a=null,r=null;function m(){Object.keys(t).forEach(function(e){t[e].classList.remove("active","ancestor")}),o.querySelectorAll("a[aria-current]").forEach(function(e){e.removeAttribute("aria-current")})}function c(e){m();var n,i,a,s=t[e];if(!s)return;for(s.classList.add("active"),a=s.querySelector('a[href^="#"]'),a&&a.setAttribute("aria-current","true"),n=s.parentElement;n&&n!==o;)i=n.closest("li"),i&&i!==s&&i.classList.add("ancestor"),n=n.parentElement}Object.keys(s).forEach(function(e){s[e].addEventListener("click",function(t){var s=document.getElementById(e);if(!s)return;t.preventDefault(),n=!0,a=e,c(e),s.scrollIntoView({behavior:"smooth",block:"start"}),history.replaceState(null,"","#"+e),clearTimeout(r),r=setTimeout(function(){n=!1,a=null},1200)})});function d(){if(n&&a)return;for(var o=window.innerHeight*.4,s=e[0],t=0;t<e.length;t++)e[t].getBoundingClientRect().top<=o&&(s=e[t]);s&&c(s.id)}function u(){clearTimeout(r),r=setTimeout(function(){n=!1,a=null},120),d()}window.addEventListener("scroll",u,{passive:!0}),window.addEventListener("resize",u,{passive:!0}),c(e[0].id),d(),location.hash&&(l=decodeURIComponent(location.hash.slice(1)),t[l]&&setTimeout(function(){c(l)},120))}}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",pzContentAfter):pzContentAfter()</script><footer class=book-footer><div class="flex flex-wrap justify-between"><div class="flex align-center footer">©INFINI.LTD, All Rights Reserved.</div><script async src="https://www.googletagmanager.com/gtag/js?id=G-VV6PGDHH84"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-VV6PGDHH84")</script><script type=text/javascript>var _smartsupp=_smartsupp||{};_smartsupp.key="691ff544d18a237005a011a7290b839d8fe811a4",window.smartsupp||function(e){var t,n,s=smartsupp=function(){s._.push(arguments)};s._=[],n=e.getElementsByTagName("script")[0],t=e.createElement("script"),t.type="text/javascript",t.charset="utf-8",t.async=!0,t.src="https://www.smartsuppchat.com/loader.js?",n.parentNode.insertBefore(t,n)}(document)</script><script type=module crossorigin src=/assets/index-BgktQxq3.js></script></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav><ul><li class=book-section-flat><strong>Categories</strong><ul></ul></li><li class=book-section-flat><strong>Tags</strong><ul><li class="flex justify-between"><a href=/tags/_script/>_Script</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/adjacency_matrix/>Adjacency_matrix</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/aggregation/>Aggregation</a>
+<span>66</span></li><li class="flex justify-between"><a href=/tags/ai/>Ai</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/alias/>Alias</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/allocation/>Allocation</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/analysis/>Analysis</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/analyzer/>Analyzer</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/architecture/>Architecture</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/authentication/>Authentication</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/auto_date_histogram/>Auto_date_histogram</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/avg/>Avg</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/avg_bucket/>Avg_bucket</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/backup/>Backup</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/bool/>Bool</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/bounding_box/>Bounding_box</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/boxplot/>Boxplot</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/bucket_script/>Bucket_script</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/bucket_selector/>Bucket_selector</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/bucket_sort/>Bucket_sort</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/bulk/>Bulk</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/capacity/>Capacity</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/cardinality/>Cardinality</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/cdc/>Cdc</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/changes/>Changes</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/chat/>Chat</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/children/>Children</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/cli/>Cli</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/cluster/>Cluster</a>
+<span>3</span></li><li class="flex justify-between"><a href=/tags/collapse/>Collapse</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/collection/>Collection</a>
+<span>8</span></li><li class="flex justify-between"><a href=/tags/community/>Community</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/compact/>Compact</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/compaction/>Compaction</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/composite/>Composite</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/concept/>Concept</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/configuration/>Configuration</a>
+<span>5</span></li><li class="flex justify-between"><a href=/tags/configuration-files/>Configuration Files</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/console/>Console</a>
+<span>3</span></li><li class="flex justify-between"><a href=/tags/create/>Create</a>
+<span>4</span></li><li class="flex justify-between"><a href=/tags/cumulative_cardinality/>Cumulative_cardinality</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/cumulative_sum/>Cumulative_sum</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/date/>Date</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/date_range/>Date_range</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/debug/>Debug</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/deduplication/>Deduplication</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/delete/>Delete</a>
+<span>6</span></li><li class="flex justify-between"><a href=/tags/derivative/>Derivative</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/distance/>Distance</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/distance_feature/>Distance_feature</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/distributed/>Distributed</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/diversified_sampler/>Diversified_sampler</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/embedding/>Embedding</a>
+<span>3</span></li><li class="flex justify-between"><a href=/tags/engine/>Engine</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/environment/>Environment</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/exists/>Exists</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/extended_stats/>Extended_stats</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/extended_stats_bucket/>Extended_stats_bucket</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/features/>Features</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/fetch/>Fetch</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/filter/>Filter</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/filters/>Filters</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/flush/>Flush</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/fusion/>Fusion</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/fuzzy/>Fuzzy</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/geo/>Geo</a>
+<span>5</span></li><li class="flex justify-between"><a href=/tags/geo_bounds/>Geo_bounds</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/geo_centroid/>Geo_centroid</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/geo_distance/>Geo_distance</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/geohash_grid/>Geohash_grid</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/geotile_grid/>Geotile_grid</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/get/>Get</a>
+<span>7</span></li><li class="flex justify-between"><a href=/tags/getting-started/>Getting-Started</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/global/>Global</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/graph/>Graph</a>
+<span>3</span></li><li class="flex justify-between"><a href=/tags/health/>Health</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/highlight/>Highlight</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/histogram/>Histogram</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/hybrid/>Hybrid</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/index/>Index</a>
+<span>13</span></li><li class="flex justify-between"><a href=/tags/inplace/>Inplace</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/installation/>Installation</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/intervals/>Intervals</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/ip_range/>Ip_range</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/join/>Join</a>
+<span>3</span></li><li class="flex justify-between"><a href=/tags/join-token/>Join Token</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/keys/>Keys</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/keystore/>Keystore</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/knn/>Knn</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/limitations/>Limitations</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/list/>List</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/mapping/>Mapping</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/match/>Match</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/match_all/>Match_all</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/matrix_stats/>Matrix_stats</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/max/>Max</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/max_bucket/>Max_bucket</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/median_absolute_deviation/>Median_absolute_deviation</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/merge/>Merge</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/metadata/>Metadata</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/min/>Min</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/min_bucket/>Min_bucket</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/missing/>Missing</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/more_like_this/>More_like_this</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/moving_avg/>Moving_avg</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/moving_fn/>Moving_fn</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/multi_match/>Multi_match</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/multi_terms/>Multi_terms</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/multi_vector/>Multi_vector</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/namespace/>Namespace</a>
+<span>3</span></li><li class="flex justify-between"><a href=/tags/nested/>Nested</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/node/>Node</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/normalize/>Normalize</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/observability/>Observability</a>
+<span>4</span></li><li class="flex justify-between"><a href=/tags/operations/>Operations</a>
+<span>6</span></li><li class="flex justify-between"><a href=/tags/overview/>Overview</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/pagination/>Pagination</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/partial/>Partial</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/percentile/>Percentile</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/percentile_ranks/>Percentile_ranks</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/percentiles_bucket/>Percentiles_bucket</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/performance/>Performance</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/phrase/>Phrase</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/pizza-server/>Pizza-Server</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/pizza.yml/>Pizza.yml</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/playground/>Playground</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/polygon/>Polygon</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/prefix/>Prefix</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/projection/>Projection</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/proximity/>Proximity</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/prql/>Prql</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/query/>Query</a>
+<span>28</span></li><li class="flex justify-between"><a href=/tags/query_string/>Query_string</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/query-dsl/>Query-Dsl</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/range/>Range</a>
+<span>3</span></li><li class="flex justify-between"><a href=/tags/rare_terms/>Rare_terms</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/rate/>Rate</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/rbac/>Rbac</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/realtime/>Realtime</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/reference/>Reference</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/regexp/>Regexp</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/relational/>Relational</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/relevance/>Relevance</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/replace/>Replace</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/replication/>Replication</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/request/>Request</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/rescore/>Rescore</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/rescoring/>Rescoring</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/reshard/>Reshard</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/restore/>Restore</a>
+<span>4</span></li><li class="flex justify-between"><a href=/tags/reverse_nested/>Reverse_nested</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/roadmap/>Roadmap</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/rolling/>Rolling</a>
+<span>4</span></li><li class="flex justify-between"><a href=/tags/routing/>Routing</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/salting/>Salting</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/sampler/>Sampler</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/schema/>Schema</a>
+<span>4</span></li><li class="flex justify-between"><a href=/tags/script/>Script</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/script_fields/>Script_fields</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/script_score/>Script_score</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/scripted_metric/>Scripted_metric</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/scripting/>Scripting</a>
+<span>4</span></li><li class="flex justify-between"><a href=/tags/search/>Search</a>
+<span>10</span></li><li class="flex justify-between"><a href=/tags/security/>Security</a>
+<span>3</span></li><li class="flex justify-between"><a href=/tags/semantic/>Semantic</a>
+<span>3</span></li><li class="flex justify-between"><a href=/tags/serial_diff/>Serial_diff</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/setting/>Setting</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/settings/>Settings</a>
+<span>4</span></li><li class="flex justify-between"><a href=/tags/shape/>Shape</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/shard/>Shard</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/sharding/>Sharding</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/significant_terms/>Significant_terms</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/similarity/>Similarity</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/sort/>Sort</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/span/>Span</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/sql/>Sql</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/state/>State</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/stats/>Stats</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/stats_bucket/>Stats_bucket</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/storage/>Storage</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/stream/>Stream</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/string_stats/>String_stats</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/suffix/>Suffix</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/sum/>Sum</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/sum_bucket/>Sum_bucket</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/t_test/>T_test</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/term/>Term</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/terms/>Terms</a>
+<span>2</span></li><li class="flex justify-between"><a href=/tags/text/>Text</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/tips/>Tips</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/top_hits/>Top_hits</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/top_metrics/>Top_metrics</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/trash/>Trash</a>
+<span>7</span></li><li class="flex justify-between"><a href=/tags/traverse/>Traverse</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/tutorial/>Tutorial</a>
+<span>9</span></li><li class="flex justify-between"><a href=/tags/update/>Update</a>
+<span>5</span></li><li class="flex justify-between"><a href=/tags/use-cases/>Use Cases</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/value_count/>Value_count</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/variable_width_histogram/>Variable_width_histogram</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/vector/>Vector</a>
+<span>4</span></li><li class="flex justify-between"><a href=/tags/verify/>Verify</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/wal/>Wal</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/wasm/>Wasm</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/web-ui/>Web Ui</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/weighted_avg/>Weighted_avg</a>
+<span>1</span></li><li class="flex justify-between"><a href=/tags/wildcard/>Wildcard</a>
+<span>1</span></li></ul></li></ul></nav></aside></main></body></html>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Field parameters on INFINI Pizza</title><link>https://pizza.rs/docs/references/schema/field-parameters/</link><description>Recent content in Field parameters on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/docs/references/schema/field-parameters/index.xml" rel="self" type="application/rss+xml"/><item><title>Analysis parameters</title><link>https://pizza.rs/docs/references/schema/field-parameters/analysis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/schema/field-parameters/analysis/</guid><description>&lt;h1 id="analysis-parameters">
+ Analysis parameters
+ &lt;a class="anchor" href="#analysis-parameters">#&lt;/a>
+&lt;/h1>
+&lt;h2 id="analyzer">
+ &lt;code>analyzer&lt;/code>
+ &lt;a class="anchor" href="#analyzer">#&lt;/a>
+&lt;/h2>
+&lt;p>The analyzer used for indexing.&lt;/p>
+&lt;p>Carried by: 
+ &lt;a href="https://pizza.rs/docs/references/schema/field-types/full-text/#text">&lt;code>text&lt;/code>&lt;/a>.&lt;/p>
+&lt;h2 id="search_analyzer">
+ &lt;code>search_analyzer&lt;/code>
+ &lt;a class="anchor" href="#search_analyzer">#&lt;/a>
+&lt;/h2>
+&lt;p>The analyzer used for searching.&lt;/p>
+&lt;p>Carried by: 
+ &lt;a href="https://pizza.rs/docs/references/schema/field-types/full-text/#text">&lt;code>text&lt;/code>&lt;/a>.&lt;/p>
+&lt;h2 id="normalizer">
+ &lt;code>normalizer&lt;/code>
+ &lt;a class="anchor" href="#normalizer">#&lt;/a>
+&lt;/h2>
+&lt;p>For &lt;code>keyword&lt;/code> fields — a single normalizer (e.g. &lt;code>lowercase&lt;/code>, &lt;code>trim&lt;/code>,
+&lt;code>unicode_nfkc&lt;/code>) applied to the value before it is indexed, so &lt;code>term&lt;/code>
+queries match case-insensitively; the &lt;code>_source&lt;/code> keeps the original. See
+the 
+ &lt;a href="https://pizza.rs/docs/references/search/analysis/analysis-builtins/#normalizers">normalizer
+catalog&lt;/a>.&lt;/p>
+&lt;p>Carried by: 
+ &lt;a href="https://pizza.rs/docs/references/schema/field-types/full-text/#keyword">&lt;code>keyword&lt;/code>&lt;/a>.&lt;/p></description></item><item><title>Indexing parameters</title><link>https://pizza.rs/docs/references/schema/field-parameters/indexing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/schema/field-parameters/indexing/</guid><description>&lt;h1 id="indexing-parameters">
+ Indexing parameters
+ &lt;a class="anchor" href="#indexing-parameters">#&lt;/a>
+&lt;/h1>
+&lt;h2 id="index">
+ &lt;code>index&lt;/code>
+ &lt;a class="anchor" href="#index">#&lt;/a>
+&lt;/h2>
+&lt;p>For non-object fields, if set, Pizza would build an index for the field to
+make it searchable. For object fields, the &lt;code>index&lt;/code> parameter overrides the
+&lt;code>index&lt;/code> settings of its sub-fields.&lt;/p>
+&lt;p>Carried by: most scalar types and &lt;code>object&lt;/code> — see each
+
+ &lt;a href="https://pizza.rs/docs/references/schema/field-types/">field type&lt;/a>. Not carried by the vector types.&lt;/p>
+&lt;h2 id="index_options">
+ &lt;code>index_options&lt;/code>
+ &lt;a class="anchor" href="#index_options">#&lt;/a>
+&lt;/h2>
+&lt;p>Controls what information is added to the inverted index. Available
+options are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>docs&lt;/code>: Only the doc number is indexed. Can answer the question
+&lt;em>Does this term exist in this field&lt;/em>?&lt;/li>
+&lt;li>&lt;code>freqs&lt;/code>: Doc number and term frequencies are indexed. Term frequencies
+are used to score repeated terms higher than single terms.&lt;/li>
+&lt;li>&lt;code>positions&lt;/code> (default): Doc number, term frequencies, and term positions
+(or order) are indexed. Positions can be used for proximity or phrase
+queries.&lt;/li>
+&lt;li>&lt;code>offsets&lt;/code>: Doc number, term frequencies, positions, and start and end
+character offsets (which map the term back to the original string) are
+indexed. Offsets are used by the unified highlighter to speed up
+highlighting.&lt;/li>
+&lt;/ul>
+&lt;p>Carried by: 
+ &lt;a href="https://pizza.rs/docs/references/schema/field-types/full-text/#text">&lt;code>text&lt;/code>&lt;/a>,
+
+ &lt;a href="https://pizza.rs/docs/references/schema/field-types/full-text/#keyword">&lt;code>keyword&lt;/code>&lt;/a>.&lt;/p></description></item><item><title>Storage layout parameters</title><link>https://pizza.rs/docs/references/schema/field-parameters/storage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/schema/field-parameters/storage/</guid><description>&lt;h1 id="storage-layout-parameters">
+ Storage layout parameters
+ &lt;a class="anchor" href="#storage-layout-parameters">#&lt;/a>
+&lt;/h1>
+&lt;h2 id="source-column-store">
+ &lt;code>source&lt;/code>, &lt;code>column&lt;/code>, &lt;code>store&lt;/code>
+ &lt;a class="anchor" href="#source-column-store">#&lt;/a>
+&lt;/h2>
+&lt;p>Per-field storage placement booleans. Every field is included in the
+&lt;code>_source&lt;/code> blob by default; set &lt;code>source: false&lt;/code> to drop it from stored
+docs. &lt;code>column&lt;/code> keeps the value as a compressed doc-values column (fast
+retrieval and aggregation) — it defaults to the field&amp;rsquo;s 
+ &lt;a href="#profile">profile&lt;/a>
+layout, which turns it on for column-friendly types (numbers, dates,
+keywords) and off for analyzed text. &lt;code>store&lt;/code> keeps a separate
+document-store copy for fast field retrieval (default &lt;code>false&lt;/code>).&lt;/p></description></item><item><title>Realtime and in-place parameters</title><link>https://pizza.rs/docs/references/schema/field-parameters/realtime-inplace/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/schema/field-parameters/realtime-inplace/</guid><description>&lt;h1 id="realtime-and-in-place-parameters">
+ Realtime and in-place parameters
+ &lt;a class="anchor" href="#realtime-and-in-place-parameters">#&lt;/a>
+&lt;/h1>
+&lt;h2 id="realtime">
+ &lt;code>realtime&lt;/code>
+ &lt;a class="anchor" href="#realtime">#&lt;/a>
+&lt;/h2>
+&lt;p>For non-object fields, enabling this option allows the field to support
+real-time search. For object fields, the &lt;code>realtime&lt;/code> parameter overrides
+the realtime settings of its sub-fields.&lt;/p>
+&lt;p>Carried by: every type — see each 
+ &lt;a href="https://pizza.rs/docs/references/schema/field-types/">field type&lt;/a>.&lt;/p>
+&lt;h2 id="inplace">
+ &lt;code>inplace&lt;/code>
+ &lt;a class="anchor" href="#inplace">#&lt;/a>
+&lt;/h2>
+&lt;p>For non-object numeric and boolean fields, enabling this option makes a
+dedicated column the authoritative store of the field&amp;rsquo;s value. Partial
+updates on such fields can be applied as O(1) in-place column writes
+instead of rebuilding the document, which keeps frequent counters and
+flags cheap — only some update operators qualify, and the whole request
+must target &lt;code>inplace&lt;/code> fields; see
+
+ &lt;a href="https://pizza.rs/docs/references/document/partial_update/#in-place-fast-lane-eligibility">fast-lane eligibility&lt;/a>
+for the exact operator list and conditions. A partial update that mixes
+&lt;code>inplace&lt;/code> fields with regular fields is supported as well, and the
+document keeps its &lt;code>_id&lt;/code> either way. Values are visible the moment the
+write lands (search snapshots pin the document set, not the values); a
+missing numeric field starts from &lt;code>0&lt;/code> and a missing boolean from &lt;code>false&lt;/code>;
+integer arithmetic wraps on overflow. See
+
+ &lt;a href="https://pizza.rs/docs/highlightings/inplace-columns/">In-place columns&lt;/a> for the
+visibility, arithmetic, and query-pruning semantics.&lt;/p></description></item><item><title>Structural parameters</title><link>https://pizza.rs/docs/references/schema/field-parameters/structural/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/schema/field-parameters/structural/</guid><description>&lt;h1 id="structural-parameters">
+ Structural parameters
+ &lt;a class="anchor" href="#structural-parameters">#&lt;/a>
+&lt;/h1>
+&lt;h2 id="properties">
+ &lt;code>properties&lt;/code>
+ &lt;a class="anchor" href="#properties">#&lt;/a>
+&lt;/h2>
+&lt;p>Nested sub-fields, for object-shaped types.&lt;/p>
+&lt;p>Carried by: 
+ &lt;a href="https://pizza.rs/docs/references/schema/field-types/object/#object">&lt;code>object&lt;/code>&lt;/a>,
+
+ &lt;a href="https://pizza.rs/docs/references/schema/field-types/object/#nested">&lt;code>nested&lt;/code>&lt;/a>.&lt;/p>
+&lt;h2 id="fields">
+ &lt;code>fields&lt;/code>
+ &lt;a class="anchor" href="#fields">#&lt;/a>
+&lt;/h2>
+&lt;p>It is often useful to index the same field in different ways for different
+purposes. This is the purpose of multi-fields.&lt;/p>
+&lt;p>A &lt;code>dense_vector&lt;/code> sub-field gets a derived meaning — &lt;strong>semantic wiring&lt;/strong>:
+declare it with &lt;code>vector_options.model&lt;/code> + &lt;code>dims&lt;/code> on a top-level
+&lt;code>text&lt;/code>/&lt;code>keyword&lt;/code> field and the parent&amp;rsquo;s text is embedded server-side at
+write time (the source is implicitly the parent and must not be set
+explicitly; the model must resolve to a configured embedding endpoint).
+See 
+ &lt;a href="https://pizza.rs/docs/references/search/vector/vector/#declarative-form--the-semantic-multi-field">the declarative
+form&lt;/a>.&lt;/p></description></item><item><title>Type-specific parameters</title><link>https://pizza.rs/docs/references/schema/field-parameters/type-specific/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/schema/field-parameters/type-specific/</guid><description>&lt;h1 id="type-specific-parameters">
+ Type-specific parameters
+ &lt;a class="anchor" href="#type-specific-parameters">#&lt;/a>
+&lt;/h1>
+&lt;p>Parameters bound to a single type family.&lt;/p>
+&lt;h2 id="format">
+ &lt;code>format&lt;/code>
+ &lt;a class="anchor" href="#format">#&lt;/a>
+&lt;/h2>
+&lt;p>For &lt;code>date&lt;/code> fields, the accepted input format(s) — default
+&lt;code>strict_date_optional_time||epoch_millis&lt;/code>; multiple formats join with &lt;code>||&lt;/code>.&lt;/p>
+&lt;p>Carried by: 
+ &lt;a href="https://pizza.rs/docs/references/schema/field-types/date-geo/#date">&lt;code>date&lt;/code>&lt;/a>.&lt;/p>
+&lt;h2 id="vector_options">
+ &lt;code>vector_options&lt;/code>
+ &lt;a class="anchor" href="#vector_options">#&lt;/a>
+&lt;/h2>
+&lt;p>For vector fields — &lt;code>dims&lt;/code>, &lt;code>similarity&lt;/code>, &lt;code>index_type&lt;/code> (flat, HNSW, BBQ or
+TurboQuant variants), plus tuning knobs (&lt;code>m&lt;/code>, &lt;code>ef_construction&lt;/code>,
+&lt;code>ef_search&lt;/code>) and, for declarative semantic embedding, &lt;code>model&lt;/code>, &lt;code>source&lt;/code>
+and &lt;code>service&lt;/code> (the AI-service disambiguator when several services list
+the same model id). The full catalog lives on the
+
+ &lt;a href="https://pizza.rs/docs/references/search/vector/vector/">vector search&lt;/a> page; the
+
+ &lt;a href="https://pizza.rs/docs/references/schema/field-types/vector/#semantic_text">&lt;code>semantic_text&lt;/code>&lt;/a> type is the
+sugar form over the same wiring.&lt;/p></description></item><item><title>Relational parameters</title><link>https://pizza.rs/docs/references/schema/field-parameters/relational/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/schema/field-parameters/relational/</guid><description>&lt;h1 id="relational-parameters">
+ Relational parameters
+ &lt;a class="anchor" href="#relational-parameters">#&lt;/a>
+&lt;/h1>
+&lt;p>The cross-type parameters that turn a flat schema into a relational one:
+declare a foreign key, opt into reference materialization, and route
+placement by the field&amp;rsquo;s value. They compose — the same &lt;code>org_id&lt;/code> field can
+declare all four — and the 
+ &lt;a href="../../tutorial/joins.md">joins tutorial&lt;/a>
+walks them end to end against a live node.&lt;/p>
+&lt;h2 id="references">
+ &lt;code>references&lt;/code>
+ &lt;a class="anchor" href="#references">#&lt;/a>
+&lt;/h2>
+&lt;p>Declares this field as a foreign key into another collection. The value is
+the referenced collection&amp;rsquo;s document key (or, with a &lt;code>field&lt;/code>-targeted join,
+whatever field the join names).&lt;/p></description></item></channel></rss>

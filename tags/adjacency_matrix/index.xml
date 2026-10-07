@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Adjacency_matrix on INFINI Pizza</title><link>https://pizza.rs/tags/adjacency_matrix/</link><description>Recent content in Adjacency_matrix on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/adjacency_matrix/index.xml" rel="self" type="application/rss+xml"/><item><title>Adjacency matrix aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/adjacency-matrix/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/adjacency-matrix/</guid><description>&lt;h1 id="adjacency-matrix-aggregation">
+ Adjacency matrix aggregation
+ &lt;a class="anchor" href="#adjacency-matrix-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-bucket aggregation returning every named filter&amp;rsquo;s document set
+plus their pairwise INTERSECTIONS — the cross product view of several
+filters. Where 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/bucket/filters/">&lt;code>filters&lt;/code>&lt;/a> answers each filter separately,
+this one also tells you how much they overlap, which is exactly what
+co-occurrence analysis needs.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Each named filter is evaluated against every candidate document, so a
+document can carry several filter flags at once. The engine then emits
+one bucket per non-empty filter (keyed by its name) and one bucket per
+non-empty pair, keyed &lt;code>a&amp;amp;b&lt;/code> with the two names in alphabetical order.
+Intersections beyond pairs — no &lt;code>a&amp;amp;b&amp;amp;c&lt;/code> triples — are not computed,
+and empty buckets are skipped entirely, so the bucket count tops out
+at &lt;code>n·(n−1)/2 + n&lt;/code>.&lt;/p></description></item></channel></rss>

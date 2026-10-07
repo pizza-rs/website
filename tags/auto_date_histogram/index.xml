@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Auto_date_histogram on INFINI Pizza</title><link>https://pizza.rs/tags/auto_date_histogram/</link><description>Recent content in Auto_date_histogram on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/auto_date_histogram/index.xml" rel="self" type="application/rss+xml"/><item><title>Auto date histogram aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/auto-date-histogram/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/auto-date-histogram/</guid><description>&lt;h1 id="auto-date-histogram-aggregation">
+ Auto date histogram aggregation
+ &lt;a class="anchor" href="#auto-date-histogram-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-bucket aggregation like 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/bucket/date-histogram/">&lt;code>date_histogram&lt;/code>&lt;/a>,
+but you choose the NUMBER of buckets and the engine picks the interval
+that best fits. It solves the cold-start problem of time charts: when
+you do not know whether the data spans minutes or years, you state the
+resolution you want on screen and let the ladder decide the unit.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine reads every date value (epoch milliseconds), takes the data
+extent &lt;code>max − min&lt;/code>, and divides by the &lt;code>buckets&lt;/code> target to get a rough
+per-bucket width. That width is matched against a fixed ladder, and
+the smallest interval that covers it wins: &lt;code>1s&lt;/code>, &lt;code>1m&lt;/code>, &lt;code>5m&lt;/code>, &lt;code>10m&lt;/code>,
+&lt;code>30m&lt;/code>, &lt;code>1h&lt;/code>, &lt;code>6h&lt;/code>, &lt;code>12h&lt;/code>, &lt;code>1d&lt;/code>, &lt;code>1w&lt;/code> as fixed intervals; beyond a week
+the calendar units &lt;code>month&lt;/code>, &lt;code>quarter&lt;/code>, &lt;code>year&lt;/code> (and multi-year multiples
+for very long extents). The pick is one closed-form step, not an
+iterative search.&lt;/p></description></item></channel></rss>

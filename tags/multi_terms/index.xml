@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Multi_terms on INFINI Pizza</title><link>https://pizza.rs/tags/multi_terms/</link><description>Recent content in Multi_terms on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/multi_terms/index.xml" rel="self" type="application/rss+xml"/><item><title>Multi terms aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/multi-terms/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/multi-terms/</guid><description>&lt;h1 id="multi-terms-aggregation">
+ Multi terms aggregation
+ &lt;a class="anchor" href="#multi-terms-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-bucket aggregation like 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/bucket/terms/">&lt;code>terms&lt;/code>&lt;/a>, but the bucket
+key is a TUPLE of values from several fields — e.g. every
+(merchant, status) combination. It answers cross-tab questions —
+&amp;ldquo;rows by column&amp;rdquo; tables — that a single-field terms aggregation
+cannot express without chaining requests.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Each entry in the &lt;code>terms&lt;/code> array contributes one component of the
+composite key. A document is placed in the bucket keyed by the tuple of
+its values, and the response reports each bucket&amp;rsquo;s &lt;code>key&lt;/code> as an array —
+&lt;code>[&amp;quot;infini-store&amp;quot;, &amp;quot;pending&amp;quot;]&lt;/code>.&lt;/p></description></item></channel></rss>

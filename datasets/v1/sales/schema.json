@@ -1,0 +1,33 @@
+{
+  "settings": {
+    "rolling": {
+      "number_of_replicas": 1
+    }
+  },
+  "schema": {
+    "dynamic": "true",
+    "properties": {
+      "type": {
+        "type": "keyword"
+      },
+      "price": {
+        "type": "double"
+      },
+      "qty": {
+        "type": "integer"
+      },
+      "amount": {
+        "type": "double"
+      },
+      "merchant": {
+        "type": "keyword"
+      },
+      "status": {
+        "type": "keyword"
+      },
+      "date": {
+        "type": "date"
+      }
+    }
+  }
+}

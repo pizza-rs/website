@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Limitations on INFINI Pizza</title><link>https://pizza.rs/tags/limitations/</link><description>Recent content in Limitations on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/limitations/index.xml" rel="self" type="application/rss+xml"/><item><title>Limitations</title><link>https://pizza.rs/docs/overview/limitations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/overview/limitations/</guid><description>&lt;h1 id="limitations">
+ Limitations
+ &lt;a class="anchor" href="#limitations">#&lt;/a>
+&lt;/h1>
+&lt;p>Known limitations of the current release, and where to read more.&lt;/p>
+&lt;h2 id="storage-and-scaling">
+ Storage and scaling
+ &lt;a class="anchor" href="#storage-and-scaling">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>256 logical partitions per rolling are fixed&lt;/strong> — the partition
+count is a design constant, not a creation-time setting. What you
+scale is the number of physical shards (via the sharding strategy and
+
+ &lt;a href="https://pizza.rs/docs/references/collection/rolling_reshard/">online reshard&lt;/a>).&lt;/li>
+&lt;li>&lt;strong>Object storage and Parquet are optional, not the default&lt;/strong> —
+persistence is Pizza&amp;rsquo;s FIRE columnar format on local disk. S3-backed
+and Parquet-mount backends are opt-in engine features.&lt;/li>
+&lt;/ul>
+&lt;h2 id="cluster-operations">
+ Cluster operations
+ &lt;a class="anchor" href="#cluster-operations">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Cluster state is local-region only&lt;/strong> — &lt;code>GET /_cluster/state&lt;/code>
+returns the serving region&amp;rsquo;s state; querying a remote region by UUID
+answers &lt;code>501 not implemented yet&lt;/code> (same for remote region health).
+The &lt;code>blocks&lt;/code> and &lt;code>version&lt;/code> state filters are accepted but are no-ops.&lt;/li>
+&lt;li>&lt;strong>No backup/restore API yet&lt;/strong> — metadata is covered by Raft
+snapshots, but data backup is a manual data-directory procedure. See
+
+ &lt;a href="https://pizza.rs/docs/administration/backup/">Backup and restore&lt;/a>.&lt;/li>
+&lt;li>&lt;strong>Collection-level replica changes apply to new rollings only&lt;/strong> —
+resizing the replicas of an existing rolling uses
+
+ &lt;a href="https://pizza.rs/docs/references/collection/rolling_settings/">Update rolling settings&lt;/a>;
+a rolling being resharded has its replica count frozen until the
+reshard commits.&lt;/li>
+&lt;/ul>
+&lt;h2 id="querying">
+ Querying
+ &lt;a class="anchor" href="#querying">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>SQL/PRQL are subset-shaped&lt;/strong> — &lt;code>POST /_sql&lt;/code> and &lt;code>POST /_prql&lt;/code> serve a
+documented subset (see
+
+ &lt;a href="https://pizza.rs/docs/references/sql/">the SQL &amp;amp; PRQL reference&lt;/a>): no &lt;code>JOIN&lt;/code>
+across collections yet (planned), no subqueries, CTE (&lt;code>WITH&lt;/code>), window
+functions or set operations; PRQL s-strings are rejected outright and
+pipelines that would lower into a CTE fail closed with a positioned
+error.&lt;/li>
+&lt;li>&lt;strong>Scripting is aggregation- and search-scoped&lt;/strong> — scripts run in
+pipeline aggregations, &lt;code>scripted_metric&lt;/code>, as the value source of the
+single-value metric aggs, in a search request&amp;rsquo;s
+
+ &lt;a href="https://pizza.rs/docs/references/search/request/script-fields/">&lt;code>script_fields&lt;/code>&lt;/a>, and
+in the 
+ &lt;a href="https://pizza.rs/docs/references/search/specialized/script-score/">scripted queries&lt;/a>
+(&lt;code>script_score&lt;/code>, &lt;code>script&lt;/code> filters, &lt;code>_script&lt;/code> sort; Rhai, sandboxed, see
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/scripts/">the scripts reference&lt;/a>).
+A &lt;code>script&lt;/code> filter applies to the collected window (aggregations are not
+narrowed); per-segment script filtering is not implemented.&lt;/li>
+&lt;li>&lt;strong>CDC is poll-based&lt;/strong> — the change feed is a pull API bounded by WAL
+retention; a consumer that falls behind &lt;code>purged_below&lt;/code> must run a
+full resync.&lt;/li>
+&lt;/ul>
+&lt;h2 id="security">
+ Security
+ &lt;a class="anchor" href="#security">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Tenancy is namespace-scoped 1:1&lt;/strong> — a key&amp;rsquo;s &lt;code>tenant&lt;/code> maps to a
+single namespace; there is no multi-namespace tenant grouping yet.&lt;/li>
+&lt;/ul></description></item></channel></rss>

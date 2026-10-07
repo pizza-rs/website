@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Wal on INFINI Pizza</title><link>https://pizza.rs/tags/wal/</link><description>Recent content in Wal on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/wal/index.xml" rel="self" type="application/rss+xml"/><item><title>How realtime works</title><link>https://pizza.rs/docs/overview/realtime/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/overview/realtime/</guid><description>&lt;h1 id="how-realtime-works">
+ How realtime works?
+ &lt;a class="anchor" href="#how-realtime-works">#&lt;/a>
+&lt;/h1>
+&lt;h2 id="do-you-like-to-let-your-customer-wait">
+ Do you like to let your customer wait?
+ &lt;a class="anchor" href="#do-you-like-to-let-your-customer-wait">#&lt;/a>
+&lt;/h2>
+&lt;p>
+ &lt;img src="https://pizza.rs/img/realtime-diagram.png" alt="Pizza concepts" />&lt;/p>
+&lt;center>[Pizza in Realtime]&lt;/center>
+&lt;p>A document written to Pizza is searchable the moment its write is
+acknowledged — there is no refresh, no near-real-time window, and nothing
+to tune to get there. This page walks the write path that makes that
+true.&lt;/p>
+&lt;h2 id="the-write-path">
+ The write path
+ &lt;a class="anchor" href="#the-write-path">#&lt;/a>
+&lt;/h2>
+&lt;ol>
+&lt;li>&lt;strong>WAL first.&lt;/strong> The write is appended to the shard&amp;rsquo;s write-ahead log
+(a local file-based WAL by default; a Kafka-backed WAL is available).
+Durability follows &lt;code>wal.local.durability&lt;/code> — &lt;code>strict&lt;/code> fsyncs per
+append, &lt;code>batched&lt;/code> (the default) group-commits by size and timeout,
+&lt;code>async&lt;/code> skips the hot-path fsync entirely.&lt;/li>
+&lt;li>&lt;strong>Mutable layer.&lt;/strong> The live documents are indexed into the shard&amp;rsquo;s
+in-memory mutable layer, which is itself searchable — this is what
+removes the refresh: reads see the mutable layer and the immutable
+segments in one snapshot, so the visibility point is the write&amp;rsquo;s
+acknowledgement.&lt;/li>
+&lt;li>&lt;strong>Epoch freeze and build.&lt;/strong> When the active epoch crosses a size or
+ops threshold (&lt;code>wal.local.epoch_freeze_max_bytes&lt;/code> /
+&lt;code>epoch_freeze_max_ops&lt;/code>, runtime-tunable), it is frozen and built in
+the background into an immutable FIRE segment. The build does not
+gate reads or writes.&lt;/li>
+&lt;li>&lt;strong>WAL purge.&lt;/strong> Once a segment is durably built (per
+&lt;code>wal.local.segment_durability&lt;/code>), the WAL entries it supersedes are
+purged, bounded by the retention window
+(&lt;code>wal.local.retention_epoch&lt;/code> / &lt;code>retention_bytes&lt;/code>).&lt;/li>
+&lt;/ol>
+&lt;p>Recovery is the mirror image: on restart, a shard replays its WAL tail
+over its last durable segments, so acknowledged writes survive crashes.
+Restart replay and peer recovery are both bounded by
+&lt;code>node.recovery_concurrency&lt;/code>.&lt;/p></description></item></channel></rss>

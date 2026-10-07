@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Use Cases on INFINI Pizza</title><link>https://pizza.rs/tags/use-cases/</link><description>Recent content in Use Cases on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/use-cases/index.xml" rel="self" type="application/rss+xml"/><item><title>Use cases</title><link>https://pizza.rs/docs/overview/use-cases/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/overview/use-cases/</guid><description>&lt;h1 id="use-cases">
+ Use cases
+ &lt;a class="anchor" href="#use-cases">#&lt;/a>
+&lt;/h1>
+&lt;p>Pizza is built for latency-sensitive search over fresh, mutable data at
+scale. The scenarios below map to concrete features — follow the links
+for the mechanics.&lt;/p>
+&lt;h2 id="operational-logs-and-events-searchable-the-moment-they-land">
+ Operational logs and events, searchable the moment they land
+ &lt;a class="anchor" href="#operational-logs-and-events-searchable-the-moment-they-land">#&lt;/a>
+&lt;/h2>
+&lt;p>Observability and security pipelines need indexed events &lt;strong>and&lt;/strong> fresh
+results — &amp;ldquo;what happened in the last minute&amp;rdquo; cannot wait for a refresh
+window. Pizza&amp;rsquo;s 
+ &lt;a href="https://pizza.rs/docs/overview/realtime/">realtime write path&lt;/a> makes every
+acknowledged write searchable immediately, rollings absorb unbounded
+growth without reindexing, and high-volume ingest is served by batched
+WAL writes plus background segment builds that never gate reads.&lt;/p></description></item></channel></rss>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vector on INFINI Pizza</title><link>https://pizza.rs/tags/vector/</link><description>Recent content in Vector on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/vector/index.xml" rel="self" type="application/rss+xml"/><item><title>Vector query (kNN)</title><link>https://pizza.rs/docs/references/search/vector/vector/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/vector/vector/</guid><description>&lt;h1 id="vector-query-knn">
+ Vector query (kNN)
+ &lt;a class="anchor" href="#vector-query-knn">#&lt;/a>
+&lt;/h1>
+&lt;p>Finds the &lt;code>k&lt;/code> nearest neighbors of a query vector — similarity search
+over &lt;code>dense_vector&lt;/code> / &lt;code>sparse_vector&lt;/code> fields. The query vector can be
+supplied directly, or as natural-language text that the serving layer
+embeds with the field&amp;rsquo;s configured model (schema-driven semantic
+search).&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Execution depends on where the documents live:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Realtime (not yet flushed)&lt;/strong> — an exact brute-force scan over the
+mutable store: every vector is scored, a size-&lt;code>k&lt;/code> min-heap keeps the
+best, and a filter (see below) is tested before any distance is
+computed.&lt;/li>
+&lt;li>&lt;strong>Flushed segments&lt;/strong> — the field&amp;rsquo;s &lt;code>index_type&lt;/code> decides: &lt;code>flat&lt;/code>
+scans the stored f32 vectors (exact, &lt;code>O(N·dims)&lt;/code>); the graph types
+(&lt;code>hnsw_flat&lt;/code>, &lt;code>turbo_quant_hnsw&lt;/code>, &lt;code>bbq_hnsw&lt;/code>) traverse the persisted
+HNSW graph with distances computed on the flat vectors — scores stay
+exact and only an &lt;code>ef&lt;/code>-bounded neighborhood is evaluated; the
+quantized scans (&lt;code>turbo_quant&lt;/code>, &lt;code>bbq_flat&lt;/code>) score compact codes for
+a &lt;code>k × oversampling&lt;/code> candidate pool and rescore it with full
+precision (approximate). The per-type breakdown is in
+
+ &lt;a href="#index-types">Index types&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;p>Scores follow the field&amp;rsquo;s &lt;code>similarity&lt;/code> (overridable per query, but it
+must match the schema): &lt;code>cosine&lt;/code> is the cosine similarity in
+&lt;code>[-1.0, 1.0]&lt;/code>; &lt;code>dot_product&lt;/code> the raw dot product; &lt;code>l2&lt;/code> scores as the
+&lt;strong>negated squared&lt;/strong> Euclidean distance — &lt;code>0&lt;/code> means identical vectors.
+Higher is always more similar, so one top-&lt;code>k&lt;/code> heap serves all three.&lt;/p></description></item><item><title>Hybrid search and scoring pipeline</title><link>https://pizza.rs/docs/references/search/request/hybrid/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/request/hybrid/</guid><description>&lt;h1 id="hybrid-search-and-scoring-pipeline">
+ Hybrid search and scoring pipeline
+ &lt;a class="anchor" href="#hybrid-search-and-scoring-pipeline">#&lt;/a>
+&lt;/h1>
+&lt;p>Pizza runs lexical (BM25) and vector retrieval side by side and gives you
+explicit, composable stages to combine and re-shape scores:&lt;/p>
+
+&lt;p class="mermaid">
+graph LR
+ B("bm25 leg") --> F("fuse&lt;br/>rrf / linear / disjmax")
+ V("vector leg") --> F
+ F --> SC("score_functions&lt;br/>per-document function scoring")
+ P["a plain query,&lt;br/>no retrieve"] --> SC
+ SC --> RS("rescore&lt;br/>second pass on the top window")
+ RS --> H["one ranked list"]
+&lt;/p>
+
+&lt;p>Every stage is optional and combines with a plain &lt;code>query&lt;/code>: use
+&lt;code>score_functions&lt;/code> alone on a keyword search, or the full chain for
+hybrid retrieval.&lt;/p></description></item><item><title>Semantic query</title><link>https://pizza.rs/docs/references/search/vector/semantic/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/vector/semantic/</guid><description>&lt;h1 id="semantic-query">
+ Semantic query
+ &lt;a class="anchor" href="#semantic-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Semantic search with zero field knowledge: the vector field and the
+embedding model resolve from the collection schema, and the request is
+plain text — the retrieval question asked without naming a field, a
+model, or a vector.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /my-collection/_search
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;query&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;semantic&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;find documents about search engines&amp;#34;&lt;/span>&lt;span class="o">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The clause composes inside &lt;code>bool&lt;/code> like any other leaf — the text is
+embedded and the clause rewritten before execution:&lt;/p></description></item><item><title>Lesson 6 — Hybrid search</title><link>https://pizza.rs/docs/tutorial/hybrid-search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/tutorial/hybrid-search/</guid><description>&lt;h1 id="lesson-6--hybrid-search">
+ Lesson 6 — Hybrid search
+ &lt;a class="anchor" href="#lesson-6--hybrid-search">#&lt;/a>
+&lt;/h1>
+&lt;p>Most engines hide their fusion behind a magic flag. Pizza exposes the
+retrieval pipeline as explicit request stages —
+
+ &lt;a href="https://pizza.rs/docs/references/search/request/hybrid/">&lt;code>retrieve&lt;/code>&lt;/a> runs retrievers in
+parallel, &lt;code>fuse&lt;/code> merges them, and two more stages re-shape scores
+afterwards:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">retrieve → fuse → score_functions → rescore
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">(parallel (merge (function (second pass
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> retrievers) the lists) scoring) on the top window)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Every stage is optional and combines with a plain &lt;code>query&lt;/code> — you can
+use &lt;code>score_functions&lt;/code> alone on a keyword search, or the full chain for
+hybrid retrieval.&lt;/p></description></item></channel></rss>

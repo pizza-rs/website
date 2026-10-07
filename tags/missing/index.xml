@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Missing on INFINI Pizza</title><link>https://pizza.rs/tags/missing/</link><description>Recent content in Missing on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/missing/index.xml" rel="self" type="application/rss+xml"/><item><title>Missing aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/missing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/missing/</guid><description>&lt;h1 id="missing-aggregation">
+ Missing aggregation
+ &lt;a class="anchor" href="#missing-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-bucket aggregation of the documents that have &lt;strong>no&lt;/strong> indexed
+value for a field — the inverse of the
+
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/exists/">&lt;code>exists&lt;/code> query&lt;/a>. It turns data
+gaps into a number you can alert on, instead of discovering them when
+a report quietly undercounts.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>For every document the query matched, the engine checks whether the
+field has an indexed value in the column store — an absent field and
+an explicit &lt;code>null&lt;/code> both count as missing. The matching documents form
+one bucket shaped &lt;code>{ &amp;quot;doc_count&amp;quot;: N, …sub-aggs }&lt;/code>; sub-aggregations
+run over exactly those incomplete documents, so you can ask not just
+how many rows are broken but how they break.&lt;/p></description></item></channel></rss>

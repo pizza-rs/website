@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Percentile_ranks on INFINI Pizza</title><link>https://pizza.rs/tags/percentile_ranks/</link><description>Recent content in Percentile_ranks on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/percentile_ranks/index.xml" rel="self" type="application/rss+xml"/><item><title>Percentile ranks aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/percentile-ranks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/percentile-ranks/</guid><description>&lt;h1 id="percentile-ranks-aggregation">
+ Percentile ranks aggregation
+ &lt;a class="anchor" href="#percentile-ranks-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-value metrics aggregation that answers the inverse of
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/percentiles/">&lt;code>percentiles&lt;/code>&lt;/a>: for each value you provide, what
+percentage of documents is at or below it.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine collects every value of the field and sorts it once. For each
+requested value &lt;code>v&lt;/code>, the rank is the fraction of collected values that are
+less than or equal to &lt;code>v&lt;/code>:&lt;/p>
+&lt;pre tabindex="0">&lt;code>rank(v) = count(value &amp;lt;= v) / n * 100
+&lt;/code>&lt;/pre>&lt;p>The comparison is inclusive — a document exactly at &lt;code>v&lt;/code> counts toward its
+own rank, so the rank of the maximum value is &lt;code>100&lt;/code>, not &lt;code>100 − 1/n&lt;/code>. With
+no values at all (empty result set, or every document missing the field)
+each rank is &lt;code>null&lt;/code>.&lt;/p></description></item></channel></rss>

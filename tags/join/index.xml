@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Join on INFINI Pizza</title><link>https://pizza.rs/tags/join/</link><description>Recent content in Join on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/join/index.xml" rel="self" type="application/rss+xml"/><item><title>Relations that route — joins, FK placement, salting</title><link>https://pizza.rs/docs/highlightings/relational-routing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/relational-routing/</guid><description>&lt;h1 id="relations-that-route--joins-fk-placement-salting">
+ Relations that route — joins, FK placement, salting
+ &lt;a class="anchor" href="#relations-that-route--joins-fk-placement-salting">#&lt;/a>
+&lt;/h1>
+&lt;p>A fact collection can now behave like one. Declare the relationship in the
+schema and the engine takes over:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;org_id&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;type&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;keyword&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;immutable&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;references&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nt">&amp;#34;collection&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;orgs&amp;#34;&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;routing&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;ref&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;strong>
+ &lt;a href="https://pizza.rs/docs/references/search/relational/join/">Join queries&lt;/a> are live&lt;/strong> — a
+semi-join over the wire: the inner query runs on the referenced
+collection, its matching keys become a membership filter on the outer
+side, and joins through a declared &lt;code>references&lt;/code> field resolve without a
+second fan-out.&lt;/li>
+&lt;li>&lt;strong>Writes place by the foreign key&amp;rsquo;s value&lt;/strong> — &lt;code>hash(org_id)&lt;/code> picks the
+home partition, not the document key, so an org&amp;rsquo;s facts colocate.
+Key-addressed operations take &lt;code>?routing=&amp;lt;value&amp;gt;&lt;/code>
+(
+ &lt;a href="https://pizza.rs/docs/references/document/fetch/">fetch&lt;/a>,
+
+ &lt;a href="https://pizza.rs/docs/references/document/partial_update/">update&lt;/a>,
+
+ &lt;a href="https://pizza.rs/docs/references/document/delete/">delete&lt;/a>).&lt;/li>
+&lt;li>&lt;strong>Salting splits the hot org&lt;/strong> — when one routing value dominates, the
+
+ &lt;a href="https://pizza.rs/docs/references/collection/salting/">_salting API&lt;/a> spreads its writes
+across a partition SET (deterministic per key, round-robin for auto-IDs),
+with a terms feed that flags candidates against your threshold.
+Assignments are never auto-applied and searches stay oblivious — salting
+changes placement, never visibility.&lt;/li>
+&lt;/ul>
+&lt;p>One declaration, three consequences:&lt;/p></description></item><item><title>Join query</title><link>https://pizza.rs/docs/references/search/relational/join/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/relational/join/</guid><description>&lt;h1 id="join-query">
+ Join query
+ &lt;a class="anchor" href="#join-query">#&lt;/a>
+&lt;/h1>
+&lt;blockquote>
+&lt;p>&lt;strong>Status: functional (semi-join).&lt;/strong> Joins need a running node — the
+gateway orchestrates and the engine executes, which is why the wasm
+
+ &lt;a href="https://pizza.rs/docs/playground/">playground&lt;/a> does not host them. The
+
+ &lt;a href="https://pizza.rs/docs/tutorial/joins/">joins tutorial&lt;/a> walks the complete relational
+sequence — references → join → FK-routed writes → salting →
+&lt;code>?routing=&lt;/code> addressing — step by step against a live node.&lt;/p>
+&lt;/blockquote>
+&lt;p>Matches documents in the &lt;strong>outer&lt;/strong> collection — the one in the request
+URL — whose &lt;code>field&lt;/code> values intersect the &lt;code>join_on&lt;/code> values of documents
+matching a query on the &lt;strong>inner&lt;/strong> collection — the one named by
+&lt;code>target&lt;/code>. The result is a semi-join: outer documents that have at least
+one matching inner document, each reported once. It is the moral
+equivalent of SQL&amp;rsquo;s&lt;/p></description></item><item><title>Lesson 8 — Joins</title><link>https://pizza.rs/docs/tutorial/joins/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/tutorial/joins/</guid><description>&lt;h1 id="lesson-8--joins">
+ Lesson 8 — Joins
+ &lt;a class="anchor" href="#lesson-8--joins">#&lt;/a>
+&lt;/h1>
+&lt;p>Traversal (Lesson 5) walks edges inside ONE collection. A
+
+ &lt;a href="https://pizza.rs/docs/references/search/relational/join/">&lt;code>join&lt;/code>&lt;/a> spans TWO: it answers
+questions a single collection cannot — &lt;em>orders whose customer is
+gold-tier&lt;/em>, where the tier lives in a different collection.&lt;/p>
+&lt;p>Joins need a running node (the gateway orchestrates the two sides,
+which is why the wasm playground does not host them), so this lesson
+is &lt;code>curl&lt;/code> against your 
+ &lt;a href="https://pizza.rs/docs/tutorial/first-search/">Lesson 1&lt;/a> node — no live
+widget. Like &lt;code>traverse&lt;/code>, &lt;code>join&lt;/code> stays DSL-side outside the
+
+ &lt;a href="https://pizza.rs/docs/references/sql/syntax/">SQL M1 subset&lt;/a>.&lt;/p></description></item></channel></rss>

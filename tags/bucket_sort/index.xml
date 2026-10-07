@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bucket_sort on INFINI Pizza</title><link>https://pizza.rs/tags/bucket_sort/</link><description>Recent content in Bucket_sort on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/bucket_sort/index.xml" rel="self" type="application/rss+xml"/><item><title>Bucket sort aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/bucket-sort/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/bucket-sort/</guid><description>&lt;h1 id="bucket-sort-aggregation">
+ Bucket sort aggregation
+ &lt;a class="anchor" href="#bucket-sort-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A parent pipeline aggregation &lt;strong>sorting (and paginating)&lt;/strong> the bucket
+list by any of the bucket&amp;rsquo;s metrics — the pipeline counterpart of the
+request-level &lt;code>sort&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;by_revenue&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;bucket_sort&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;sort&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;revenue&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;order&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;asc&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">]&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Status, verified against the engine: &lt;code>bucket_sort&lt;/code> is &lt;strong>accepted but
+not yet active&lt;/strong>. The request parses — &lt;code>sort&lt;/code>, &lt;code>from&lt;/code> and &lt;code>size&lt;/code> are
+accepted — but no reordering or truncation is applied:
+the parent aggregation&amp;rsquo;s buckets come back in the parent&amp;rsquo;s own order.
+A declared &lt;code>bucket_sort&lt;/code> evaluates to a null metric, and nested
+declarations currently leave a &lt;code>&amp;quot;by_revenue&amp;quot;: { &amp;quot;value&amp;quot;: null }&lt;/code>
+placeholder in each bucket (unlike
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/bucket-selector/">&lt;code>bucket_selector&lt;/code>&lt;/a>, it does not clean up after
+itself).&lt;/p></description></item></channel></rss>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Sampler on INFINI Pizza</title><link>https://pizza.rs/tags/sampler/</link><description>Recent content in Sampler on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/sampler/index.xml" rel="self" type="application/rss+xml"/><item><title>Sampler aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/sampler/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/sampler/</guid><description>&lt;h1 id="sampler-aggregation">
+ Sampler aggregation
+ &lt;a class="anchor" href="#sampler-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-bucket aggregation that keeps only a sample of the matching
+documents before running its sub-aggregations — used to cut aggregation
+cost on very large result sets. If a &lt;code>terms&lt;/code> aggregation over millions
+of documents is too slow or too memory-hungry, sampling trades exact
+counts for an order-of-magnitude answer at a fraction of the cost.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The sampler keeps the first &lt;code>shard_size&lt;/code> matching documents (default
+&lt;code>100&lt;/code>) and discards the rest; its sub-aggregations then run over that
+sample only. The result is a single bucket keyed &lt;code>sample&lt;/code>, carrying the
+sample&amp;rsquo;s &lt;code>doc_count&lt;/code> and the sub-aggregation results:&lt;/p></description></item></channel></rss>

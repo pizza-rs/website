@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Script on INFINI Pizza</title><link>https://pizza.rs/tags/script/</link><description>Recent content in Script on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/script/index.xml" rel="self" type="application/rss+xml"/><item><title>Scripted queries</title><link>https://pizza.rs/docs/references/search/specialized/script-score/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/specialized/script-score/</guid><description>&lt;h1 id="scripted-queries">
+ Scripted queries
+ &lt;a class="anchor" href="#scripted-queries">#&lt;/a>
+&lt;/h1>
+&lt;p>Scripts in the search request: &lt;code>script_score&lt;/code> to compute
+the score, a &lt;code>script&lt;/code> predicate in a boolean filter, and a &lt;code>_script&lt;/code> sort
+key. All run on Pizza&amp;rsquo;s sandboxed script engine (see
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/scripts/">the script language reference&lt;/a>) —
+Rhai, not Painless, but the &lt;code>doc['x'].value&lt;/code>, &lt;code>_score&lt;/code>,
+&lt;code>params.&amp;lt;name&amp;gt;&lt;/code> spellings run unmodified.&lt;/p>
+&lt;h2 id="script_score--score-by-script">
+ &lt;code>script_score&lt;/code> — score by script
+ &lt;a class="anchor" href="#script_score--score-by-script">#&lt;/a>
+&lt;/h2>
+&lt;p>Wrap a query; the script&amp;rsquo;s value &lt;strong>replaces&lt;/strong> the score. The script sees
+&lt;code>_score&lt;/code> (the wrapped query&amp;rsquo;s BM25 score), &lt;code>doc&lt;/code> (the hit&amp;rsquo;s &lt;code>_source&lt;/code> in
+doc-values shape) and &lt;code>params&lt;/code>:&lt;/p></description></item><item><title>Pipeline scripts</title><link>https://pizza.rs/docs/references/aggregation/pipeline/scripts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/scripts/</guid><description>&lt;h1 id="pipeline-scripts">
+ Pipeline scripts
+ &lt;a class="anchor" href="#pipeline-scripts">#&lt;/a>
+&lt;/h1>
+&lt;p>Three pipeline aggregations evaluate a user-supplied script per bucket:
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/bucket-script/">&lt;code>bucket_script&lt;/code>&lt;/a> (compute a new metric per bucket),
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/bucket-selector/">&lt;code>bucket_selector&lt;/code>&lt;/a> (keep/drop predicate), and
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/moving-fn/">&lt;code>moving_fn&lt;/code>&lt;/a> (window statistic). &lt;code>moving_avg&lt;/code> is a
+&lt;code>moving_fn&lt;/code> with a fixed averaging script. The same engine powers
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/scripted-metric/">&lt;code>scripted_metric&lt;/code>&lt;/a> (scripts per document
+instead of per bucket) and the 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/#scripted-value-sources">scripted value
+sources&lt;/a> on the single-value
+metric aggs (&lt;code>sum&lt;/code>, &lt;code>avg&lt;/code>, &lt;code>min&lt;/code>, &lt;code>max&lt;/code>, &lt;code>value_count&lt;/code>, &lt;code>cardinality&lt;/code>),
+the per-hit 
+ &lt;a href="https://pizza.rs/docs/references/search/request/script-fields/">&lt;code>script_fields&lt;/code>&lt;/a>
+of a search request (fetch phase), and the
+
+ &lt;a href="https://pizza.rs/docs/references/search/specialized/script-score/">scripted queries&lt;/a> —
+&lt;code>script_score&lt;/code>, &lt;code>script&lt;/code> filters, the &lt;code>_script&lt;/code> sort.&lt;/p></description></item></channel></rss>

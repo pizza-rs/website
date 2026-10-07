@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="65px" height="70px" viewBox="0 0 65 70" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 10</title>
+    <g id="pizza" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页修改" transform="translate(-761, -2722)">
+            <g id="编组-10" transform="translate(761, 2725)">
+                <path d="M58.3291139,0 L50.8546835,24.11 L64,31.9232242 L35.6455696,64 L43.1196835,39.889 L29.9746835,32.0767758 L58.3291139,0 Z" id="形状结合" stroke="#00FEA3"></path>
+                <line x1="18.1524059" y1="5.25984222" x2="41.3164557" y2="5.25984222" id="路径-17" stroke="#002CFF"></line>
+                <line x1="6.48101266" y1="18.835443" x2="29.6450624" y2="18.835443" id="路径-17备份" stroke="#002CFF"></line>
+                <line x1="0" y1="32.6075949" x2="23.1640498" y2="32.6075949" id="路径-17备份-2" stroke="#002CFF"></line>
+                <line x1="9.76566411" y1="45.5113451" x2="32.9297139" y2="45.5113451" id="路径-17备份-3" stroke="#002CFF"></line>
+            </g>
+        </g>
+    </g>
+</svg>

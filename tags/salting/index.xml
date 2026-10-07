@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Salting on INFINI Pizza</title><link>https://pizza.rs/tags/salting/</link><description>Recent content in Salting on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/salting/index.xml" rel="self" type="application/rss+xml"/><item><title>Salting (salt-split routing)</title><link>https://pizza.rs/docs/references/collection/salting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/collection/salting/</guid><description>&lt;h1 id="salting-salt-split-routing">
+ Salting (salt-split routing)
+ &lt;a class="anchor" href="#salting-salt-split-routing">#&lt;/a>
+&lt;/h1>
+&lt;p>Manage salt-split assignments for a collection whose schema declares a
+
+ &lt;a href="https://pizza.rs/docs/references/schema/field-parameters/relational/">routing field&lt;/a> (&lt;code>&amp;quot;routing&amp;quot;: true&lt;/code>).
+One hot routing value — the mega tenant, the biggest org — funnels every
+write into a single partition; salting splits that value across a SET of
+partitions so the hot key stops being a placement bottleneck.&lt;/p>
+&lt;p>The API never moves data by itself: assignments state intent, the write
+path consumes them live (the very next write of an assigned value lands
+inside its partition set), and migrating documents that are already placed
+is a separate rehash operation. The 
+ &lt;a href="https://pizza.rs/docs/tutorial/joins/">joins tutorial&lt;/a>
+walks the complete sequence against a live node.&lt;/p></description></item></channel></rss>

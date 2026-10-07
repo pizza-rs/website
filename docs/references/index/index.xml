@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Index on INFINI Pizza</title><link>https://pizza.rs/docs/references/index/</link><description>Recent content in Index on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/docs/references/index/index.xml" rel="self" type="application/rss+xml"/><item><title>Create an index</title><link>https://pizza.rs/docs/references/index/create/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/index/create/</guid><description>&lt;h1 id="create-an-index">
+ Create an index
+ &lt;a class="anchor" href="#create-an-index">#&lt;/a>
+&lt;/h1>
+&lt;p>Creates a new index under a collection.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>The following request creates a new index called &lt;code>my-index&lt;/code> under collection
+&lt;code>my-namespace:my-collection&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">PUT /my-namespace:my-collection/_index/my-index
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">PUT /&amp;lt;target&amp;gt;/_index/&amp;lt;name&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>&amp;lt;target&amp;gt;&lt;/code> &lt;br>
+(Required, string) The collection which the index belongs to.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>&amp;lt;name&amp;gt;&lt;/code> &lt;br>
+(Required, string) Name of the index you wish to create.&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>Delete an index</title><link>https://pizza.rs/docs/references/index/delete/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/index/delete/</guid><description>&lt;h1 id="delete-an-index">
+ Delete an index
+ &lt;a class="anchor" href="#delete-an-index">#&lt;/a>
+&lt;/h1>
+&lt;p>Deletes an existing index under a collection.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>The following request deletes the index called &lt;code>my-index&lt;/code> under collection
+&lt;code>my-namespace:my-collection&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">DELETE /my-namespace:my-collection/_index/my-index
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">DELETE /&amp;lt;target&amp;gt;/_index/&amp;lt;name&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>&amp;lt;target&amp;gt;&lt;/code> &lt;br>
+(Required, string) The collection which the index will be removed from.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>&amp;lt;name&amp;gt;&lt;/code> &lt;br>
+(Required, string) Name of the index you wish to delete.&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>Get index</title><link>https://pizza.rs/docs/references/index/get/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/index/get/</guid><description>&lt;h1 id="get-index">
+ Get index
+ &lt;a class="anchor" href="#get-index">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns information about one or more indices&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>Get the information of all indices:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /_index
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Get the information of the index named &lt;code>my-index&lt;/code> under collection &lt;code>my-collection&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /my-collection/_index/my-index
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /_index
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GET /&amp;lt;target&amp;gt;/_index
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GET /&amp;lt;target&amp;gt;/_index/&amp;lt;index&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path Parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>target&lt;/code> &lt;br>
+(Required, String) Comma-separated, names of the collections to specify (wildcard supported)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>index&lt;/code> &lt;br>
+(Required, String) Comma-separated, names of the indices to get (wildcard supported)&lt;/p></description></item><item><title>Get index alias</title><link>https://pizza.rs/docs/references/index/get_alias/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/index/get_alias/</guid><description>&lt;h1 id="get-index-alias">
+ Get index alias
+ &lt;a class="anchor" href="#get-index-alias">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns alias information about one or more indices under the specified collection.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>Get the alias information of the &lt;code>my-index&lt;/code> index under collection &lt;code>my-collection&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /my-collection/_index/my-index/_alias
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /&amp;lt;target&amp;gt;/_index/&amp;lt;index&amp;gt;/_alias
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GET /&amp;lt;target&amp;gt;/_index/_alias
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path Parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>target&lt;/code> &lt;br>
+(Required, String) Comma-separated, names of the collections to specify (wildcard supported)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>index&lt;/code> &lt;br>
+(Optional, String) Comma-separated, names of the indices to get (wildcard supported)&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>Get index mapping</title><link>https://pizza.rs/docs/references/index/get_mapping/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/index/get_mapping/</guid><description>&lt;h1 id="get-index-mapping">
+ Get index mapping
+ &lt;a class="anchor" href="#get-index-mapping">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns mapping information about one or more indices under the specified collection.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>Get the mapping information of the &lt;code>my-index&lt;/code> index under collection &lt;code>my-collection&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /my-collection/_index/my-index/_mapping
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /&amp;lt;target&amp;gt;/_index/&amp;lt;index&amp;gt;/_mapping
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GET /&amp;lt;target&amp;gt;/_index/_mapping
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path Parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>target&lt;/code> &lt;br>
+(Required, String) Comma-separated, names of the collections to specify (wildcard supported)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>index&lt;/code> &lt;br>
+(Optional, String) Comma-separated, names of the indices to get (wildcard supported)&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>Get index settings</title><link>https://pizza.rs/docs/references/index/get_settings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/index/get_settings/</guid><description>&lt;h1 id="get-index-settings">
+ Get index settings
+ &lt;a class="anchor" href="#get-index-settings">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns setting information about one or more indices under the specified collection.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>Get the setting information of the &lt;code>my-index&lt;/code> index under collection &lt;code>my-collection&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /my-collection/_index/my-index/_settings
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /&amp;lt;target&amp;gt;/_index/&amp;lt;index&amp;gt;/_settings
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GET /&amp;lt;target&amp;gt;/_index/_settings
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path Parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>target&lt;/code> &lt;br>
+(Required, String) Comma-separated, names of the collections to specify (wildcard supported)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>index&lt;/code> &lt;br>
+(Optional, String) Comma-separated, names of the indices to get (wildcard supported)&lt;/p>
+&lt;/li>
+&lt;/ul></description></item></channel></rss>

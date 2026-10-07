@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Relational queries on INFINI Pizza</title><link>https://pizza.rs/docs/references/search/relational/</link><description>Recent content in Relational queries on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/docs/references/search/relational/index.xml" rel="self" type="application/rss+xml"/><item><title>Nested query</title><link>https://pizza.rs/docs/references/search/relational/nested/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/relational/nested/</guid><description>&lt;h1 id="nested-query">
+ Nested query
+ &lt;a class="anchor" href="#nested-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Matches parent documents whose &lt;strong>nested&lt;/strong> sub-documents — objects mapped
+with &lt;code>&amp;quot;nested&amp;quot;: true&lt;/code> — satisfy a query &lt;strong>within one element at a time&lt;/strong>.
+It exists because a flattened object index cannot keep two field values
+inside the same array element together — the pitfall the next section
+makes concrete.&lt;/p>
+&lt;h2 id="the-cross-element-problem">
+ The cross-element problem
+ &lt;a class="anchor" href="#the-cross-element-problem">#&lt;/a>
+&lt;/h2>
+&lt;p>A flattened index correlates across array &lt;em>elements&lt;/em>, not within them:
+&lt;code>variants.color = blue AND variants.size = L&lt;/code> matches a document as soon
+as &lt;em>some&lt;/em> element is blue and &lt;em>some&lt;/em> element is L — not necessarily the
+same one. The teaching dataset&amp;rsquo;s &lt;code>products&lt;/code> makes the difference visible
+(each element pairs blue with L, never with M):&lt;/p></description></item><item><title>Join query</title><link>https://pizza.rs/docs/references/search/relational/join/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/relational/join/</guid><description>&lt;h1 id="join-query">
+ Join query
+ &lt;a class="anchor" href="#join-query">#&lt;/a>
+&lt;/h1>
+&lt;blockquote>
+&lt;p>&lt;strong>Status: functional (semi-join).&lt;/strong> Joins need a running node — the
+gateway orchestrates and the engine executes, which is why the wasm
+
+ &lt;a href="https://pizza.rs/docs/playground/">playground&lt;/a> does not host them. The
+
+ &lt;a href="https://pizza.rs/docs/tutorial/joins/">joins tutorial&lt;/a> walks the complete relational
+sequence — references → join → FK-routed writes → salting →
+&lt;code>?routing=&lt;/code> addressing — step by step against a live node.&lt;/p>
+&lt;/blockquote>
+&lt;p>Matches documents in the &lt;strong>outer&lt;/strong> collection — the one in the request
+URL — whose &lt;code>field&lt;/code> values intersect the &lt;code>join_on&lt;/code> values of documents
+matching a query on the &lt;strong>inner&lt;/strong> collection — the one named by
+&lt;code>target&lt;/code>. The result is a semi-join: outer documents that have at least
+one matching inner document, each reported once. It is the moral
+equivalent of SQL&amp;rsquo;s&lt;/p></description></item><item><title>Traverse query</title><link>https://pizza.rs/docs/references/search/relational/traverse/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/relational/traverse/</guid><description>&lt;h1 id="traverse-query">
+ Traverse query
+ &lt;a class="anchor" href="#traverse-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Term and full-text queries match document &lt;em>content&lt;/em>; none of them can
+ask &amp;ldquo;what is &lt;em>connected&lt;/em> to these documents?&amp;rdquo; — the question citation
+graphs, reference data and knowledge graphs are made of. The traverse
+query answers it: a bounded graph traversal over a &lt;code>relation&lt;/code>-typed
+edge field — starting from seed documents, walk the edges up to
+&lt;code>max_depth&lt;/code> hops and emit every reached node as a hit.&lt;/p>
+&lt;p>Scores encode distance — &lt;code>1.0 / (1.0 + depth)&lt;/code> — so seeds outrank
+1-hop neighbors, which outrank 2-hop neighbors, and the standard top-K
+collector orders the results.&lt;/p></description></item><item><title>Graph projection block</title><link>https://pizza.rs/docs/references/search/relational/graph/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/relational/graph/</guid><description>&lt;h1 id="graph-projection-block">
+ Graph projection block
+ &lt;a class="anchor" href="#graph-projection-block">#&lt;/a>
+&lt;/h1>
+&lt;p>Add a &lt;code>graph&lt;/code> block to any search request and the response carries a
+graph — &lt;code>nodes&lt;/code> and &lt;code>edges&lt;/code> — built from the hit set, alongside the
+normal &lt;code>hits&lt;/code>. Where the 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/traverse/">&lt;code>traverse&lt;/code>&lt;/a> query &lt;em>searches&lt;/em>
+by walking edges, the &lt;code>graph&lt;/code> block &lt;em>renders&lt;/em>: it takes the documents
+a query already found and projects them into a node/edge structure a
+UI (or a GraphRAG pipeline) can consume directly.&lt;/p>
+
+&lt;p class="mermaid">
+graph LR
+ subgraph walk["traverse — searches by walking"]
+ S("seeds") -->|"walk edges&lt;br/>up to max_depth"| H1["hits — every reached node,&lt;br/>scored by distance"]
+ end
+ subgraph render["graph — renders what was found"]
+ Q("any query") --> H2("hit set")
+ H2 -->|"project the relation field"| G["nodes + edges&lt;br/>for a UI or GraphRAG"]
+ end
+&lt;/p></description></item></channel></rss>

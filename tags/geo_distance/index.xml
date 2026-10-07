@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Geo_distance on INFINI Pizza</title><link>https://pizza.rs/tags/geo_distance/</link><description>Recent content in Geo_distance on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/geo_distance/index.xml" rel="self" type="application/rss+xml"/><item><title>Geo distance aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/geo-distance-bucket/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/geo-distance-bucket/</guid><description>&lt;h1 id="geo-distance-aggregation">
+ Geo distance aggregation
+ &lt;a class="anchor" href="#geo-distance-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-bucket aggregation like 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/bucket/range/">&lt;code>range&lt;/code>&lt;/a>, but buckets are
+distance rings around a &lt;code>geo_point&lt;/code> origin. It answers &amp;ldquo;how many
+things are near me?&amp;rdquo; — counts per radius band in a single request,
+no matter how many rings you declare.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Every document&amp;rsquo;s point is measured against the origin with the
+haversine formula on a spherical Earth (mean radius 6,371,008.8 m —
+within ~0.5 % of the WGS-84 ellipsoid). The &lt;code>origin&lt;/code> accepts either a
+&lt;code>&amp;quot;lat,lon&amp;quot;&lt;/code> string or a &lt;code>{ &amp;quot;lat&amp;quot;: …, &amp;quot;lon&amp;quot;: … }&lt;/code> object; an origin
+that parses to nothing yields zero buckets.&lt;/p></description></item></channel></rss>

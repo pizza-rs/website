@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cumulative_sum on INFINI Pizza</title><link>https://pizza.rs/tags/cumulative_sum/</link><description>Recent content in Cumulative_sum on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/cumulative_sum/index.xml" rel="self" type="application/rss+xml"/><item><title>Cumulative sum aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/cumulative-sum/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/cumulative-sum/</guid><description>&lt;h1 id="cumulative-sum-aggregation">
+ Cumulative sum aggregation
+ &lt;a class="anchor" href="#cumulative-sum-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A parent pipeline aggregation adding a &lt;strong>running total&lt;/strong> column to each
+bucket — the metric plus every earlier bucket&amp;rsquo;s. A histogram says what
+each period brought in; the cumulative sum says where the whole span
+stands at every point along it, without a second query or client-side
+arithmetic.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;running&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;cumulative_sum&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;revenue&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>cumulative_sum&lt;/code> is declared &lt;strong>inside&lt;/strong> the multi-bucket aggregation it
+decorates, next to the metric it consumes. After the buckets are
+built, the engine walks them in order and attaches the running total
+to each bucket under the pipeline&amp;rsquo;s own name:&lt;/p></description></item></channel></rss>

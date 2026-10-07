@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>T_test on INFINI Pizza</title><link>https://pizza.rs/tags/t_test/</link><description>Recent content in T_test on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/t_test/index.xml" rel="self" type="application/rss+xml"/><item><title>T-test aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/t-test/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/t-test/</guid><description>&lt;h1 id="t-test-aggregation">
+ T-test aggregation
+ &lt;a class="anchor" href="#t-test-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-value metrics aggregation for a Student&amp;rsquo;s t-test over two
+numeric fields. Positive values mean &lt;code>a&lt;/code> tends to be larger than &lt;code>b&lt;/code>.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine collects every value of &lt;code>a.field&lt;/code> and every value of
+&lt;code>b.field&lt;/code> across the bucket&amp;rsquo;s documents — the two samples grow
+independently, so a document missing one field still contributes to
+the other sample — and computes Welch&amp;rsquo;s two-sample t-statistic:&lt;/p></description></item></channel></rss>

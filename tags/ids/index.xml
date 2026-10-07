@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ids on INFINI Pizza</title>
+    <link>//localhost:1313/tags/ids/</link>
+    <description>Recent content in Ids on INFINI Pizza</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="//localhost:1313/tags/ids/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>IDs query</title>
+      <link>//localhost:1313/docs/references/search/term-level/ids/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/references/search/term-level/ids/</guid>
+      <description>&lt;h1 id=&#34;ids-query&#34;&gt;&#xA;  IDs query&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#ids-query&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h1&gt;&#xA;&lt;p&gt;Returns documents whose id is in the provided set. There is no field&#xA;argument — the match is against the document identity itself, and&#xA;values that do not exist in the collection are skipped.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;On Pizza server&lt;/strong&gt; the same mixed-id convention as&#xA;&#xA;  &lt;a href=&#34;#/collections/~collection~/docs/~id~&#34;&gt;GET&lt;/a&gt;/DELETE/UPDATE applies to&#xA;every value: a value containing a comma (&lt;code&gt;&amp;quot;0,17&amp;quot;&lt;/code&gt;) addresses a document&#xA;by its &lt;strong&gt;system id&lt;/strong&gt; (&lt;code&gt;rolling,seq&lt;/code&gt; — the same id hits echo as &lt;code&gt;_id&lt;/code&gt;);&#xA;any other value is a &lt;strong&gt;user key&lt;/strong&gt;. Query and response therefore speak&#xA;the same ids both ways.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tutorial on INFINI Pizza</title><link>https://pizza.rs/tags/tutorial/</link><description>Recent content in Tutorial on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/tutorial/index.xml" rel="self" type="application/rss+xml"/><item><title>Lesson 1 — First search</title><link>https://pizza.rs/docs/tutorial/first-search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/tutorial/first-search/</guid><description>&lt;h1 id="lesson-1--first-search">
+ Lesson 1 — First search
+ &lt;a class="anchor" href="#lesson-1--first-search">#&lt;/a>
+&lt;/h1>
+&lt;p>Start the node, index documents, run your first queries, and watch them
+update in real time.&lt;/p>
+&lt;h2 id="the-use-case">
+ The use case
+ &lt;a class="anchor" href="#the-use-case">#&lt;/a>
+&lt;/h2>
+&lt;p>Your application produces a stream of documents — logs, events,
+messages — and they are only useful if they are searchable the moment
+they land: no nightly batch, no refresh call, no second system to keep
+in sync. The questions this lesson answers:&lt;/p></description></item><item><title>Lesson 2 — Text search</title><link>https://pizza.rs/docs/tutorial/text-search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/tutorial/text-search/</guid><description>&lt;h1 id="lesson-2--text-search">
+ Lesson 2 — Text search
+ &lt;a class="anchor" href="#lesson-2--text-search">#&lt;/a>
+&lt;/h1>
+&lt;p>How text actually matches: analysis, exact terms, phrases, and the
+error-tolerant family. Everything below runs live on the &lt;code>logs&lt;/code> collection
+(150 documents with &lt;code>message&lt;/code>, &lt;code>level&lt;/code>, &lt;code>host&lt;/code>, &lt;code>url.path&lt;/code>).&lt;/p>
+&lt;h2 id="the-use-case">
+ The use case
+ &lt;a class="anchor" href="#the-use-case">#&lt;/a>
+&lt;/h2>
+&lt;p>The search box in front of users — application logs, product
+descriptions, support tickets. Users type in one casing, with typos,
+and your data is cased differently; the craft is choosing the right
+amount of looseness per question:&lt;/p></description></item><item><title>Lesson 3 — Structure and numbers</title><link>https://pizza.rs/docs/tutorial/structure-numbers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/tutorial/structure-numbers/</guid><description>&lt;h1 id="lesson-3--structure-and-numbers">
+ Lesson 3 — Structure and numbers
+ &lt;a class="anchor" href="#lesson-3--structure-and-numbers">#&lt;/a>
+&lt;/h1>
+&lt;p>Ranges, sorts, and cursor pagination over the &lt;code>sales&lt;/code> collection (120
+documents: &lt;code>type&lt;/code>, &lt;code>price&lt;/code>, &lt;code>qty&lt;/code>, &lt;code>amount&lt;/code>, &lt;code>merchant&lt;/code>, &lt;code>status&lt;/code>, &lt;code>date&lt;/code>).&lt;/p>
+&lt;h2 id="the-use-case">
+ The use case
+ &lt;a class="anchor" href="#the-use-case">#&lt;/a>
+&lt;/h2>
+&lt;p>Most queries are not about words — they are filters and ordering over
+the structured half of the document: prices, quantities, timestamps.
+And real interfaces page through result sets, sometimes deeply. The
+questions this lesson answers:&lt;/p>
+&lt;ul>
+&lt;li>&lt;em>&amp;ldquo;Sales priced $45 to $60&amp;rdquo;&lt;/em> / &lt;em>&amp;ldquo;everything from 2024&amp;rdquo;&lt;/em> — &lt;code>range&lt;/code>
+over a typed field.&lt;/li>
+&lt;li>&lt;em>&amp;ldquo;Top 5 by amount&amp;rdquo;&lt;/em> — the canonical &lt;code>sort&lt;/code> clause.&lt;/li>
+&lt;li>&lt;em>&amp;ldquo;Page 3000 of a big result set, without re-ranking the world&amp;rdquo;&lt;/em> —
+cursor pagination (&lt;code>search_after&lt;/code>), where &lt;code>from&lt;/code>+&lt;code>size&lt;/code> breaks down.&lt;/li>
+&lt;li>&lt;em>&amp;ldquo;Why did my filter miss the row with &lt;code>45&lt;/code>?&amp;rdquo;&lt;/em> — the field-type
+system: &lt;code>45&lt;/code> the number and &lt;code>&amp;quot;45&amp;quot;&lt;/code> the keyword are different
+values.&lt;/li>
+&lt;/ul>
+&lt;h2 id="the-types-behind-the-data">
+ The types behind the data
+ &lt;a class="anchor" href="#the-types-behind-the-data">#&lt;/a>
+&lt;/h2>
+&lt;p>Numbers are indexed as their real types (&lt;code>float&lt;/code> for &lt;code>price&lt;/code>, integers for
+&lt;code>qty&lt;/code>), dates as epoch millis. That is what makes the queries below precise
+— see the 
+ &lt;a href="https://pizza.rs/docs/references/schema/field-types/">field types&lt;/a> reference for the
+full catalog.&lt;/p></description></item><item><title>Lesson 4 — Aggregations</title><link>https://pizza.rs/docs/tutorial/aggregations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/tutorial/aggregations/</guid><description>&lt;h1 id="lesson-4--aggregations">
+ Lesson 4 — Aggregations
+ &lt;a class="anchor" href="#lesson-4--aggregations">#&lt;/a>
+&lt;/h1>
+&lt;p>From counts to histograms to composite paging — over &lt;code>sales&lt;/code> and &lt;code>logs&lt;/code>,
+with known answers you can verify by hand.&lt;/p>
+&lt;h2 id="the-use-case">
+ The use case
+ &lt;a class="anchor" href="#the-use-case">#&lt;/a>
+&lt;/h2>
+&lt;p>Dashboards, reports, and faceted navigation — wherever the deliverable
+is not a page of hits but an answer. The questions this lesson
+answers:&lt;/p>
+&lt;ul>
+&lt;li>&lt;em>&amp;ldquo;What is the average / min / max price?&amp;rdquo;&lt;/em> — metric aggregations.&lt;/li>
+&lt;li>&lt;em>&amp;ldquo;How is revenue split by status?&amp;rdquo;&lt;/em> — terms buckets.&lt;/li>
+&lt;li>&lt;em>&amp;ldquo;Volume per week / per price band&amp;rdquo;&lt;/em> — histograms.&lt;/li>
+&lt;li>&lt;em>&amp;ldquo;Every (merchant, day) pair, complete — not just the top N&amp;rdquo;&lt;/em> —
+composite aggregations with &lt;code>after&lt;/code> cursors.&lt;/li>
+&lt;li>&lt;em>&amp;ldquo;Just the number, skip the hits&amp;rdquo;&lt;/em> — &lt;code>size: 0&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;h2 id="metric-aggregations">
+ Metric aggregations
+ &lt;a class="anchor" href="#metric-aggregations">#&lt;/a>
+&lt;/h2>
+&lt;p>One number out: 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/sum/">&lt;code>sum&lt;/code>&lt;/a>,
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/avg/">&lt;code>avg&lt;/code>&lt;/a>, &lt;code>min&lt;/code>, &lt;code>max&lt;/code>,
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/stats/">&lt;code>stats&lt;/code>&lt;/a> (all of them at once),
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/cardinality/">&lt;code>cardinality&lt;/code>&lt;/a> (distinct
+values):&lt;/p></description></item><item><title>Lesson 5 — Graph traversal</title><link>https://pizza.rs/docs/tutorial/graph-traversal/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/tutorial/graph-traversal/</guid><description>&lt;h1 id="lesson-5--graph-traversal">
+ Lesson 5 — Graph traversal
+ &lt;a class="anchor" href="#lesson-5--graph-traversal">#&lt;/a>
+&lt;/h1>
+&lt;p>Relations are the first of the two features that most distinguish Pizza
+from a plain text index: edges as a first-class query target. This
+lesson walks edges &lt;em>inside one collection&lt;/em> — the traversal sections run
+live in the browser widget, and the modeling section at the end is
+&lt;code>curl&lt;/code> against a live node.&lt;/p>
+&lt;p>Graph queries are also the one lesson without a SQL pairing:
+&lt;code>traverse&lt;/code> stays DSL-side — it is demand-gated outside the
+
+ &lt;a href="https://pizza.rs/docs/references/sql/syntax/">SQL M1 subset&lt;/a>, which stops at the
+single-collection statement.&lt;/p></description></item><item><title>Lesson 6 — Hybrid search</title><link>https://pizza.rs/docs/tutorial/hybrid-search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/tutorial/hybrid-search/</guid><description>&lt;h1 id="lesson-6--hybrid-search">
+ Lesson 6 — Hybrid search
+ &lt;a class="anchor" href="#lesson-6--hybrid-search">#&lt;/a>
+&lt;/h1>
+&lt;p>Most engines hide their fusion behind a magic flag. Pizza exposes the
+retrieval pipeline as explicit request stages —
+
+ &lt;a href="https://pizza.rs/docs/references/search/request/hybrid/">&lt;code>retrieve&lt;/code>&lt;/a> runs retrievers in
+parallel, &lt;code>fuse&lt;/code> merges them, and two more stages re-shape scores
+afterwards:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">retrieve → fuse → score_functions → rescore
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">(parallel (merge (function (second pass
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> retrievers) the lists) scoring) on the top window)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Every stage is optional and combines with a plain &lt;code>query&lt;/code> — you can
+use &lt;code>score_functions&lt;/code> alone on a keyword search, or the full chain for
+hybrid retrieval.&lt;/p></description></item><item><title>Lesson 7 — Geographic search</title><link>https://pizza.rs/docs/tutorial/geo-search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/tutorial/geo-search/</guid><description>&lt;h1 id="lesson-7--geographic-search">
+ Lesson 7 — Geographic search
+ &lt;a class="anchor" href="#lesson-7--geographic-search">#&lt;/a>
+&lt;/h1>
+&lt;p>From schema to data to queries: filter documents by where they are — a
+coordinate, a rectangle, an arbitrary polygon, or a full geometric shape.&lt;/p>
+&lt;p>Pizza has two geographic field types, and picking the right one is the
+whole design step:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>&lt;code>geo_point&lt;/code>&lt;/strong> — a single coordinate. Answers &amp;ldquo;where is this
+document?&amp;rdquo; Distance, box and polygon filters run against it.&lt;/li>
+&lt;li>&lt;strong>&lt;code>geo_shape&lt;/code>&lt;/strong> — a full geometry: point, line, polygon,
+multi-variant, envelope or geometry collection. Answers &amp;ldquo;what area
+does this document cover?&amp;rdquo; and supports the relation vocabulary
+(&lt;code>intersects&lt;/code>, &lt;code>within&lt;/code>, &lt;code>contains&lt;/code>, &lt;code>disjoint&lt;/code>).&lt;/li>
+&lt;/ul>
+&lt;p>A store &lt;em>is&lt;/em> a &lt;code>geo_point&lt;/code>; the district it serves &lt;em>is&lt;/em> a &lt;code>geo_shape&lt;/code>.&lt;/p></description></item><item><title>Lesson 8 — Joins</title><link>https://pizza.rs/docs/tutorial/joins/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/tutorial/joins/</guid><description>&lt;h1 id="lesson-8--joins">
+ Lesson 8 — Joins
+ &lt;a class="anchor" href="#lesson-8--joins">#&lt;/a>
+&lt;/h1>
+&lt;p>Traversal (Lesson 5) walks edges inside ONE collection. A
+
+ &lt;a href="https://pizza.rs/docs/references/search/relational/join/">&lt;code>join&lt;/code>&lt;/a> spans TWO: it answers
+questions a single collection cannot — &lt;em>orders whose customer is
+gold-tier&lt;/em>, where the tier lives in a different collection.&lt;/p>
+&lt;p>Joins need a running node (the gateway orchestrates the two sides,
+which is why the wasm playground does not host them), so this lesson
+is &lt;code>curl&lt;/code> against your 
+ &lt;a href="https://pizza.rs/docs/tutorial/first-search/">Lesson 1&lt;/a> node — no live
+widget. Like &lt;code>traverse&lt;/code>, &lt;code>join&lt;/code> stays DSL-side outside the
+
+ &lt;a href="https://pizza.rs/docs/references/sql/syntax/">SQL M1 subset&lt;/a>.&lt;/p></description></item><item><title>Lesson 9 — Operations</title><link>https://pizza.rs/docs/tutorial/operations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/tutorial/operations/</guid><description>&lt;h1 id="lesson-9--operations">
+ Lesson 9 — Operations
+ &lt;a class="anchor" href="#lesson-9--operations">#&lt;/a>
+&lt;/h1>
+&lt;p>Keeping a node healthy: partial updates in place, compaction, the change
+feed, and reading cluster state. This lesson is server-side — start a node
+as in 
+ &lt;a href="https://pizza.rs/docs/tutorial/first-search/">Lesson 1&lt;/a> and run the curls
+against it.&lt;/p>
+&lt;h2 id="the-use-case">
+ The use case
+ &lt;a class="anchor" href="#the-use-case">#&lt;/a>
+&lt;/h2>
+&lt;p>The features that matter once the node serves real traffic: mutating
+documents without rewriting them, keeping storage healthy, reacting to
+every write, and reading cluster state. The questions this lesson
+answers:&lt;/p></description></item></channel></rss>

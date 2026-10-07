@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Boxplot on INFINI Pizza</title><link>https://pizza.rs/tags/boxplot/</link><description>Recent content in Boxplot on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/boxplot/index.xml" rel="self" type="application/rss+xml"/><item><title>Boxplot aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/boxplot/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/boxplot/</guid><description>&lt;h1 id="boxplot-aggregation">
+ Boxplot aggregation
+ &lt;a class="anchor" href="#boxplot-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-value metrics aggregation producing the five-number summary of a
+distribution: minimum, lower quartile (q1), median (q2), upper quartile
+(q3) and maximum, plus whiskers.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine collects and sorts the values of the field, then:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>min&lt;/code> / &lt;code>max&lt;/code> are the observed extremes (after &lt;code>missing&lt;/code> substitution).&lt;/li>
+&lt;li>&lt;code>q1&lt;/code>, &lt;code>q2&lt;/code>, &lt;code>q3&lt;/code> are the 25th, 50th and 75th percentiles, computed with
+the same TDigest arithmetic 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/percentiles/">&lt;code>percentiles&lt;/code>&lt;/a> uses —
+weight-1 centroids at &lt;code>(i + 0.5) / n&lt;/code> with linear interpolation between
+the two bracketing values. A quartile can therefore land between
+observed values (&lt;code>q2&lt;/code> of the sale prices is &lt;code>22.5&lt;/code>, between &lt;code>15&lt;/code> and
+&lt;code>30&lt;/code>).&lt;/li>
+&lt;li>The whiskers extend from the quartiles by 1.5 × IQR, where
+&lt;code>IQR = q3 − q1&lt;/code>, and are clamped to the data:
+&lt;code>lower = max(q1 − 1.5·IQR, min)&lt;/code>, &lt;code>upper = min(q3 + 1.5·IQR, max)&lt;/code>.
+Values beyond the unclamped whisker positions are the conventional
+boxplot outliers.&lt;/li>
+&lt;/ul>
+&lt;p>Clamping means on a compact distribution the whiskers simply touch the
+extremes — over the teaching sales prices the whiskers land exactly on
+&lt;code>min&lt;/code> and &lt;code>max&lt;/code>. If no document has a value for the field, all seven
+numbers are &lt;code>0&lt;/code>.&lt;/p></description></item></channel></rss>

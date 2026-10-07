@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vector queries on INFINI Pizza</title><link>https://pizza.rs/docs/references/search/vector/</link><description>Recent content in Vector queries on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/docs/references/search/vector/index.xml" rel="self" type="application/rss+xml"/><item><title>Vector query (kNN)</title><link>https://pizza.rs/docs/references/search/vector/vector/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/vector/vector/</guid><description>&lt;h1 id="vector-query-knn">
+ Vector query (kNN)
+ &lt;a class="anchor" href="#vector-query-knn">#&lt;/a>
+&lt;/h1>
+&lt;p>Finds the &lt;code>k&lt;/code> nearest neighbors of a query vector — similarity search
+over &lt;code>dense_vector&lt;/code> / &lt;code>sparse_vector&lt;/code> fields. The query vector can be
+supplied directly, or as natural-language text that the serving layer
+embeds with the field&amp;rsquo;s configured model (schema-driven semantic
+search).&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Execution depends on where the documents live:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Realtime (not yet flushed)&lt;/strong> — an exact brute-force scan over the
+mutable store: every vector is scored, a size-&lt;code>k&lt;/code> min-heap keeps the
+best, and a filter (see below) is tested before any distance is
+computed.&lt;/li>
+&lt;li>&lt;strong>Flushed segments&lt;/strong> — the field&amp;rsquo;s &lt;code>index_type&lt;/code> decides: &lt;code>flat&lt;/code>
+scans the stored f32 vectors (exact, &lt;code>O(N·dims)&lt;/code>); the graph types
+(&lt;code>hnsw_flat&lt;/code>, &lt;code>turbo_quant_hnsw&lt;/code>, &lt;code>bbq_hnsw&lt;/code>) traverse the persisted
+HNSW graph with distances computed on the flat vectors — scores stay
+exact and only an &lt;code>ef&lt;/code>-bounded neighborhood is evaluated; the
+quantized scans (&lt;code>turbo_quant&lt;/code>, &lt;code>bbq_flat&lt;/code>) score compact codes for
+a &lt;code>k × oversampling&lt;/code> candidate pool and rescore it with full
+precision (approximate). The per-type breakdown is in
+
+ &lt;a href="#index-types">Index types&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;p>Scores follow the field&amp;rsquo;s &lt;code>similarity&lt;/code> (overridable per query, but it
+must match the schema): &lt;code>cosine&lt;/code> is the cosine similarity in
+&lt;code>[-1.0, 1.0]&lt;/code>; &lt;code>dot_product&lt;/code> the raw dot product; &lt;code>l2&lt;/code> scores as the
+&lt;strong>negated squared&lt;/strong> Euclidean distance — &lt;code>0&lt;/code> means identical vectors.
+Higher is always more similar, so one top-&lt;code>k&lt;/code> heap serves all three.&lt;/p></description></item><item><title>Multi-vector query</title><link>https://pizza.rs/docs/references/search/vector/multi_vector/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/vector/multi_vector/</guid><description>&lt;h1 id="multi-vector-query">
+ Multi-vector query
+ &lt;a class="anchor" href="#multi-vector-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Executes several 
+ &lt;a href="https://pizza.rs/docs/references/search/vector/vector/">&lt;code>vector&lt;/code>&lt;/a> queries — each targeting a
+(potentially different) vector field — and fuses their results into one
+ranking.&lt;/p>
+&lt;p>One document often has more than one useful representation: a title
+embedding and a body embedding, a dense vector and a learned-sparse
+vector, an image embedding beside its caption. A single &lt;code>vector&lt;/code> query
+can read only one of them; this query runs them all and merges the
+rankings.&lt;/p></description></item><item><title>Semantic query</title><link>https://pizza.rs/docs/references/search/vector/semantic/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/vector/semantic/</guid><description>&lt;h1 id="semantic-query">
+ Semantic query
+ &lt;a class="anchor" href="#semantic-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Semantic search with zero field knowledge: the vector field and the
+embedding model resolve from the collection schema, and the request is
+plain text — the retrieval question asked without naming a field, a
+model, or a vector.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /my-collection/_search
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;query&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;semantic&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;find documents about search engines&amp;#34;&lt;/span>&lt;span class="o">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The clause composes inside &lt;code>bool&lt;/code> like any other leaf — the text is
+embedded and the clause rewritten before execution:&lt;/p></description></item></channel></rss>

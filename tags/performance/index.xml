@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Performance on INFINI Pizza</title><link>https://pizza.rs/tags/performance/</link><description>Recent content in Performance on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/performance/index.xml" rel="self" type="application/rss+xml"/><item><title>In-place columns for hot counters and flags</title><link>https://pizza.rs/docs/highlightings/inplace-columns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/inplace-columns/</guid><description>&lt;h1 id="in-place-columns-for-hot-counters-and-flags">
+ In-place columns for hot counters and flags
+ &lt;a class="anchor" href="#in-place-columns-for-hot-counters-and-flags">#&lt;/a>
+&lt;/h1>
+&lt;p>Fields that change constantly — view counters, stock levels, feature
+flags, ranking scores — used to pay a full document rebuild on every
+partial update. Marking a numeric or boolean field with
+&lt;code>&amp;quot;inplace&amp;quot;: true&lt;/code> gives it a dedicated typed column instead:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">PUT /my-collection
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;properties&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;title&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;type&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;keyword&amp;#34;&lt;/span> &lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;views&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;type&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;integer&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;inplace&amp;#34;&lt;/span>: &lt;span class="nb">true&lt;/span> &lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;score&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;type&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;double&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;inplace&amp;#34;&lt;/span>: &lt;span class="nb">true&lt;/span> &lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;active&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;type&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;boolean&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;inplace&amp;#34;&lt;/span>: &lt;span class="nb">true&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Partial updates on such fields become O(1) column writes — no fetch,
+merge, and re-index of the document. Atomic-style operators work
+directly against the column:&lt;/p></description></item></channel></rss>

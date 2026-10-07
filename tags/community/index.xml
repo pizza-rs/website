@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Community on INFINI Pizza</title><link>https://pizza.rs/tags/community/</link><description>Recent content in Community on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/community/index.xml" rel="self" type="application/rss+xml"/><item><title>Community</title><link>https://pizza.rs/docs/community/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/community/</guid><description>&lt;h1 id="community-hall-of-fame">
+ Community hall of fame
+ &lt;a class="anchor" href="#community-hall-of-fame">#&lt;/a>
+&lt;/h1>
+&lt;p>The following acknowledges the Maintainers for the Pizza project,
+credits to those who have Contributed to this repository (via bug reports, code, design, ideas, project management,
+translation, testing, etc.), proactive advocates of pizza as Evangelists, and any other References utilized.&lt;/p>
+&lt;h2 id="maintainers">
+ Maintainers
+ &lt;a class="anchor" href="#maintainers">#&lt;/a>
+&lt;/h2>
+&lt;p>
+ &lt;a href="https://github.com/medcl">Medcl&lt;/a>, 
+ &lt;a href="https://github.com/SteveLauC">SteveLauC&lt;/a>&lt;/p>
+&lt;h2 id="committers">
+ Committers
+ &lt;a class="anchor" href="#committers">#&lt;/a>
+&lt;/h2>
+&lt;h2 id="contributors">
+ Contributors
+ &lt;a class="anchor" href="#contributors">#&lt;/a>
+&lt;/h2>
+&lt;p>
+ &lt;a href="https://github.com/loichyan">Loi Chyan&lt;/a>, 
+ &lt;a href="https://github.com/Stephenzhou718/">Hanming&lt;/a>&lt;/p>
+&lt;p>Thanks to all the 
+ &lt;a href="https://github.com/pizza-rs/pizza/graphs/contributors">CONTRIBUTORS&lt;/a>
+making their effort to help Pizza getting better.&lt;/p>
+&lt;h2 id="evangelists">
+ Evangelists
+ &lt;a class="anchor" href="#evangelists">#&lt;/a>
+&lt;/h2>
+&lt;h2 id="adopters">
+ Adopters
+ &lt;a class="anchor" href="#adopters">#&lt;/a>
+&lt;/h2>
+&lt;p>Pizza community of adopters is growing!
+Innovative organizations of all sizes and across industry sectors are committed
+to accelerating the adoption of commercial-grade, production-ready open source technologies
+developed by the Pizza community.&lt;/p></description></item></channel></rss>

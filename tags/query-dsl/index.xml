@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Query-Dsl on INFINI Pizza</title><link>https://pizza.rs/tags/query-dsl/</link><description>Recent content in Query-Dsl on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/query-dsl/index.xml" rel="self" type="application/rss+xml"/><item><title>Intervals and more-like-this queries</title><link>https://pizza.rs/docs/highlightings/intervals-mlt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/intervals-mlt/</guid><description>&lt;h1 id="intervals-and-more-like-this-queries">
+ Intervals and more-like-this queries
+ &lt;a class="anchor" href="#intervals-and-more-like-this-queries">#&lt;/a>
+&lt;/h1>
+&lt;p>Two Elasticsearch-compatible queries landed natively in the engine —
+no more shape-shifting through &lt;code>match_phrase&lt;/code> compositions.&lt;/p>
+&lt;p>&lt;strong>&lt;code>intervals&lt;/code>&lt;/strong> is a rule language over term positions. Say &amp;ldquo;these two
+phrases within two positions of each other, but only if neither
+overlaps this third one&amp;rdquo;:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /my-collection/_search
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;query&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;intervals&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;body&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;all_of&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;ordered&amp;#34;&lt;/span>: true,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;intervals&amp;#34;&lt;/span>: &lt;span class="o">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;match&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;query&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;search engine&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;max_gaps&amp;#34;&lt;/span>: 0, &lt;span class="s2">&amp;#34;ordered&amp;#34;&lt;/span>: &lt;span class="nb">true&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;match&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;query&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;ranking&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;max_gaps&amp;#34;&lt;/span>: &lt;span class="m">2&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">]&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;filter&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;not_overlapping&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;match&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;query&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;deprecated&amp;#34;&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Eight rule shapes (&lt;code>match&lt;/code>, &lt;code>all_of&lt;/code>, &lt;code>any_of&lt;/code>, &lt;code>prefix&lt;/code>, &lt;code>wildcard&lt;/code>,
+&lt;code>fuzzy&lt;/code>, &lt;code>regexp&lt;/code>, &lt;code>range&lt;/code>) and eight positional filter predicates
+(&lt;code>containing&lt;/code>, &lt;code>before&lt;/code>, &lt;code>not_overlapping&lt;/code>, …) compose into one tree.
+Unsupported knobs are rejected with named errors instead of silently
+ignored — ask for a &lt;code>script&lt;/code> filter and you will be told no.&lt;/p></description></item></channel></rss>

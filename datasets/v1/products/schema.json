@@ -1,0 +1,34 @@
+{
+  "settings": {},
+  "schema": {
+    "dynamic": "true",
+    "properties": {
+      "title": {
+        "type": "text"
+      },
+      "category": {
+        "type": "keyword"
+      },
+      "price": {
+        "type": "double"
+      },
+      "stock": {
+        "type": "integer",
+        "inplace": true
+      },
+      "active": {
+        "type": "boolean",
+        "inplace": true
+      },
+      "variants.name": {
+        "type": "keyword"
+      },
+      "variants.size": {
+        "type": "keyword"
+      },
+      "variants.color": {
+        "type": "keyword"
+      }
+    }
+  }
+}

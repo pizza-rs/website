@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Features on INFINI Pizza</title><link>https://pizza.rs/tags/features/</link><description>Recent content in Features on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/features/index.xml" rel="self" type="application/rss+xml"/><item><title>Features</title><link>https://pizza.rs/docs/overview/features/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/overview/features/</guid><description>&lt;h1 id="features">
+ Features
+ &lt;a class="anchor" href="#features">#&lt;/a>
+&lt;/h1>
+&lt;h2 id="realtime">
+ Realtime
+ &lt;a class="anchor" href="#realtime">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>True realtime search&lt;/strong> — a document is searchable the moment its
+write is acknowledged; there is no refresh and no near-real-time
+window. See 
+ &lt;a href="https://pizza.rs/docs/overview/realtime/">How realtime works&lt;/a>.&lt;/li>
+&lt;li>&lt;strong>Write-ahead logging&lt;/strong> — local file WAL by default (Kafka-backed
+optional), with configurable durability (&lt;code>strict&lt;/code> / &lt;code>batched&lt;/code> /
+&lt;code>async&lt;/code>) and crash-safe restart replay.&lt;/li>
+&lt;/ul>
+&lt;h2 id="updates">
+ Updates
+ &lt;a class="anchor" href="#updates">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Partial update&lt;/strong> — deep-merge &lt;code>doc&lt;/code> bodies plus an ordered &lt;code>ops&lt;/code>
+operator list (&lt;code>incr&lt;/code>, &lt;code>append&lt;/code>, &lt;code>rename&lt;/code>, &lt;code>current_date&lt;/code>, …), applied
+atomically under optimistic concurrency control.&lt;/li>
+&lt;li>&lt;strong>In-place columns&lt;/strong> — &lt;code>&amp;quot;inplace&amp;quot;: true&lt;/code> numeric/boolean fields get
+O(1) column writes on a fast lane, independent checkpoints, and
+block-summary query pruning. See
+
+ &lt;a href="https://pizza.rs/docs/highlightings/inplace-columns/">In-place columns&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;h2 id="scaling">
+ Scaling
+ &lt;a class="anchor" href="#scaling">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Rolling-based sharding&lt;/strong> — collections partition into fixed-capacity
+rollings (4.2B docs each) that roll over automatically; infinite
+growth without reindexing. See 
+ &lt;a href="https://pizza.rs/docs/overview/sharding/">Why named Pizza&lt;/a>.&lt;/li>
+&lt;li>&lt;strong>Online resharding&lt;/strong> — change a rolling&amp;rsquo;s shard count while every
+read and write keeps being served; documents keep their &lt;code>_id&lt;/code>
+throughout, with a progress/status/events API.&lt;/li>
+&lt;li>&lt;strong>Replication&lt;/strong> — Raft-replicated metadata, per-rolling replica
+counts, shard failover and re-allocation, and value-level replication
+of fast-lane inplace updates.&lt;/li>
+&lt;/ul>
+&lt;h2 id="search-and-analytics">
+ Search and analytics
+ &lt;a class="anchor" href="#search-and-analytics">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Full-text and term queries&lt;/strong> — &lt;code>match&lt;/code>, &lt;code>match_phrase&lt;/code>,
+&lt;code>query_string&lt;/code>, &lt;code>bool&lt;/code>, &lt;code>terms&lt;/code>, &lt;code>exists&lt;/code>, ranges, regexps, fuzzy,
+wildcard, spans, and more (see the
+
+ &lt;a href="https://pizza.rs/docs/references/search/">search reference&lt;/a>).&lt;/li>
+&lt;li>&lt;strong>Geo, vector and relational queries&lt;/strong> — &lt;code>geo_bounding_box&lt;/code>,
+&lt;code>geo_distance&lt;/code>, vector (kNN) similarity, nested documents, join and
+graph traversal.&lt;/li>
+&lt;li>&lt;strong>Semantic search&lt;/strong> — server-side text→vector inference through
+external OpenAI-compatible embedding services: vector fields mapped
+with &lt;code>source&lt;/code> + &lt;code>model&lt;/code> derive vectors at write time, queries accept
+plain text, and the &lt;code>semantic&lt;/code> query needs no field knowledge at all.
+Hybrid search (BM25 + vector, RRF or linear fusion) ships natively
+and through the Elasticsearch &lt;code>retriever&lt;/code>/&lt;code>knn&lt;/code> forms; point-in-time reads
+pin consistent views for deep pagination.&lt;/li>
+&lt;li>&lt;strong>Aggregations&lt;/strong> — metric, bucket and pipeline aggregations
+(see the 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/">aggregation reference&lt;/a>).&lt;/li>
+&lt;li>&lt;strong>Analysis&lt;/strong> — pluggable analyzers, per-collection custom analyzer
+definitions, and an
+
+ &lt;a href="https://pizza.rs/docs/references/search/analysis/analysis/">analysis workbench API&lt;/a>.&lt;/li>
+&lt;li>&lt;strong>Elasticsearch syntax tolerance&lt;/strong> — common Elasticsearch request bodies are
+accepted as-is, easing migration.&lt;/li>
+&lt;/ul>
+&lt;h2 id="security">
+ Security
+ &lt;a class="anchor" href="#security">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>API-key authentication&lt;/strong> with RBAC roles (&lt;code>platform_admin&lt;/code>,
+&lt;code>operator&lt;/code>, &lt;code>monitor&lt;/code>, &lt;code>namespace_admin&lt;/code>, &lt;code>read_write&lt;/code>, &lt;code>read_only&lt;/code>),
+Raft-replicated key minting/revocation, and a bootstrap-key flow. See
+
+ &lt;a href="https://pizza.rs/docs/administration/security/">Security&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;h2 id="operations">
+ Operations
+ &lt;a class="anchor" href="#operations">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Runtime settings&lt;/strong> — region (cluster-wide, Raft-replicated) and
+node-level settings tunable without restart, including a dynamic log
+level; layered scope precedence with collection and rolling settings.&lt;/li>
+&lt;li>&lt;strong>Manual maintenance&lt;/strong> — collection-wide and per-shard compaction,
+epoch roll/flush, batch flush tasks, all observable via node APIs.&lt;/li>
+&lt;li>&lt;strong>Observability&lt;/strong> — cluster health/state, node recovery and build
+backlog, per-shard storage inspection, search slowlog and audit, and
+a built-in web console with a FIRE storage explorer. See
+
+ &lt;a href="https://pizza.rs/docs/administration/observability/node/">Node observability&lt;/a>.&lt;/li>
+&lt;li>&lt;strong>CDC change feed&lt;/strong> — poll &lt;code>/_changes&lt;/code> to replicate data to external
+systems. See 
+ &lt;a href="https://pizza.rs/docs/references/document/changes/">Change feed (CDC)&lt;/a>.&lt;/li>
+&lt;li>&lt;strong>Trash (recycle bin)&lt;/strong> — deleted data survives a retention window
+and can be restored.&lt;/li>
+&lt;li>&lt;strong>Cluster admission&lt;/strong> — join tokens for controlled node admission,
+manual node removal, allocation dashboards. See
+
+ &lt;a href="https://pizza.rs/docs/administration/cluster/">Cluster management&lt;/a>.&lt;/li>
+&lt;/ul></description></item></channel></rss>

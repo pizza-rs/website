@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Avg_bucket on INFINI Pizza</title><link>https://pizza.rs/tags/avg_bucket/</link><description>Recent content in Avg_bucket on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/avg_bucket/index.xml" rel="self" type="application/rss+xml"/><item><title>Avg bucket aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/avg-bucket/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/avg-bucket/</guid><description>&lt;h1 id="avg-bucket-aggregation">
+ Avg bucket aggregation
+ &lt;a class="anchor" href="#avg-bucket-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A sibling pipeline aggregation computing the &lt;strong>average&lt;/strong> of a metric
+across another aggregation&amp;rsquo;s buckets. Bucket aggregations answer &amp;ldquo;what
+is the revenue per day / per category / per range&amp;rdquo;; &lt;code>avg_bucket&lt;/code> rolls
+those per-bucket numbers into one mean — &amp;ldquo;what does a typical day or
+category bring in&amp;rdquo; — without a second query or client-side arithmetic.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;avg_day&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;avg_bucket&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;per_day&amp;gt;revenue&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>avg_bucket&lt;/code> is declared &lt;strong>next to&lt;/strong> the bucket aggregation it consumes
+(a sibling in the same &lt;code>aggs&lt;/code> object) and runs after every regular
+aggregation has finished — after the merge, too, in a distributed
+search. It reads the parent&amp;rsquo;s finished buckets, collects one number per
+bucket, and divides their sum by their count. The result is a
+single-value metric (&lt;code>{&amp;quot;value&amp;quot;: 56.25}&lt;/code>) placed alongside the parent.&lt;/p></description></item></channel></rss>

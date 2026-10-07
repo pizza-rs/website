@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Keys on INFINI Pizza</title><link>https://pizza.rs/tags/keys/</link><description>Recent content in Keys on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/keys/index.xml" rel="self" type="application/rss+xml"/><item><title>Keys query</title><link>https://pizza.rs/docs/references/search/term-level/keys/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/keys/</guid><description>&lt;h1 id="keys-query">
+ Keys query
+ &lt;a class="anchor" href="#keys-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents whose key is in the provided set. There is no field
+argument — the match is against the document identity itself, and
+values that do not exist in the collection are skipped.&lt;/p>
+&lt;p>The query&amp;rsquo;s native name is &lt;code>keys&lt;/code>: it speaks Pizza&amp;rsquo;s &lt;code>_key&lt;/code> vocabulary,
+the same word the REST API uses for by-key addressing. The &lt;code>ids&lt;/code>
+spelling deserializes to the same query — an accepted alias, not a
+different feature.&lt;/p></description></item></channel></rss>

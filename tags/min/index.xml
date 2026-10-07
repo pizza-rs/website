@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Min on INFINI Pizza</title><link>https://pizza.rs/tags/min/</link><description>Recent content in Min on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/min/index.xml" rel="self" type="application/rss+xml"/><item><title>Min aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/min/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/min/</guid><description>&lt;h1 id="min-aggregation">
+ Min aggregation
+ &lt;a class="anchor" href="#min-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-value metrics aggregation that keeps track and returns the minimum
+value among numeric values extracted from the aggregated documents. It answers
+&amp;ldquo;how low does this field go&amp;rdquo; over any query — the floor of a price range, the
+earliest timestamp in a window, the cheapest item that matches a filter.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine walks the matching documents once, keeping the smallest value seen;
+any larger value costs one comparison. Values are coerced to doubles as they
+are read — integers, floats and booleans (&lt;code>true&lt;/code> = 1, &lt;code>false&lt;/code> = 0) qualify,
+non-numeric values such as keyword strings do not.&lt;/p></description></item></channel></rss>

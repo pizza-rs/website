@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Search on INFINI Pizza</title><link>https://pizza.rs/tags/search/</link><description>Recent content in Search on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/search/index.xml" rel="self" type="application/rss+xml"/><item><title>Sort and pagination</title><link>https://pizza.rs/docs/references/search/request/sort/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/request/sort/</guid><description>&lt;h1 id="sort-and-pagination">
+ Sort and pagination
+ &lt;a class="anchor" href="#sort-and-pagination">#&lt;/a>
+&lt;/h1>
+&lt;p>Control which documents come back and in what order — &lt;code>sort&lt;/code>, &lt;code>from&lt;/code>/&lt;code>size&lt;/code>,
+&lt;code>search_after&lt;/code>/&lt;code>search_before&lt;/code>, and total-hit accounting.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /my-collection/_search
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>sort&lt;/code> is an array of sort clauses evaluated in order; the first clause
+that produces a difference decides the order. Sorting on an indexed field
+lets the collector skip documents that cannot make the cut (early
+termination), so field sorts — and &lt;code>_doc&lt;/code> above all — are cheaper than
+score sorts, not just differently ordered.&lt;/p></description></item><item><title>Highlighting</title><link>https://pizza.rs/docs/references/search/request/highlight/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/request/highlight/</guid><description>&lt;h1 id="highlighting">
+ Highlighting
+ &lt;a class="anchor" href="#highlighting">#&lt;/a>
+&lt;/h1>
+&lt;p>Ask for matched fragments of your text fields back alongside each hit, with
+the matched terms wrapped in tags — ready to render as a search result list.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /my-collection/_search
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Highlighting is an engine-native enrich step that runs on the returned page
+only — after ranking and truncation, exactly like 
+ &lt;a href="https://pizza.rs/docs/references/search/request/script-fields/">script
+fields&lt;/a>. It has two phases (&lt;code>lib/engine/src/search/highlight/&lt;/code>):&lt;/p>
+&lt;p>&lt;strong>1. Term extraction.&lt;/strong> The engine walks the query tree and collects
+&lt;code>(field, term)&lt;/code> pairs worth highlighting: &lt;code>term&lt;/code>, &lt;code>terms&lt;/code>, &lt;code>fuzzy&lt;/code>,
+&lt;code>span_term&lt;/code>, &lt;code>intervals&lt;/code>, &lt;code>match&lt;/code>, &lt;code>multi_match&lt;/code>, &lt;code>match_phrase&lt;/code>, and
+&lt;code>bool&lt;/code> clauses. Text queries (&lt;code>match&lt;/code>, &lt;code>multi_match&lt;/code>, &lt;code>phrase&lt;/code>) are
+re-tokenized through the field&amp;rsquo;s search analyzer (or the query&amp;rsquo;s explicit
+&lt;code>analyzer&lt;/code> override), so the highlighted terms mirror what the query
+scored. &lt;code>must_not&lt;/code> clauses never contribute — documents excluded by them
+get no tags from them. &lt;code>match_all&lt;/code>, &lt;code>range&lt;/code>, &lt;code>geo&lt;/code> and
+&lt;code>vector&lt;/code> queries carry nothing to highlight.&lt;/p></description></item><item><title>Intervals and more-like-this queries</title><link>https://pizza.rs/docs/highlightings/intervals-mlt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/intervals-mlt/</guid><description>&lt;h1 id="intervals-and-more-like-this-queries">
+ Intervals and more-like-this queries
+ &lt;a class="anchor" href="#intervals-and-more-like-this-queries">#&lt;/a>
+&lt;/h1>
+&lt;p>Two Elasticsearch-compatible queries landed natively in the engine —
+no more shape-shifting through &lt;code>match_phrase&lt;/code> compositions.&lt;/p>
+&lt;p>&lt;strong>&lt;code>intervals&lt;/code>&lt;/strong> is a rule language over term positions. Say &amp;ldquo;these two
+phrases within two positions of each other, but only if neither
+overlaps this third one&amp;rdquo;:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /my-collection/_search
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;query&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;intervals&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;body&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;all_of&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;ordered&amp;#34;&lt;/span>: true,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;intervals&amp;#34;&lt;/span>: &lt;span class="o">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;match&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;query&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;search engine&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;max_gaps&amp;#34;&lt;/span>: 0, &lt;span class="s2">&amp;#34;ordered&amp;#34;&lt;/span>: &lt;span class="nb">true&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;match&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;query&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;ranking&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;max_gaps&amp;#34;&lt;/span>: &lt;span class="m">2&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">]&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;filter&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;not_overlapping&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;match&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;query&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;deprecated&amp;#34;&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Eight rule shapes (&lt;code>match&lt;/code>, &lt;code>all_of&lt;/code>, &lt;code>any_of&lt;/code>, &lt;code>prefix&lt;/code>, &lt;code>wildcard&lt;/code>,
+&lt;code>fuzzy&lt;/code>, &lt;code>regexp&lt;/code>, &lt;code>range&lt;/code>) and eight positional filter predicates
+(&lt;code>containing&lt;/code>, &lt;code>before&lt;/code>, &lt;code>not_overlapping&lt;/code>, …) compose into one tree.
+Unsupported knobs are rejected with named errors instead of silently
+ignored — ask for a &lt;code>script&lt;/code> filter and you will be told no.&lt;/p></description></item><item><title>Hybrid search and scoring pipeline</title><link>https://pizza.rs/docs/references/search/request/hybrid/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/request/hybrid/</guid><description>&lt;h1 id="hybrid-search-and-scoring-pipeline">
+ Hybrid search and scoring pipeline
+ &lt;a class="anchor" href="#hybrid-search-and-scoring-pipeline">#&lt;/a>
+&lt;/h1>
+&lt;p>Pizza runs lexical (BM25) and vector retrieval side by side and gives you
+explicit, composable stages to combine and re-shape scores:&lt;/p>
+
+&lt;p class="mermaid">
+graph LR
+ B("bm25 leg") --> F("fuse&lt;br/>rrf / linear / disjmax")
+ V("vector leg") --> F
+ F --> SC("score_functions&lt;br/>per-document function scoring")
+ P["a plain query,&lt;br/>no retrieve"] --> SC
+ SC --> RS("rescore&lt;br/>second pass on the top window")
+ RS --> H["one ranked list"]
+&lt;/p>
+
+&lt;p>Every stage is optional and combines with a plain &lt;code>query&lt;/code>: use
+&lt;code>score_functions&lt;/code> alone on a keyword search, or the full chain for
+hybrid retrieval.&lt;/p></description></item><item><title>Sandboxed scripting — scripted_metric, script_fields, script_score</title><link>https://pizza.rs/docs/highlightings/scripting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/scripting/</guid><description>&lt;h1 id="sandboxed-scripting--scripted_metric-script_fields-script_score">
+ Sandboxed scripting — scripted_metric, script_fields, script_score
+ &lt;a class="anchor" href="#sandboxed-scripting--scripted_metric-script_fields-script_score">#&lt;/a>
+&lt;/h1>
+&lt;p>Scripts landed across the whole request path — the engine runs the
+examples from the Elasticsearch docs unmodified. The engine is Rhai
+rather than Painless, but &lt;code>doc['x'].value&lt;/code>, &lt;code>_score&lt;/code> and
+&lt;code>params.&amp;lt;name&amp;gt;&lt;/code> mean what they mean there.&lt;/p>
+&lt;p>&lt;strong>Aggregations.&lt;/strong>
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/scripted-metric/">&lt;code>scripted_metric&lt;/code>&lt;/a>
+runs your own four-phase map/reduce — &lt;code>init_script&lt;/code>, &lt;code>map_script&lt;/code>,
+&lt;code>combine_script&lt;/code>, &lt;code>reduce_script&lt;/code> — with per-segment states folded at the
+end. The single-value metric aggs (&lt;code>sum&lt;/code>, &lt;code>avg&lt;/code>, &lt;code>min&lt;/code>, &lt;code>max&lt;/code>,
+&lt;code>cardinality&lt;/code>) accept a &lt;code>script&lt;/code> in place of a &lt;code>field&lt;/code>
+(
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/#scripted-value-sources">details&lt;/a>),
+and pipeline aggregations keep their &lt;code>buckets_path&lt;/code> arithmetic.&lt;/p></description></item><item><title>Semantic query</title><link>https://pizza.rs/docs/references/search/vector/semantic/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/vector/semantic/</guid><description>&lt;h1 id="semantic-query">
+ Semantic query
+ &lt;a class="anchor" href="#semantic-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Semantic search with zero field knowledge: the vector field and the
+embedding model resolve from the collection schema, and the request is
+plain text — the retrieval question asked without naming a field, a
+model, or a vector.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /my-collection/_search
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;query&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;semantic&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;find documents about search engines&amp;#34;&lt;/span>&lt;span class="o">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The clause composes inside &lt;code>bool&lt;/code> like any other leaf — the text is
+embedded and the clause rewritten before execution:&lt;/p></description></item><item><title>Field collapsing</title><link>https://pizza.rs/docs/references/search/request/collapse/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/request/collapse/</guid><description>&lt;h1 id="field-collapsing">
+ Field collapsing
+ &lt;a class="anchor" href="#field-collapsing">#&lt;/a>
+&lt;/h1>
+&lt;p>Collapse the result list so each distinct value of a field appears at most
+once — &amp;ldquo;best product per merchant&amp;rdquo;, &amp;ldquo;best article per author&amp;rdquo; — without a
+terms aggregation, keeping full hit semantics (scores, source, highlight).&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /my-collection/_search
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Collapse is engine-native and runs as a post-retrieval step. The collector
+normally stops at &lt;code>from + size&lt;/code>, but collapse pages over GROUPS, so the
+engine first gathers a wider window — &lt;code>max(1000, from + size)&lt;/code> hits
+(&lt;code>COLLAPSE_WINDOW&lt;/code> in &lt;code>lib/engine/src/search/mod.rs&lt;/code>) — in request sort
+order, then:&lt;/p></description></item><item><title>Streaming search</title><link>https://pizza.rs/docs/references/search/request/streaming/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/request/streaming/</guid><description>&lt;h1 id="streaming">
+ Streaming
+ &lt;a class="anchor" href="#streaming">#&lt;/a>
+&lt;/h1>
+&lt;p>Search on Pizza is real-time — documents are visible the moment they are
+written. The &lt;code>stream&lt;/code> block attaches delivery directives to a search
+request: how the engine should pace and batch the emission of a result
+that outgrows one response, instead of making the client poll.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /my-collection/_search
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>stream&lt;/code> is a native, parsed block of the Pizza request DSL
+(&lt;code>StreamConfig&lt;/code> in &lt;code>lib/engine/src/search/request/mod.rs&lt;/code>) — accepted,
+validated, and carried through the engine with every request. Its knobs
+describe the emission strategy of the search pipeline:&lt;/p></description></item><item><title>Script fields</title><link>https://pizza.rs/docs/references/search/request/script-fields/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/request/script-fields/</guid><description>&lt;h1 id="script-fields">
+ Script fields
+ &lt;a class="anchor" href="#script-fields">#&lt;/a>
+&lt;/h1>
+&lt;p>Compute extra values for each hit, at fetch time, from the hit&amp;rsquo;s own
+&lt;code>_source&lt;/code> — like 
+ &lt;a href="https://pizza.rs/docs/references/search/request/highlight/">highlighting&lt;/a>, but producing numbers and
+strings instead of fragments. Scripts run on Pizza&amp;rsquo;s sandboxed script
+engine (see 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/scripts/">the script language reference&lt;/a>),
+only for the hits actually returned on the page.&lt;/p>
+&lt;div class="pizza-playground" data-dataset="sales" data-dsl="{
+ &amp;#34;size&amp;#34;: 3,
+ &amp;#34;script_fields&amp;#34;: {
+ &amp;#34;doubled&amp;#34;: { &amp;#34;script&amp;#34;: &amp;#34;doc[&amp;#39;amount&amp;#39;].value * 2&amp;#34; },
+ &amp;#34;with_vat&amp;#34;: {
+ &amp;#34;script&amp;#34;: {
+ &amp;#34;source&amp;#34;: &amp;#34;doc.amount.value * params.vat&amp;#34;,
+ &amp;#34;params&amp;#34;: { &amp;#34;vat&amp;#34;: 1.23 }
+ }
+ }
+ }
+}">
+ &lt;noscript>JavaScript is disabled — use the curl form of this example instead.&lt;/noscript>
+&lt;/div>
+&lt;p>Every returned hit carries the computed values under &lt;code>fields&lt;/code>, as arrays:&lt;/p></description></item><item><title>Search</title><link>https://pizza.rs/docs/references/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/</guid><description>&lt;h1 id="search">
+ Search
+ &lt;a class="anchor" href="#search">#&lt;/a>
+&lt;/h1>
+&lt;p>A search query, or query, is a request for information about documents in Pizza
+collections.&lt;/p>
+&lt;p>A search consists of one or more queries that are combined and sent to Pizza.
+Documents that match a search&amp;rsquo;s queries are returned in the hits, or search
+results, of the response.&lt;/p>
+&lt;p>A search may also contain additional information used to better process its
+queries. For example, a search may be limited to a specific collection or only
+return a specific number of results.&lt;/p></description></item></channel></rss>

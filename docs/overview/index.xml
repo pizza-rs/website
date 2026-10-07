@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Overview on INFINI Pizza</title><link>https://pizza.rs/docs/overview/</link><description>Recent content in Overview on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/docs/overview/index.xml" rel="self" type="application/rss+xml"/><item><title>Concepts</title><link>https://pizza.rs/docs/overview/concept/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/overview/concept/</guid><description>&lt;h1 id="concepts">
+ Concepts
+ &lt;a class="anchor" href="#concepts">#&lt;/a>
+&lt;/h1>
+&lt;p>Pizza is a distributed search engine designed to efficiently index and retrieve documents across large-scale datasets.
+It organizes data in a hierarchical structure, allowing for flexible management and retrieval capabilities.&lt;/p>
+&lt;p>Before you start using Pizza, familiarize yourself with the following key concepts:&lt;/p>
+&lt;p>
+ &lt;img src="https://pizza.rs/img/concepts.png" alt="Pizza concepts" />&lt;/p>
+&lt;center>[Pizza Concepts]&lt;/center>
+&lt;h2 id="concepts-1">
+ Concepts
+ &lt;a class="anchor" href="#concepts-1">#&lt;/a>
+&lt;/h2>
+&lt;h3 id="cluster">
+ Cluster
+ &lt;a class="anchor" href="#cluster">#&lt;/a>
+&lt;/h3>
+&lt;p>A cluster represents a set of interconnected nodes that collectively form the Pizza search engine. Nodes within a cluster collaborate to store and process data efficiently. Clusters can span multiple physical locations for fault tolerance and scalability.&lt;/p></description></item><item><title>Features</title><link>https://pizza.rs/docs/overview/features/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/overview/features/</guid><description>&lt;h1 id="features">
+ Features
+ &lt;a class="anchor" href="#features">#&lt;/a>
+&lt;/h1>
+&lt;h2 id="realtime">
+ Realtime
+ &lt;a class="anchor" href="#realtime">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>True realtime search&lt;/strong> — a document is searchable the moment its
+write is acknowledged; there is no refresh and no near-real-time
+window. See 
+ &lt;a href="https://pizza.rs/docs/overview/realtime/">How realtime works&lt;/a>.&lt;/li>
+&lt;li>&lt;strong>Write-ahead logging&lt;/strong> — local file WAL by default (Kafka-backed
+optional), with configurable durability (&lt;code>strict&lt;/code> / &lt;code>batched&lt;/code> /
+&lt;code>async&lt;/code>) and crash-safe restart replay.&lt;/li>
+&lt;/ul>
+&lt;h2 id="updates">
+ Updates
+ &lt;a class="anchor" href="#updates">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Partial update&lt;/strong> — deep-merge &lt;code>doc&lt;/code> bodies plus an ordered &lt;code>ops&lt;/code>
+operator list (&lt;code>incr&lt;/code>, &lt;code>append&lt;/code>, &lt;code>rename&lt;/code>, &lt;code>current_date&lt;/code>, …), applied
+atomically under optimistic concurrency control.&lt;/li>
+&lt;li>&lt;strong>In-place columns&lt;/strong> — &lt;code>&amp;quot;inplace&amp;quot;: true&lt;/code> numeric/boolean fields get
+O(1) column writes on a fast lane, independent checkpoints, and
+block-summary query pruning. See
+
+ &lt;a href="https://pizza.rs/docs/highlightings/inplace-columns/">In-place columns&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;h2 id="scaling">
+ Scaling
+ &lt;a class="anchor" href="#scaling">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Rolling-based sharding&lt;/strong> — collections partition into fixed-capacity
+rollings (4.2B docs each) that roll over automatically; infinite
+growth without reindexing. See 
+ &lt;a href="https://pizza.rs/docs/overview/sharding/">Why named Pizza&lt;/a>.&lt;/li>
+&lt;li>&lt;strong>Online resharding&lt;/strong> — change a rolling&amp;rsquo;s shard count while every
+read and write keeps being served; documents keep their &lt;code>_id&lt;/code>
+throughout, with a progress/status/events API.&lt;/li>
+&lt;li>&lt;strong>Replication&lt;/strong> — Raft-replicated metadata, per-rolling replica
+counts, shard failover and re-allocation, and value-level replication
+of fast-lane inplace updates.&lt;/li>
+&lt;/ul>
+&lt;h2 id="search-and-analytics">
+ Search and analytics
+ &lt;a class="anchor" href="#search-and-analytics">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Full-text and term queries&lt;/strong> — &lt;code>match&lt;/code>, &lt;code>match_phrase&lt;/code>,
+&lt;code>query_string&lt;/code>, &lt;code>bool&lt;/code>, &lt;code>terms&lt;/code>, &lt;code>exists&lt;/code>, ranges, regexps, fuzzy,
+wildcard, spans, and more (see the
+
+ &lt;a href="https://pizza.rs/docs/references/search/">search reference&lt;/a>).&lt;/li>
+&lt;li>&lt;strong>Geo, vector and relational queries&lt;/strong> — &lt;code>geo_bounding_box&lt;/code>,
+&lt;code>geo_distance&lt;/code>, vector (kNN) similarity, nested documents, join and
+graph traversal.&lt;/li>
+&lt;li>&lt;strong>Semantic search&lt;/strong> — server-side text→vector inference through
+external OpenAI-compatible embedding services: vector fields mapped
+with &lt;code>source&lt;/code> + &lt;code>model&lt;/code> derive vectors at write time, queries accept
+plain text, and the &lt;code>semantic&lt;/code> query needs no field knowledge at all.
+Hybrid search (BM25 + vector, RRF or linear fusion) ships natively
+and through the Elasticsearch &lt;code>retriever&lt;/code>/&lt;code>knn&lt;/code> forms; point-in-time reads
+pin consistent views for deep pagination.&lt;/li>
+&lt;li>&lt;strong>Aggregations&lt;/strong> — metric, bucket and pipeline aggregations
+(see the 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/">aggregation reference&lt;/a>).&lt;/li>
+&lt;li>&lt;strong>Analysis&lt;/strong> — pluggable analyzers, per-collection custom analyzer
+definitions, and an
+
+ &lt;a href="https://pizza.rs/docs/references/search/analysis/analysis/">analysis workbench API&lt;/a>.&lt;/li>
+&lt;li>&lt;strong>Elasticsearch syntax tolerance&lt;/strong> — common Elasticsearch request bodies are
+accepted as-is, easing migration.&lt;/li>
+&lt;/ul>
+&lt;h2 id="security">
+ Security
+ &lt;a class="anchor" href="#security">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>API-key authentication&lt;/strong> with RBAC roles (&lt;code>platform_admin&lt;/code>,
+&lt;code>operator&lt;/code>, &lt;code>monitor&lt;/code>, &lt;code>namespace_admin&lt;/code>, &lt;code>read_write&lt;/code>, &lt;code>read_only&lt;/code>),
+Raft-replicated key minting/revocation, and a bootstrap-key flow. See
+
+ &lt;a href="https://pizza.rs/docs/administration/security/">Security&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;h2 id="operations">
+ Operations
+ &lt;a class="anchor" href="#operations">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Runtime settings&lt;/strong> — region (cluster-wide, Raft-replicated) and
+node-level settings tunable without restart, including a dynamic log
+level; layered scope precedence with collection and rolling settings.&lt;/li>
+&lt;li>&lt;strong>Manual maintenance&lt;/strong> — collection-wide and per-shard compaction,
+epoch roll/flush, batch flush tasks, all observable via node APIs.&lt;/li>
+&lt;li>&lt;strong>Observability&lt;/strong> — cluster health/state, node recovery and build
+backlog, per-shard storage inspection, search slowlog and audit, and
+a built-in web console with a FIRE storage explorer. See
+
+ &lt;a href="https://pizza.rs/docs/administration/observability/node/">Node observability&lt;/a>.&lt;/li>
+&lt;li>&lt;strong>CDC change feed&lt;/strong> — poll &lt;code>/_changes&lt;/code> to replicate data to external
+systems. See 
+ &lt;a href="https://pizza.rs/docs/references/document/changes/">Change feed (CDC)&lt;/a>.&lt;/li>
+&lt;li>&lt;strong>Trash (recycle bin)&lt;/strong> — deleted data survives a retention window
+and can be restored.&lt;/li>
+&lt;li>&lt;strong>Cluster admission&lt;/strong> — join tokens for controlled node admission,
+manual node removal, allocation dashboards. See
+
+ &lt;a href="https://pizza.rs/docs/administration/cluster/">Cluster management&lt;/a>.&lt;/li>
+&lt;/ul></description></item><item><title>Limitations</title><link>https://pizza.rs/docs/overview/limitations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/overview/limitations/</guid><description>&lt;h1 id="limitations">
+ Limitations
+ &lt;a class="anchor" href="#limitations">#&lt;/a>
+&lt;/h1>
+&lt;p>Known limitations of the current release, and where to read more.&lt;/p>
+&lt;h2 id="storage-and-scaling">
+ Storage and scaling
+ &lt;a class="anchor" href="#storage-and-scaling">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>256 logical partitions per rolling are fixed&lt;/strong> — the partition
+count is a design constant, not a creation-time setting. What you
+scale is the number of physical shards (via the sharding strategy and
+
+ &lt;a href="https://pizza.rs/docs/references/collection/rolling_reshard/">online reshard&lt;/a>).&lt;/li>
+&lt;li>&lt;strong>Object storage and Parquet are optional, not the default&lt;/strong> —
+persistence is Pizza&amp;rsquo;s FIRE columnar format on local disk. S3-backed
+and Parquet-mount backends are opt-in engine features.&lt;/li>
+&lt;/ul>
+&lt;h2 id="cluster-operations">
+ Cluster operations
+ &lt;a class="anchor" href="#cluster-operations">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Cluster state is local-region only&lt;/strong> — &lt;code>GET /_cluster/state&lt;/code>
+returns the serving region&amp;rsquo;s state; querying a remote region by UUID
+answers &lt;code>501 not implemented yet&lt;/code> (same for remote region health).
+The &lt;code>blocks&lt;/code> and &lt;code>version&lt;/code> state filters are accepted but are no-ops.&lt;/li>
+&lt;li>&lt;strong>No backup/restore API yet&lt;/strong> — metadata is covered by Raft
+snapshots, but data backup is a manual data-directory procedure. See
+
+ &lt;a href="https://pizza.rs/docs/administration/backup/">Backup and restore&lt;/a>.&lt;/li>
+&lt;li>&lt;strong>Collection-level replica changes apply to new rollings only&lt;/strong> —
+resizing the replicas of an existing rolling uses
+
+ &lt;a href="https://pizza.rs/docs/references/collection/rolling_settings/">Update rolling settings&lt;/a>;
+a rolling being resharded has its replica count frozen until the
+reshard commits.&lt;/li>
+&lt;/ul>
+&lt;h2 id="querying">
+ Querying
+ &lt;a class="anchor" href="#querying">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>SQL/PRQL are subset-shaped&lt;/strong> — &lt;code>POST /_sql&lt;/code> and &lt;code>POST /_prql&lt;/code> serve a
+documented subset (see
+
+ &lt;a href="https://pizza.rs/docs/references/sql/">the SQL &amp;amp; PRQL reference&lt;/a>): no &lt;code>JOIN&lt;/code>
+across collections yet (planned), no subqueries, CTE (&lt;code>WITH&lt;/code>), window
+functions or set operations; PRQL s-strings are rejected outright and
+pipelines that would lower into a CTE fail closed with a positioned
+error.&lt;/li>
+&lt;li>&lt;strong>Scripting is aggregation- and search-scoped&lt;/strong> — scripts run in
+pipeline aggregations, &lt;code>scripted_metric&lt;/code>, as the value source of the
+single-value metric aggs, in a search request&amp;rsquo;s
+
+ &lt;a href="https://pizza.rs/docs/references/search/request/script-fields/">&lt;code>script_fields&lt;/code>&lt;/a>, and
+in the 
+ &lt;a href="https://pizza.rs/docs/references/search/specialized/script-score/">scripted queries&lt;/a>
+(&lt;code>script_score&lt;/code>, &lt;code>script&lt;/code> filters, &lt;code>_script&lt;/code> sort; Rhai, sandboxed, see
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/pipeline/scripts/">the scripts reference&lt;/a>).
+A &lt;code>script&lt;/code> filter applies to the collected window (aggregations are not
+narrowed); per-segment script filtering is not implemented.&lt;/li>
+&lt;li>&lt;strong>CDC is poll-based&lt;/strong> — the change feed is a pull API bounded by WAL
+retention; a consumer that falls behind &lt;code>purged_below&lt;/code> must run a
+full resync.&lt;/li>
+&lt;/ul>
+&lt;h2 id="security">
+ Security
+ &lt;a class="anchor" href="#security">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Tenancy is namespace-scoped 1:1&lt;/strong> — a key&amp;rsquo;s &lt;code>tenant&lt;/code> maps to a
+single namespace; there is no multi-namespace tenant grouping yet.&lt;/li>
+&lt;/ul></description></item><item><title>Architecture</title><link>https://pizza.rs/docs/overview/architecture/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/overview/architecture/</guid><description>&lt;h1 id="architecture">
+ Architecture
+ &lt;a class="anchor" href="#architecture">#&lt;/a>
+&lt;/h1>
+&lt;p>Pizza is a distributed search engine built on a shared-nothing design:
+every node owns its shards, memory, and disks — and within a node, every
+CPU core runs its own runtime instance, sharing nothing with the other
+cores. All disk and network I/O is asynchronous, running on a
+thread-per-core runtime
+(
+ &lt;a href="https://github.com/bytedance/monoio">monoio&lt;/a>); on Linux, io_uring
+offloads the WAL&amp;rsquo;s durable-write fsyncs whenever the kernel supports it.&lt;/p>
+&lt;figure>&lt;img src="https://pizza.rs/img/architecture.png"
+ alt="A gateway fronts the distributed query engine, which dispatches subqueries to data nodes; each data node runs one Pizza runtime instance per CPU core over local WAL, store, index, and meta storage.">&lt;figcaption>
+ &lt;p>Pizza at a glance: a gateway, a distributed query engine, and data nodes running one runtime instance per CPU core.&lt;/p></description></item><item><title>Why named Pizza</title><link>https://pizza.rs/docs/overview/sharding/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/overview/sharding/</guid><description>&lt;h1 id="why-named-pizza">
+ Why named Pizza?
+ &lt;a class="anchor" href="#why-named-pizza">#&lt;/a>
+&lt;/h1>
+&lt;p>Do you wonder why this project is named Pizza?&lt;/p>
+&lt;h2 id="to-infinity-scaling">
+ To infinity scaling
+ &lt;a class="anchor" href="#to-infinity-scaling">#&lt;/a>
+&lt;/h2>
+&lt;p>Pizza solves the challenge of managing massive data seamlessly. Imagine creating a collection and continuously adding documents,
+from zero to petabytes, without the need to worry about sharding or reindexing. Scaling your machine becomes effortless,
+ensuring a smooth, seamless, and painless experience for application developers.&lt;/p>
+&lt;h3 id="sharding-puzzle">
+ Sharding puzzle
+ &lt;a class="anchor" href="#sharding-puzzle">#&lt;/a>
+&lt;/h3>
+&lt;p>One of the world&amp;rsquo;s three major challenges: What is the appropriate size for an index shard?&lt;/p></description></item><item><title>How realtime works</title><link>https://pizza.rs/docs/overview/realtime/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/overview/realtime/</guid><description>&lt;h1 id="how-realtime-works">
+ How realtime works?
+ &lt;a class="anchor" href="#how-realtime-works">#&lt;/a>
+&lt;/h1>
+&lt;h2 id="do-you-like-to-let-your-customer-wait">
+ Do you like to let your customer wait?
+ &lt;a class="anchor" href="#do-you-like-to-let-your-customer-wait">#&lt;/a>
+&lt;/h2>
+&lt;p>
+ &lt;img src="https://pizza.rs/img/realtime-diagram.png" alt="Pizza concepts" />&lt;/p>
+&lt;center>[Pizza in Realtime]&lt;/center>
+&lt;p>A document written to Pizza is searchable the moment its write is
+acknowledged — there is no refresh, no near-real-time window, and nothing
+to tune to get there. This page walks the write path that makes that
+true.&lt;/p>
+&lt;h2 id="the-write-path">
+ The write path
+ &lt;a class="anchor" href="#the-write-path">#&lt;/a>
+&lt;/h2>
+&lt;ol>
+&lt;li>&lt;strong>WAL first.&lt;/strong> The write is appended to the shard&amp;rsquo;s write-ahead log
+(a local file-based WAL by default; a Kafka-backed WAL is available).
+Durability follows &lt;code>wal.local.durability&lt;/code> — &lt;code>strict&lt;/code> fsyncs per
+append, &lt;code>batched&lt;/code> (the default) group-commits by size and timeout,
+&lt;code>async&lt;/code> skips the hot-path fsync entirely.&lt;/li>
+&lt;li>&lt;strong>Mutable layer.&lt;/strong> The live documents are indexed into the shard&amp;rsquo;s
+in-memory mutable layer, which is itself searchable — this is what
+removes the refresh: reads see the mutable layer and the immutable
+segments in one snapshot, so the visibility point is the write&amp;rsquo;s
+acknowledgement.&lt;/li>
+&lt;li>&lt;strong>Epoch freeze and build.&lt;/strong> When the active epoch crosses a size or
+ops threshold (&lt;code>wal.local.epoch_freeze_max_bytes&lt;/code> /
+&lt;code>epoch_freeze_max_ops&lt;/code>, runtime-tunable), it is frozen and built in
+the background into an immutable FIRE segment. The build does not
+gate reads or writes.&lt;/li>
+&lt;li>&lt;strong>WAL purge.&lt;/strong> Once a segment is durably built (per
+&lt;code>wal.local.segment_durability&lt;/code>), the WAL entries it supersedes are
+purged, bounded by the retention window
+(&lt;code>wal.local.retention_epoch&lt;/code> / &lt;code>retention_bytes&lt;/code>).&lt;/li>
+&lt;/ol>
+&lt;p>Recovery is the mirror image: on restart, a shard replays its WAL tail
+over its last durable segments, so acknowledged writes survive crashes.
+Restart replay and peer recovery are both bounded by
+&lt;code>node.recovery_concurrency&lt;/code>.&lt;/p></description></item><item><title>How query works</title><link>https://pizza.rs/docs/overview/query-engine/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/overview/query-engine/</guid><description>&lt;h1 id="how-query-works">
+ How query works?
+ &lt;a class="anchor" href="#how-query-works">#&lt;/a>
+&lt;/h1>
+&lt;p>A search request fans out from the coordinating node to every shard
+copy of the target collections, executes against a snapshot of the
+index, and merges ranked results back — this page walks that pipeline
+and the mechanisms that keep it fast:&lt;/p>
+
+&lt;p class="mermaid">
+graph LR
+ R["search request"] --> C("coordinator")
+ C -->|"one copy per shard group —&lt;br/>saturated nodes are skipped"| G0("shard group 0 — any copy")
+ C --> G1("shard group 1 — any copy")
+ C --> G2("shard group 2 — any copy")
+ G0 --> Q["top-K + aggs against the snapshot —&lt;br/>mutable layer + immutable segments"]
+ G1 --> Q
+ G2 --> Q
+ Q --> M("merge — rank, dedupe, paginate")
+ M --> H["hits and aggregations,&lt;br/>or partial results on timeout"]
+&lt;/p></description></item><item><title>Use cases</title><link>https://pizza.rs/docs/overview/use-cases/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/overview/use-cases/</guid><description>&lt;h1 id="use-cases">
+ Use cases
+ &lt;a class="anchor" href="#use-cases">#&lt;/a>
+&lt;/h1>
+&lt;p>Pizza is built for latency-sensitive search over fresh, mutable data at
+scale. The scenarios below map to concrete features — follow the links
+for the mechanics.&lt;/p>
+&lt;h2 id="operational-logs-and-events-searchable-the-moment-they-land">
+ Operational logs and events, searchable the moment they land
+ &lt;a class="anchor" href="#operational-logs-and-events-searchable-the-moment-they-land">#&lt;/a>
+&lt;/h2>
+&lt;p>Observability and security pipelines need indexed events &lt;strong>and&lt;/strong> fresh
+results — &amp;ldquo;what happened in the last minute&amp;rdquo; cannot wait for a refresh
+window. Pizza&amp;rsquo;s 
+ &lt;a href="https://pizza.rs/docs/overview/realtime/">realtime write path&lt;/a> makes every
+acknowledged write searchable immediately, rollings absorb unbounded
+growth without reindexing, and high-volume ingest is served by batched
+WAL writes plus background segment builds that never gate reads.&lt;/p></description></item><item><title>Roadmap</title><link>https://pizza.rs/docs/overview/roadmap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/overview/roadmap/</guid><description>&lt;h1 id="roadmap">
+ Roadmap
+ &lt;a class="anchor" href="#roadmap">#&lt;/a>
+&lt;/h1>
+&lt;p>A living list of what is planned next. Items land when they are done —
+the 
+ &lt;a href="https://pizza.rs/docs/overview/limitations/">limitations page&lt;/a> tracks the counterpart &amp;ldquo;what
+does not work today&amp;rdquo;.&lt;/p>
+&lt;h2 id="querying-and-analytics">
+ Querying and analytics
+ &lt;a class="anchor" href="#querying-and-analytics">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>SQL&lt;/strong> — the query subset over the search DSL is live on
+&lt;code>POST /_sql&lt;/code> — filter/aggregate/sort/paginate, &lt;code>$1&lt;/code> parameters, PIT
+snapshots, grouped cursor pages — with &lt;code>POST /_prql&lt;/code> alongside it
+(see 
+ &lt;a href="https://pizza.rs/docs/references/sql/">the SQL &amp;amp; PRQL reference&lt;/a> and
+
+ &lt;a href="https://pizza.rs/docs/references/sql/syntax/">the syntax walkthrough&lt;/a>). The frontend
+now lives in the engine (feature &lt;code>sql&lt;/code>), and the WebAssembly build
+runs statements through the same parse/lower (&lt;code>search_with_sql&lt;/code>) —
+the base for SQL demos in the live playground. What remains:
+&lt;code>JOIN&lt;/code> across collections, subqueries, window functions, the
+&lt;code>EXPLAIN&lt;/code> lowering trace, the two-layer cache closeout, and the
+playground rollout (envelope parity plus demo pages).&lt;/li>
+&lt;/ul>
+&lt;h2 id="storage">
+ Storage
+ &lt;a class="anchor" href="#storage">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Object storage backends&lt;/strong> — the segment file layout is already
+object-storage-friendly (content-addressed write-once files,
+generationed manifests with replication-safe publish ordering, so an
+external replicator can mirror a shard to S3/OSS). What remains is
+the first-class option: storage-tier configuration, bucket lifecycle
+and recovery straight from remote storage.&lt;/li>
+&lt;li>&lt;strong>Parquet interop&lt;/strong> — the engine already reads Parquet columns
+through its column API (opt-in engine feature). What remains is the
+user-facing mount: exposing standard Parquet data as a collection,
+as an exchange format with big-data systems.&lt;/li>
+&lt;/ul>
+&lt;h2 id="operations">
+ Operations
+ &lt;a class="anchor" href="#operations">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Backup and restore API&lt;/strong> — point-in-time snapshots with
+restore semantics, replacing today&amp;rsquo;s manual data-directory procedure
+(see 
+ &lt;a href="https://pizza.rs/docs/administration/backup/">Backup and restore&lt;/a>).&lt;/li>
+&lt;li>&lt;strong>Cluster-wide state and health&lt;/strong> — aggregating &lt;code>/_cluster/state&lt;/code> and
+health across regions instead of the serving region only.&lt;/li>
+&lt;/ul>
+&lt;h2 id="ai-and-semantic-search">
+ AI and semantic search
+ &lt;a class="anchor" href="#ai-and-semantic-search">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Chunking for &lt;code>semantic_text&lt;/code>&lt;/strong> — long-document semantic search:
+split field text into overlapping chunks, embed each, keep
+several vectors per document, score by the best-matching chunk.
+Blocked on engine support for multiple vectors per (document, field) —
+today&amp;rsquo;s vector store keeps exactly one (&lt;code>FlatVectorStore::add&lt;/code>
+overwrites), so this spans the mutable store, the epoch builder, the
+HNSW index and score aggregation. Until then the field embeds whole
+texts in one call (fine for titles, names, log lines; bounded by the
+model&amp;rsquo;s input limit), and long documents have a working pattern:
+chunk into child documents at write time, search with the &lt;code>semantic&lt;/code>
+query and collapse by parent id (see
+
+ &lt;a href="https://pizza.rs/docs/references/search/request/collapse/">field collapsing&lt;/a>).&lt;/li>
+&lt;/ul>
+&lt;h2 id="multi-tenancy">
+ Multi-tenancy
+ &lt;a class="anchor" href="#multi-tenancy">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Tenant grouping&lt;/strong> — namespaces grouped under one tenant identity,
+generalizing today&amp;rsquo;s 1:1 namespace mapping.&lt;/li>
+&lt;/ul></description></item><item><title>Credits</title><link>https://pizza.rs/docs/overview/credits/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/overview/credits/</guid><description>&lt;h1 id="credits">
+ Credits
+ &lt;a class="anchor" href="#credits">#&lt;/a>
+&lt;/h1>
+&lt;p>Pizza stands on the shoulders of the Rust and information-retrieval
+communities. This page credits the software we build on — and the projects
+whose ideas we learn from.&lt;/p>
+&lt;h2 id="reference-points">
+ Reference points
+ &lt;a class="anchor" href="#reference-points">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>
+ &lt;a href="https://lucene.apache.org/">Lucene&lt;/a>&lt;/strong> — decades of query semantics and
+scoring design that the DSL and scoring model learn from.&lt;/li>
+&lt;li>&lt;strong>
+ &lt;a href="https://www.elastic.co/elasticsearch/">Elasticsearch&lt;/a>&lt;/strong> — the JSON query
+DSL and REST API surface (&lt;code>_search&lt;/code>, &lt;code>_doc&lt;/code>, &lt;code>_bulk&lt;/code>) the gateway is
+modeled on.&lt;/li>
+&lt;li>&lt;strong>
+ &lt;a href="https://github.com/quickwit-oss/tantivy">tantivy&lt;/a>&lt;/strong> — the Rust search
+library our inverted-index benchmarks measure against, on the corpus
+and golden queries of the
+
+ &lt;a href="https://github.com/quickwit-oss/search-benchmark-game">search-benchmark-game&lt;/a>.
+No tantivy code runs inside Pizza — the engine is written from scratch,
+a different engine end to end, built to go far beyond it.&lt;/li>
+&lt;/ul>
+&lt;h2 id="engine-core">
+ Engine core
+ &lt;a class="anchor" href="#engine-core">#&lt;/a>
+&lt;/h2>
+&lt;p>The search engine (&lt;code>lib/engine&lt;/code>) is a &lt;code>no_std&lt;/code>-capable crate that compiles
+from server to browser; these crates make that possible:&lt;/p></description></item></channel></rss>

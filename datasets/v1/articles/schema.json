@@ -1,0 +1,44 @@
+{
+  "settings": {
+    "rolling": {
+      "partitions_sharding_strategy": {
+        "hash": {
+          "number_of_shards": 1
+        }
+      }
+    },
+    "analysis": {
+      "analyzer": {
+        "custom": {
+          "content_an": {
+            "tokenizer": "standard",
+            "token_filters": [
+              "asciifolding"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "schema": {
+    "dynamic": "true",
+    "properties": {
+      "title": {
+        "type": "text"
+      },
+      "body": {
+        "type": "text",
+        "analyzer": "content_an"
+      },
+      "tags": {
+        "type": "keyword"
+      },
+      "author": {
+        "type": "keyword"
+      },
+      "related_to": {
+        "type": "relation"
+      }
+    }
+  }
+}

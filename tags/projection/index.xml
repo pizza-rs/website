@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Projection on INFINI Pizza</title><link>https://pizza.rs/tags/projection/</link><description>Recent content in Projection on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/projection/index.xml" rel="self" type="application/rss+xml"/><item><title>Graph projection block</title><link>https://pizza.rs/docs/references/search/relational/graph/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/relational/graph/</guid><description>&lt;h1 id="graph-projection-block">
+ Graph projection block
+ &lt;a class="anchor" href="#graph-projection-block">#&lt;/a>
+&lt;/h1>
+&lt;p>Add a &lt;code>graph&lt;/code> block to any search request and the response carries a
+graph — &lt;code>nodes&lt;/code> and &lt;code>edges&lt;/code> — built from the hit set, alongside the
+normal &lt;code>hits&lt;/code>. Where the 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/traverse/">&lt;code>traverse&lt;/code>&lt;/a> query &lt;em>searches&lt;/em>
+by walking edges, the &lt;code>graph&lt;/code> block &lt;em>renders&lt;/em>: it takes the documents
+a query already found and projects them into a node/edge structure a
+UI (or a GraphRAG pipeline) can consume directly.&lt;/p>
+
+&lt;p class="mermaid">
+graph LR
+ subgraph walk["traverse — searches by walking"]
+ S("seeds") -->|"walk edges&lt;br/>up to max_depth"| H1["hits — every reached node,&lt;br/>scored by distance"]
+ end
+ subgraph render["graph — renders what was found"]
+ Q("any query") --> H2("hit set")
+ H2 -->|"project the relation field"| G["nodes + edges&lt;br/>for a UI or GraphRAG"]
+ end
+&lt;/p></description></item></channel></rss>

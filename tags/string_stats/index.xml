@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>String_stats on INFINI Pizza</title><link>https://pizza.rs/tags/string_stats/</link><description>Recent content in String_stats on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/string_stats/index.xml" rel="self" type="application/rss+xml"/><item><title>String stats aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/string-stats/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/string-stats/</guid><description>&lt;h1 id="string-stats-aggregation">
+ String stats aggregation
+ &lt;a class="anchor" href="#string-stats-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-value metrics aggregation computing length and character
+statistics over keyword/string values: count, min/max/avg length and
+Shannon entropy of the character distribution.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Every document that has a string value for the field contributes one
+string. Over those strings the engine reports:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>count&lt;/code> — how many values were seen (documents without the field are
+skipped, not counted);&lt;/li>
+&lt;li>&lt;code>min_length&lt;/code>, &lt;code>max_length&lt;/code>, &lt;code>avg_length&lt;/code> — length statistics in UTF-8
+&lt;strong>bytes&lt;/strong>, so a non-ASCII character counts as its encoded width;&lt;/li>
+&lt;li>&lt;code>entropy&lt;/code> — Shannon entropy of the pooled character frequencies, in
+&lt;strong>bits&lt;/strong>: &lt;code>-Σ p(c) · log2 p(c)&lt;/code> over the share &lt;code>p(c)&lt;/code> of each character
+across all strings. Constant text gives &lt;code>0&lt;/code>; text where every character
+is equally likely gives &lt;code>log2(alphabet size)&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;p>The character frequencies are pooled across all contributing values
+before the entropy is taken, so repetition across documents counts: the
+teaching &lt;code>type&lt;/code> field repeats the same few words 120 times and still
+scores ≈3.22 bits.&lt;/p></description></item></channel></rss>

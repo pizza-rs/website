@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Backup on INFINI Pizza</title><link>https://pizza.rs/tags/backup/</link><description>Recent content in Backup on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/backup/index.xml" rel="self" type="application/rss+xml"/><item><title>Backup and restore</title><link>https://pizza.rs/docs/administration/backup/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/administration/backup/</guid><description>&lt;h1 id="backup-and-restore">
+ Backup and restore
+ &lt;a class="anchor" href="#backup-and-restore">#&lt;/a>
+&lt;/h1>
+&lt;p>Pizza does not have a first-class backup/restore HTTP API yet — this page
+describes what exists today and the supported manual procedure.&lt;/p>
+&lt;h2 id="what-exists-today">
+ What exists today
+ &lt;a class="anchor" href="#what-exists-today">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Raft metadata snapshots.&lt;/strong> The catalog&amp;rsquo;s Raft log is periodically
+snapshotted (&lt;code>node.snapshot_per_events&lt;/code>), so cluster metadata
+(namespaces, collections, schemas, shard routing) has its own
+durability story independent of the data plane.&lt;/li>
+&lt;li>&lt;strong>The trash.&lt;/strong> Deleting a namespace or a collection (or replacing
+shards) only touches metadata: the data directories are moved into
+&lt;code>&amp;lt;data_path&amp;gt;/trash/&lt;/code> and physically deleted by a background sweeper
+only after &lt;code>trash.retention_secs&lt;/code> (default 1 day) elapses. A deleted
+namespace is captured as ONE item with a restore snapshot per
+collection, so the whole namespace — all collections, original shard
+placements included — can be brought back via the
+
+ &lt;a href="https://pizza.rs/docs/references/trash/">Trash APIs&lt;/a>. Every restore is
+preceded by a read-only shard-completeness verification, and a restore
+whose data is provably incomplete is refused rather than silently
+coming back empty. This gives a grace window against accidental
+deletes, not a backup.&lt;/li>
+&lt;/ul>
+&lt;h2 id="manual-backup">
+ Manual backup
+ &lt;a class="anchor" href="#manual-backup">#&lt;/a>
+&lt;/h2>
+&lt;p>A shard&amp;rsquo;s durable state is its built FIRE segments plus its WAL tail —
+both live under the node&amp;rsquo;s data directory. To take a consistent copy of
+a single-node deployment:&lt;/p></description></item></channel></rss>

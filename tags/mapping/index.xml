@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mapping on INFINI Pizza</title><link>https://pizza.rs/tags/mapping/</link><description>Recent content in Mapping on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/mapping/index.xml" rel="self" type="application/rss+xml"/><item><title>Get index mapping</title><link>https://pizza.rs/docs/references/index/get_mapping/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/index/get_mapping/</guid><description>&lt;h1 id="get-index-mapping">
+ Get index mapping
+ &lt;a class="anchor" href="#get-index-mapping">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns mapping information about one or more indices under the specified collection.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>Get the mapping information of the &lt;code>my-index&lt;/code> index under collection &lt;code>my-collection&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /my-collection/_index/my-index/_mapping
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /&amp;lt;target&amp;gt;/_index/&amp;lt;index&amp;gt;/_mapping
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GET /&amp;lt;target&amp;gt;/_index/_mapping
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path Parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>target&lt;/code> &lt;br>
+(Required, String) Comma-separated, names of the collections to specify (wildcard supported)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>index&lt;/code> &lt;br>
+(Optional, String) Comma-separated, names of the indices to get (wildcard supported)&lt;/p>
+&lt;/li>
+&lt;/ul></description></item></channel></rss>

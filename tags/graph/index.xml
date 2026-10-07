@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Graph on INFINI Pizza</title><link>https://pizza.rs/tags/graph/</link><description>Recent content in Graph on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/graph/index.xml" rel="self" type="application/rss+xml"/><item><title>Traverse query</title><link>https://pizza.rs/docs/references/search/relational/traverse/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/relational/traverse/</guid><description>&lt;h1 id="traverse-query">
+ Traverse query
+ &lt;a class="anchor" href="#traverse-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Term and full-text queries match document &lt;em>content&lt;/em>; none of them can
+ask &amp;ldquo;what is &lt;em>connected&lt;/em> to these documents?&amp;rdquo; — the question citation
+graphs, reference data and knowledge graphs are made of. The traverse
+query answers it: a bounded graph traversal over a &lt;code>relation&lt;/code>-typed
+edge field — starting from seed documents, walk the edges up to
+&lt;code>max_depth&lt;/code> hops and emit every reached node as a hit.&lt;/p>
+&lt;p>Scores encode distance — &lt;code>1.0 / (1.0 + depth)&lt;/code> — so seeds outrank
+1-hop neighbors, which outrank 2-hop neighbors, and the standard top-K
+collector orders the results.&lt;/p></description></item><item><title>Graph projection block</title><link>https://pizza.rs/docs/references/search/relational/graph/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/relational/graph/</guid><description>&lt;h1 id="graph-projection-block">
+ Graph projection block
+ &lt;a class="anchor" href="#graph-projection-block">#&lt;/a>
+&lt;/h1>
+&lt;p>Add a &lt;code>graph&lt;/code> block to any search request and the response carries a
+graph — &lt;code>nodes&lt;/code> and &lt;code>edges&lt;/code> — built from the hit set, alongside the
+normal &lt;code>hits&lt;/code>. Where the 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/traverse/">&lt;code>traverse&lt;/code>&lt;/a> query &lt;em>searches&lt;/em>
+by walking edges, the &lt;code>graph&lt;/code> block &lt;em>renders&lt;/em>: it takes the documents
+a query already found and projects them into a node/edge structure a
+UI (or a GraphRAG pipeline) can consume directly.&lt;/p>
+
+&lt;p class="mermaid">
+graph LR
+ subgraph walk["traverse — searches by walking"]
+ S("seeds") -->|"walk edges&lt;br/>up to max_depth"| H1["hits — every reached node,&lt;br/>scored by distance"]
+ end
+ subgraph render["graph — renders what was found"]
+ Q("any query") --> H2("hit set")
+ H2 -->|"project the relation field"| G["nodes + edges&lt;br/>for a UI or GraphRAG"]
+ end
+&lt;/p></description></item><item><title>Lesson 5 — Graph traversal</title><link>https://pizza.rs/docs/tutorial/graph-traversal/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/tutorial/graph-traversal/</guid><description>&lt;h1 id="lesson-5--graph-traversal">
+ Lesson 5 — Graph traversal
+ &lt;a class="anchor" href="#lesson-5--graph-traversal">#&lt;/a>
+&lt;/h1>
+&lt;p>Relations are the first of the two features that most distinguish Pizza
+from a plain text index: edges as a first-class query target. This
+lesson walks edges &lt;em>inside one collection&lt;/em> — the traversal sections run
+live in the browser widget, and the modeling section at the end is
+&lt;code>curl&lt;/code> against a live node.&lt;/p>
+&lt;p>Graph queries are also the one lesson without a SQL pairing:
+&lt;code>traverse&lt;/code> stays DSL-side — it is demand-gated outside the
+
+ &lt;a href="https://pizza.rs/docs/references/sql/syntax/">SQL M1 subset&lt;/a>, which stops at the
+single-collection statement.&lt;/p></description></item></channel></rss>

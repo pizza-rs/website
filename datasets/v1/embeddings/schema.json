@@ -1,0 +1,22 @@
+{
+  "settings": {},
+  "schema": {
+    "dynamic": "true",
+    "properties": {
+      "topic": {
+        "type": "keyword"
+      },
+      "text": {
+        "type": "text"
+      },
+      "embedding": {
+        "type": "dense_vector",
+        "vector_options": {
+          "dims": 8,
+          "similarity": "cosine",
+          "index_type": "flat"
+        }
+      }
+    }
+  }
+}

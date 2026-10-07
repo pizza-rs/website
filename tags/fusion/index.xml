@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Fusion on INFINI Pizza</title><link>https://pizza.rs/tags/fusion/</link><description>Recent content in Fusion on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/fusion/index.xml" rel="self" type="application/rss+xml"/><item><title>Multi-vector query</title><link>https://pizza.rs/docs/references/search/vector/multi_vector/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/vector/multi_vector/</guid><description>&lt;h1 id="multi-vector-query">
+ Multi-vector query
+ &lt;a class="anchor" href="#multi-vector-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Executes several 
+ &lt;a href="https://pizza.rs/docs/references/search/vector/vector/">&lt;code>vector&lt;/code>&lt;/a> queries — each targeting a
+(potentially different) vector field — and fuses their results into one
+ranking.&lt;/p>
+&lt;p>One document often has more than one useful representation: a title
+embedding and a body embedding, a dense vector and a learned-sparse
+vector, an image embedding beside its caption. A single &lt;code>vector&lt;/code> query
+can read only one of them; this query runs them all and merges the
+rankings.&lt;/p></description></item></channel></rss>

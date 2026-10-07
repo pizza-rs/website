@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Installation on INFINI Pizza</title><link>https://pizza.rs/tags/installation/</link><description>Recent content in Installation on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/installation/index.xml" rel="self" type="application/rss+xml"/><item><title>Installation</title><link>https://pizza.rs/docs/getting-started/installation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/getting-started/installation/</guid><description>&lt;h1 id="installation">
+ Installation
+ &lt;a class="anchor" href="#installation">#&lt;/a>
+&lt;/h1>
+&lt;p>Pizza is compatible with all major operating systems. The package is
+compiled statically, and it does not require any external dependencies.&lt;/p>
+&lt;h2 id="automatic-installation">
+ Automatic installation
+ &lt;a class="anchor" href="#automatic-installation">#&lt;/a>
+&lt;/h2>
+&lt;p>Use the following command to automatically download the latest version of INFINI
+Pizza for your platform and extract it into &lt;code>/opt/pizza&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">curl -sSL https://get.infini.cloud &lt;span class="p">|&lt;/span> bash -s -- -p pizza
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>The optional parameters for the script are as follows:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>-v &amp;lt;version number&amp;gt;&lt;/code> (default is the latest version)&lt;/li>
+&lt;li>&lt;code>-d &amp;lt;installation directory&amp;gt;&lt;/code> (default is &lt;code>/opt/pizza&lt;/code>)&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;h2 id="manual-installation">
+ Manual installation
+ &lt;a class="anchor" href="#manual-installation">#&lt;/a>
+&lt;/h2>
+&lt;p>Visit the URL below to download the package for your operating system:&lt;/p></description></item><item><title>Pizza CLI</title><link>https://pizza.rs/docs/getting-started/cli/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/getting-started/cli/</guid><description>&lt;h1 id="pizza-cli">
+ Pizza CLI
+ &lt;a class="anchor" href="#pizza-cli">#&lt;/a>
+&lt;/h1>
+&lt;p>The Pizza Command Line Interface (CLI) is a tool designed to facilitate quick and interactive communication with the Pizza server.
+It provides a convenient way for users to perform various tasks, such as querying data, managing configurations, and monitoring system status,
+directly from the command line.&lt;/p>
+&lt;p>
+ &lt;asciinema-player
+ src="https://pizza.rs/cast/pizza-cli.cast"
+ cols="640"
+ rows="30"
+ 
+ autoplay="1"
+ preload="1"
+ 
+ start-at="0"
+ speed="2"
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ >&lt;/asciinema-player>
+&lt;/p>
+
+&lt;h2 id="features">
+ Features
+ &lt;a class="anchor" href="#features">#&lt;/a>
+&lt;/h2>
+&lt;h3 id="interactive-querying">
+ Interactive Querying
+ &lt;a class="anchor" href="#interactive-querying">#&lt;/a>
+&lt;/h3>
+&lt;p>The Pizza CLI allows users to execute queries against the Pizza server interactively. Users can enter commands and receive immediate feedback, enabling rapid exploration and analysis of data.&lt;/p></description></item></channel></rss>

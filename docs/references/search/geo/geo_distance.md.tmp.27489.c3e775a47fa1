@@ -1,0 +1,133 @@
+---
+title: Geo-distance query
+weight: 11
+category: Search
+subcategory: Geo
+tags:
+  - geo
+  - distance
+  - query
+---
+
+# Geo-distance query
+
+Matches documents whose `geo_point` field lies within a great-circle
+distance of a centre point. Distances are in metres.
+
+This is the "find me things nearby" query: given one centre and one
+radius, it returns exactly the documents inside that disc on the
+sphere — the shape behind store locators, delivery zones and proximity
+alerts.
+
+## How it works
+
+The field is the same two-dimensional `(lat, lon)` BKD tree the other
+geo queries use (points indexed in any of the three ingest forms —
+object, `[lon, lat]` array, `"lat,lon"` string). Execution is
+two-phase:
+
+1. **Bounding-box prefilter.** The disc is approximated by the
+   rectangle that contains it: latitude span `d / R` degrees either
+   side of the centre, longitude span divided by `cos(lat)` to account
+   for meridians converging toward the poles. The BKD tree is range-
+   walked over that rectangle. When the disc touches a pole or would
+   wrap the antimeridian, the longitude span saturates to the full
+   `[-180, 180]` range — the prefilter then over-selects but never
+   misses a hit.
+2. **Exact haversine check.** Each surviving point is measured with
+   the haversine formula on a spherical Earth of mean radius
+   `R = 6 371 008.8` m:
+
+   ```
+   a = sin²(Δlat / 2) + cos(lat₁) · cos(lat₂) · sin²(Δlon / 2)
+   d = 2R · atan2(√a, √(1 − a))
+   ```
+
+   A document matches when `d <= distance_meters` — a point exactly on
+   the circle counts as inside.
+
+The spherical model is about `0.5 %` off the WGS-84 ellipsoid —
+plenty for city- and region-scale search, but not for surveying.
+
+The gateway also accepts a unit-suffixed `distance` key:
+`{"geo_distance": {"distance": "100km", "location":
+{"lat": .., "lon": ..}}}` understands `km`, `m`, `cm`, `mm`, `mi`,
+`yd`, `ft`, `in` and `nmi`; options such as `distance_type` are
+accepted for compatibility and ignored.
+
+## Examples
+
+Five hundred kilometres around central Beijing `(39.9, 116.4)`
+matches the two Beijing places — `beijing store` at ~0.8 km and
+`beijing north` at ~11.4 km. The next nearest place in the dataset
+(Xi'an) is over 900 km away.
+
+{{< playground dataset="places" dsl=`{
+  "query": {
+    "geo_distance": {
+      "field": "location",
+      "lat": 39.9,
+      "lon": 116.4,
+      "distance_meters": 500000
+    }
+  },
+  "size": 3,
+  "track_total_hits": true
+}` >}}
+
+```sh
+POST /my-collection/_search
+{
+  "query": {
+    "geo_distance": {
+      "field": "location",
+      "lat": 40.73,
+      "lon": -74.1,
+      "distance_meters": 200000
+    }
+  }
+}
+```
+
+## Use cases
+
+- **Store locator / nearby search.** The user's coordinate as the
+  centre, a walk- or drive-distance radius as the bound; sort the
+  matches by an ascending
+  [`geo-distance` bucket](../../aggregation/bucket/geo-distance-bucket.md)
+  to build "within 1 km / 5 km / 20 km" facets.
+- **Delivery and service geofences.** "Is this order address inside a
+  5 km delivery disc?" is a distance query with the zone's radius as
+  the bound; combine several with `bool` `should` for multi-centre
+  coverage.
+- **Proximity alerting.** Streams of events (a vehicle, an IoT fix)
+  filtered against fixed centres — the bounding-box prefilter keeps
+  the per-event cost to one tree range plus a handful of haversines.
+- **Local ranking.** Use it as a `bool` `filter` clause under a text
+  or vector query, so relevance ranks only what is geographically
+  eligible.
+
+## Parameters for `geo_distance`
+
+- `field` \
+  (Required, string) The `geo_point` field to filter on.
+- `lat` \
+  (Required, number) Centre latitude in WGS-84 degrees (`[-90, 90]`).
+- `lon` \
+  (Required, number) Centre longitude in WGS-84 degrees
+  (`[-180, 180]`).
+- `distance_meters` \
+  (Required, number) Maximum great-circle distance from the centre, in
+  metres (`>= 0`).
+
+## Related
+
+- [`geo_bounding_box`](geo_bounding_box.md) — the rectangular
+  counterpart; cheaper when the region is a box.
+- [`geo_polygon`](geo_polygon.md) — irregular service areas with
+  straight-edge boundaries.
+- [`geo_shape`](geo_shape.md) — geometry-on-geometry matching.
+- [`geo-distance` aggregation](../../aggregation/bucket/geo-distance-bucket.md)
+  — distance rings as buckets over any query's results.
+- [`geo-centroid` aggregation](../../aggregation/metric/geo-centroid.md)
+  — the mean position of the matched points.

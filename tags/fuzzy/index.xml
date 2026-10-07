@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Fuzzy on INFINI Pizza</title><link>https://pizza.rs/tags/fuzzy/</link><description>Recent content in Fuzzy on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/fuzzy/index.xml" rel="self" type="application/rss+xml"/><item><title>Fuzzy query</title><link>https://pizza.rs/docs/references/search/term-level/fuzzy/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/fuzzy/</guid><description>&lt;h1 id="fuzzy-query">
+ Fuzzy query
+ &lt;a class="anchor" href="#fuzzy-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain terms similar to the search term, within
+the maximum edit distance (Levenshtein — with transpositions counting
+as a single edit by default).&lt;/p>
+&lt;p>Use it when the indexed terms are only approximately known: typos in
+identifiers, OCR noise, or human-entered names.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The value is expanded against the inverted index&amp;rsquo;s &lt;strong>term dictionary&lt;/strong>
+by edit distance, then the survivors&amp;rsquo; postings are unioned like a
+&lt;code>should&lt;/code> of 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> queries. The engine takes the &lt;strong>union&lt;/strong> of
+three resolution passes — the value recorded as an exact term, a
+whole-value fuzzy walk, and (on non-keyword fields) a per-token walk
+after running the field&amp;rsquo;s search analyzer over the value — so the query
+works on keyword fields and on analyzed text alike (the per-token pass
+matters for CJK and multi-word input). On &lt;code>keyword&lt;/code> fields the raw
+value is used, with the field&amp;rsquo;s normalizer applied first and no
+tokenization.&lt;/p></description></item></channel></rss>

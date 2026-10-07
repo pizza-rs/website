@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pizza.yml on INFINI Pizza</title><link>https://pizza.rs/tags/pizza.yml/</link><description>Recent content in Pizza.yml on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/pizza.yml/index.xml" rel="self" type="application/rss+xml"/><item><title>Configuration file reference</title><link>https://pizza.rs/docs/references/configuration/pizza_yml/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/configuration/pizza_yml/</guid><description>&lt;h1 id="configuration-file-reference">
+ Configuration file reference
+ &lt;a class="anchor" href="#configuration-file-reference">#&lt;/a>
+&lt;/h1>
+&lt;p>&lt;code>pizza.yml&lt;/code> (the default lookup path, override with &lt;code>-c/--config &amp;lt;file&amp;gt;&lt;/code>)
+is read once at startup. Unknown keys are &lt;strong>rejected&lt;/strong> — the node refuses
+to start on a typo, and on a key that was renamed in an upgrade.
+Individual keys can be overridden per launch with
+&lt;code>pizza -E &amp;lt;key&amp;gt;=&amp;lt;value&amp;gt;&lt;/code> (repeatable; values parse as YAML, e.g.
+&lt;code>-E node.network.binding=127.0.0.1:12200&lt;/code>).&lt;/p>
+&lt;h2 id="secret-values">
+ Secret values
+ &lt;a class="anchor" href="#secret-values">#&lt;/a>
+&lt;/h2>
+&lt;p>API keys and tokens do not have to live in the file. Any string value
+may reference an environment variable, resolved at startup:&lt;/p></description></item></channel></rss>

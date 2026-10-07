@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Derivative on INFINI Pizza</title><link>https://pizza.rs/tags/derivative/</link><description>Recent content in Derivative on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/derivative/index.xml" rel="self" type="application/rss+xml"/><item><title>Derivative aggregation</title><link>https://pizza.rs/docs/references/aggregation/pipeline/derivative/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/pipeline/derivative/</guid><description>&lt;h1 id="derivative-aggregation">
+ Derivative aggregation
+ &lt;a class="anchor" href="#derivative-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A parent pipeline aggregation computing the &lt;strong>difference&lt;/strong> between each
+bucket&amp;rsquo;s metric and the previous bucket&amp;rsquo;s — &amp;ldquo;how much did it change&amp;rdquo;.
+A time series says where you are; the derivative says which way and
+how fast you are moving, bucket by bucket. The first bucket has no
+predecessor and answers &lt;code>null&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;delta&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;derivative&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;buckets_path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;revenue&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>derivative&lt;/code> is declared &lt;strong>inside&lt;/strong> the multi-bucket aggregation it
+decorates (the parent style), next to the metric it consumes. After
+the buckets are built, the engine walks them in order and attaches
+&lt;code>current − previous&lt;/code> to each bucket under the pipeline&amp;rsquo;s own name:&lt;/p></description></item></channel></rss>

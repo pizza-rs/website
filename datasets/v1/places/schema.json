@@ -1,0 +1,20 @@
+{
+  "settings": {},
+  "schema": {
+    "dynamic": "true",
+    "properties": {
+      "name": {
+        "type": "keyword"
+      },
+      "city": {
+        "type": "keyword"
+      },
+      "location": {
+        "type": "geo_point"
+      },
+      "region": {
+        "type": "geo_shape"
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Restore on INFINI Pizza</title><link>https://pizza.rs/tags/restore/</link><description>Recent content in Restore on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/restore/index.xml" rel="self" type="application/rss+xml"/><item><title>Backup and restore</title><link>https://pizza.rs/docs/administration/backup/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/administration/backup/</guid><description>&lt;h1 id="backup-and-restore">
+ Backup and restore
+ &lt;a class="anchor" href="#backup-and-restore">#&lt;/a>
+&lt;/h1>
+&lt;p>Pizza does not have a first-class backup/restore HTTP API yet — this page
+describes what exists today and the supported manual procedure.&lt;/p>
+&lt;h2 id="what-exists-today">
+ What exists today
+ &lt;a class="anchor" href="#what-exists-today">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Raft metadata snapshots.&lt;/strong> The catalog&amp;rsquo;s Raft log is periodically
+snapshotted (&lt;code>node.snapshot_per_events&lt;/code>), so cluster metadata
+(namespaces, collections, schemas, shard routing) has its own
+durability story independent of the data plane.&lt;/li>
+&lt;li>&lt;strong>The trash.&lt;/strong> Deleting a namespace or a collection (or replacing
+shards) only touches metadata: the data directories are moved into
+&lt;code>&amp;lt;data_path&amp;gt;/trash/&lt;/code> and physically deleted by a background sweeper
+only after &lt;code>trash.retention_secs&lt;/code> (default 1 day) elapses. A deleted
+namespace is captured as ONE item with a restore snapshot per
+collection, so the whole namespace — all collections, original shard
+placements included — can be brought back via the
+
+ &lt;a href="https://pizza.rs/docs/references/trash/">Trash APIs&lt;/a>. Every restore is
+preceded by a read-only shard-completeness verification, and a restore
+whose data is provably incomplete is refused rather than silently
+coming back empty. This gives a grace window against accidental
+deletes, not a backup.&lt;/li>
+&lt;/ul>
+&lt;h2 id="manual-backup">
+ Manual backup
+ &lt;a class="anchor" href="#manual-backup">#&lt;/a>
+&lt;/h2>
+&lt;p>A shard&amp;rsquo;s durable state is its built FIRE segments plus its WAL tail —
+both live under the node&amp;rsquo;s data directory. To take a consistent copy of
+a single-node deployment:&lt;/p></description></item><item><title>Restore a trash item</title><link>https://pizza.rs/docs/references/trash/restore/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/trash/restore/</guid><description>&lt;h1 id="restore-a-trash-item">
+ Restore a trash item
+ &lt;a class="anchor" href="#restore-a-trash-item">#&lt;/a>
+&lt;/h1>
+&lt;p>Restore a trashed collection — or a whole deleted namespace — back into
+the cluster, cluster-coordinated: every holder node moves its copy of
+the data back, the metadata is re-registered through Raft with the
+ORIGINAL collection/rolling/shard UUIDs, and the recorded shard
+placements are replayed so every engine re-opens its original working
+directory with all documents.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>Restore a deleted namespace under a new name (every collection comes
+back inside it):&lt;/p></description></item><item><title>Cluster-wide recycle bin</title><link>https://pizza.rs/docs/highlightings/cluster-trash/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/cluster-trash/</guid><description>&lt;h1 id="cluster-wide-recycle-bin">
+ Cluster-wide recycle bin
+ &lt;a class="anchor" href="#cluster-wide-recycle-bin">#&lt;/a>
+&lt;/h1>
+&lt;p>Accidental deletes used to be a race against the sweeper: deleting a
+namespace only dropped metadata, and the data directories drifted into
+the trash WITHOUT a recovery snapshot — permanently unrestorable. The
+recycle bin is now a first-class, cluster-wide surface with a
+namespace-centric view, a pre-restore integrity check, and one-request
+restore:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># One cluster-wide list — every node&amp;#39;s trash merged by item, grouped by&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># namespace, with the delete-time snapshot summary of each item.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GET /_cluster/trash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Deleting a namespace captures a restore snapshot for every collection it
+contains, so the WHOLE namespace comes back as a unit — original
+schemas, shard UUIDs, partition routing and placements included:&lt;/p></description></item><item><title>Trash APIs</title><link>https://pizza.rs/docs/references/trash/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/trash/</guid><description>&lt;h1 id="trash-apis">
+ Trash APIs
+ &lt;a class="anchor" href="#trash-apis">#&lt;/a>
+&lt;/h1>
+&lt;p>The trash (recycle bin) is node-local filesystem state — deleted
+namespaces and collections are moved into &lt;code>&amp;lt;data_path&amp;gt;/trash/&lt;/code> and
+physically deleted only after &lt;code>trash.retention_secs&lt;/code> elapses. These
+cluster-level APIs aggregate every node&amp;rsquo;s trash on the server side and
+give you one namespace-centric view, a read-only shard-completeness
+verification, and cluster-wide restore/purge:&lt;/p>
+&lt;ul>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/trash/list/">List the cluster trash&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/trash/verify/">Verify a trash item&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/trash/restore/">Restore a trash item&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/trash/delete-item/">Delete a trash item everywhere&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/trash/empty/">Empty the trash everywhere&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Deleting a &lt;strong>namespace&lt;/strong> (&lt;code>DELETE /_namespace/&amp;lt;name&amp;gt;&lt;/code>) now moves the
+whole namespace — every collection, with a restore snapshot per
+collection — into the trash as a single item; restoring it brings back
+all collections with their original schemas, shard UUIDs and placements.
+Deleting a &lt;strong>collection&lt;/strong> keeps the per-collection behavior it always
+had.&lt;/p></description></item></channel></rss>

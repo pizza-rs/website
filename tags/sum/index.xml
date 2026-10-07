@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Sum on INFINI Pizza</title><link>https://pizza.rs/tags/sum/</link><description>Recent content in Sum on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/sum/index.xml" rel="self" type="application/rss+xml"/><item><title>Sum aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/sum/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/sum/</guid><description>&lt;h1 id="sum-aggregation">
+ Sum aggregation
+ &lt;a class="anchor" href="#sum-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-value metrics aggregation that sums up numeric values that are
+extracted from the aggregated documents. It turns &amp;ldquo;how much in total&amp;rdquo; into
+one number — revenue, bytes, durations, counts of units — without shipping
+the matching documents anywhere.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine walks the matching documents once, adding each value to a running
+total. Values are coerced to doubles as they are read — integers, floats and
+booleans (&lt;code>true&lt;/code> = 1, &lt;code>false&lt;/code> = 0) contribute, non-numeric values such as
+keyword strings do not.&lt;/p></description></item></channel></rss>

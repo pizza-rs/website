@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rate on INFINI Pizza</title><link>https://pizza.rs/tags/rate/</link><description>Recent content in Rate on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/rate/index.xml" rel="self" type="application/rss+xml"/><item><title>Rate aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/rate/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/rate/</guid><description>&lt;h1 id="rate-aggregation">
+ Rate aggregation
+ &lt;a class="anchor" href="#rate-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-value metrics aggregation that reduces a numeric field inside
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/bucket/date-histogram/">&lt;code>date_histogram&lt;/code>&lt;/a> buckets (per-interval
+totals), intended for counters that accumulate over time.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>rate&lt;/code> reads one field and reduces it per bucket, with three reduction
+modes selected by &lt;code>mode&lt;/code>:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>sum&lt;/code> (default) — the bucket&amp;rsquo;s total of the field; identical to
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/sum/">&lt;code>sum&lt;/code>&lt;/a>.&lt;/li>
+&lt;li>&lt;code>value_count&lt;/code> — how many values the field has in the bucket.&lt;/li>
+&lt;li>&lt;code>avg&lt;/code> — the bucket&amp;rsquo;s mean of the field.&lt;/li>
+&lt;/ul>
+&lt;p>If &lt;code>field&lt;/code> is omitted entirely, the aggregation counts the documents in
+the bucket (the &lt;code>value_count&lt;/code> shape over &lt;code>_doc&lt;/code>).&lt;/p></description></item></channel></rss>

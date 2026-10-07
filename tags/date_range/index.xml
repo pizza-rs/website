@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Date_range on INFINI Pizza</title><link>https://pizza.rs/tags/date_range/</link><description>Recent content in Date_range on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/date_range/index.xml" rel="self" type="application/rss+xml"/><item><title>Date range aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/date-range/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/date-range/</guid><description>&lt;h1 id="date-range-aggregation">
+ Date range aggregation
+ &lt;a class="anchor" href="#date-range-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-bucket aggregation like 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/bucket/range/">&lt;code>range&lt;/code>&lt;/a>, but for date
+fields. Each bucket is a from/to period you name — &amp;ldquo;before the launch&amp;rdquo;,
+&amp;ldquo;launch week&amp;rdquo;, &amp;ldquo;after&amp;rdquo; — which is the shape reporting questions
+naturally take, rather than the uniform grid of
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/bucket/date-histogram/">&lt;code>date_histogram&lt;/code>&lt;/a>.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Bounds are epoch milliseconds: &lt;code>from&lt;/code> accepts a number (or a numeric
+string) and is inclusive, &lt;code>to&lt;/code> is exclusive, and either may be omitted
+for an open-ended period. Date strings like &lt;code>&amp;quot;2024-06-04&amp;quot;&lt;/code> are not
+parsed by the aggregation — convert them to epoch millis first (the
+teaching examples below show the constants).&lt;/p></description></item></channel></rss>

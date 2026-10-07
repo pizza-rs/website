@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Text on INFINI Pizza</title><link>https://pizza.rs/tags/text/</link><description>Recent content in Text on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/text/index.xml" rel="self" type="application/rss+xml"/><item><title>Lesson 2 — Text search</title><link>https://pizza.rs/docs/tutorial/text-search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/tutorial/text-search/</guid><description>&lt;h1 id="lesson-2--text-search">
+ Lesson 2 — Text search
+ &lt;a class="anchor" href="#lesson-2--text-search">#&lt;/a>
+&lt;/h1>
+&lt;p>How text actually matches: analysis, exact terms, phrases, and the
+error-tolerant family. Everything below runs live on the &lt;code>logs&lt;/code> collection
+(150 documents with &lt;code>message&lt;/code>, &lt;code>level&lt;/code>, &lt;code>host&lt;/code>, &lt;code>url.path&lt;/code>).&lt;/p>
+&lt;h2 id="the-use-case">
+ The use case
+ &lt;a class="anchor" href="#the-use-case">#&lt;/a>
+&lt;/h2>
+&lt;p>The search box in front of users — application logs, product
+descriptions, support tickets. Users type in one casing, with typos,
+and your data is cased differently; the craft is choosing the right
+amount of looseness per question:&lt;/p></description></item></channel></rss>

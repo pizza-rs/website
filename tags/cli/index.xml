@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cli on INFINI Pizza</title><link>https://pizza.rs/tags/cli/</link><description>Recent content in Cli on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/cli/index.xml" rel="self" type="application/rss+xml"/><item><title>Pizza CLI</title><link>https://pizza.rs/docs/getting-started/cli/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/getting-started/cli/</guid><description>&lt;h1 id="pizza-cli">
+ Pizza CLI
+ &lt;a class="anchor" href="#pizza-cli">#&lt;/a>
+&lt;/h1>
+&lt;p>The Pizza Command Line Interface (CLI) is a tool designed to facilitate quick and interactive communication with the Pizza server.
+It provides a convenient way for users to perform various tasks, such as querying data, managing configurations, and monitoring system status,
+directly from the command line.&lt;/p>
+&lt;p>
+ &lt;asciinema-player
+ src="https://pizza.rs/cast/pizza-cli.cast"
+ cols="640"
+ rows="30"
+ 
+ autoplay="1"
+ preload="1"
+ 
+ start-at="0"
+ speed="2"
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ >&lt;/asciinema-player>
+&lt;/p>
+
+&lt;h2 id="features">
+ Features
+ &lt;a class="anchor" href="#features">#&lt;/a>
+&lt;/h2>
+&lt;h3 id="interactive-querying">
+ Interactive Querying
+ &lt;a class="anchor" href="#interactive-querying">#&lt;/a>
+&lt;/h3>
+&lt;p>The Pizza CLI allows users to execute queries against the Pizza server interactively. Users can enter commands and receive immediate feedback, enabling rapid exploration and analysis of data.&lt;/p></description></item></channel></rss>

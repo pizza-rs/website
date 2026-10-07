@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Top_hits on INFINI Pizza</title><link>https://pizza.rs/tags/top_hits/</link><description>Recent content in Top_hits on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/top_hits/index.xml" rel="self" type="application/rss+xml"/><item><title>Top hits aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/top-hits/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/top-hits/</guid><description>&lt;h1 id="top-hits-aggregation">
+ Top hits aggregation
+ &lt;a class="anchor" href="#top-hits-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>Keeps track of the most relevant documents being aggregated — useful
+inside a bucket aggregation (e.g. &lt;code>terms&lt;/code>) to return the best-matching
+documents per bucket. Where most metric aggs reduce a bucket to one
+number, &lt;code>top_hits&lt;/code> keeps the documents themselves.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>top_hits&lt;/code> runs over a bucket&amp;rsquo;s document set and returns up to &lt;code>size&lt;/code>
+documents in a hits envelope: &lt;code>hits.total&lt;/code> — a plain count
+of the bucket&amp;rsquo;s documents — and &lt;code>hits.hits[]&lt;/code>, each entry carrying
+&lt;code>_id&lt;/code> (the engine&amp;rsquo;s internal numeric document id) and &lt;code>_source&lt;/code>.&lt;/p></description></item></channel></rss>

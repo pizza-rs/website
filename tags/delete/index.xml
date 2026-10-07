@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Delete on INFINI Pizza</title><link>https://pizza.rs/tags/delete/</link><description>Recent content in Delete on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/delete/index.xml" rel="self" type="application/rss+xml"/><item><title>Delete an index</title><link>https://pizza.rs/docs/references/index/delete/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/index/delete/</guid><description>&lt;h1 id="delete-an-index">
+ Delete an index
+ &lt;a class="anchor" href="#delete-an-index">#&lt;/a>
+&lt;/h1>
+&lt;p>Deletes an existing index under a collection.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>The following request deletes the index called &lt;code>my-index&lt;/code> under collection
+&lt;code>my-namespace:my-collection&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">DELETE /my-namespace:my-collection/_index/my-index
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">DELETE /&amp;lt;target&amp;gt;/_index/&amp;lt;name&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>&amp;lt;target&amp;gt;&lt;/code> &lt;br>
+(Required, string) The collection which the index will be removed from.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>&amp;lt;name&amp;gt;&lt;/code> &lt;br>
+(Required, string) Name of the index you wish to delete.&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>Delete a collection</title><link>https://pizza.rs/docs/references/collection/delete/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/collection/delete/</guid><description>&lt;h1 id="delete-a-collection">
+ Delete a collection
+ &lt;a class="anchor" href="#delete-a-collection">#&lt;/a>
+&lt;/h1>
+&lt;p>Delete an existing collection.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>The following request deletes the collection called &lt;code>my-collection&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">DELETE my-collection
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">DELETE /&lt;span class="o">[&lt;/span>&amp;lt;namespace&amp;gt;:&lt;span class="o">]&lt;/span>&amp;lt;name&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path Parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>&amp;lt;namespace&amp;gt;&lt;/code> &lt;br>
+(Optional, string) The namespace which the collection belongs to.&lt;/li>
+&lt;li>&lt;code>&amp;lt;name&amp;gt;&lt;/code> &lt;br>
+(Required, string) Name of the collection you wish to delete.&lt;/li>
+&lt;/ul></description></item><item><title>Delete a namespace</title><link>https://pizza.rs/docs/references/namespace/delete/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/namespace/delete/</guid><description>&lt;h1 id="delete-a-namespace">
+ Delete a namespace
+ &lt;a class="anchor" href="#delete-a-namespace">#&lt;/a>
+&lt;/h1>
+&lt;p>Delete an existing namespace.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>The following request delete the namespace called &lt;code>website&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">DELETE /_namespace/website
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">DELETE /_namespace/&amp;lt;name&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>/_ns/&amp;lt;name&amp;gt;&lt;/code> is accepted as a shorter alias.&lt;/p>
+&lt;h3 id="path-parameters">
+ Path parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>&amp;lt;name&amp;gt;&lt;/code> &lt;br>
+(Required, string) The name of the namespace that you want to delete.&lt;/li>
+&lt;/ul>
+&lt;h2 id="response">
+ Response
+ &lt;a class="anchor" href="#response">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;acknowledged&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="trash-semantics">
+ Trash semantics
+ &lt;a class="anchor" href="#trash-semantics">#&lt;/a>
+&lt;/h2>
+&lt;p>Deleting a namespace moves the WHOLE namespace into the trash: every
+collection&amp;rsquo;s data directory is retained under &lt;code>&amp;lt;data_path&amp;gt;/trash/&lt;/code>
+together with a namespace-level restore snapshot (one snapshot per
+collection — schemas, shard UUIDs, partition routing, placements). The
+sweeper physically deletes it after &lt;code>trash.retention_secs&lt;/code>.&lt;/p></description></item><item><title>Delete a trash item everywhere</title><link>https://pizza.rs/docs/references/trash/delete-item/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/trash/delete-item/</guid><description>&lt;h1 id="delete-a-trash-item-everywhere">
+ Delete a trash item everywhere
+ &lt;a class="anchor" href="#delete-a-trash-item-everywhere">#&lt;/a>
+&lt;/h1>
+&lt;p>Physically delete one trash item on every node that still holds it,
+without waiting for the retention window. This cannot be undone.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /_cluster/trash/1788916375_namespace-website/delete
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;deleted&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nt">&amp;#34;item&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;1788916375_namespace-website&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nt">&amp;#34;nodes&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /_cluster/trash/&amp;lt;item&amp;gt;/delete
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>&amp;lt;item&amp;gt;&lt;/code> &lt;br>
+(Required, string) The trash item name, as listed by
+
+ &lt;a href="https://pizza.rs/docs/references/trash/list/">List the cluster trash&lt;/a>.&lt;/li>
+&lt;/ul></description></item><item><title>Empty the trash everywhere</title><link>https://pizza.rs/docs/references/trash/empty/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/trash/empty/</guid><description>&lt;h1 id="empty-the-trash-everywhere">
+ Empty the trash everywhere
+ &lt;a class="anchor" href="#empty-the-trash-everywhere">#&lt;/a>
+&lt;/h1>
+&lt;p>Physically delete every trashed item on every node, without waiting for
+the retention window. This cannot be undone.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /_cluster/trash/empty
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;nodes&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nt">&amp;#34;removed&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">5&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">POST /_cluster/trash/empty
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Delete a document</title><link>https://pizza.rs/docs/references/document/delete/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/document/delete/</guid><description>&lt;h1 id="delete-a-document">
+ Delete a document
+ &lt;a class="anchor" href="#delete-a-document">#&lt;/a>
+&lt;/h1>
+&lt;p>Delete a specific document from the specified collection by specifying its unique identifier.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>Delete the document &lt;code>0,0&lt;/code> from collection &lt;code>my-collection&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">DELETE /my-collection/_doc/0,0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The API returns the following result:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;0,0&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;_version&amp;#34;&lt;/span>: 0,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;result&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;deleted&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Deleting a document again (or fetching it after deletion) answers
+&lt;code>404&lt;/code> with &lt;code>&amp;quot;result&amp;quot;: &amp;quot;not_found&amp;quot;&lt;/code> — the delete itself still succeeds
+and reports &lt;code>&amp;quot;result&amp;quot;: &amp;quot;deleted&amp;quot;&lt;/code> only for a document that was live.&lt;/p></description></item></channel></rss>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Playground on INFINI Pizza</title><link>https://pizza.rs/tags/playground/</link><description>Recent content in Playground on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/playground/index.xml" rel="self" type="application/rss+xml"/><item><title>Playground</title><link>https://pizza.rs/docs/playground/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/playground/</guid><description>&lt;h1 id="playground">
+ Playground
+ &lt;a class="anchor" href="#playground">#&lt;/a>
+&lt;/h1>
+&lt;p>Search the teaching dataset right on this page — the Pizza engine compiled
+to WebAssembly runs in your browser, and nothing you type leaves the page.
+Queries use Pizza&amp;rsquo;s 
+ &lt;a href="https://pizza.rs/docs/references/api_convention/#canonical-query-syntax-and-elasticsearch-tolerance">canonical DSL&lt;/a>,
+and the results are engine-level output (no gateway envelope: no &lt;code>_key&lt;/code>,
+&lt;code>_shards&lt;/code> or &lt;code>_collection&lt;/code> wrappers; the engine&amp;rsquo;s &lt;code>parsed_query&lt;/code> plan
+string appears only behind the result panel&amp;rsquo;s debug 🐛 toggle).&lt;/p>
+&lt;p>Flip the editor to &lt;strong>SQL&lt;/strong> to run SELECT statements through the engine&amp;rsquo;s
+
+ &lt;a href="https://pizza.rs/docs/references/sql/">SQL frontend&lt;/a> — the same parse/lower/shape
+path the &lt;code>/_sql&lt;/code> gateway wire rides. The example chips load per-dataset
+statements covering the subset (filters, &lt;code>MATCH&lt;/code>/&lt;code>SCORE()&lt;/code>/&lt;code>HIGHLIGHT&lt;/code>,
+&lt;code>KNN&lt;/code>, &lt;code>CASE&lt;/code>, scalar functions, &lt;code>GROUP BY&lt;/code> with &lt;code>DATE_TRUNC&lt;/code>/&lt;code>HISTOGRAM&lt;/code>
+bucketing, &lt;code>COUNT(DISTINCT)&lt;/code>, &lt;code>$1&lt;/code> parameters, an &lt;code>EXPLAIN&lt;/code> chip showing
+the compiled DSL plan — and one deliberately rejected statement to show
+a positioned plan error). SQL answers render as
+the gateway&amp;rsquo;s frozen &lt;code>columns&lt;/code>/&lt;code>rows&lt;/code> envelope — a typed table, with a
+raw JSON view one click away. The &lt;strong>composite cursor walk&lt;/strong> chip shows
+keyset paging: a full grouped page hands back a cursor, and &lt;em>Next page&lt;/em>
+resubmits the identical statement with it — exactly what &lt;code>/_sql&lt;/code>&amp;rsquo;s
+&lt;code>cursor&lt;/code> request field does.&lt;/p></description></item></channel></rss>

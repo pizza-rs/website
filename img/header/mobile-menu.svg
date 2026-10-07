@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>253列表视图、菜单</title>
+    <g id="网站-移动" stroke="none" stroke-width="1" fill="#ffffff" fill-rule="evenodd">
+        <g id="菜单" transform="translate(-350.000000, -23.000000)" fill="#ffffff" fill-rule="nonzero">
+            <g id="253列表视图、菜单" transform="translate(350.000000, 23.000000)">
+                <rect id="矩形" opacity="0" x="0" y="0" width="24" height="24"></rect>
+                <path d="M21.6,5.46666667 L3.2,5.46666667 L3.2,2.4 L21.6,2.4 L21.6,5.46666667 Z M21.6,10.0666667 L3.2,10.0666667 L3.2,13.1333333 L21.6,13.1333333 L21.6,10.0666667 Z M21.6,17.7333333 L3.2,17.7333333 L3.2,20.8 L21.6,20.8 L21.6,17.7333333 Z" id="形状"></path>
+            </g>
+        </g>
+    </g>
+</svg>

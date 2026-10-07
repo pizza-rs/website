@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Term on INFINI Pizza</title><link>https://pizza.rs/tags/term/</link><description>Recent content in Term on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/term/index.xml" rel="self" type="application/rss+xml"/><item><title>Term query</title><link>https://pizza.rs/docs/references/search/term-level/term/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/term/</guid><description>&lt;h1 id="term-query">
+ Term query
+ &lt;a class="anchor" href="#term-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain an &lt;strong>exact&lt;/strong> term in a provided field.&lt;/p>
+&lt;p>You can use the term query to find documents based on a precise value such as a
+price, a product ID, or a username. It is also the atom the rest of the
+term-level family resolves to: 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/terms/">&lt;code>terms&lt;/code>&lt;/a> expands into a &lt;code>should&lt;/code> of
+&lt;code>term&lt;/code> clauses, and prefix / wildcard / regexp / fuzzy all resolve to term
+sets before execution.&lt;/p></description></item></channel></rss>

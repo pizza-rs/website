@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Similarity on INFINI Pizza</title><link>https://pizza.rs/tags/similarity/</link><description>Recent content in Similarity on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/similarity/index.xml" rel="self" type="application/rss+xml"/><item><title>More like this query</title><link>https://pizza.rs/docs/references/search/specialized/more_like_this/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/specialized/more_like_this/</guid><description>&lt;h1 id="more-like-this-query">
+ More like this query
+ &lt;a class="anchor" href="#more-like-this-query">#&lt;/a>
+&lt;/h1>
+&lt;p>&lt;code>more_like_this&lt;/code> finds documents similar to given text or documents.
+The engine extracts the input&amp;rsquo;s terms, keeps the significant ones, and
+runs the resulting top terms as a disjunctive query — a &amp;ldquo;find more of
+this&amp;rdquo; query without any embedding model.&lt;/p>
+&lt;p>&lt;code>fields&lt;/code> is required and limited to text fields.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The query is rewritten at the search entry point — it is a client of
+the analysis and term pipeline, not an index structure. Per field:
+gather the &lt;code>like&lt;/code> text (free text is
+analyzed with the first field&amp;rsquo;s analyzer; a referenced document
+contributes the text of every query field), tokenize it, drop terms
+below &lt;code>min_term_freq&lt;/code>, outside the word-length bounds, or listed in
+&lt;code>stop_words&lt;/code>, and remove every term the &lt;code>unlike&lt;/code> inputs produced.
+The surviving terms from all fields are pooled, ranked by source term
+frequency (ties broken alphabetically for determinism), and the top
+&lt;code>max_query_terms&lt;/code> become a &lt;code>bool.should&lt;/code> of &lt;code>term&lt;/code> queries governed
+by &lt;code>minimum_should_match&lt;/code>. If nothing survives, the query matches
+nothing. When &lt;code>include&lt;/code> is &lt;code>false&lt;/code> (the default) and the &lt;code>like&lt;/code> input
+named documents, their ids are added as a &lt;code>must_not&lt;/code> — the seed
+documents trivially contain every selected term.&lt;/p></description></item></channel></rss>

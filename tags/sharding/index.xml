@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Sharding on INFINI Pizza</title><link>https://pizza.rs/tags/sharding/</link><description>Recent content in Sharding on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/sharding/index.xml" rel="self" type="application/rss+xml"/><item><title>Why named Pizza</title><link>https://pizza.rs/docs/overview/sharding/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/overview/sharding/</guid><description>&lt;h1 id="why-named-pizza">
+ Why named Pizza?
+ &lt;a class="anchor" href="#why-named-pizza">#&lt;/a>
+&lt;/h1>
+&lt;p>Do you wonder why this project is named Pizza?&lt;/p>
+&lt;h2 id="to-infinity-scaling">
+ To infinity scaling
+ &lt;a class="anchor" href="#to-infinity-scaling">#&lt;/a>
+&lt;/h2>
+&lt;p>Pizza solves the challenge of managing massive data seamlessly. Imagine creating a collection and continuously adding documents,
+from zero to petabytes, without the need to worry about sharding or reindexing. Scaling your machine becomes effortless,
+ensuring a smooth, seamless, and painless experience for application developers.&lt;/p>
+&lt;h3 id="sharding-puzzle">
+ Sharding puzzle
+ &lt;a class="anchor" href="#sharding-puzzle">#&lt;/a>
+&lt;/h3>
+&lt;p>One of the world&amp;rsquo;s three major challenges: What is the appropriate size for an index shard?&lt;/p></description></item></channel></rss>

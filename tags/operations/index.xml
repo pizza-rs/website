@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Operations on INFINI Pizza</title><link>https://pizza.rs/tags/operations/</link><description>Recent content in Operations on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/operations/index.xml" rel="self" type="application/rss+xml"/><item><title>Runtime node settings and dynamic log level</title><link>https://pizza.rs/docs/highlightings/node-settings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/node-settings/</guid><description>&lt;h1 id="runtime-node-settings-and-dynamic-log-level">
+ Runtime node settings and dynamic log level
+ &lt;a class="anchor" href="#runtime-node-settings-and-dynamic-log-level">#&lt;/a>
+&lt;/h1>
+&lt;p>Node-local knobs no longer require a restart. &lt;code>GET/PUT /_node/_local/settings&lt;/code> exposes transient overrides over the &lt;code>pizza.yml&lt;/code>
+values — search lane budgets, the slowlog threshold, the default search
+timeout, trash retention — and they take effect immediately:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># drop the slowlog threshold to 200ms on one node, effective immediately&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -X PUT http://127.0.0.1:28000/_node/_local/settings &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -H &lt;span class="s1">&amp;#39;Content-Type: application/json&amp;#39;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s1">&amp;#39;{&amp;#34;node.search.slow_threshold_ms&amp;#34;: 200}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The flagship: &lt;code>log.level&lt;/code> flips live — no restart, no dropped requests —
+which turns &amp;ldquo;turn on debug logging on the suspicious node&amp;rdquo; into a
+one-liner while preserving target-specific directives like
+&lt;code>openraft=warn&lt;/code>.&lt;/p></description></item><item><title>Collection-wide manual compaction</title><link>https://pizza.rs/docs/highlightings/manual-compaction/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/manual-compaction/</guid><description>&lt;h1 id="collection-wide-manual-compaction">
+ Collection-wide manual compaction
+ &lt;a class="anchor" href="#collection-wide-manual-compaction">#&lt;/a>
+&lt;/h1>
+&lt;p>Reclaiming disk no longer means waiting for the background cadence or
+poking shards one by one. One request runs a merge pass on every started
+primary copy of the collection, cluster-wide:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">curl -X POST http://127.0.0.1:28000/my-collection/_compact &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -H &lt;span class="s1">&amp;#39;Authorization: Bearer pz_bootstrap_key&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The response reports the queued batch job per hosting node — job id plus
+how many local primary passes it covers — so a node-level failure fails
+the row, not the request:&lt;/p></description></item><item><title>Cluster-wide recycle bin</title><link>https://pizza.rs/docs/highlightings/cluster-trash/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/cluster-trash/</guid><description>&lt;h1 id="cluster-wide-recycle-bin">
+ Cluster-wide recycle bin
+ &lt;a class="anchor" href="#cluster-wide-recycle-bin">#&lt;/a>
+&lt;/h1>
+&lt;p>Accidental deletes used to be a race against the sweeper: deleting a
+namespace only dropped metadata, and the data directories drifted into
+the trash WITHOUT a recovery snapshot — permanently unrestorable. The
+recycle bin is now a first-class, cluster-wide surface with a
+namespace-centric view, a pre-restore integrity check, and one-request
+restore:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># One cluster-wide list — every node&amp;#39;s trash merged by item, grouped by&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># namespace, with the delete-time snapshot summary of each item.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GET /_cluster/trash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Deleting a namespace captures a restore snapshot for every collection it
+contains, so the WHOLE namespace comes back as a unit — original
+schemas, shard UUIDs, partition routing and placements included:&lt;/p></description></item><item><title>Host &amp; capability probes — see the machine, not just the node</title><link>https://pizza.rs/docs/highlightings/host-capability/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/host-capability/</guid><description>&lt;h1 id="host--capability-probes--see-the-machine-not-just-the-node">
+ Host &amp;amp; capability probes — see the machine, not just the node
+ &lt;a class="anchor" href="#host--capability-probes--see-the-machine-not-just-the-node">#&lt;/a>
+&lt;/h1>
+&lt;p>Every node now reports what its host actually is and what it can actually
+do, on &lt;code>GET /_node/_local&lt;/code> under &lt;code>host&lt;/code>: the OS distribution and kernel,
+NUMA topology (node count + per-node CPU lists and distances), NIC
+inventory with negotiated link speeds, the data disk&amp;rsquo;s bus (NVMe or not)
+with its I/O scheduler and atime policy, the container and seccomp
+environment, the DMI platform, transparent-hugepage state — and the
+resource ceilings: fd limit vs usage, mmap count vs &lt;code>max_map_count&lt;/code>,
+swap, conntrack fill, TCP sysctls, and cgroup CPU/memory quotas with
+throttle counts. The stats API adds a &lt;code>steal_percent&lt;/code> trend — the
+noisy-neighbor line on shared tenancy.&lt;/p></description></item><item><title>Lesson 9 — Operations</title><link>https://pizza.rs/docs/tutorial/operations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/tutorial/operations/</guid><description>&lt;h1 id="lesson-9--operations">
+ Lesson 9 — Operations
+ &lt;a class="anchor" href="#lesson-9--operations">#&lt;/a>
+&lt;/h1>
+&lt;p>Keeping a node healthy: partial updates in place, compaction, the change
+feed, and reading cluster state. This lesson is server-side — start a node
+as in 
+ &lt;a href="https://pizza.rs/docs/tutorial/first-search/">Lesson 1&lt;/a> and run the curls
+against it.&lt;/p>
+&lt;h2 id="the-use-case">
+ The use case
+ &lt;a class="anchor" href="#the-use-case">#&lt;/a>
+&lt;/h2>
+&lt;p>The features that matter once the node serves real traffic: mutating
+documents without rewriting them, keeping storage healthy, reacting to
+every write, and reading cluster state. The questions this lesson
+answers:&lt;/p></description></item><item><title>Trash APIs</title><link>https://pizza.rs/docs/references/trash/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/trash/</guid><description>&lt;h1 id="trash-apis">
+ Trash APIs
+ &lt;a class="anchor" href="#trash-apis">#&lt;/a>
+&lt;/h1>
+&lt;p>The trash (recycle bin) is node-local filesystem state — deleted
+namespaces and collections are moved into &lt;code>&amp;lt;data_path&amp;gt;/trash/&lt;/code> and
+physically deleted only after &lt;code>trash.retention_secs&lt;/code> elapses. These
+cluster-level APIs aggregate every node&amp;rsquo;s trash on the server side and
+give you one namespace-centric view, a read-only shard-completeness
+verification, and cluster-wide restore/purge:&lt;/p>
+&lt;ul>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/trash/list/">List the cluster trash&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/trash/verify/">Verify a trash item&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/trash/restore/">Restore a trash item&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/trash/delete-item/">Delete a trash item everywhere&lt;/a>&lt;/li>
+&lt;li>
+ &lt;a href="https://pizza.rs/docs/references/trash/empty/">Empty the trash everywhere&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Deleting a &lt;strong>namespace&lt;/strong> (&lt;code>DELETE /_namespace/&amp;lt;name&amp;gt;&lt;/code>) now moves the
+whole namespace — every collection, with a restore snapshot per
+collection — into the trash as a single item; restoring it brings back
+all collections with their original schemas, shard UUIDs and placements.
+Deleting a &lt;strong>collection&lt;/strong> keeps the per-collection behavior it always
+had.&lt;/p></description></item></channel></rss>

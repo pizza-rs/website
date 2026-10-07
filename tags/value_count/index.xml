@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Value_count on INFINI Pizza</title><link>https://pizza.rs/tags/value_count/</link><description>Recent content in Value_count on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/value_count/index.xml" rel="self" type="application/rss+xml"/><item><title>Value count aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/value-count/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/value-count/</guid><description>&lt;h1 id="value-count-aggregation">
+ Value count aggregation
+ &lt;a class="anchor" href="#value-count-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A single-value metrics aggregation that counts the number of values that are
+extracted from the aggregated documents. Typically, this aggregator will be used
+in conjunction with other single-value aggregations. For example, when computing
+the &lt;code>avg&lt;/code> one might be interested in the number of values the average is
+computed over.&lt;/p>
+&lt;p>&lt;code>value_count&lt;/code> does not de-duplicate values, so even if a field has duplicates
+each value will be counted individually.&lt;/p></description></item></channel></rss>

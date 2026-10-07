@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Distance_feature on INFINI Pizza</title><link>https://pizza.rs/tags/distance_feature/</link><description>Recent content in Distance_feature on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/distance_feature/index.xml" rel="self" type="application/rss+xml"/><item><title>Distance feature</title><link>https://pizza.rs/docs/references/search/specialized/distance_feature/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/specialized/distance_feature/</guid><description>&lt;h1 id="distance-feature-query">
+ Distance feature query
+ &lt;a class="anchor" href="#distance-feature-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Recalls &lt;strong>every&lt;/strong> document and scores each by its proximity to an
+origin — the closer, the higher:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">score = boost × pivot / (pivot + distance(document, origin))
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>A document exactly at the origin scores &lt;code>boost&lt;/code>; one &lt;code>pivot&lt;/code> units away
+scores &lt;code>boost / 2&lt;/code>. The decay is gradual — unlike a range filter, a
+document three pivots out still scores &lt;code>boost / 4&lt;/code>, so nothing is
+excluded, only demoted. It answers &amp;ldquo;rank by recency or by distance&amp;rdquo;
+without a second index or a script.&lt;/p></description></item></channel></rss>

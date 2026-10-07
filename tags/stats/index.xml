@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Stats on INFINI Pizza</title><link>https://pizza.rs/tags/stats/</link><description>Recent content in Stats on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/stats/index.xml" rel="self" type="application/rss+xml"/><item><title>Stats aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/stats/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/stats/</guid><description>&lt;h1 id="stats-aggregation">
+ Stats aggregation
+ &lt;a class="anchor" href="#stats-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-value metrics aggregation that computes basic statistics
+(&lt;code>min&lt;/code>, &lt;code>max&lt;/code>, &lt;code>sum&lt;/code>, &lt;code>count&lt;/code>, &lt;code>avg&lt;/code>) over numeric values extracted from
+the aggregated documents. It is 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/avg/">&lt;code>avg&lt;/code>&lt;/a>, 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/min/">&lt;code>min&lt;/code>&lt;/a>,
+
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/max/">&lt;code>max&lt;/code>&lt;/a> and 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/sum/">&lt;code>sum&lt;/code>&lt;/a> folded into one request — the five
+numbers most dashboards put side by side, for the price of one column scan.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine walks the matching documents once, maintaining a running
+&lt;code>count&lt;/code>, &lt;code>sum&lt;/code>, minimum and maximum; &lt;code>avg&lt;/code> is derived at the end as
+&lt;code>sum / count&lt;/code>. Everything is exact — no sampling, no sketches. Values are
+coerced to doubles as they are read: integers, floats and booleans
+(&lt;code>true&lt;/code> = 1, &lt;code>false&lt;/code> = 0) contribute, non-numeric values such as keyword
+strings do not.&lt;/p></description></item></channel></rss>

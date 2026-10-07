@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ip_range on INFINI Pizza</title><link>https://pizza.rs/tags/ip_range/</link><description>Recent content in Ip_range on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/ip_range/index.xml" rel="self" type="application/rss+xml"/><item><title>IP range aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/ip-range/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/ip-range/</guid><description>&lt;h1 id="ip-range-aggregation">
+ IP range aggregation
+ &lt;a class="anchor" href="#ip-range-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-bucket aggregation like 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/bucket/range/">&lt;code>range&lt;/code>&lt;/a>, but for IP
+addresses — buckets are CIDR masks or from/to IP bounds. It answers
+network-shape questions: which subnet does this traffic belong to, and
+how much of it is in the private ranges versus the internet.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The field&amp;rsquo;s string values are parsed into 128-bit numbers, with IPv4
+mapped into the IPv6 space as &lt;code>::ffff:a.b.c.d&lt;/code> — an order-preserving
+numeric comparison. From/to buckets are half-open on that number
+(&lt;code>from&lt;/code> inclusive, &lt;code>to&lt;/code> exclusive), so
+IPv4 and IPv6 bounds interoperate; &lt;code>10.0.0.0&lt;/code> sorts before
+&lt;code>192.168.0.0&lt;/code> sorts before &lt;code>2001:db8::&lt;/code>.&lt;/p></description></item></channel></rss>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Getting started on INFINI Pizza</title><link>https://pizza.rs/docs/getting-started/</link><description>Recent content in Getting started on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/docs/getting-started/index.xml" rel="self" type="application/rss+xml"/><item><title>Installation</title><link>https://pizza.rs/docs/getting-started/installation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/getting-started/installation/</guid><description>&lt;h1 id="installation">
+ Installation
+ &lt;a class="anchor" href="#installation">#&lt;/a>
+&lt;/h1>
+&lt;p>Pizza is compatible with all major operating systems. The package is
+compiled statically, and it does not require any external dependencies.&lt;/p>
+&lt;h2 id="automatic-installation">
+ Automatic installation
+ &lt;a class="anchor" href="#automatic-installation">#&lt;/a>
+&lt;/h2>
+&lt;p>Use the following command to automatically download the latest version of INFINI
+Pizza for your platform and extract it into &lt;code>/opt/pizza&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">curl -sSL https://get.infini.cloud &lt;span class="p">|&lt;/span> bash -s -- -p pizza
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>The optional parameters for the script are as follows:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>-v &amp;lt;version number&amp;gt;&lt;/code> (default is the latest version)&lt;/li>
+&lt;li>&lt;code>-d &amp;lt;installation directory&amp;gt;&lt;/code> (default is &lt;code>/opt/pizza&lt;/code>)&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;h2 id="manual-installation">
+ Manual installation
+ &lt;a class="anchor" href="#manual-installation">#&lt;/a>
+&lt;/h2>
+&lt;p>Visit the URL below to download the package for your operating system:&lt;/p></description></item><item><title>Configuration</title><link>https://pizza.rs/docs/getting-started/configuration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/getting-started/configuration/</guid><description>&lt;h1 id="configuration">
+ Configuration
+ &lt;a class="anchor" href="#configuration">#&lt;/a>
+&lt;/h1>
+&lt;p>Pizza supports several methods to overwrite the default configuration.&lt;/p>
+&lt;h2 id="command-lines">
+ Command lines
+ &lt;a class="anchor" href="#command-lines">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">➜ ./bin/pizza --help
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">A Distributed Real-Time Search &lt;span class="p">&amp;amp;&lt;/span> AI-Native Innovation Engine.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Usage: pizza &lt;span class="o">[&lt;/span>OPTIONS&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>COMMAND&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Commands:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> service Builtin service management &lt;span class="o">(&lt;/span>install, uninstall, start, stop&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> keystore Manage the node-local keystore &lt;span class="k">for&lt;/span> config secrets &lt;span class="o">(&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">keystore&lt;/span>&lt;span class="p">:...&lt;/span>&lt;span class="si">}&lt;/span> references&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">help&lt;/span> Print this message or the &lt;span class="nb">help&lt;/span> of the given subcommand&lt;span class="o">(&lt;/span>s&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Options:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -l, --log &amp;lt;LEVEL&amp;gt; Set the logging level, options: trace,debug,info,warn,error
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --debug Run in debug mode, panic immediately with full stack trace
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -c, --config &amp;lt;FILE&amp;gt; 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -p, --pid &amp;lt;FILE&amp;gt; Place pid to this file
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -E, --override &amp;lt;&lt;span class="nv">KEY&lt;/span>&lt;span class="o">=&lt;/span>VALUE&amp;gt; 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -h, --help Print &lt;span class="nb">help&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -V, --version Print version
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="configuration-file">
+ Configuration file
+ &lt;a class="anchor" href="#configuration-file">#&lt;/a>
+&lt;/h2>
+&lt;p>You can fully customize Pizza by utilizing the &lt;code>pizza.yml&lt;/code> configuration
+file (the default lookup path; override it with &lt;code>-c/--config&lt;/code>):&lt;/p></description></item><item><title>Pizza CLI</title><link>https://pizza.rs/docs/getting-started/cli/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/getting-started/cli/</guid><description>&lt;h1 id="pizza-cli">
+ Pizza CLI
+ &lt;a class="anchor" href="#pizza-cli">#&lt;/a>
+&lt;/h1>
+&lt;p>The Pizza Command Line Interface (CLI) is a tool designed to facilitate quick and interactive communication with the Pizza server.
+It provides a convenient way for users to perform various tasks, such as querying data, managing configurations, and monitoring system status,
+directly from the command line.&lt;/p>
+&lt;p>
+ &lt;asciinema-player
+ src="https://pizza.rs/cast/pizza-cli.cast"
+ cols="640"
+ rows="30"
+ 
+ autoplay="1"
+ preload="1"
+ 
+ start-at="0"
+ speed="2"
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ >&lt;/asciinema-player>
+&lt;/p>
+
+&lt;h2 id="features">
+ Features
+ &lt;a class="anchor" href="#features">#&lt;/a>
+&lt;/h2>
+&lt;h3 id="interactive-querying">
+ Interactive Querying
+ &lt;a class="anchor" href="#interactive-querying">#&lt;/a>
+&lt;/h3>
+&lt;p>The Pizza CLI allows users to execute queries against the Pizza server interactively. Users can enter commands and receive immediate feedback, enabling rapid exploration and analysis of data.&lt;/p></description></item><item><title>Pizza Console</title><link>https://pizza.rs/docs/getting-started/console/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/getting-started/console/</guid><description>&lt;h1 id="pizza-console">
+ Pizza Console
+ &lt;a class="anchor" href="#pizza-console">#&lt;/a>
+&lt;/h1>
+&lt;p>The Pizza Console is the built-in web console for a Pizza cluster. It is
+embedded in the &lt;code>pizza-server&lt;/code> binary at build time, so there is nothing to
+install or deploy — every node serves it. Use it to browse the cluster,
+manage namespaces and collections, edit settings, and run API requests
+from the browser.&lt;/p>
+&lt;h2 id="open-the-console">
+ Open the console
+ &lt;a class="anchor" href="#open-the-console">#&lt;/a>
+&lt;/h2>
+&lt;p>With a node running on the default binding, open:&lt;/p></description></item></channel></rss>

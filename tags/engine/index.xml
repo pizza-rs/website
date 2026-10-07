@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Engine on INFINI Pizza</title><link>https://pizza.rs/tags/engine/</link><description>Recent content in Engine on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/engine/index.xml" rel="self" type="application/rss+xml"/><item><title>How query works</title><link>https://pizza.rs/docs/overview/query-engine/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/overview/query-engine/</guid><description>&lt;h1 id="how-query-works">
+ How query works?
+ &lt;a class="anchor" href="#how-query-works">#&lt;/a>
+&lt;/h1>
+&lt;p>A search request fans out from the coordinating node to every shard
+copy of the target collections, executes against a snapshot of the
+index, and merges ranked results back — this page walks that pipeline
+and the mechanisms that keep it fast:&lt;/p>
+
+&lt;p class="mermaid">
+graph LR
+ R["search request"] --> C("coordinator")
+ C -->|"one copy per shard group —&lt;br/>saturated nodes are skipped"| G0("shard group 0 — any copy")
+ C --> G1("shard group 1 — any copy")
+ C --> G2("shard group 2 — any copy")
+ G0 --> Q["top-K + aggs against the snapshot —&lt;br/>mutable layer + immutable segments"]
+ G1 --> Q
+ G2 --> Q
+ Q --> M("merge — rank, dedupe, paginate")
+ M --> H["hits and aggregations,&lt;br/>or partial results on timeout"]
+&lt;/p></description></item></channel></rss>

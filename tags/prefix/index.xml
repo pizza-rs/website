@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Prefix on INFINI Pizza</title><link>https://pizza.rs/tags/prefix/</link><description>Recent content in Prefix on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/prefix/index.xml" rel="self" type="application/rss+xml"/><item><title>Prefix query</title><link>https://pizza.rs/docs/references/search/term-level/prefix/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/prefix/</guid><description>&lt;h1 id="prefix-query">
+ Prefix query
+ &lt;a class="anchor" href="#prefix-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain a specific prefix in a provided field.&lt;/p>
+&lt;p>Use it when the values share a known beginning — a hostname family, an
+ID scheme, a URL section — and you want every term that starts with it.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The prefix is expanded against the inverted index&amp;rsquo;s &lt;strong>term dictionary&lt;/strong>.
+Because the dictionary is kept in sorted order, the expansion is an
+ordered seek to the first term greater than or equal to the prefix,
+followed by reading the subtree of terms that start with it — no scan of
+the whole dictionary. Each expanded term&amp;rsquo;s postings are then unioned
+(OR semantics), exactly as if you had written a &lt;code>should&lt;/code> of
+
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> queries.&lt;/p></description></item></channel></rss>

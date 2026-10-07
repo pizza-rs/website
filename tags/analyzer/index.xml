@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Analyzer on INFINI Pizza</title><link>https://pizza.rs/tags/analyzer/</link><description>Recent content in Analyzer on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/analyzer/index.xml" rel="self" type="application/rss+xml"/><item><title>Analyze text</title><link>https://pizza.rs/docs/references/search/analysis/analysis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/analysis/analysis/</guid><description>&lt;h1 id="analyze-text">
+ Analyze text
+ &lt;a class="anchor" href="#analyze-text">#&lt;/a>
+&lt;/h1>
+&lt;p>The analysis workbench: run the server&amp;rsquo;s tokenizers, normalizers, token
+filters and analyzers over sample text and see the exact token stream —
+the same components the indexing path uses, so what you debug here is
+exactly what collections run. The analysis chain decides what is
+searchable: query and document must reduce to the same tokens.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>Every analyzer is assembled from three stages, run in this order:&lt;/p></description></item><item><title>Built-in analysis components</title><link>https://pizza.rs/docs/references/search/analysis/analysis-builtins/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/analysis/analysis-builtins/</guid><description>&lt;h1 id="built-in-analysis-components">
+ Built-in analysis components
+ &lt;a class="anchor" href="#built-in-analysis-components">#&lt;/a>
+&lt;/h1>
+&lt;p>The server ships &lt;strong>83&lt;/strong> analyzers, &lt;strong>50&lt;/strong> tokenizers,
+&lt;strong>15&lt;/strong> normalizers and &lt;strong>327&lt;/strong> token filters, registered
+at startup. The authoritative, always-current list on YOUR node is:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /_analysis/components
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Components are referenced by name — in a field&amp;rsquo;s schema
+(&lt;code>&amp;quot;analyzer&amp;quot;: &amp;quot;english&amp;quot;&lt;/code>), in a 
+ &lt;a href="https://pizza.rs/docs/references/collection/create/">custom analyzer
+definition&lt;/a>, or in an ad-hoc
+
+ &lt;a href="https://pizza.rs/docs/references/search/analysis/analysis/">&lt;code>_analysis/analyze&lt;/code>&lt;/a> pipeline.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The catalog is assembled in two layers. The engine core registers the
+minimal set that is always present: the &lt;code>standard&lt;/code> and &lt;code>whitespace&lt;/code>
+tokenizers, the &lt;code>lowercase&lt;/code> normalizer, the &lt;code>lowercase&lt;/code>/&lt;code>uppercase&lt;/code>/
+&lt;code>stopwords&lt;/code> token filters, and the two named analyzers composed from
+them (&lt;code>standard&lt;/code>, &lt;code>whitespace&lt;/code>). Every other name below comes from the
+~40 analysis plugin crates under &lt;code>contrib/analysis-*&lt;/code>, registered at
+startup in one pass — foundation plugins first (&lt;code>core&lt;/code>, &lt;code>stemmers&lt;/code>,
+&lt;code>icu&lt;/code>), then the CJK and per-language plugins, which intentionally
+override the basic analyzers from &lt;code>core&lt;/code> with richer pipelines
+(language stop words, normalization, stemming).&lt;/p></description></item></channel></rss>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Filters on INFINI Pizza</title><link>https://pizza.rs/tags/filters/</link><description>Recent content in Filters on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/filters/index.xml" rel="self" type="application/rss+xml"/><item><title>Filters aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/filters/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/filters/</guid><description>&lt;h1 id="filters-aggregation">
+ Filters aggregation
+ &lt;a class="anchor" href="#filters-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-bucket aggregation where each bucket is defined by a named
+filter — all filters run over the same document set, giving per-filter
+counts (and nested sub-aggregations) side by side. It is the
+aggregation form of a KPI panel: one request, several named slices.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The &lt;code>filters&lt;/code> object maps bucket names to query clauses. Every matching
+document is tested against EVERY filter independently, so buckets may
+overlap — a document counts toward each filter it satisfies, and
+toward none when it satisfies none. Bucket counts therefore do not sum
+to the hit total in general.&lt;/p></description></item></channel></rss>

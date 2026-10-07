@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>State on INFINI Pizza</title><link>https://pizza.rs/tags/state/</link><description>Recent content in State on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/state/index.xml" rel="self" type="application/rss+xml"/><item><title>Cluster state</title><link>https://pizza.rs/docs/administration/observability/state/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/administration/observability/state/</guid><description>&lt;h1 id="cluster-state">
+ Cluster state
+ &lt;a class="anchor" href="#cluster-state">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns an internal representation of the cluster state for debugging or
+diagnostic purposes.&lt;/p>
+&lt;p>Note: despite its name, &lt;code>GET /_cluster/state&lt;/code> currently returns the
+&lt;strong>local region&amp;rsquo;s&lt;/strong> state — one region entry, not a cluster-wide
+aggregation. Remote regions cannot be queried yet.&lt;/p>
+&lt;h2 id="get-the-whole-cluster-state">
+ Get the whole cluster state
+ &lt;a class="anchor" href="#get-the-whole-cluster-state">#&lt;/a>
+&lt;/h2>
+&lt;h3 id="requests">
+ Requests
+ &lt;a class="anchor" href="#requests">#&lt;/a>
+&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /_cluster/state/&amp;lt;names&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path Parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>names&lt;/code> &lt;br>
+(Optional, string) A comma-separated list of the following options:&lt;/p>
+&lt;ul>
+&lt;li>_all &lt;br>
+Shows all names.&lt;/li>
+&lt;li>blocks &lt;br>
+Accepted for compatibility but not implemented yet —
+filtering on it returns nothing.&lt;/li>
+&lt;li>leader_node &lt;br>
+Shows the leader_node part of the response.&lt;/li>
+&lt;li>metadata &lt;br>
+Shows the metadata part of the response.&lt;/li>
+&lt;li>nodes &lt;br>
+Shows the nodes part of the response.&lt;/li>
+&lt;li>routing_nodes &lt;br>
+Shows the routing_nodes part of the response.&lt;/li>
+&lt;li>routing_table &lt;br>
+Shows the routing_table part of the response.&lt;/li>
+&lt;li>version &lt;br>
+Accepted for compatibility but not implemented yet —
+filtering on it returns nothing.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="get-the-state-of-a-specific-region">
+ Get the state of a specific region
+ &lt;a class="anchor" href="#get-the-state-of-a-specific-region">#&lt;/a>
+&lt;/h2>
+&lt;h3 id="requests-1">
+ Requests
+ &lt;a class="anchor" href="#requests-1">#&lt;/a>
+&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /_cluster/_region/&amp;lt;region_id&amp;gt;/state/&amp;lt;names&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters-1">
+ Path parameters
+ &lt;a class="anchor" href="#path-parameters-1">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>region_id&lt;/code> &lt;br>
+(Required, String) The region to query. Currently only the special ID
+&lt;code>_local&lt;/code> — the region that handles this request — is implemented; a
+remote region UUID answers &lt;code>501 not implemented yet&lt;/code>.&lt;/p></description></item></channel></rss>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Term-level queries on INFINI Pizza</title><link>https://pizza.rs/docs/references/search/term-level/</link><description>Recent content in Term-level queries on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/docs/references/search/term-level/index.xml" rel="self" type="application/rss+xml"/><item><title>Term query</title><link>https://pizza.rs/docs/references/search/term-level/term/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/term/</guid><description>&lt;h1 id="term-query">
+ Term query
+ &lt;a class="anchor" href="#term-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain an &lt;strong>exact&lt;/strong> term in a provided field.&lt;/p>
+&lt;p>You can use the term query to find documents based on a precise value such as a
+price, a product ID, or a username. It is also the atom the rest of the
+term-level family resolves to: 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/terms/">&lt;code>terms&lt;/code>&lt;/a> expands into a &lt;code>should&lt;/code> of
+&lt;code>term&lt;/code> clauses, and prefix / wildcard / regexp / fuzzy all resolve to term
+sets before execution.&lt;/p></description></item><item><title>Terms query</title><link>https://pizza.rs/docs/references/search/term-level/terms/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/terms/</guid><description>&lt;h1 id="terms-query">
+ Terms query
+ &lt;a class="anchor" href="#terms-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain one or more exact terms in a provided
+field. Equivalent to a boolean &lt;code>should&lt;/code> of individual
+
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> queries — a document matches if it contains &lt;strong>any&lt;/strong>
+of the values.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause. Expand into a &lt;code>bool&lt;/code> &lt;code>should&lt;/code> of 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> clauses instead.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The planner expands the query before execution: each value becomes a
+
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> clause inside a &lt;code>BooleanQuery&lt;/code> with
+&lt;code>minimum_should_match: 1&lt;/code>, and a single-value &lt;code>terms&lt;/code> collapses straight
+into one bare &lt;code>term&lt;/code> query. Everything said on the 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> page
+about verbatim lookup, index routing (dictionary for keyword/text, BKD for
+numeric/date, Bool column for boolean) and BM25 scoring therefore applies
+per value here, with the per-value scores OR-ed together.&lt;/p></description></item><item><title>Keys query</title><link>https://pizza.rs/docs/references/search/term-level/keys/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/keys/</guid><description>&lt;h1 id="keys-query">
+ Keys query
+ &lt;a class="anchor" href="#keys-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents whose key is in the provided set. There is no field
+argument — the match is against the document identity itself, and
+values that do not exist in the collection are skipped.&lt;/p>
+&lt;p>The query&amp;rsquo;s native name is &lt;code>keys&lt;/code>: it speaks Pizza&amp;rsquo;s &lt;code>_key&lt;/code> vocabulary,
+the same word the REST API uses for by-key addressing. The &lt;code>ids&lt;/code>
+spelling deserializes to the same query — an accepted alias, not a
+different feature.&lt;/p></description></item><item><title>Prefix query</title><link>https://pizza.rs/docs/references/search/term-level/prefix/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/prefix/</guid><description>&lt;h1 id="prefix-query">
+ Prefix query
+ &lt;a class="anchor" href="#prefix-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain a specific prefix in a provided field.&lt;/p>
+&lt;p>Use it when the values share a known beginning — a hostname family, an
+ID scheme, a URL section — and you want every term that starts with it.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The prefix is expanded against the inverted index&amp;rsquo;s &lt;strong>term dictionary&lt;/strong>.
+Because the dictionary is kept in sorted order, the expansion is an
+ordered seek to the first term greater than or equal to the prefix,
+followed by reading the subtree of terms that start with it — no scan of
+the whole dictionary. Each expanded term&amp;rsquo;s postings are then unioned
+(OR semantics), exactly as if you had written a &lt;code>should&lt;/code> of
+
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> queries.&lt;/p></description></item><item><title>Fuzzy query</title><link>https://pizza.rs/docs/references/search/term-level/fuzzy/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/fuzzy/</guid><description>&lt;h1 id="fuzzy-query">
+ Fuzzy query
+ &lt;a class="anchor" href="#fuzzy-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain terms similar to the search term, within
+the maximum edit distance (Levenshtein — with transpositions counting
+as a single edit by default).&lt;/p>
+&lt;p>Use it when the indexed terms are only approximately known: typos in
+identifiers, OCR noise, or human-entered names.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The value is expanded against the inverted index&amp;rsquo;s &lt;strong>term dictionary&lt;/strong>
+by edit distance, then the survivors&amp;rsquo; postings are unioned like a
+&lt;code>should&lt;/code> of 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> queries. The engine takes the &lt;strong>union&lt;/strong> of
+three resolution passes — the value recorded as an exact term, a
+whole-value fuzzy walk, and (on non-keyword fields) a per-token walk
+after running the field&amp;rsquo;s search analyzer over the value — so the query
+works on keyword fields and on analyzed text alike (the per-token pass
+matters for CJK and multi-word input). On &lt;code>keyword&lt;/code> fields the raw
+value is used, with the field&amp;rsquo;s normalizer applied first and no
+tokenization.&lt;/p></description></item><item><title>Wildcard query</title><link>https://pizza.rs/docs/references/search/term-level/wildcard/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/wildcard/</guid><description>&lt;h1 id="wildcard-query">
+ Wildcard query
+ &lt;a class="anchor" href="#wildcard-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain terms matching a wildcard pattern. The
+pattern supports &lt;code>*&lt;/code> (any sequence of characters, including none) and
+&lt;code>?&lt;/code> (any single character).&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The pattern is expanded against the inverted index&amp;rsquo;s &lt;strong>term dictionary&lt;/strong>:
+the engine walks the field&amp;rsquo;s terms, keeps those matching the pattern, and
+unions their postings lists — the same result as a &lt;code>should&lt;/code> of
+
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> queries over the surviving terms. Matching is anchored
+at both ends: &lt;code>web-1&lt;/code> is the whole term, so &lt;code>web-*&lt;/code> matches &lt;code>web-10&lt;/code> and
+&lt;code>web-1&lt;/code> itself, but &lt;code>*web-1*&lt;/code> is required for anything with text on both
+sides.&lt;/p></description></item><item><title>Regexp query</title><link>https://pizza.rs/docs/references/search/term-level/regexp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/regexp/</guid><description>&lt;h1 id="regexp-query">
+ Regexp query
+ &lt;a class="anchor" href="#regexp-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain terms matching a
+
+ &lt;a href="https://en.wikipedia.org/wiki/Regular_expression">regular expression&lt;/a>.&lt;/p>
+&lt;p>A regular expression is a way to match patterns in data using placeholder
+characters, called operators. For a list of operators supported by the
+&lt;code>regexp&lt;/code> query, see 
+ &lt;a href="https://docs.rs/regex/latest/#syntax">Regular expression syntax&lt;/a>.
+Use the &lt;code>regexp&lt;/code> query when neither 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/prefix/">&lt;code>prefix&lt;/code>&lt;/a>,
+
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/suffix/">&lt;code>suffix&lt;/code>&lt;/a> nor 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/wildcard/">&lt;code>wildcard&lt;/code>&lt;/a> can express the
+shape — alternation, character classes, repetition.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause.&lt;/p></description></item><item><title>Suffix query</title><link>https://pizza.rs/docs/references/search/term-level/suffix/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/suffix/</guid><description>&lt;h1 id="suffix-query">
+ Suffix query
+ &lt;a class="anchor" href="#suffix-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain terms &lt;strong>ending&lt;/strong> in the provided value.
+This is the mirror of the 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/prefix/">&lt;code>prefix&lt;/code>&lt;/a> query; like a leading
+wildcard, it is more expensive than a prefix match.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> not supported yet — the clause is rejected with an HTTP 400 naming the offending clause.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>A term dictionary is sorted by its &lt;strong>beginnings&lt;/strong>, so a prefix can seek
+directly to its subtree — but a suffix cannot. The engine therefore
+walks the whole dictionary of the field and keeps the terms that end
+with the value, then unions their postings lists exactly like a &lt;code>should&lt;/code>
+of 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/term/">&lt;code>term&lt;/code>&lt;/a> queries. The cost is proportional to the number of
+distinct terms in the field, not to the number of matches, which is why
+the suffix query is marked more expensive than 
+ &lt;a href="https://pizza.rs/docs/references/search/term-level/prefix/">&lt;code>prefix&lt;/code>&lt;/a>.&lt;/p></description></item><item><title>Range query</title><link>https://pizza.rs/docs/references/search/term-level/range/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/range/</guid><description>&lt;h1 id="range-query">
+ Range query
+ &lt;a class="anchor" href="#range-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain terms within a provided range.&lt;/p>
+&lt;p>Use it for intervals: prices between two numbers, events inside a time
+window, names inside an alphabetical span — anything expressible as
+&amp;ldquo;from / to&amp;rdquo; bounds rather than a list of exact values.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> supported — the bounds apply per array element.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine picks the index by field type:&lt;/p></description></item><item><title>Exists query</title><link>https://pizza.rs/docs/references/search/term-level/exists/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/term-level/exists/</guid><description>&lt;h1 id="exists-query">
+ Exists query
+ &lt;a class="anchor" href="#exists-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns documents that contain an indexed value for a specific field.&lt;/p>
+&lt;p>A document matches when the field has at least one non-null value — an
+empty string or an empty array does &lt;strong>not&lt;/strong> count as existing.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Inside a 
+ &lt;a href="https://pizza.rs/docs/references/search/relational/nested/">&lt;code>nested&lt;/code>&lt;/a> query:&lt;/strong> supported — matches elements that carry the field.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;code>exists&lt;/code> never touches the inverted index. It is answered from the
+stored-field / column layer, where every document either carries the key
+or does not:&lt;/p></description></item></channel></rss>

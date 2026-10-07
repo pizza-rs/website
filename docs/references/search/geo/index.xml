@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Geo queries on INFINI Pizza</title><link>https://pizza.rs/docs/references/search/geo/</link><description>Recent content in Geo queries on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/docs/references/search/geo/index.xml" rel="self" type="application/rss+xml"/><item><title>Geo-bounding-box query</title><link>https://pizza.rs/docs/references/search/geo/geo_bounding_box/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/geo/geo_bounding_box/</guid><description>&lt;h1 id="geo-bounding-box-query">
+ Geo-bounding-box query
+ &lt;a class="anchor" href="#geo-bounding-box-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Matches documents whose &lt;code>geo_point&lt;/code> field falls inside a rectangle
+defined by its top-left and bottom-right corners. Coordinates are
+WGS-84 degrees; filtering only (does not contribute distance scoring).&lt;/p>
+&lt;p>It is the cheapest geographic filter. When the region you need is a
+rectangle of latitude and longitude — a map viewport, a city&amp;rsquo;s extents,
+a country&amp;rsquo;s outline approximated by its bounds — the engine answers
+with a single index range and no per-document geometry math.&lt;/p></description></item><item><title>Geo-distance query</title><link>https://pizza.rs/docs/references/search/geo/geo_distance/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/geo/geo_distance/</guid><description>&lt;h1 id="geo-distance-query">
+ Geo-distance query
+ &lt;a class="anchor" href="#geo-distance-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Matches documents whose &lt;code>geo_point&lt;/code> field lies within a great-circle
+distance of a centre point. Distances are in metres.&lt;/p>
+&lt;p>This is the &amp;ldquo;find me things nearby&amp;rdquo; query: given one centre and one
+radius, it returns exactly the documents inside that disc on the
+sphere — the shape behind store locators, delivery zones and proximity
+alerts.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The field is the same two-dimensional &lt;code>(lat, lon)&lt;/code> BKD tree the other
+geo queries use (points indexed in any of the three ingest forms —
+object, &lt;code>[lon, lat]&lt;/code> array, &lt;code>&amp;quot;lat,lon&amp;quot;&lt;/code> string). Execution is
+two-phase:&lt;/p></description></item><item><title>Geo-polygon query</title><link>https://pizza.rs/docs/references/search/geo/geo_polygon/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/geo/geo_polygon/</guid><description>&lt;h1 id="geo-polygon-query">
+ Geo-polygon query
+ &lt;a class="anchor" href="#geo-polygon-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Matches documents whose &lt;code>geo_point&lt;/code> field lies inside an arbitrary
+polygon. The ring is given as &lt;code>points&lt;/code> in &lt;code>(lat, lon)&lt;/code> order; vertices
+on the boundary count as inside, and holes can be modelled with a
+concave ring.&lt;/p>
+&lt;p>Real regions are rarely rectangular. City limits, districts, service
+areas and lakes have corners everywhere — this query filters points by
+an exact ring instead of the four edges of a bounding box.&lt;/p></description></item><item><title>Geo-shape query</title><link>https://pizza.rs/docs/references/search/geo/geo_shape/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/geo/geo_shape/</guid><description>&lt;h1 id="geo-shape-query">
+ Geo-shape query
+ &lt;a class="anchor" href="#geo-shape-query">#&lt;/a>
+&lt;/h1>
+&lt;p>Matches documents whose &lt;code>geo_shape&lt;/code> field relates to a query geometry by
+a spatial relation. The query geometry is a GeoJSON geometry object or a
+WKT string; the indexed shape was written the same way.&lt;/p>
+&lt;p>Where the &lt;code>geo_point&lt;/code> queries ask &amp;ldquo;is this point inside my region?&amp;rdquo;,
+&lt;code>geo_shape&lt;/code> asks it of whole geometries — the document carries a
+polygon, line or envelope (a delivery zone, a pipeline route, a parcel)
+and the query tests it against another geometry.&lt;/p></description></item></channel></rss>

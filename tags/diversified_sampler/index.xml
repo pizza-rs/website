@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Diversified_sampler on INFINI Pizza</title><link>https://pizza.rs/tags/diversified_sampler/</link><description>Recent content in Diversified_sampler on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/diversified_sampler/index.xml" rel="self" type="application/rss+xml"/><item><title>Diversified sampler aggregation</title><link>https://pizza.rs/docs/references/aggregation/bucket/diversified-sampler/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/bucket/diversified-sampler/</guid><description>&lt;h1 id="diversified-sampler-aggregation">
+ Diversified sampler aggregation
+ &lt;a class="anchor" href="#diversified-sampler-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>Like 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/bucket/sampler/">&lt;code>sampler&lt;/code>&lt;/a>, but the sample is diversified by a field
+— up to one (or few) documents per value — so rare categories survive
+the sampling. A plain sampler can be flooded by the most common value
+(every sampled &lt;code>type&lt;/code> being &lt;code>t-shirt&lt;/code>); the diversified variant
+guarantees representation for every distinct value first.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The sampler walks the matching documents in two passes. First it caps
+each distinct value of the diversify &lt;code>field&lt;/code> at &lt;code>max_docs_per_value&lt;/code>
+(default &lt;code>1&lt;/code>) — extra documents with an already-full value are dropped.
+Documents missing the diversify field share one common group. The
+survivors are then sorted and truncated to the overall &lt;code>shard_size&lt;/code>
+(default &lt;code>100&lt;/code>).&lt;/p></description></item></channel></rss>

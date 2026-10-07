@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Extended_stats on INFINI Pizza</title><link>https://pizza.rs/tags/extended_stats/</link><description>Recent content in Extended_stats on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/extended_stats/index.xml" rel="self" type="application/rss+xml"/><item><title>Extended stats aggregation</title><link>https://pizza.rs/docs/references/aggregation/metric/extended-stats/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/aggregation/metric/extended-stats/</guid><description>&lt;h1 id="extended-stats-aggregation">
+ Extended stats aggregation
+ &lt;a class="anchor" href="#extended-stats-aggregation">#&lt;/a>
+&lt;/h1>
+&lt;p>A multi-value metrics aggregation extending 
+ &lt;a href="https://pizza.rs/docs/references/aggregation/metric/stats/">&lt;code>stats&lt;/code>&lt;/a> with
+squares, variance, standard deviation and their lower/upper bounds. Where
+&lt;code>stats&lt;/code> says what the values are, &lt;code>extended_stats&lt;/code> says how tightly they
+cluster around the mean — the input for outlier bands, quality gates and
+anything else built on &amp;ldquo;how unusual is this value&amp;rdquo;.&lt;/p>
+&lt;h2 id="how-it-works">
+ How it works
+ &lt;a class="anchor" href="#how-it-works">#&lt;/a>
+&lt;/h2>
+&lt;p>The engine walks the matching documents once, maintaining a running &lt;code>count&lt;/code>,
+&lt;code>sum&lt;/code>, &lt;code>sum_of_squares&lt;/code>, minimum and maximum — the same single pass as
+&lt;code>stats&lt;/code>, plus one multiply-add for the squares. Everything downstream is
+derived from these raw moments, and is exact (no sampling, no sketches):&lt;/p></description></item></channel></rss>

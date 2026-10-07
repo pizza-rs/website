@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Schema on INFINI Pizza</title><link>https://pizza.rs/tags/schema/</link><description>Recent content in Schema on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/schema/index.xml" rel="self" type="application/rss+xml"/><item><title>In-place columns for hot counters and flags</title><link>https://pizza.rs/docs/highlightings/inplace-columns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/inplace-columns/</guid><description>&lt;h1 id="in-place-columns-for-hot-counters-and-flags">
+ In-place columns for hot counters and flags
+ &lt;a class="anchor" href="#in-place-columns-for-hot-counters-and-flags">#&lt;/a>
+&lt;/h1>
+&lt;p>Fields that change constantly — view counters, stock levels, feature
+flags, ranking scores — used to pay a full document rebuild on every
+partial update. Marking a numeric or boolean field with
+&lt;code>&amp;quot;inplace&amp;quot;: true&lt;/code> gives it a dedicated typed column instead:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">PUT /my-collection
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;properties&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;title&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;type&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;keyword&amp;#34;&lt;/span> &lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;views&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;type&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;integer&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;inplace&amp;#34;&lt;/span>: &lt;span class="nb">true&lt;/span> &lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;score&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;type&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;double&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;inplace&amp;#34;&lt;/span>: &lt;span class="nb">true&lt;/span> &lt;span class="o">}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;active&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span> &lt;span class="s2">&amp;#34;type&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;boolean&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;inplace&amp;#34;&lt;/span>: &lt;span class="nb">true&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Partial updates on such fields become O(1) column writes — no fetch,
+merge, and re-index of the document. Atomic-style operators work
+directly against the column:&lt;/p></description></item><item><title>Get collection schema</title><link>https://pizza.rs/docs/references/collection/get_schema/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/collection/get_schema/</guid><description>&lt;h1 id="get-collection-schema">
+ Get collection schema
+ &lt;a class="anchor" href="#get-collection-schema">#&lt;/a>
+&lt;/h1>
+&lt;p>Returns schema information about one or more collections.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>The following request gets the schema information of all the collections under the default namespace:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /default:*/_schema
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Retrieve the schema information of all the collections:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /_schema
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="request">
+ Request
+ &lt;a class="anchor" href="#request">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">GET /&amp;lt;target&amp;gt;/_schema
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="path-parameters">
+ Path Parameters
+ &lt;a class="anchor" href="#path-parameters">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>target&lt;/code> &lt;br>
+(Optional, String) Comma-separated, names of the collections to get (wildcard supported)&lt;/li>
+&lt;/ul></description></item><item><title>Update collection schema</title><link>https://pizza.rs/docs/references/collection/update_schema/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/collection/update_schema/</guid><description>&lt;h1 id="update-collection-schema">
+ Update collection schema
+ &lt;a class="anchor" href="#update-collection-schema">#&lt;/a>
+&lt;/h1>
+&lt;p>Apply an additive schema diff (new or updated field definitions) to an
+existing collection. The change is replicated through Raft and every
+shard engine of the collection picks it up.&lt;/p>
+&lt;p>Field deletion is not supported by design — a schema diff can only add or
+update properties.&lt;/p>
+&lt;h2 id="examples">
+ Examples
+ &lt;a class="anchor" href="#examples">#&lt;/a>
+&lt;/h2>
+&lt;p>Add a &lt;code>title&lt;/code> text field and a non-indexed &lt;code>user.name&lt;/code> keyword field to
+the collection &lt;code>my-collection&lt;/code>:&lt;/p></description></item><item><title>semantic_text — one-field semantic search</title><link>https://pizza.rs/docs/highlightings/semantic-text/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/highlightings/semantic-text/</guid><description>&lt;h1 id="semantic_text--one-field-semantic-search">
+ semantic_text — one-field semantic search
+ &lt;a class="anchor" href="#semantic_text--one-field-semantic-search">#&lt;/a>
+&lt;/h1>
+&lt;p>Semantic search used to mean wiring two fields: a &lt;code>text&lt;/code> field for the
+source, a &lt;code>dense_vector&lt;/code> field with &lt;code>vector_options&lt;/code> pointing back at
+it. The &lt;code>semantic_text&lt;/code> field type collapses all of that into one
+declaration:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">PUT /my-collection
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;schema&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;properties&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;body&amp;#34;&lt;/span>: &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;type&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;semantic_text&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;service&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;zai&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;model&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;GLM-4.6V&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;dims&amp;#34;&lt;/span>: &lt;span class="m">3072&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>From there everything derives. Writes carry plain text — the vector is
+embedded server-side at write time, in bulk and after partial updates
+alike. Search needs no field names and no vectors:&lt;/p></description></item></channel></rss>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hybrid on INFINI Pizza</title><link>https://pizza.rs/tags/hybrid/</link><description>Recent content in Hybrid on INFINI Pizza</description><generator>Hugo</generator><language>en</language><atom:link href="https://pizza.rs/tags/hybrid/index.xml" rel="self" type="application/rss+xml"/><item><title>Hybrid search and scoring pipeline</title><link>https://pizza.rs/docs/references/search/request/hybrid/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/references/search/request/hybrid/</guid><description>&lt;h1 id="hybrid-search-and-scoring-pipeline">
+ Hybrid search and scoring pipeline
+ &lt;a class="anchor" href="#hybrid-search-and-scoring-pipeline">#&lt;/a>
+&lt;/h1>
+&lt;p>Pizza runs lexical (BM25) and vector retrieval side by side and gives you
+explicit, composable stages to combine and re-shape scores:&lt;/p>
+
+&lt;p class="mermaid">
+graph LR
+ B("bm25 leg") --> F("fuse&lt;br/>rrf / linear / disjmax")
+ V("vector leg") --> F
+ F --> SC("score_functions&lt;br/>per-document function scoring")
+ P["a plain query,&lt;br/>no retrieve"] --> SC
+ SC --> RS("rescore&lt;br/>second pass on the top window")
+ RS --> H["one ranked list"]
+&lt;/p>
+
+&lt;p>Every stage is optional and combines with a plain &lt;code>query&lt;/code>: use
+&lt;code>score_functions&lt;/code> alone on a keyword search, or the full chain for
+hybrid retrieval.&lt;/p></description></item><item><title>Lesson 6 — Hybrid search</title><link>https://pizza.rs/docs/tutorial/hybrid-search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pizza.rs/docs/tutorial/hybrid-search/</guid><description>&lt;h1 id="lesson-6--hybrid-search">
+ Lesson 6 — Hybrid search
+ &lt;a class="anchor" href="#lesson-6--hybrid-search">#&lt;/a>
+&lt;/h1>
+&lt;p>Most engines hide their fusion behind a magic flag. Pizza exposes the
+retrieval pipeline as explicit request stages —
+
+ &lt;a href="https://pizza.rs/docs/references/search/request/hybrid/">&lt;code>retrieve&lt;/code>&lt;/a> runs retrievers in
+parallel, &lt;code>fuse&lt;/code> merges them, and two more stages re-shape scores
+afterwards:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">retrieve → fuse → score_functions → rescore
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">(parallel (merge (function (second pass
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> retrievers) the lists) scoring) on the top window)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Every stage is optional and combines with a plain &lt;code>query&lt;/code> — you can
+use &lt;code>score_functions&lt;/code> alone on a keyword search, or the full chain for
+hybrid retrieval.&lt;/p></description></item></channel></rss>
